@@ -23,10 +23,21 @@ describe('app data loading contract', () => {
 
     assert.match(html, /class="app-shell"/);
     assert.match(html, /class="dashboard-grid"/);
-    assert.match(html, /class="summary-strip"/);
     assert.match(html, /class="[^"]*\bfilter-panel\b[^"]*"/);
     assert.match(html, /class="[^"]*\bresults-panel\b[^"]*"/);
     assert.match(html, /選んだワールドは次回も使えます/);
+  });
+
+  it('重複する上部情報カードを表示しない', async () => {
+    const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+
+    assert.doesNotMatch(html, /class="metadata"/);
+    assert.doesNotMatch(html, /class="summary-strip"/);
+    assert.doesNotMatch(html, /data-world>/);
+    assert.doesNotMatch(html, /data-time-period/);
+    assert.doesNotMatch(html, /data-item-count/);
+    assert.doesNotMatch(html, /data-total-market-value/);
+    assert.doesNotMatch(html, /data-top-item/);
   });
 
   it('Pages workflowはデプロイ前にテストを実行する', async () => {
