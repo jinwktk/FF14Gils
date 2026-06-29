@@ -25,6 +25,18 @@ describe('app data loading contract', () => {
     assert.match(app, /dataCenter/);
   });
 
+  it('列名クリックで一覧をソートできる', async () => {
+    const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+    const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');
+
+    assert.match(html, /data-sort-button="name"/);
+    assert.match(html, /data-sort-button="marketValue"/);
+    assert.match(html, /data-sort-button="quantitySold"/);
+    assert.match(html, /aria-sort="none"/);
+    assert.match(app, /sortDirection/);
+    assert.match(app, /aria-sort/);
+  });
+
   it('操作しやすいダッシュボード構造を持つ', async () => {
     const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 

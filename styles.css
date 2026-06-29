@@ -277,6 +277,36 @@ th {
   font-weight: 900;
 }
 
+.sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.sort-button:hover {
+  color: var(--accent-strong);
+}
+
+.sort-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.sort-indicator {
+  display: inline-flex;
+  justify-content: center;
+  width: 1.2em;
+  color: var(--accent-strong);
+}
+
 tbody tr {
   background: var(--surface);
 }

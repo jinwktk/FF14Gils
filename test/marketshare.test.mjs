@@ -234,6 +234,39 @@ describe('filterMarketshareItems', () => {
       ['51269'],
     );
   });
+
+  it('指定した列と方向で並び替える', () => {
+    const items = createSnapshot({
+      query: {
+        server: 'Carbuncle',
+        timePeriod: 168,
+        salesAmount: 3,
+        averagePrice: 10000,
+        preset: 'housing',
+        sortBy: 'marketValue',
+        filters: CATEGORY_PRESETS.housing.filters,
+      },
+      response: apiResponse,
+      source: 'test',
+      itemNames: {
+        51269: 'ガーデン・パーティライト',
+        15157: 'ビーチチェア',
+      },
+    }).items;
+
+    assert.deepEqual(
+      filterMarketshareItems(items, { sortBy: 'avg', sortDirection: 'asc' }).map(
+        (item) => item.itemId,
+      ),
+      ['15157', '51269'],
+    );
+    assert.deepEqual(
+      filterMarketshareItems(items, { sortBy: 'name', sortDirection: 'desc' }).map(
+        (item) => item.itemId,
+      ),
+      ['15157', '51269'],
+    );
+  });
 });
 
 describe('formatGil', () => {

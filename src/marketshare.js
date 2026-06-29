@@ -25,9 +25,12 @@ export const SORT_OPTIONS = new Set([
   'avg',
   'marketValue',
   'median',
+  'minPrice',
+  'name',
   'purchaseAmount',
   'quantitySold',
   'percentChange',
+  'state',
 ]);
 
 export function normalizeMarketshareResponse(response) {
@@ -93,12 +96,19 @@ export function summarizeMarketshare(items) {
 
 export function filterMarketshareItems(
   items,
-  { search = '', states = [], minQuantitySold = 0, sortBy = 'marketValue' } = {},
+  {
+    search = '',
+    states = [],
+    minQuantitySold = 0,
+    sortBy = 'marketValue',
+    sortDirection = 'desc',
+  } = {},
 ) {
   const normalizedSearch = search.trim().toLowerCase();
   const stateSet = new Set(states.filter(Boolean));
   const minimumSales = Number(minQuantitySold) || 0;
   const sortKey = getSortKey(sortBy);
+  const direction = sortDirection === 'asc' ? 'asc' : 'desc';
 
   return [...items]
     .filter((item) => {
@@ -113,7 +123,7 @@ export function filterMarketshareItems(
 
       return matchesSearch && matchesState && matchesSales;
     })
-    .sort((a, b) => b[sortKey] - a[sortKey]);
+    .sort((a, b) => compareMarketshareItems(a, b, sortKey, direction));
 }
 
 export function formatGil(value) {
@@ -224,6 +234,31 @@ function getSortKey(sortBy) {
   if (sortBy === 'opportunityScore') return 'opportunityScore';
   if (SORT_OPTIONS.has(sortBy)) return sortBy;
   return 'marketValue';
+}
+
+function compareMarketshareItems(a, b, sortKey, direction) {
+  const modifier = direction === 'asc' ? 1 : -1;
+  const valueA = a[sortKey];
+  const valueB = b[sortKey];
+  const aMissing = valueA === null || valueA === undefined || valueA === '';
+  const bMissing = valueB === null || valueB === undefined || valueB === '';
+
+  if (aMissing && bMissing) return 0;
+  if (aMissing) return 1;
+  if (bMissing) return -1;
+
+  if (typeof valueA === 'string' || typeof valueB === 'string') {
+    return String(valueA).localeCompare(String(valueB), 'ja-JP') * modifier;
+  }
+
+  const numberA = Number(valueA);
+  const numberB = Number(valueB);
+
+  if (Number.isFinite(numberA) && Number.isFinite(numberB)) {
+    return (numberA - numberB) * modifier;
+  }
+
+  return String(valueA).localeCompare(String(valueB), 'ja-JP') * modifier;
 }
 
 function toFiniteNumber(value) {

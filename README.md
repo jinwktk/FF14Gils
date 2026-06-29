@@ -38,7 +38,7 @@ FF14 のマーケットデータから、金策候補を探すための GitHub P
 }
 ```
 
-ブラウザ側は `data/worlds.json` とワールド別 `data/worlds/<world>.json` のみを読み込み、Saddlebag Exchange API へ直接 POST しません。`data/marketshare.json` は既定ワールド用の互換スナップショットです。未指定時は日本DCの32ワールドを生成し、初期表示は `Hades` です。利用者が一度選んだワールドは `ff14gils_world` Cookie に保存し、次回表示時に優先します。アイテム名はXIVAPI v2の `language=ja` で補完し、日本語名を表示します。
+ブラウザ側は `data/worlds.json` とワールド別 `data/worlds/<world>.json` のみを読み込み、Saddlebag Exchange API へ直接 POST しません。`data/marketshare.json` は既定ワールド用の互換スナップショットです。未指定時は日本DCの32ワールドを生成し、初期表示は `Hades` です。`data/worlds.json` の各ワールドは `name`、`path`、`dataCenter` を持ち、UIではDCごとのカテゴリとして表示します。利用者が一度選んだワールドは `ff14gils_world` Cookie に保存し、次回表示時に優先します。アイテム名はXIVAPI v2の `language=ja` で補完し、日本語名を表示します。
 
 ## 開発コマンド
 
@@ -91,3 +91,4 @@ npm run serve
 - 2026-06-29: 上部の取得条件カードと集計カードは、ワールド選択や一覧件数と重複するため削除する方針に変更。
 - 2026-06-29: 上部の取得条件カードと集計カードを削除し、タイトル直下に絞り込みと結果一覧が出る構成へ変更。
 - 2026-06-29: ワールド選択を日本DCごとのカテゴリに分ける方針に変更。`data/worlds.json` に `dataCenter` を持たせ、UIはDCごとの `<optgroup>` で表示する。
+- 2026-06-29: 列名クリックで一覧をソートできるように変更。クリックした列は昇順/降順を切り替え、現在の並びはヘッダーの矢印と `aria-sort` に反映する。

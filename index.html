@@ -47,10 +47,13 @@
             並び替え
             <select data-sort-by>
               <option value="opportunityScore">おすすめ度</option>
+              <option value="name">アイテム名</option>
               <option value="marketValue">取引額</option>
               <option value="quantitySold">売れた数</option>
               <option value="avg">平均価格</option>
+              <option value="minPrice">最安値</option>
               <option value="percentChange">価格変動</option>
+              <option value="state">状態</option>
             </select>
           </label>
 
@@ -82,14 +85,46 @@
             <table>
               <thead>
                 <tr>
-                  <th scope="col">順位</th>
-                  <th scope="col">アイテム</th>
-                  <th scope="col">取引額</th>
-                  <th scope="col">平均価格</th>
-                  <th scope="col">最安値</th>
-                  <th scope="col">売れた数</th>
-                  <th scope="col">価格変動</th>
-                  <th scope="col">状態</th>
+                  <th scope="col" aria-sort="descending">
+                    <button type="button" class="sort-button" data-sort-button="opportunityScore">
+                      順位<span class="sort-indicator" aria-hidden="true"></span>
+                    </button>
+                  </th>
+                  <th scope="col" aria-sort="none">
+                    <button type="button" class="sort-button" data-sort-button="name">
+                      アイテム<span class="sort-indicator" aria-hidden="true"></span>
+                    </button>
+                  </th>
+                  <th scope="col" aria-sort="none">
+                    <button type="button" class="sort-button" data-sort-button="marketValue">
+                      取引額<span class="sort-indicator" aria-hidden="true"></span>
+                    </button>
+                  </th>
+                  <th scope="col" aria-sort="none">
+                    <button type="button" class="sort-button" data-sort-button="avg">
+                      平均価格<span class="sort-indicator" aria-hidden="true"></span>
+                    </button>
+                  </th>
+                  <th scope="col" aria-sort="none">
+                    <button type="button" class="sort-button" data-sort-button="minPrice">
+                      最安値<span class="sort-indicator" aria-hidden="true"></span>
+                    </button>
+                  </th>
+                  <th scope="col" aria-sort="none">
+                    <button type="button" class="sort-button" data-sort-button="quantitySold">
+                      売れた数<span class="sort-indicator" aria-hidden="true"></span>
+                    </button>
+                  </th>
+                  <th scope="col" aria-sort="none">
+                    <button type="button" class="sort-button" data-sort-button="percentChange">
+                      価格変動<span class="sort-indicator" aria-hidden="true"></span>
+                    </button>
+                  </th>
+                  <th scope="col" aria-sort="none">
+                    <button type="button" class="sort-button" data-sort-button="state">
+                      状態<span class="sort-indicator" aria-hidden="true"></span>
+                    </button>
+                  </th>
                 </tr>
               </thead>
               <tbody data-results></tbody>

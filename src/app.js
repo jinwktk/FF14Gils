@@ -21,6 +21,7 @@ const elements = {
   resultCount: document.querySelector('[data-result-count]'),
   search: document.querySelector('[data-search]'),
   sortBy: document.querySelector('[data-sort-by]'),
+  sortButtons: [...document.querySelectorAll('[data-sort-button]')],
   stateFilters: [...document.querySelectorAll('[data-state-filter]')],
   tableBody: document.querySelector('[data-results]'),
   worldSelect: document.querySelector('[data-world-select]'),
@@ -29,6 +30,8 @@ const elements = {
 const state = {
   items: [],
   snapshots: new Map(),
+  sortBy: 'opportunityScore',
+  sortDirection: 'desc',
   worldIndex: normalizeWorldIndex(null),
 };
 
@@ -78,15 +81,40 @@ function bindControls() {
     void loadSelectedWorld();
   });
   elements.search.addEventListener('input', render);
-  elements.sortBy.addEventListener('change', render);
+  elements.sortBy.addEventListener('change', () => {
+    state.sortBy = elements.sortBy.value;
+    state.sortDirection = defaultSortDirection(state.sortBy);
+    updateSortIndicators();
+    render();
+  });
   elements.minQuantitySold.addEventListener('input', () => {
     elements.minQuantityValue.textContent = elements.minQuantitySold.value;
     render();
   });
 
+  for (const button of elements.sortButtons) {
+    button.addEventListener('click', () => {
+      const nextSortBy = button.dataset.sortButton;
+      if (!nextSortBy) return;
+
+      if (state.sortBy === nextSortBy) {
+        state.sortDirection = state.sortDirection === 'asc' ? 'desc' : 'asc';
+      } else {
+        state.sortBy = nextSortBy;
+        state.sortDirection = defaultSortDirection(nextSortBy);
+      }
+
+      elements.sortBy.value = state.sortBy;
+      updateSortIndicators();
+      render();
+    });
+  }
+
   for (const checkbox of elements.stateFilters) {
     checkbox.addEventListener('change', render);
   }
+
+  updateSortIndicators();
 }
 
 async function loadSelectedWorld() {
@@ -111,13 +139,23 @@ async function loadSelectedWorld() {
 function populateWorldSelect() {
   const fragment = document.createDocumentFragment();
   const preferredWorld = resolvePreferredWorld(state.worldIndex, document.cookie);
+  const groups = new Map();
 
   for (const world of state.worldIndex.worlds) {
     const option = document.createElement('option');
     option.value = world.name;
     option.textContent = world.name;
     option.selected = world.name === preferredWorld;
-    fragment.append(option);
+
+    const dataCenter = world.dataCenter ?? 'その他';
+    if (!groups.has(dataCenter)) {
+      const optgroup = document.createElement('optgroup');
+      optgroup.label = dataCenter === 'その他' ? dataCenter : `${dataCenter} DC`;
+      groups.set(dataCenter, optgroup);
+      fragment.append(optgroup);
+    }
+
+    groups.get(dataCenter).append(option);
   }
 
   elements.worldSelect.replaceChildren(fragment);
@@ -132,7 +170,8 @@ function render() {
     search: elements.search.value,
     states: selectedStates,
     minQuantitySold: elements.minQuantitySold.value,
-    sortBy: elements.sortBy.value,
+    sortBy: state.sortBy,
+    sortDirection: state.sortDirection,
   });
 
   elements.resultCount.textContent = `${formatNumber(filteredItems.length)} 件`;
@@ -234,6 +273,34 @@ function validateSnapshot(snapshot) {
 function setError(message) {
   elements.error.hidden = !message;
   elements.error.textContent = message;
+}
+
+function updateSortIndicators() {
+  for (const button of elements.sortButtons) {
+    const header = button.closest('th');
+    const indicator = button.querySelector('.sort-indicator');
+    const isActive = button.dataset.sortButton === state.sortBy;
+    const ariaSort = isActive
+      ? state.sortDirection === 'asc'
+        ? 'ascending'
+        : 'descending'
+      : 'none';
+
+    header?.setAttribute('aria-sort', ariaSort);
+    button.dataset.active = String(isActive);
+    button.dataset.direction = isActive ? state.sortDirection : 'none';
+    if (indicator) {
+      indicator.textContent = isActive
+        ? state.sortDirection === 'asc'
+          ? '↑'
+          : '↓'
+        : '↕';
+    }
+  }
+}
+
+function defaultSortDirection(sortBy) {
+  return ['name', 'state'].includes(sortBy) ? 'asc' : 'desc';
 }
 
 function safeUniversalisUrl(value) {

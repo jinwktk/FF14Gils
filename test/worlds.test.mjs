@@ -4,6 +4,7 @@ import { describe, it } from 'node:test';
 import {
   buildWorldSnapshotPath,
   createWorldIndex,
+  normalizeWorldIndex,
   parseWorldList,
   resolveDefaultWorld,
   worldSlug,
@@ -62,6 +63,20 @@ describe('resolveDefaultWorld', () => {
 
   it('環境変数で指定されたワールドが一覧にあればそれを優先する', () => {
     assert.equal(resolveDefaultWorld(['Aegis', 'Carbuncle', 'Chocobo'], 'Chocobo'), 'Chocobo');
+  });
+});
+
+describe('normalizeWorldIndex', () => {
+  it('古いworlds.jsonにもDC情報を補完する', () => {
+    const index = normalizeWorldIndex({
+      generatedAt: '2026-06-29T00:00:00.000Z',
+      defaultWorld: 'Hades',
+      worlds: [{ name: 'Hades', path: 'data/worlds/hades.json' }],
+    });
+
+    assert.deepEqual(index.worlds, [
+      { name: 'Hades', path: 'data/worlds/hades.json', dataCenter: 'Mana' },
+    ]);
   });
 });
 
