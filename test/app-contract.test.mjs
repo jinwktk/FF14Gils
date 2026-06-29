@@ -18,6 +18,13 @@ describe('app data loading contract', () => {
     assert.match(html, /data-world-select/);
   });
 
+  it('ワールド選択はDCごとのカテゴリを描画する', async () => {
+    const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');
+
+    assert.match(app, /createElement\(['"]optgroup['"]\)/);
+    assert.match(app, /dataCenter/);
+  });
+
   it('操作しやすいダッシュボード構造を持つ', async () => {
     const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 

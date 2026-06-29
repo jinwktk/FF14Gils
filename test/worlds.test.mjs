@@ -37,9 +37,21 @@ describe('createWorldIndex', () => {
 
     assert.equal(index.defaultWorld, 'Chocobo');
     assert.deepEqual(index.worlds, [
-      { name: 'Carbuncle', path: 'data/worlds/carbuncle.json' },
-      { name: 'Chocobo', path: 'data/worlds/chocobo.json' },
+      { name: 'Carbuncle', path: 'data/worlds/carbuncle.json', dataCenter: 'Elemental' },
+      { name: 'Chocobo', path: 'data/worlds/chocobo.json', dataCenter: 'Mana' },
     ]);
+  });
+
+  it('日本DCの並びをDCごとのカテゴリとして保持する', () => {
+    const index = createWorldIndex({
+      worlds: ['Aegis', 'Alexander', 'Hades', 'Shinryu'],
+      generatedAt: '2026-06-29T00:00:00.000Z',
+    });
+
+    assert.deepEqual(
+      index.worlds.map((world) => `${world.dataCenter}:${world.name}`),
+      ['Elemental:Aegis', 'Gaia:Alexander', 'Mana:Hades', 'Meteor:Shinryu'],
+    );
   });
 });
 
