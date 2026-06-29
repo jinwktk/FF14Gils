@@ -1,10 +1,8 @@
 import {
-  CATEGORY_PRESETS,
   filterMarketshareItems,
   formatGil,
   formatNumber,
   stateLabel,
-  summarizeMarketshare,
 } from './marketshare.js';
 import {
   buildWorldPreferenceCookie,
@@ -17,11 +15,7 @@ const WORLD_INDEX_PATH = 'data/worlds.json';
 const MAX_VISIBLE_ROWS = 80;
 
 const elements = {
-  averagePrice: document.querySelector('[data-average-price]'),
-  category: document.querySelector('[data-category]'),
   error: document.querySelector('[data-error]'),
-  generatedAt: document.querySelector('[data-generated-at]'),
-  itemCount: document.querySelector('[data-item-count]'),
   minQuantitySold: document.querySelector('[data-min-quantity]'),
   minQuantityValue: document.querySelector('[data-min-quantity-value]'),
   resultCount: document.querySelector('[data-result-count]'),
@@ -29,17 +23,11 @@ const elements = {
   sortBy: document.querySelector('[data-sort-by]'),
   stateFilters: [...document.querySelectorAll('[data-state-filter]')],
   tableBody: document.querySelector('[data-results]'),
-  timePeriod: document.querySelector('[data-time-period]'),
-  topItem: document.querySelector('[data-top-item]'),
-  totalMarketValue: document.querySelector('[data-total-market-value]'),
-  totalQuantitySold: document.querySelector('[data-total-quantity-sold]'),
-  world: document.querySelector('[data-world]'),
   worldSelect: document.querySelector('[data-world-select]'),
 };
 
 const state = {
   items: [],
-  query: null,
   snapshots: new Map(),
   worldIndex: normalizeWorldIndex(null),
 };
@@ -112,9 +100,6 @@ async function loadSelectedWorld() {
     setError('');
     const snapshot = await loadSnapshot(path);
     state.items = snapshot.items ?? [];
-    state.query = snapshot.query ?? {};
-    renderMetadata(snapshot);
-    renderSummary(snapshot.summary ?? summarizeMarketshare(state.items));
     render();
   } catch (error) {
     setError(`データを読み込めませんでした: ${error.message}`);
@@ -164,30 +149,6 @@ function render() {
     row.append(cell);
     elements.tableBody.append(row);
   }
-}
-
-function renderMetadata(snapshot) {
-  const query = snapshot.query ?? {};
-  elements.world.textContent = query.server ?? '-';
-  elements.timePeriod.textContent = query.timePeriod
-    ? `${query.timePeriod} 時間`
-    : '-';
-  elements.averagePrice.textContent = formatGil(query.averagePrice);
-  elements.category.textContent =
-    CATEGORY_PRESETS[query.preset]?.label ?? query.preset ?? '-';
-  elements.generatedAt.textContent = snapshot.generatedAt
-    ? new Intl.DateTimeFormat('ja-JP', {
-        dateStyle: 'medium',
-        timeStyle: 'short',
-      }).format(new Date(snapshot.generatedAt))
-    : '-';
-}
-
-function renderSummary(summary) {
-  elements.itemCount.textContent = formatNumber(summary.itemCount);
-  elements.totalMarketValue.textContent = formatGil(summary.totalMarketValue);
-  elements.totalQuantitySold.textContent = formatNumber(summary.totalQuantitySold);
-  elements.topItem.textContent = summary.topItem?.name ?? '-';
 }
 
 function renderRow(item, index) {
