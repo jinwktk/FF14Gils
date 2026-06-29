@@ -3,7 +3,7 @@ name: Deploy GitHub Pages
 on:
   workflow_dispatch:
   schedule:
-    - cron: '12 */6 * * *'
+    - cron: '12 * * * *'
   push:
     branches:
       - master

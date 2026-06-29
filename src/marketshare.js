@@ -38,13 +38,17 @@ export function normalizeMarketshareResponse(response) {
     const minPrice = toFiniteNumber(item.minPrice);
     const normalizedMinPrice = minPrice && minPrice > 0 ? minPrice : null;
     const state = String(item.state || 'unknown').trim() || 'unknown';
+    const nameEn = normalizeText(item.name) || 'Unknown Item';
+    const nameJa = normalizeText(item.nameJa ?? item.name_ja);
     const normalized = {
       avg: toFiniteNumber(item.avg) ?? 0,
       itemId: String(item.itemID ?? item.itemId ?? ''),
       marketValue: toFiniteNumber(item.marketValue) ?? 0,
       median: toFiniteNumber(item.median) ?? 0,
       minPrice: normalizedMinPrice,
-      name: String(item.name ?? 'Unknown Item'),
+      name: nameJa || nameEn,
+      nameEn,
+      nameJa,
       npcVendorInfo: String(item.npc_vendor_info ?? item.npcVendorInfo ?? ''),
       percentChange: toFiniteNumber(item.percentChange) ?? 0,
       purchaseAmount: toFiniteNumber(item.purchaseAmount) ?? 0,
@@ -100,7 +104,9 @@ export function filterMarketshareItems(
     .filter((item) => {
       const matchesSearch =
         !normalizedSearch ||
-        item.name.toLowerCase().includes(normalizedSearch) ||
+        [item.name, item.nameJa, item.nameEn]
+          .filter(Boolean)
+          .some((name) => name.toLowerCase().includes(normalizedSearch)) ||
         item.itemId.includes(normalizedSearch);
       const matchesState = stateSet.size === 0 || stateSet.has(item.state);
       const matchesSales = item.quantitySold >= minimumSales;
@@ -114,7 +120,7 @@ export function formatGil(value) {
   const number = toFiniteNumber(value);
   if (number === null) return '-';
 
-  return `${Math.round(number).toLocaleString('en-US')} gil`;
+  return `${Math.round(number).toLocaleString('ja-JP')} ギル`;
 }
 
 export function formatNumber(value) {
@@ -161,9 +167,12 @@ export function createSnapshot({
   query,
   response,
   source,
+  itemNames = {},
   generatedAt = new Date(),
 }) {
-  const items = normalizeMarketshareResponse(response);
+  const items = normalizeMarketshareResponse(response).map((item) =>
+    localizeMarketshareItem(item, itemNames),
+  );
   const summary = summarizeMarketshare(items);
 
   return {
@@ -180,6 +189,18 @@ export function createSnapshot({
     },
     summary,
     items,
+  };
+}
+
+export function localizeMarketshareItem(item, itemNames = {}) {
+  const nameJa = lookupItemName(itemNames, item.itemId) || item.nameJa;
+  const nameEn = item.nameEn || item.name;
+
+  return {
+    ...item,
+    name: nameJa || item.name,
+    nameEn,
+    nameJa,
   };
 }
 
@@ -212,6 +233,22 @@ function toFiniteNumber(value) {
   if (!Number.isFinite(number)) return null;
 
   return number;
+}
+
+function normalizeText(value) {
+  if (typeof value !== 'string') return '';
+  return value.trim();
+}
+
+function lookupItemName(itemNames, itemId) {
+  if (!itemId) return '';
+
+  const value =
+    itemNames instanceof Map
+      ? itemNames.get(String(itemId))
+      : itemNames[String(itemId)];
+
+  return normalizeText(value);
 }
 
 function isNonEmptyValue(value) {

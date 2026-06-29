@@ -1,10 +1,15 @@
 import {
+  CATEGORY_PRESETS,
   filterMarketshareItems,
   formatGil,
   formatNumber,
   stateLabel,
   summarizeMarketshare,
 } from './marketshare.js';
+import {
+  buildWorldPreferenceCookie,
+  resolvePreferredWorld,
+} from './preferences.js';
 import { normalizeWorldIndex } from './worlds.js';
 
 const DEFAULT_DATA_PATH = 'data/marketshare.json';
@@ -81,6 +86,7 @@ async function loadSnapshot(path) {
 
 function bindControls() {
   elements.worldSelect.addEventListener('change', () => {
+    document.cookie = buildWorldPreferenceCookie(elements.worldSelect.value);
     void loadSelectedWorld();
   });
   elements.search.addEventListener('input', render);
@@ -119,16 +125,18 @@ async function loadSelectedWorld() {
 
 function populateWorldSelect() {
   const fragment = document.createDocumentFragment();
+  const preferredWorld = resolvePreferredWorld(state.worldIndex, document.cookie);
 
   for (const world of state.worldIndex.worlds) {
     const option = document.createElement('option');
     option.value = world.name;
     option.textContent = world.name;
-    option.selected = world.name === state.worldIndex.defaultWorld;
+    option.selected = world.name === preferredWorld;
     fragment.append(option);
   }
 
   elements.worldSelect.replaceChildren(fragment);
+  elements.worldSelect.value = preferredWorld;
 }
 
 function render() {
@@ -165,7 +173,8 @@ function renderMetadata(snapshot) {
     ? `${query.timePeriod} 時間`
     : '-';
   elements.averagePrice.textContent = formatGil(query.averagePrice);
-  elements.category.textContent = query.preset ?? '-';
+  elements.category.textContent =
+    CATEGORY_PRESETS[query.preset]?.label ?? query.preset ?? '-';
   elements.generatedAt.textContent = snapshot.generatedAt
     ? new Intl.DateTimeFormat('ja-JP', {
         dateStyle: 'medium',
@@ -222,6 +231,9 @@ function createItemCell(item) {
   link.target = '_blank';
   link.rel = 'noreferrer';
   link.textContent = item.name;
+  if (item.nameEn && item.nameEn !== item.name) {
+    link.title = item.nameEn;
+  }
 
   const id = document.createElement('span');
   id.className = 'item-id';

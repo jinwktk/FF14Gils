@@ -1,4 +1,4 @@
-export const DEFAULT_WORLD = 'Carbuncle';
+export const DEFAULT_WORLD = 'Hades';
 
 export const DEFAULT_WORLDS = [
   'Aegis',

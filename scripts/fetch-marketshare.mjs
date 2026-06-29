@@ -1,4 +1,4 @@
-import { mkdir, rename, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -16,9 +16,16 @@ import {
   buildMarketsharePayload,
   SADDLEBAG_MARKETSHARE_ENDPOINT,
 } from './marketshare-api.mjs';
+import {
+  fetchJapaneseItemNames,
+  normalizeItemIds,
+} from './item-name-api.mjs';
 
 const dataDir = fileURLToPath(new URL('../data/', import.meta.url));
 const outputPath = fileURLToPath(new URL('../data/marketshare.json', import.meta.url));
+const itemNameCachePath = fileURLToPath(
+  new URL('../data/item-names-ja.json', import.meta.url),
+);
 const worldsDir = fileURLToPath(new URL('../data/worlds/', import.meta.url));
 const worldIndexPath = fileURLToPath(new URL('../data/worlds.json', import.meta.url));
 const worlds = parseWorldList(process.env.FF14GILS_WORLDS);
@@ -32,16 +39,27 @@ const query = {
 };
 const defaultWorld = resolveDefaultWorld(worlds, process.env.FF14GILS_SERVER);
 
-const snapshots = [];
+const marketshareResults = [];
 
 for (const world of worlds) {
-  const snapshot = await fetchWorldSnapshot(world);
-  snapshots.push(snapshot);
-  console.log(`Fetched ${snapshot.items.length} marketshare items for ${world}`);
+  const result = await fetchWorldMarketshare(world);
+  marketshareResults.push(result);
+  console.log(`Fetched ${result.apiResponse.data.length} marketshare items for ${world}`);
 }
+
+const itemNames = await resolveJapaneseItemNames(marketshareResults);
+const snapshots = marketshareResults.map(({ apiResponse, query: snapshotQuery }) =>
+  createSnapshot({
+    query: snapshotQuery,
+    response: apiResponse,
+    source: SADDLEBAG_MARKETSHARE_ENDPOINT,
+    itemNames,
+  }),
+);
 
 await mkdir(dataDir, { recursive: true });
 await mkdir(worldsDir, { recursive: true });
+await writeJsonAtomically(itemNameCachePath, itemNames);
 
 for (const snapshot of snapshots) {
   await writeJsonAtomically(
@@ -66,7 +84,7 @@ console.log(
   `Wrote ${snapshots.length} world snapshots. Default: ${defaultSnapshot.query.server}`,
 );
 
-async function fetchWorldSnapshot(world) {
+async function fetchWorldMarketshare(world) {
   const payload = buildMarketsharePayload({ ...query, server: world });
   const response = await fetch(SADDLEBAG_MARKETSHARE_ENDPOINT, {
     method: 'POST',
@@ -86,7 +104,7 @@ async function fetchWorldSnapshot(world) {
   const apiResponse = await response.json();
   assertMarketshareResponse(apiResponse);
 
-  return createSnapshot({
+  return {
     query: {
       ...query,
       server: world,
@@ -96,9 +114,44 @@ async function fetchWorldSnapshot(world) {
       filters: payload.filters,
       sortBy: payload.sort_by,
     },
-    response: apiResponse,
-    source: SADDLEBAG_MARKETSHARE_ENDPOINT,
+    apiResponse,
+  };
+}
+
+async function resolveJapaneseItemNames(results) {
+  const itemIds = normalizeItemIds(
+    results.flatMap(({ apiResponse }) =>
+      apiResponse.data.map((item) => item.itemID ?? item.itemId),
+    ),
+  );
+  const cachedNames = await readJsonIfExists(itemNameCachePath);
+  const missingIds = itemIds.filter((itemId) => !cachedNames[itemId]);
+
+  if (missingIds.length > 0) {
+    console.log(`Fetching ${missingIds.length} Japanese item names from XIVAPI`);
+  }
+
+  const fetchedNames = await fetchJapaneseItemNames(missingIds, {
+    log: (message) => console.warn(message),
   });
+  const itemNames = Object.fromEntries(
+    Object.entries({ ...cachedNames, ...fetchedNames })
+      .filter(([itemId]) => itemIds.includes(itemId))
+      .sort(([left], [right]) => Number(left) - Number(right)),
+  );
+
+  console.log(`Resolved ${Object.keys(itemNames).length} Japanese item names`);
+
+  return itemNames;
+}
+
+async function readJsonIfExists(path) {
+  try {
+    return JSON.parse(await readFile(path, 'utf8'));
+  } catch (error) {
+    if (error.code === 'ENOENT') return {};
+    throw error;
+  }
 }
 
 async function writeJsonAtomically(path, data) {

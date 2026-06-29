@@ -18,7 +18,7 @@ FF14 のマーケットデータから、金策候補を探すための GitHub P
   "generatedAt": "2026-06-29T00:00:00.000Z",
   "source": "https://api.saddlebagexchange.com/api/ffxivmarketshare",
   "query": {
-    "server": "Carbuncle",
+    "server": "Hades",
     "timePeriod": 168,
     "salesAmount": 3,
     "averagePrice": 10000,
@@ -27,11 +27,18 @@ FF14 のマーケットデータから、金策候補を探すための GitHub P
     "filters": [56, 65, 66, 67, 68, 69, 70, 71, 72, 81, 82]
   },
   "summary": {},
-  "items": []
+  "items": [
+    {
+      "itemId": "51269",
+      "name": "ガーデン・パーティライト",
+      "nameJa": "ガーデン・パーティライト",
+      "nameEn": "Garden Mood Lighting"
+    }
+  ]
 }
 ```
 
-ブラウザ側は `data/worlds.json` とワールド別 `data/worlds/<world>.json` のみを読み込み、Saddlebag Exchange API へ直接 POST しません。`data/marketshare.json` は既定ワールド用の互換スナップショットです。未指定時は日本DCの32ワールドを生成し、初期表示は `Hades` です。利用者が一度選んだワールドはCookieに保存し、次回表示時に優先します。
+ブラウザ側は `data/worlds.json` とワールド別 `data/worlds/<world>.json` のみを読み込み、Saddlebag Exchange API へ直接 POST しません。`data/marketshare.json` は既定ワールド用の互換スナップショットです。未指定時は日本DCの32ワールドを生成し、初期表示は `Hades` です。利用者が一度選んだワールドは `ff14gils_world` Cookie に保存し、次回表示時に優先します。アイテム名はXIVAPI v2の `language=ja` で補完し、日本語名を表示します。
 
 ## 開発コマンド
 
@@ -77,3 +84,5 @@ npm run serve
 - 2026-06-29: 日本人利用者向けに、アイテム名の日本語化と `ギル` 表記、自然な日本語UIへ寄せるテスト仕様を追加。
 - 2026-06-29: 初期表示ワールドを `Hades` に変更し、選択したワールドをCookieへ保持するテスト仕様を追加。
 - 2026-06-29: ブラウザからSaddlebag APIへの直接POSTはCORSで失敗することを確認し、GitHub ActionsのAPI取得を毎時更新にするテスト仕様を追加。
+- 2026-06-29: `src/preferences.js` を追加し、選択したワールドをCookieで180日保持。既定ワールドを `Hades` に変更。
+- 2026-06-29: `scripts/item-name-api.mjs` を追加し、XIVAPI v2から日本語アイテム名を取得して `data/item-names-ja.json` と各ワールドJSONへ反映。
