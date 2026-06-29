@@ -75,6 +75,7 @@ npm run serve
 - Google Search Console 連携で確認できた登録済みプロパティは `sc-domain:rukalun.mydns.jp` のみです。`https://jinwktk.github.io/FF14Gils/` をSearch Consoleに追加した後、sitemapを送信します。
 - Search Console のHTMLファイル確認用に `googled9f512eea3a99dc1.html` をサイトルートへ配信します。確認状態を維持するため、このファイルは削除しません。
 - ヘッダー右上にKo-fi支援アイコンを置き、リンク先は `https://ko-fi.com/jinwktk` です。ユーザー名を変更する場合は `index.html` のリンクとJSON-LDの `sameAs` を更新します。
+- favicon は `favicon.ico`、`assets/favicon.svg`、`assets/favicon-32.png`、`assets/apple-touch-icon.png` を配信し、HTML から明示参照します。
 
 ## 現在の作業状況
 
@@ -115,3 +116,4 @@ npm run serve
 - 2026-06-29: OGP画像の上部バッジ文字が右端に詰まって見えたため、文字サイズとバッジ幅を調整して余白を確保する。
 - 2026-06-29: データがハウジング系カテゴリに限定されていたため、既定カテゴリを全般の `all` に変更する方針にする。TDDとして `buildMarketsharePayload` と `scripts/fetch-marketshare.mjs` の既定値を固定する赤テストを追加し、失敗を確認。
 - 2026-06-29: `scripts/marketshare-api.mjs` と `scripts/fetch-marketshare.mjs` の既定プリセットを `all` に変更し、`npm run fetch:data` で日本DC 32ワールド x 4期間の128スナップショットを全カテゴリで再生成。既定の `data/marketshare.json` は `Hades`、`7d`、`filters: [0]`、199件になった。
+- 2026-06-29: faviconを配信ファイルとして生成する方針にする。TDDとしてHTMLのfaviconリンク、`favicon.ico` のビルド対象、SVG/PNG/ICOのファイル形状を固定する赤テストを追加する。

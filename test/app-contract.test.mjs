@@ -153,6 +153,29 @@ describe('app data loading contract', () => {
     assert.match(build, /'sitemap\.xml'/);
   });
 
+  it('faviconファイルを配信対象に含める', async () => {
+    const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+    const build = await readFile(new URL('../scripts/build.mjs', import.meta.url), 'utf8');
+    const faviconSvg = await readFile(new URL('../assets/favicon.svg', import.meta.url), 'utf8');
+    const favicon32 = await readFile(new URL('../assets/favicon-32.png', import.meta.url));
+    const appleTouchIcon = await readFile(
+      new URL('../assets/apple-touch-icon.png', import.meta.url),
+    );
+    const faviconIco = await readFile(new URL('../favicon.ico', import.meta.url));
+
+    assert.match(html, /<link rel="icon" href="favicon\.ico" sizes="any"/);
+    assert.match(html, /<link rel="icon" type="image\/svg\+xml" href="assets\/favicon\.svg"/);
+    assert.match(html, /<link rel="icon" type="image\/png" sizes="32x32" href="assets\/favicon-32\.png"/);
+    assert.match(html, /<link rel="apple-touch-icon" href="assets\/apple-touch-icon\.png"/);
+    assert.match(faviconSvg, /<svg/);
+    assert.match(faviconSvg, /FF14Gils/);
+    assert.deepEqual(readPngSize(favicon32), { width: 32, height: 32 });
+    assert.deepEqual(readPngSize(appleTouchIcon), { width: 180, height: 180 });
+    assert.deepEqual(readIcoHeader(faviconIco), { reserved: 0, type: 1, count: 1 });
+    assert.match(build, /'favicon\.ico'/);
+    assert.match(build, /'assets'/);
+  });
+
   it('Pages workflowはデプロイ前にテストを実行する', async () => {
     const workflow = await readFile(
       new URL('../.github/workflows/pages.yml', import.meta.url),
@@ -202,5 +225,13 @@ function readPngSize(buffer) {
   return {
     width: buffer.readUInt32BE(16),
     height: buffer.readUInt32BE(20),
+  };
+}
+
+function readIcoHeader(buffer) {
+  return {
+    reserved: buffer.readUInt16LE(0),
+    type: buffer.readUInt16LE(2),
+    count: buffer.readUInt16LE(4),
   };
 }
