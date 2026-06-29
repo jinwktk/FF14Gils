@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FF14Gils</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231f7a66'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-size='18' font-family='Arial' fill='white'%3EG%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="src/app.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div>
+        <p class="eyebrow">FFXIV Market Dashboard</p>
+        <h1>FF14Gils</h1>
+        <p class="lead">
+          Saddlebag Exchange の売上データから、回転率と市場規模の高い金策候補を絞り込みます。
+        </p>
+      </div>
+      <dl class="metadata">
+        <div>
+          <dt>ワールド</dt>
+          <dd data-world>-</dd>
+        </div>
+        <div>
+          <dt>期間</dt>
+          <dd data-time-period>-</dd>
+        </div>
+        <div>
+          <dt>最低平均単価</dt>
+          <dd data-average-price>-</dd>
+        </div>
+        <div>
+          <dt>カテゴリ</dt>
+          <dd data-category>-</dd>
+        </div>
+        <div>
+          <dt>更新</dt>
+          <dd data-generated-at>-</dd>
+        </div>
+      </dl>
+    </header>
+
+    <main>
+      <section class="summary-grid" aria-label="集計">
+        <article class="metric">
+          <span>候補数</span>
+          <strong data-item-count>-</strong>
+        </article>
+        <article class="metric">
+          <span>市場規模</span>
+          <strong data-total-market-value>-</strong>
+        </article>
+        <article class="metric">
+          <span>販売数</span>
+          <strong data-total-quantity-sold>-</strong>
+        </article>
+        <article class="metric">
+          <span>最大市場アイテム</span>
+          <strong data-top-item>-</strong>
+        </article>
+      </section>
+
+      <section class="controls" aria-label="絞り込み">
+        <label>
+          検索
+          <input
+            data-search
+            type="search"
+            placeholder="アイテム名またはID"
+            autocomplete="off"
+          />
+        </label>
+
+        <label>
+          ソート
+          <select data-sort-by>
+            <option value="opportunityScore">おすすめ度</option>
+            <option value="marketValue">市場規模</option>
+            <option value="quantitySold">販売数</option>
+            <option value="avg">平均価格</option>
+            <option value="percentChange">価格変動</option>
+          </select>
+        </label>
+
+        <label class="range-control">
+          最低販売数 <span data-min-quantity-value>0</span>
+          <input data-min-quantity type="range" min="0" max="100" step="1" value="0" />
+        </label>
+
+        <fieldset>
+          <legend>状態</legend>
+          <label><input data-state-filter type="checkbox" value="stable" /> 安定</label>
+          <label><input data-state-filter type="checkbox" value="increasing" /> 上昇中</label>
+          <label><input data-state-filter type="checkbox" value="spiking" /> 急騰</label>
+          <label><input data-state-filter type="checkbox" value="out of stock" /> 在庫なし</label>
+          <label><input data-state-filter type="checkbox" value="decreasing" /> 値下がり</label>
+        </fieldset>
+      </section>
+
+      <p data-error class="error" hidden></p>
+
+      <section class="results" aria-label="金策候補">
+        <div class="results-header">
+          <h2>候補アイテム</h2>
+          <span data-result-count>- 件</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">アイテム</th>
+                <th scope="col">市場規模</th>
+                <th scope="col">平均</th>
+                <th scope="col">最安</th>
+                <th scope="col">販売数</th>
+                <th scope="col">変動</th>
+                <th scope="col">状態</th>
+              </tr>
+            </thead>
+            <tbody data-results></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

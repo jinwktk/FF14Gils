@@ -3,12 +3,13 @@ import { describe, it } from 'node:test';
 
 import {
   CATEGORY_PRESETS,
-  buildMarketsharePayload,
+  assertMarketshareResponse,
   filterMarketshareItems,
   formatGil,
   normalizeMarketshareResponse,
   summarizeMarketshare,
 } from '../src/marketshare.js';
+import { buildMarketsharePayload } from '../scripts/marketshare-api.mjs';
 
 const apiResponse = {
   data: [
@@ -107,6 +108,39 @@ describe('normalizeMarketshareResponse', () => {
     assert.equal(items[1].minPrice, null);
     assert.equal(items[1].recommendationLevel, 'needs-restock');
     assert.ok(items[1].opportunityScore > items[0].opportunityScore);
+  });
+});
+
+describe('assertMarketshareResponse', () => {
+  it('dataが配列ではないAPIレスポンスを拒否する', () => {
+    assert.throws(() => assertMarketshareResponse({ error: 'bad shape' }), /data/);
+  });
+
+  it('最低限のitem schemaを満たさないレスポンスを拒否する', () => {
+    assert.throws(
+      () =>
+        assertMarketshareResponse({
+          data: [{ itemID: '1', name: '', marketValue: 100 }],
+        }),
+      /item schema/,
+    );
+  });
+
+  it('nullや空文字のID・数値項目を拒否する', () => {
+    assert.throws(
+      () =>
+        assertMarketshareResponse({
+          data: [
+            {
+              itemID: null,
+              name: 'Broken item',
+              marketValue: null,
+              quantitySold: '',
+            },
+          ],
+        }),
+      /item schema/,
+    );
   });
 });
 
