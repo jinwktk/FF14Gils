@@ -133,7 +133,8 @@ describe('app data loading contract', () => {
     const icon = await readFile(new URL('../assets/ko-fi.svg', import.meta.url), 'utf8');
 
     assert.match(html, /class="kofi-link"/);
-    assert.match(html, /href="https:\/\/ko-fi\.com\/jinwktk"/);
+    assert.match(html, /href="https:\/\/ko-fi\.com\/jinnymeia"/);
+    assert.match(html, /"sameAs": \["https:\/\/ko-fi\.com\/jinnymeia"\]/);
     assert.match(html, /aria-label="Ko-fiで支援する"/);
     assert.match(html, /assets\/ko-fi\.svg/);
     assert.match(icon, /<svg/);

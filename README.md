@@ -75,11 +75,12 @@ npm run serve
 - `robots.txt` は全体クロールを許可し、`https://jinwktk.github.io/FF14Gils/sitemap.xml` を案内します。
 - Google Search Console 連携で確認できた登録済みプロパティは `sc-domain:rukalun.mydns.jp` のみです。`https://jinwktk.github.io/FF14Gils/` をSearch Consoleに追加した後、sitemapを送信します。
 - Search Console のHTMLファイル確認用に `googled9f512eea3a99dc1.html` をサイトルートへ配信します。確認状態を維持するため、このファイルは削除しません。
-- ヘッダー右上にKo-fi支援アイコンを置き、リンク先は `https://ko-fi.com/jinwktk` です。ユーザー名を変更する場合は `index.html` のリンクとJSON-LDの `sameAs` を更新します。
+- ヘッダー右上にKo-fi支援アイコンを置き、リンク先は RukalunPage と同じ `https://ko-fi.com/jinnymeia` です。ユーザー名を変更する場合は `index.html` のリンクとJSON-LDの `sameAs` を更新します。
 - favicon は `npm run favicon:generate` で生成し、`favicon.ico`、`assets/favicon.svg`、`assets/favicon-32.png`、`assets/apple-touch-icon.png` を配信します。HTML からICO、SVG、32px PNG、Apple touch iconを明示参照します。
 
 ## 現在の作業状況
 
+- 2026-06-30: Ko-fi支援リンクをRukalunPageで使っている `jinnymeia` アカウントへ揃える方針に変更。契約テストでヘッダーリンクとJSON-LDの `sameAs` を固定する。
 - 2026-06-29: 空リポジトリから開始。
 - 2026-06-29: Saddlebag Exchange OpenAPI と実 API 応答を確認し、Marketshare API の必須パラメータとレスポンス形状を確認。
 - 2026-06-29: TDD の最初の失敗テストを追加。実装はこのテストを通す形で進めます。
