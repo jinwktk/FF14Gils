@@ -8,6 +8,29 @@ FF14 のマーケットデータから、金策候補を探すための GitHub P
 - GitHub Pages 上のブラウザから直接 API を呼ぶと CORS で失敗する可能性があるため、Actions またはローカルの `scripts/fetch-marketshare.mjs` で `data/marketshare.json` を生成し、サイトはそのスナップショットを表示します。
 - UI は依存を増やさず、`index.html`、`styles.css`、`src/app.js`、`src/marketshare.js` の静的構成で作ります。
 
+## データ契約
+
+`data/marketshare.json` は以下の形で生成します。
+
+```json
+{
+  "generatedAt": "2026-06-29T00:00:00.000Z",
+  "source": "https://api.saddlebagexchange.com/api/ffxivmarketshare",
+  "query": {
+    "server": "Carbuncle",
+    "timePeriod": 168,
+    "salesAmount": 3,
+    "averagePrice": 10000,
+    "preset": "housing",
+    "sortBy": "marketValue"
+  },
+  "summary": {},
+  "items": []
+}
+```
+
+ブラウザ側は `data/marketshare.json` のみを読み込み、Saddlebag Exchange API へ直接 POST しません。
+
 ## 開発コマンド
 
 ```powershell
@@ -21,3 +44,4 @@ npm run build
 - 2026-06-29: 空リポジトリから開始。
 - 2026-06-29: Saddlebag Exchange OpenAPI と実 API 応答を確認し、Marketshare API の必須パラメータとレスポンス形状を確認。
 - 2026-06-29: TDD の最初の失敗テストを追加。実装はこのテストを通す形で進めます。
+- 2026-06-29: Architect レビューで、静的 UI が API へ直接 POST しない制約をテストに固定する必要があると判定。回帰テストとデータ契約を追加。
