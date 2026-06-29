@@ -9,125 +9,135 @@
     <script type="module" src="src/app.js"></script>
   </head>
   <body>
-    <header class="site-header">
-      <div>
-        <p class="eyebrow">FF14 マーケット金策</p>
-        <h1>FF14Gils</h1>
-        <p class="lead">
-          マーケットの売れ行きと相場から、売りやすい金策候補を探せます。
-        </p>
-      </div>
-      <dl class="metadata">
-        <div>
-          <dt>ワールド</dt>
-          <dd data-world>-</dd>
+    <div class="app-shell">
+      <header class="site-header">
+        <div class="brand-block">
+          <p class="eyebrow">FF14 マーケット金策</p>
+          <h1>FF14Gils</h1>
+          <p class="lead">
+            マーケットの売れ行きと相場から、売りやすい金策候補を探せます。
+          </p>
         </div>
-        <div>
-          <dt>期間</dt>
-          <dd data-time-period>-</dd>
-        </div>
-        <div>
-          <dt>平均価格の下限</dt>
-          <dd data-average-price>-</dd>
-        </div>
-        <div>
-          <dt>カテゴリ</dt>
-          <dd data-category>-</dd>
-        </div>
-        <div>
-          <dt>更新</dt>
-          <dd data-generated-at>-</dd>
-        </div>
-      </dl>
-    </header>
+        <dl class="metadata" aria-label="現在の取得条件">
+          <div>
+            <dt>ワールド</dt>
+            <dd data-world>-</dd>
+          </div>
+          <div>
+            <dt>期間</dt>
+            <dd data-time-period>-</dd>
+          </div>
+          <div>
+            <dt>平均価格の下限</dt>
+            <dd data-average-price>-</dd>
+          </div>
+          <div>
+            <dt>カテゴリ</dt>
+            <dd data-category>-</dd>
+          </div>
+          <div>
+            <dt>更新</dt>
+            <dd data-generated-at>-</dd>
+          </div>
+        </dl>
+      </header>
 
-    <main>
-      <section class="summary-grid" aria-label="集計">
-        <article class="metric">
-          <span>候補数</span>
-          <strong data-item-count>-</strong>
-        </article>
-        <article class="metric">
-          <span>取引額</span>
-          <strong data-total-market-value>-</strong>
-        </article>
-        <article class="metric">
-          <span>売れた数</span>
-          <strong data-total-quantity-sold>-</strong>
-        </article>
-        <article class="metric">
-          <span>取引額トップ</span>
-          <strong data-top-item>-</strong>
-        </article>
-      </section>
+      <main class="dashboard-grid">
+        <section class="summary-strip" aria-label="集計">
+          <article class="metric">
+            <span>候補数</span>
+            <strong data-item-count>-</strong>
+          </article>
+          <article class="metric">
+            <span>取引額</span>
+            <strong data-total-market-value>-</strong>
+          </article>
+          <article class="metric">
+            <span>売れた数</span>
+            <strong data-total-quantity-sold>-</strong>
+          </article>
+          <article class="metric metric-wide">
+            <span>取引額トップ</span>
+            <strong data-top-item>-</strong>
+          </article>
+        </section>
 
-      <section class="controls" aria-label="絞り込み">
-        <label>
-          ワールド
-          <select data-world-select aria-label="ワールドを選択"></select>
-        </label>
+        <aside class="filter-panel controls" aria-label="絞り込み">
+          <div class="panel-heading">
+            <p class="panel-kicker">条件</p>
+            <h2>絞り込み</h2>
+            <p>選んだワールドは次回も使えます。</p>
+          </div>
 
-        <label>
-          アイテム検索
-          <input
-            data-search
-            type="search"
-            placeholder="日本語名・英語名・ID"
-            autocomplete="off"
-          />
-        </label>
+          <label>
+            ワールド
+            <select data-world-select aria-label="ワールドを選択"></select>
+          </label>
 
-        <label>
-          並び替え
-          <select data-sort-by>
-            <option value="opportunityScore">おすすめ度</option>
-            <option value="marketValue">取引額</option>
-            <option value="quantitySold">売れた数</option>
-            <option value="avg">平均価格</option>
-            <option value="percentChange">価格変動</option>
-          </select>
-        </label>
+          <label>
+            アイテム検索
+            <input
+              data-search
+              type="search"
+              placeholder="日本語名・英語名・ID"
+              autocomplete="off"
+            />
+          </label>
 
-        <label class="range-control">
-          最低販売数 <span data-min-quantity-value>0</span>
-          <input data-min-quantity type="range" min="0" max="100" step="1" value="0" />
-        </label>
+          <label>
+            並び替え
+            <select data-sort-by>
+              <option value="opportunityScore">おすすめ度</option>
+              <option value="marketValue">取引額</option>
+              <option value="quantitySold">売れた数</option>
+              <option value="avg">平均価格</option>
+              <option value="percentChange">価格変動</option>
+            </select>
+          </label>
 
-        <fieldset>
-          <legend>状態</legend>
-          <label><input data-state-filter type="checkbox" value="stable" /> 安定</label>
-          <label><input data-state-filter type="checkbox" value="increasing" /> 上昇中</label>
-          <label><input data-state-filter type="checkbox" value="spiking" /> 急騰</label>
-          <label><input data-state-filter type="checkbox" value="out of stock" /> 在庫なし</label>
-          <label><input data-state-filter type="checkbox" value="decreasing" /> 値下がり</label>
-        </fieldset>
-      </section>
+          <label class="range-control">
+            最低販売数 <span data-min-quantity-value>0</span>
+            <input data-min-quantity type="range" min="0" max="100" step="1" value="0" />
+          </label>
 
-      <p data-error class="error" hidden></p>
+          <fieldset>
+            <legend>状態</legend>
+            <label><input data-state-filter type="checkbox" value="stable" /> 安定</label>
+            <label><input data-state-filter type="checkbox" value="increasing" /> 上昇中</label>
+            <label><input data-state-filter type="checkbox" value="spiking" /> 急騰</label>
+            <label><input data-state-filter type="checkbox" value="out of stock" /> 在庫なし</label>
+            <label><input data-state-filter type="checkbox" value="decreasing" /> 値下がり</label>
+          </fieldset>
+        </aside>
 
-      <section class="results" aria-label="金策候補">
-        <div class="results-header">
-          <h2>金策候補</h2>
-          <span data-result-count>- 件</span>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">順位</th>
-                <th scope="col">アイテム</th>
-                <th scope="col">取引額</th>
-                <th scope="col">平均価格</th>
-                <th scope="col">最安値</th>
-                <th scope="col">売れた数</th>
-                <th scope="col">価格変動</th>
-                <th scope="col">状態</th>
-              </tr>
-            </thead>
-            <tbody data-results></tbody>
-          </table>
-        </div>
-      </section>
-    </main>
+        <section class="results-panel results" aria-label="金策候補">
+          <p data-error class="error" hidden></p>
+          <div class="results-header">
+            <div>
+              <p class="panel-kicker">一覧</p>
+              <h2>金策候補</h2>
+            </div>
+            <span data-result-count>- 件</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">順位</th>
+                  <th scope="col">アイテム</th>
+                  <th scope="col">取引額</th>
+                  <th scope="col">平均価格</th>
+                  <th scope="col">最安値</th>
+                  <th scope="col">売れた数</th>
+                  <th scope="col">価格変動</th>
+                  <th scope="col">状態</th>
+                </tr>
+              </thead>
+              <tbody data-results></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
   </body>
 </html>

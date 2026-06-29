@@ -24,8 +24,8 @@ describe('app data loading contract', () => {
     assert.match(html, /class="app-shell"/);
     assert.match(html, /class="dashboard-grid"/);
     assert.match(html, /class="summary-strip"/);
-    assert.match(html, /class="filter-panel"/);
-    assert.match(html, /class="results-panel"/);
+    assert.match(html, /class="[^"]*\bfilter-panel\b[^"]*"/);
+    assert.match(html, /class="[^"]*\bresults-panel\b[^"]*"/);
     assert.match(html, /選んだワールドは次回も使えます/);
   });
 
