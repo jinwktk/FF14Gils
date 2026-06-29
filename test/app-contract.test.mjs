@@ -60,6 +60,15 @@ describe('app data loading contract', () => {
     assert.match(html, /選んだワールドは次回も使えます/);
   });
 
+  it('ダークデザインを使う', async () => {
+    const styles = await readFile(new URL('../styles.css', import.meta.url), 'utf8');
+
+    assert.match(styles, /color-scheme:\s*dark/);
+    assert.match(styles, /--bg:\s*#[0-1][0-9a-f]{5}/i);
+    assert.match(styles, /--surface:\s*#[0-2][0-9a-f]{5}/i);
+    assert.match(styles, /--text:\s*#e/i);
+  });
+
   it('重複する上部情報カードを表示しない', async () => {
     const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 
