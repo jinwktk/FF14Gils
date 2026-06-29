@@ -172,6 +172,16 @@ describe('app data loading contract', () => {
     assert.match(workflow, /cron:\s*['"]3-59\/10 \* \* \* \*['"]/);
     assert.ok(workflow.indexOf('run: npm run fetch:data') < workflow.indexOf('run: npm run build'));
   });
+
+  it('データ生成の既定カテゴリは全般にする', async () => {
+    const script = await readFile(
+      new URL('../scripts/fetch-marketshare.mjs', import.meta.url),
+      'utf8',
+    );
+
+    assert.match(script, /FF14GILS_PRESET\s*\?\?\s*['"]all['"]/);
+    assert.doesNotMatch(script, /FF14GILS_PRESET\s*\?\?\s*['"]housing['"]/);
+  });
 });
 
 async function readBrowserSources() {

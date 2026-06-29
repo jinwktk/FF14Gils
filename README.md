@@ -22,9 +22,9 @@ FF14 のマーケットデータから、金策候補を探すための GitHub P
     "timePeriod": 168,
     "salesAmount": 3,
     "averagePrice": 10000,
-    "preset": "housing",
+    "preset": "all",
     "sortBy": "marketValue",
-    "filters": [56, 65, 66, 67, 68, 69, 70, 71, 72, 81, 82]
+    "filters": [0]
   },
   "summary": {},
   "items": [
@@ -38,7 +38,7 @@ FF14 のマーケットデータから、金策候補を探すための GitHub P
 }
 ```
 
-ブラウザ側は `data/worlds.json` とワールド別 `data/worlds/<world>.json`、期間別 `data/worlds/<world>-<period>.json` のみを読み込み、Saddlebag Exchange API へ直接 POST しません。`data/marketshare.json` は既定ワールド・既定期間用の互換スナップショットです。未指定時は日本DCの32ワールドと 1日、3日、7日、1か月の期間別データを生成し、初期表示は `Hades` の `7日` です。`data/worlds.json` の各ワールドは `name`、`path`、`dataCenter`、`periods` を持ち、UIではDCごとのカテゴリとして表示します。1か月はSaddlebag Exchange APIの上限が7日までのため、7日候補アイテムを種にしてUniversalis履歴APIの30日販売履歴から売上額・売れた数・平均価格を再集計します。利用者が一度選んだワールドは `ff14gils_world` Cookie に保存し、次回表示時に優先します。アイテム名はXIVAPI v2の `language=ja` で補完し、日本語名を表示します。
+ブラウザ側は `data/worlds.json` とワールド別 `data/worlds/<world>.json`、期間別 `data/worlds/<world>-<period>.json` のみを読み込み、Saddlebag Exchange API へ直接 POST しません。`data/marketshare.json` は既定ワールド・既定期間用の互換スナップショットです。未指定時は日本DCの32ワールドと 1日、3日、7日、1か月の期間別データを全カテゴリで生成し、初期表示は `Hades` の `7日` です。`data/worlds.json` の各ワールドは `name`、`path`、`dataCenter`、`periods` を持ち、UIではDCごとのカテゴリとして表示します。1か月はSaddlebag Exchange APIの上限が7日までのため、7日候補アイテムを種にしてUniversalis履歴APIの30日販売履歴から売上額・売れた数・平均価格を再集計します。利用者が一度選んだワールドは `ff14gils_world` Cookie に保存し、次回表示時に優先します。アイテム名はXIVAPI v2の `language=ja` で補完し、日本語名を表示します。
 
 ## 開発コマンド
 
@@ -60,7 +60,7 @@ npm run serve
 - `FF14GILS_PERIODS`: 生成する売上期間。`1d`、`3d`、`7d`、`30d` をカンマ区切りで指定。未指定時は4期間すべて。
 - `FF14GILS_SALES_AMOUNT`: 最低販売回数。既定値は `3`。
 - `FF14GILS_AVERAGE_PRICE`: 最低平均価格。既定値は `10000`。
-- `FF14GILS_PRESET`: `housing`、`materials`、`consumables`、`collectibles`、`all`、`custom`。
+- `FF14GILS_PRESET`: `all`、`housing`、`materials`、`consumables`、`collectibles`、`custom`。未指定時は `all`。
 - `FF14GILS_CUSTOM_FILTERS`: `custom` 用のカテゴリ ID。
 - `FF14GILS_SORT_BY`: Saddlebag Exchange のソート項目。
 
@@ -113,3 +113,4 @@ npm run serve
 - 2026-06-29: Search Console のHTMLファイル確認用に `googled9f512eea3a99dc1.html` をルートへ追加し、`scripts/build.mjs` でPages配信対象に含める。
 - 2026-06-29: OGP画像から `Hades 初期表示 / 1日・3日・7日・1か月対応` の条件文言を削除し、タイトル、説明、URLだけの画像に再生成する。
 - 2026-06-29: OGP画像の上部バッジ文字が右端に詰まって見えたため、文字サイズとバッジ幅を調整して余白を確保する。
+- 2026-06-29: データがハウジング系カテゴリに限定されていたため、既定カテゴリを全般の `all` に変更する方針にする。TDDとして `buildMarketsharePayload` と `scripts/fetch-marketshare.mjs` の既定値を固定する赤テストを追加し、失敗を確認。

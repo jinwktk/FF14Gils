@@ -46,6 +46,18 @@ const apiResponse = {
 };
 
 describe('buildMarketsharePayload', () => {
+  it('プリセット未指定時は全カテゴリを取得する', () => {
+    const payload = buildMarketsharePayload({
+      server: 'Hades',
+      timePeriod: 168,
+      salesAmount: 3,
+      averagePrice: 10000,
+      sortBy: 'marketValue',
+    });
+
+    assert.deepEqual(payload.filters, CATEGORY_PRESETS.all.filters);
+  });
+
   it('Saddlebag Exchangeの必須パラメータに変換する', () => {
     const payload = buildMarketsharePayload({
       server: 'Carbuncle',
