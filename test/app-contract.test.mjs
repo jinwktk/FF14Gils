@@ -104,6 +104,31 @@ describe('app data loading contract', () => {
     assert.match(html, /<script type="application\/ld\+json">/);
   });
 
+  it('Google検索向けのクロール設定とsitemap案内を持つ', async () => {
+    const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+    const robots = await readFile(new URL('../robots.txt', import.meta.url), 'utf8');
+    const sitemap = await readFile(new URL('../sitemap.xml', import.meta.url), 'utf8');
+
+    assert.match(html, /<meta name="googlebot" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"/);
+    assert.match(html, /<link rel="sitemap" type="application\/xml" title="Sitemap" href="https:\/\/jinwktk\.github\.io\/FF14Gils\/sitemap\.xml"/);
+    assert.match(robots, /User-agent:\s*\*/);
+    assert.match(robots, /Allow:\s*\//);
+    assert.match(robots, /Sitemap:\s*https:\/\/jinwktk\.github\.io\/FF14Gils\/sitemap\.xml/);
+    assert.match(sitemap, /<loc>https:\/\/jinwktk\.github\.io\/FF14Gils\/<\/loc>/);
+  });
+
+  it('ヘッダーにKo-fiの支援リンクを持つ', async () => {
+    const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+    const icon = await readFile(new URL('../assets/ko-fi.svg', import.meta.url), 'utf8');
+
+    assert.match(html, /class="kofi-link"/);
+    assert.match(html, /href="https:\/\/ko-fi\.com\/jinwktk"/);
+    assert.match(html, /aria-label="Ko-fiで支援する"/);
+    assert.match(html, /assets\/ko-fi\.svg/);
+    assert.match(icon, /<svg/);
+    assert.match(icon, /Ko-fi/);
+  });
+
   it('OGP画像と検索クローラー向けファイルを配信対象に含める', async () => {
     const build = await readFile(new URL('../scripts/build.mjs', import.meta.url), 'utf8');
     const ogImage = await readFile(new URL('../assets/og-image.png', import.meta.url));

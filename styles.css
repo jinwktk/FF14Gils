@@ -69,11 +69,65 @@ a:hover {
 }
 
 .brand-block {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: space-between;
   min-height: 0;
   padding: 22px 24px;
   background:
     linear-gradient(135deg, rgba(57, 200, 189, 0.16), rgba(244, 189, 80, 0.08) 46%, rgba(18, 26, 38, 0) 70%),
     var(--surface);
+}
+
+.brand-copy {
+  min-width: 0;
+}
+
+.header-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.kofi-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(57, 200, 189, 0.42);
+  border-radius: 8px;
+  background: #101820;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+}
+
+.kofi-link:hover {
+  border-color: var(--accent-strong);
+  background: #13202a;
+}
+
+.kofi-link:focus-visible {
+  outline: 3px solid rgba(57, 200, 189, 0.28);
+  outline-offset: 2px;
+}
+
+.kofi-link img {
+  display: block;
+  width: 28px;
+  height: 28px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .eyebrow,
@@ -429,7 +483,15 @@ td:nth-child(2) {
   }
 
   .brand-block {
-    padding: 16px;
+    position: relative;
+    display: block;
+    padding: 16px 74px 16px 16px;
+  }
+
+  .header-actions {
+    position: absolute;
+    top: 16px;
+    right: 16px;
   }
 
   h1 {

@@ -68,6 +68,13 @@ npm run serve
 
 `.github/workflows/pages.yml` は GitHub Pages を GitHub Actions 経由で有効化し、`workflow_dispatch`、10分ごとの schedule、`master`/`main` への push で動きます。schedule は毎時 03、13、23、33、43、53 分に実行し、毎時ちょうどの混雑を避けます。ブラウザからSaddlebag APIを直接POSTする方式はCORSで失敗するため、ActionsがAPIを呼び出して静的JSONを更新します。
 
+## 検索と支援リンク
+
+- Google検索向けに `index.html` へ `robots`、`googlebot`、canonical、OG/Twitter、JSON-LD、sitemapリンクを置きます。
+- `robots.txt` は全体クロールを許可し、`https://jinwktk.github.io/FF14Gils/sitemap.xml` を案内します。
+- Google Search Console 連携で確認できた登録済みプロパティは `sc-domain:rukalun.mydns.jp` のみです。`https://jinwktk.github.io/FF14Gils/` をSearch Consoleに追加した後、sitemapを送信します。
+- ヘッダー右上にKo-fi支援アイコンを置き、リンク先は `https://ko-fi.com/jinwktk` です。ユーザー名を変更する場合は `index.html` のリンクとJSON-LDの `sameAs` を更新します。
+
 ## 現在の作業状況
 
 - 2026-06-29: 空リポジトリから開始。
@@ -98,3 +105,7 @@ npm run serve
 - 2026-06-29: Saddlebag Exchange APIは1か月指定を拒否するため、1か月データはUniversalis履歴APIで集計する構成に変更。
 - 2026-06-29: 共有時の見栄えと検索向けに、生成したOGP画像、OG/Twitterメタ、canonical、description、JSON-LD、robots.txt、sitemap.xml を追加する方針にする。
 - 2026-06-29: 生成画像を `assets/og-image.png` として保存し、OGP/Twitterカードに設定。`robots.txt` と `sitemap.xml` もビルド成果物へ含める。
+- 2026-06-29: Google検索向けに `googlebot` メタと sitemap の `<link rel="sitemap">` を追加する方針にする。Google公式では古い sitemap ping は非推奨のため、サイト側のクロール許可とSearch Consoleへのsitemap送信を前提にする。
+- 2026-06-29: Search Console 連携で登録済みプロパティを確認したところ `sc-domain:rukalun.mydns.jp` のみで、`jinwktk.github.io/FF14Gils` は未登録。コード側のSEO設定を先に整備する。
+- 2026-06-29: ヘッダー右上にKo-fi支援アイコンを追加し、`assets/ko-fi.svg` をローカル配信する方針にする。
+- 2026-06-29: モバイル幅ではKo-fiアイコンをヘッダー右上に固定し、CDPで横はみ出しなし、アイコン読込済みを確認。
