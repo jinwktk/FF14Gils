@@ -4,6 +4,7 @@ import { describe, it } from 'node:test';
 import {
   CATEGORY_PRESETS,
   assertMarketshareResponse,
+  createSnapshot,
   filterMarketshareItems,
   formatGil,
   normalizeMarketshareResponse,
@@ -111,6 +112,33 @@ describe('normalizeMarketshareResponse', () => {
   });
 });
 
+describe('createSnapshot', () => {
+  it('日本語アイテム名があれば表示名として使い、英語名も保持する', () => {
+    const snapshot = createSnapshot({
+      query: {
+        server: 'Carbuncle',
+        timePeriod: 168,
+        salesAmount: 3,
+        averagePrice: 10000,
+        preset: 'housing',
+        sortBy: 'marketValue',
+        filters: CATEGORY_PRESETS.housing.filters,
+      },
+      response: apiResponse,
+      source: 'test',
+      itemNames: {
+        51269: 'ガーデン・パーティライト',
+      },
+      generatedAt: '2026-06-29T00:00:00.000Z',
+    });
+
+    assert.equal(snapshot.items[0].name, 'ガーデン・パーティライト');
+    assert.equal(snapshot.items[0].nameJa, 'ガーデン・パーティライト');
+    assert.equal(snapshot.items[0].nameEn, 'Garden Mood Lighting');
+    assert.equal(snapshot.summary.topItem.name, 'ガーデン・パーティライト');
+  });
+});
+
 describe('assertMarketshareResponse', () => {
   it('dataが配列ではないAPIレスポンスを拒否する', () => {
     assert.throws(() => assertMarketshareResponse({ error: 'bad shape' }), /data/);
@@ -159,9 +187,22 @@ describe('summarizeMarketshare', () => {
 
 describe('filterMarketshareItems', () => {
   it('検索語、状態、最低販売数で絞り込む', () => {
-    const items = normalizeMarketshareResponse(apiResponse);
+    const items = createSnapshot({
+      query: {
+        server: 'Carbuncle',
+        timePeriod: 168,
+        salesAmount: 3,
+        averagePrice: 10000,
+        preset: 'housing',
+        sortBy: 'marketValue',
+        filters: CATEGORY_PRESETS.housing.filters,
+      },
+      response: apiResponse,
+      source: 'test',
+      itemNames: { 51269: 'ガーデン・パーティライト' },
+    }).items;
     const filtered = filterMarketshareItems(items, {
-      search: 'garden',
+      search: 'ガーデン',
       states: ['stable'],
       minQuantitySold: 10,
     });
@@ -171,11 +212,33 @@ describe('filterMarketshareItems', () => {
       ['51269'],
     );
   });
+
+  it('日本語表示後も英語名で検索できる', () => {
+    const items = createSnapshot({
+      query: {
+        server: 'Carbuncle',
+        timePeriod: 168,
+        salesAmount: 3,
+        averagePrice: 10000,
+        preset: 'housing',
+        sortBy: 'marketValue',
+        filters: CATEGORY_PRESETS.housing.filters,
+      },
+      response: apiResponse,
+      source: 'test',
+      itemNames: { 51269: 'ガーデン・パーティライト' },
+    }).items;
+
+    assert.deepEqual(
+      filterMarketshareItems(items, { search: 'garden' }).map((item) => item.itemId),
+      ['51269'],
+    );
+  });
 });
 
 describe('formatGil', () => {
   it('ギル表記を3桁区切りにする', () => {
-    assert.equal(formatGil(39731558), '39,731,558 gil');
+    assert.equal(formatGil(39731558), '39,731,558 ギル');
     assert.equal(formatGil(null), '-');
   });
 });

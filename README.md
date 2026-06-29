@@ -74,3 +74,4 @@ npm run serve
 - 2026-06-29: UltraQA で通常表示、悪意ある JSON、壊れた JSON、API schema 異常拒否、Chrome デスクトップ/モバイル操作を確認。
 - 2026-06-29: ワールド選択 UI を追加し、`data/worlds.json` とワールド別スナップショット32件を生成。Chrome smoke で `Carbuncle` から `Chocobo` への切替、表示更新、console error なしを確認。
 - 2026-06-29: Pages workflow の初回公開失敗を受け、`actions/configure-pages` に `enablement: true` を設定。
+- 2026-06-29: 日本人利用者向けに、アイテム名の日本語化と `ギル` 表記、自然な日本語UIへ寄せるテスト仕様を追加。
