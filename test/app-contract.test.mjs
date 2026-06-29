@@ -7,9 +7,15 @@ describe('app data loading contract', () => {
     const sources = await readBrowserSources();
     const joined = sources.map((source) => source.content).join('\n');
 
-    assert.match(joined, /data\/marketshare\.json/);
+    assert.match(joined, /data\/worlds\.json/);
     assert.doesNotMatch(joined, /api\.saddlebagexchange\.com\/api\/ffxivmarketshare/);
     assert.doesNotMatch(joined, /method\s*:\s*['"]POST['"]/i);
+  });
+
+  it('ワールド選択UIを持つ', async () => {
+    const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+
+    assert.match(html, /data-world-select/);
   });
 
   it('Pages workflowはデプロイ前にテストを実行する', async () => {

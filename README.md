@@ -31,7 +31,7 @@ FF14 のマーケットデータから、金策候補を探すための GitHub P
 }
 ```
 
-ブラウザ側は `data/marketshare.json` のみを読み込み、Saddlebag Exchange API へ直接 POST しません。
+ブラウザ側は `data/worlds.json` とワールド別 `data/worlds/<world>.json` のみを読み込み、Saddlebag Exchange API へ直接 POST しません。`data/marketshare.json` は既定ワールド用の互換スナップショットです。
 
 ## 開発コマンド
 
@@ -49,6 +49,7 @@ npm run serve
 `npm run fetch:data` は以下の環境変数で取得条件を変更できます。
 
 - `FF14GILS_SERVER`: ワールド名。既定値は `Carbuncle`。
+- `FF14GILS_WORLDS`: 生成するワールド名のカンマ区切り。未指定時は日本 DC の主要ワールドを生成。
 - `FF14GILS_TIME_PERIOD`: 集計期間の時間数。既定値は `168`。
 - `FF14GILS_SALES_AMOUNT`: 最低販売回数。既定値は `3`。
 - `FF14GILS_AVERAGE_PRICE`: 最低平均価格。既定値は `10000`。
@@ -71,3 +72,4 @@ npm run serve
 - 2026-06-29: `npm test`、`npm run build`、Chrome によるデスクトップ/モバイル UI スモークテストを通過。
 - 2026-06-29: code-review で指摘された XSS 対策、API schema 検証、Pages の `npm test` gate、ブラウザ配信対象の契約テストを修正し、最終レビューは `APPROVE/CLEAR`。
 - 2026-06-29: UltraQA で通常表示、悪意ある JSON、壊れた JSON、API schema 異常拒否、Chrome デスクトップ/モバイル操作を確認。
+- 2026-06-29: ワールド選択 UI のため、`data/worlds.json` とワールド別スナップショットを追加する方針に変更。
