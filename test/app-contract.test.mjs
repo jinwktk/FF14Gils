@@ -1,5 +1,5 @@
 import { strict as assert } from 'node:assert';
-import { readdir, readFile } from 'node:fs/promises';
+import { access, readdir, readFile } from 'node:fs/promises';
 import { describe, it } from 'node:test';
 
 describe('app data loading contract', () => {
@@ -88,6 +88,31 @@ describe('app data loading contract', () => {
     assert.doesNotMatch(html, /data-item-count/);
     assert.doesNotMatch(html, /data-total-market-value/);
     assert.doesNotMatch(html, /data-top-item/);
+  });
+
+  it('OGPとSEO向けのメタ情報を持つ', async () => {
+    const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+
+    assert.match(html, /<meta name="description" content="FF14のマーケット/);
+    assert.match(html, /<link rel="canonical" href="https:\/\/jinwktk\.github\.io\/FF14Gils\/"/);
+    assert.match(html, /<meta property="og:type" content="website"/);
+    assert.match(html, /<meta property="og:title" content="FF14Gils/);
+    assert.match(html, /<meta property="og:image" content="https:\/\/jinwktk\.github\.io\/FF14Gils\/assets\/og-image\.png"/);
+    assert.match(html, /<meta property="og:image:width" content="1200"/);
+    assert.match(html, /<meta property="og:image:height" content="630"/);
+    assert.match(html, /<meta name="twitter:card" content="summary_large_image"/);
+    assert.match(html, /<script type="application\/ld\+json">/);
+  });
+
+  it('OGP画像と検索クローラー向けファイルを配信対象に含める', async () => {
+    const build = await readFile(new URL('../scripts/build.mjs', import.meta.url), 'utf8');
+
+    await access(new URL('../assets/og-image.png', import.meta.url));
+    await access(new URL('../robots.txt', import.meta.url));
+    await access(new URL('../sitemap.xml', import.meta.url));
+    assert.match(build, /'assets'/);
+    assert.match(build, /'robots\.txt'/);
+    assert.match(build, /'sitemap\.xml'/);
   });
 
   it('Pages workflowはデプロイ前にテストを実行する', async () => {
