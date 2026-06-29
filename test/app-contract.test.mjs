@@ -100,13 +100,13 @@ describe('app data loading contract', () => {
     assert.ok(workflow.indexOf('run: npm test') < workflow.indexOf('run: npm run fetch:data'));
   });
 
-  it('Pages workflowはAPIデータを毎時更新する', async () => {
+  it('Pages workflowはAPIデータを10分ごとに更新する', async () => {
     const workflow = await readFile(
       new URL('../.github/workflows/pages.yml', import.meta.url),
       'utf8',
     );
 
-    assert.match(workflow, /cron:\s*['"]12 \* \* \* \*['"]/);
+    assert.match(workflow, /cron:\s*['"]3-59\/10 \* \* \* \*['"]/);
     assert.ok(workflow.indexOf('run: npm run fetch:data') < workflow.indexOf('run: npm run build'));
   });
 });

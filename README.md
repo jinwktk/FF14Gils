@@ -66,7 +66,7 @@ npm run serve
 
 ## GitHub Pages
 
-`.github/workflows/pages.yml` は GitHub Pages を GitHub Actions 経由で有効化し、`workflow_dispatch`、1時間ごとの schedule、`master`/`main` への push で動きます。ブラウザからSaddlebag APIを直接POSTする方式はCORSで失敗するため、ActionsがAPIを呼び出して静的JSONを更新します。
+`.github/workflows/pages.yml` は GitHub Pages を GitHub Actions 経由で有効化し、`workflow_dispatch`、10分ごとの schedule、`master`/`main` への push で動きます。schedule は毎時 03、13、23、33、43、53 分に実行し、毎時ちょうどの混雑を避けます。ブラウザからSaddlebag APIを直接POSTする方式はCORSで失敗するため、ActionsがAPIを呼び出して静的JSONを更新します。
 
 ## 現在の作業状況
 
@@ -83,7 +83,7 @@ npm run serve
 - 2026-06-29: Pages workflow の初回公開失敗を受け、`actions/configure-pages` に `enablement: true` を設定。
 - 2026-06-29: 日本人利用者向けに、アイテム名の日本語化と `ギル` 表記、自然な日本語UIへ寄せるテスト仕様を追加。
 - 2026-06-29: 初期表示ワールドを `Hades` に変更し、選択したワールドをCookieへ保持するテスト仕様を追加。
-- 2026-06-29: ブラウザからSaddlebag APIへの直接POSTはCORSで失敗することを確認し、GitHub ActionsのAPI取得を毎時更新にするテスト仕様を追加。
+- 2026-06-29: ブラウザからSaddlebag APIへの直接POSTはCORSで失敗することを確認し、GitHub ActionsのAPI取得を10分ごと更新にするテスト仕様を追加。Saddlebag marketshare は更新時刻を返さないため、完全な更新検知ではなく短時間の実測に基づくCron更新にする。
 - 2026-06-29: `src/preferences.js` を追加し、選択したワールドをCookieで180日保持。既定ワールドを `Hades` に変更。
 - 2026-06-29: `scripts/item-name-api.mjs` を追加し、XIVAPI v2から日本語アイテム名を取得して `data/item-names-ja.json` と各ワールドJSONへ反映。
 - 2026-06-29: 使いやすいダッシュボード構造のため、集計ストリップ、絞り込みパネル、結果パネルのHTML契約テストを追加。
