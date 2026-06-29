@@ -73,6 +73,7 @@ npm run serve
 - Google検索向けに `index.html` へ `robots`、`googlebot`、canonical、OG/Twitter、JSON-LD、sitemapリンクを置きます。
 - `robots.txt` は全体クロールを許可し、`https://jinwktk.github.io/FF14Gils/sitemap.xml` を案内します。
 - Google Search Console 連携で確認できた登録済みプロパティは `sc-domain:rukalun.mydns.jp` のみです。`https://jinwktk.github.io/FF14Gils/` をSearch Consoleに追加した後、sitemapを送信します。
+- Search Console のHTMLファイル確認用に `googled9f512eea3a99dc1.html` をサイトルートへ配信します。確認状態を維持するため、このファイルは削除しません。
 - ヘッダー右上にKo-fi支援アイコンを置き、リンク先は `https://ko-fi.com/jinwktk` です。ユーザー名を変更する場合は `index.html` のリンクとJSON-LDの `sameAs` を更新します。
 
 ## 現在の作業状況
@@ -109,3 +110,4 @@ npm run serve
 - 2026-06-29: Search Console 連携で登録済みプロパティを確認したところ `sc-domain:rukalun.mydns.jp` のみで、`jinwktk.github.io/FF14Gils` は未登録。コード側のSEO設定を先に整備する。
 - 2026-06-29: ヘッダー右上にKo-fi支援アイコンを追加し、`assets/ko-fi.svg` をローカル配信する方針にする。
 - 2026-06-29: モバイル幅ではKo-fiアイコンをヘッダー右上に固定し、CDPで横はみ出しなし、アイコン読込済みを確認。
+- 2026-06-29: Search Console のHTMLファイル確認用に `googled9f512eea3a99dc1.html` をルートへ追加し、`scripts/build.mjs` でPages配信対象に含める。

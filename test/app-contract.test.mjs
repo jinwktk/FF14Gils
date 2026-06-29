@@ -117,6 +117,17 @@ describe('app data loading contract', () => {
     assert.match(sitemap, /<loc>https:\/\/jinwktk\.github\.io\/FF14Gils\/<\/loc>/);
   });
 
+  it('Google Search ConsoleのHTML確認ファイルをPages配信対象に含める', async () => {
+    const build = await readFile(new URL('../scripts/build.mjs', import.meta.url), 'utf8');
+    const verification = await readFile(
+      new URL('../googled9f512eea3a99dc1.html', import.meta.url),
+      'utf8',
+    );
+
+    assert.equal(verification.trim(), 'google-site-verification: googled9f512eea3a99dc1.html');
+    assert.match(build, /'googled9f512eea3a99dc1\.html'/);
+  });
+
   it('ヘッダーにKo-fiの支援リンクを持つ', async () => {
     const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
     const icon = await readFile(new URL('../assets/ko-fi.svg', import.meta.url), 'utf8');
