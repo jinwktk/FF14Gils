@@ -37,7 +37,7 @@ const periods = parseSalesPeriodList(process.env.FF14GILS_PERIODS);
 const query = {
   salesAmount: process.env.FF14GILS_SALES_AMOUNT ?? 3,
   averagePrice: process.env.FF14GILS_AVERAGE_PRICE ?? 10000,
-  preset: process.env.FF14GILS_PRESET ?? 'housing',
+  preset: process.env.FF14GILS_PRESET ?? 'all',
   sortBy: process.env.FF14GILS_SORT_BY ?? 'marketValue',
   customFilters: process.env.FF14GILS_CUSTOM_FILTERS ?? '',
 };

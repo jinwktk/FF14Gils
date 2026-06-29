@@ -8,7 +8,7 @@ export function buildMarketsharePayload({
   timePeriod,
   salesAmount,
   averagePrice,
-  preset = 'housing',
+  preset = 'all',
   customFilters = '',
   sortBy = 'marketValue',
 }) {

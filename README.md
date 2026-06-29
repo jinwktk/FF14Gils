@@ -114,3 +114,4 @@ npm run serve
 - 2026-06-29: OGP画像から `Hades 初期表示 / 1日・3日・7日・1か月対応` の条件文言を削除し、タイトル、説明、URLだけの画像に再生成する。
 - 2026-06-29: OGP画像の上部バッジ文字が右端に詰まって見えたため、文字サイズとバッジ幅を調整して余白を確保する。
 - 2026-06-29: データがハウジング系カテゴリに限定されていたため、既定カテゴリを全般の `all` に変更する方針にする。TDDとして `buildMarketsharePayload` と `scripts/fetch-marketshare.mjs` の既定値を固定する赤テストを追加し、失敗を確認。
+- 2026-06-29: `scripts/marketshare-api.mjs` と `scripts/fetch-marketshare.mjs` の既定プリセットを `all` に変更し、`npm run fetch:data` で日本DC 32ワールド x 4期間の128スナップショットを全カテゴリで再生成。既定の `data/marketshare.json` は `Hades`、`7d`、`filters: [0]`、199件になった。
