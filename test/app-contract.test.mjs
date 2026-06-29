@@ -18,6 +18,19 @@ describe('app data loading contract', () => {
     assert.match(html, /data-world-select/);
   });
 
+  it('売上の集計期間を選択できる', async () => {
+    const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+    const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');
+
+    assert.match(html, /data-period-select/);
+    assert.match(html, /1日/);
+    assert.match(html, /3日/);
+    assert.match(html, /7日/);
+    assert.match(html, /1か月/);
+    assert.match(app, /periodSelect/);
+    assert.match(app, /selectedPeriod/);
+  });
+
   it('ワールド選択はDCごとのカテゴリを描画する', async () => {
     const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');
 
