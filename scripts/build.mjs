@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const dist = fileURLToPath(new URL('../dist/', import.meta.url));
-const entries = ['index.html', 'styles.css', 'src', 'data'];
+const entries = ['index.html', 'styles.css', 'src', 'data', 'assets', 'robots.txt', 'sitemap.xml'];
 
 await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });

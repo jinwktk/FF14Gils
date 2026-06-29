@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jinwktk.github.io/FF14Gils/sitemap.xml

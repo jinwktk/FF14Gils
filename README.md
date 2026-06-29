@@ -97,3 +97,4 @@ npm run serve
 - 2026-06-29: 一覧ヘッダーにスナップショットの最終更新日時を表示する方針にする。上部の重複カードは戻さず、件数の近くに小さく表示する。
 - 2026-06-29: Saddlebag Exchange APIは1か月指定を拒否するため、1か月データはUniversalis履歴APIで集計する構成に変更。
 - 2026-06-29: 共有時の見栄えと検索向けに、生成したOGP画像、OG/Twitterメタ、canonical、description、JSON-LD、robots.txt、sitemap.xml を追加する方針にする。
+- 2026-06-29: 生成画像を `assets/og-image.png` として保存し、OGP/Twitterカードに設定。`robots.txt` と `sitemap.xml` もビルド成果物へ含める。

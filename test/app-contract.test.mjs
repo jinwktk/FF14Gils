@@ -106,10 +106,12 @@ describe('app data loading contract', () => {
 
   it('OGP画像と検索クローラー向けファイルを配信対象に含める', async () => {
     const build = await readFile(new URL('../scripts/build.mjs', import.meta.url), 'utf8');
+    const ogImage = await readFile(new URL('../assets/og-image.png', import.meta.url));
 
     await access(new URL('../assets/og-image.png', import.meta.url));
     await access(new URL('../robots.txt', import.meta.url));
     await access(new URL('../sitemap.xml', import.meta.url));
+    assert.deepEqual(readPngSize(ogImage), { width: 1200, height: 630 });
     assert.match(build, /'assets'/);
     assert.match(build, /'robots\.txt'/);
     assert.match(build, /'sitemap\.xml'/);
@@ -148,4 +150,11 @@ async function readBrowserSources() {
         content: await readFile(new URL(entry, srcDir), 'utf8'),
       })),
   );
+}
+
+function readPngSize(buffer) {
+  return {
+    width: buffer.readUInt32BE(16),
+    height: buffer.readUInt32BE(20),
+  };
 }
