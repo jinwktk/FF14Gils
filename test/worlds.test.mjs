@@ -45,7 +45,7 @@ describe('createWorldIndex', () => {
 
 describe('resolveDefaultWorld', () => {
   it('指定がない場合は既定ワールドを優先する', () => {
-    assert.equal(resolveDefaultWorld(['Aegis', 'Carbuncle', 'Chocobo']), 'Carbuncle');
+    assert.equal(resolveDefaultWorld(['Aegis', 'Carbuncle', 'Hades']), 'Hades');
   });
 
   it('環境変数で指定されたワールドが一覧にあればそれを優先する', () => {

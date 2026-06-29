@@ -31,7 +31,7 @@ FF14 のマーケットデータから、金策候補を探すための GitHub P
 }
 ```
 
-ブラウザ側は `data/worlds.json` とワールド別 `data/worlds/<world>.json` のみを読み込み、Saddlebag Exchange API へ直接 POST しません。`data/marketshare.json` は既定ワールド用の互換スナップショットです。未指定時は日本DCの32ワールドを生成し、初期表示は `Carbuncle` です。
+ブラウザ側は `data/worlds.json` とワールド別 `data/worlds/<world>.json` のみを読み込み、Saddlebag Exchange API へ直接 POST しません。`data/marketshare.json` は既定ワールド用の互換スナップショットです。未指定時は日本DCの32ワールドを生成し、初期表示は `Hades` です。利用者が一度選んだワールドはCookieに保存し、次回表示時に優先します。
 
 ## 開発コマンド
 
@@ -48,7 +48,7 @@ npm run serve
 
 `npm run fetch:data` は以下の環境変数で取得条件を変更できます。
 
-- `FF14GILS_SERVER`: 初期表示するワールド名。生成対象に含まれる場合だけ優先され、未指定時は `Carbuncle`。
+- `FF14GILS_SERVER`: 初期表示するワールド名。生成対象に含まれる場合だけ優先され、未指定時は `Hades`。
 - `FF14GILS_WORLDS`: 生成するワールド名のカンマ区切り。未指定時は日本 DC の主要ワールドを生成。
 - `FF14GILS_TIME_PERIOD`: 集計期間の時間数。既定値は `168`。
 - `FF14GILS_SALES_AMOUNT`: 最低販売回数。既定値は `3`。
@@ -59,7 +59,7 @@ npm run serve
 
 ## GitHub Pages
 
-`.github/workflows/pages.yml` は GitHub Pages を GitHub Actions 経由で有効化し、`workflow_dispatch`、6時間ごとの schedule、`master`/`main` への push で動きます。
+`.github/workflows/pages.yml` は GitHub Pages を GitHub Actions 経由で有効化し、`workflow_dispatch`、1時間ごとの schedule、`master`/`main` への push で動きます。ブラウザからSaddlebag APIを直接POSTする方式はCORSで失敗するため、ActionsがAPIを呼び出して静的JSONを更新します。
 
 ## 現在の作業状況
 
@@ -75,3 +75,5 @@ npm run serve
 - 2026-06-29: ワールド選択 UI を追加し、`data/worlds.json` とワールド別スナップショット32件を生成。Chrome smoke で `Carbuncle` から `Chocobo` への切替、表示更新、console error なしを確認。
 - 2026-06-29: Pages workflow の初回公開失敗を受け、`actions/configure-pages` に `enablement: true` を設定。
 - 2026-06-29: 日本人利用者向けに、アイテム名の日本語化と `ギル` 表記、自然な日本語UIへ寄せるテスト仕様を追加。
+- 2026-06-29: 初期表示ワールドを `Hades` に変更し、選択したワールドをCookieへ保持するテスト仕様を追加。
+- 2026-06-29: ブラウザからSaddlebag APIへの直接POSTはCORSで失敗することを確認し、GitHub ActionsのAPI取得を毎時更新にするテスト仕様を追加。

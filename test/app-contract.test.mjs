@@ -27,6 +27,16 @@ describe('app data loading contract', () => {
     assert.match(workflow, /run:\s*npm test/);
     assert.ok(workflow.indexOf('run: npm test') < workflow.indexOf('run: npm run fetch:data'));
   });
+
+  it('Pages workflowはAPIデータを毎時更新する', async () => {
+    const workflow = await readFile(
+      new URL('../.github/workflows/pages.yml', import.meta.url),
+      'utf8',
+    );
+
+    assert.match(workflow, /cron:\s*['"]12 \* \* \* \*['"]/);
+    assert.ok(workflow.indexOf('run: npm run fetch:data') < workflow.indexOf('run: npm run build'));
+  });
 });
 
 async function readBrowserSources() {
