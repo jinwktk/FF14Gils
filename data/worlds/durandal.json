@@ -1,8 +1,10 @@
 {
-  "generatedAt": "2026-06-29T09:42:30.619Z",
+  "generatedAt": "2026-06-29T10:49:48.377Z",
   "source": "https://api.saddlebagexchange.com/api/ffxivmarketshare",
   "query": {
     "server": "Durandal",
+    "periodKey": "7d",
+    "periodLabel": "7日",
     "timePeriod": 168,
     "salesAmount": 3,
     "averagePrice": 10000,
@@ -23,11 +25,11 @@
     ]
   },
   "summary": {
-    "itemCount": 120,
-    "totalMarketValue": 159956739,
-    "totalQuantitySold": 1400,
+    "itemCount": 121,
+    "totalMarketValue": 162666596,
+    "totalQuantitySold": 1405,
     "stateCounts": {
-      "stable": 83,
+      "stable": 84,
       "increasing": 18,
       "spiking": 8,
       "out of stock": 3,
@@ -35,44 +37,44 @@
       "crashing": 1
     },
     "topItem": {
-      "avg": 1226219,
+      "avg": 1225097,
       "itemId": "51269",
-      "marketValue": 22071946,
-      "median": 1218978,
+      "marketValue": 24501946,
+      "median": 1216978,
       "minPrice": 1215000,
       "name": "ガーデン・パーティライト",
       "nameEn": "Garden Mood Lighting",
       "nameJa": "ガーデン・パーティライト",
       "npcVendorInfo": "",
-      "percentChange": -0.91,
-      "purchaseAmount": 18,
-      "quantitySold": 18,
+      "percentChange": -0.82,
+      "purchaseAmount": 20,
+      "quantitySold": 20,
       "state": "stable",
       "url": "https://universalis.app/market/51269",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 267.9
+      "opportunityScore": 288.5
     }
   },
   "items": [
     {
-      "avg": 1226219,
+      "avg": 1225097,
       "itemId": "51269",
-      "marketValue": 22071946,
-      "median": 1218978,
+      "marketValue": 24501946,
+      "median": 1216978,
       "minPrice": 1215000,
       "name": "ガーデン・パーティライト",
       "nameEn": "Garden Mood Lighting",
       "nameJa": "ガーデン・パーティライト",
       "npcVendorInfo": "",
-      "percentChange": -0.91,
-      "purchaseAmount": 18,
-      "quantitySold": 18,
+      "percentChange": -0.82,
+      "purchaseAmount": 20,
+      "quantitySold": 20,
       "state": "stable",
       "url": "https://universalis.app/market/51269",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 267.9
+      "opportunityScore": 288.5
     },
     {
       "avg": 994287,
@@ -379,6 +381,25 @@
       "opportunityScore": 239.5
     },
     {
+      "avg": 56917,
+      "itemId": "32249",
+      "marketValue": 1138357,
+      "median": 59000,
+      "minPrice": 60000,
+      "name": "スクウェアペイヴド・ブリック",
+      "nameEn": "Brick Paving",
+      "nameJa": "スクウェアペイヴド・ブリック",
+      "npcVendorInfo": "",
+      "percentChange": 5.42,
+      "purchaseAmount": 20,
+      "quantitySold": 20,
+      "state": "stable",
+      "url": "https://universalis.app/market/32249",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 274
+    },
+    {
       "avg": 36480,
       "itemId": "16781",
       "marketValue": 1130907,
@@ -417,25 +438,6 @@
       "opportunityScore": 653.9
     },
     {
-      "avg": 56766,
-      "itemId": "32249",
-      "marketValue": 1078557,
-      "median": 59000,
-      "minPrice": 59800,
-      "name": "スクウェアペイヴド・ブリック",
-      "nameEn": "Brick Paving",
-      "nameJa": "スクウェアペイヴド・ブリック",
-      "npcVendorInfo": "",
-      "percentChange": 5.34,
-      "purchaseAmount": 19,
-      "quantitySold": 19,
-      "state": "stable",
-      "url": "https://universalis.app/market/32249",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 263.7
-    },
-    {
       "avg": 19934,
       "itemId": "44122",
       "marketValue": 956863,
@@ -455,25 +457,6 @@
       "opportunityScore": 551.9
     },
     {
-      "avg": 93659,
-      "itemId": "40643",
-      "marketValue": 936595,
-      "median": 92000,
-      "minPrice": 104520,
-      "name": "ヴィンテージサイドテーブル",
-      "nameEn": "Vintage Side Table",
-      "nameJa": "ヴィンテージサイドテーブル",
-      "npcVendorInfo": "",
-      "percentChange": 11.6,
-      "purchaseAmount": 10,
-      "quantitySold": 10,
-      "state": "stable",
-      "url": "https://universalis.app/market/40643",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 174.6
-    },
-    {
       "avg": 37155,
       "itemId": "44879",
       "marketValue": 928899,
@@ -491,6 +474,25 @@
       "hasListings": true,
       "recommendationLevel": "steady",
       "opportunityScore": 320.8
+    },
+    {
+      "avg": 93843,
+      "itemId": "40643",
+      "marketValue": 844595,
+      "median": 92000,
+      "minPrice": 104520,
+      "name": "ヴィンテージサイドテーブル",
+      "nameEn": "Vintage Side Table",
+      "nameJa": "ヴィンテージサイドテーブル",
+      "npcVendorInfo": "",
+      "percentChange": 11.38,
+      "purchaseAmount": 9,
+      "quantitySold": 9,
+      "state": "stable",
+      "url": "https://universalis.app/market/40643",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 164
     },
     {
       "avg": 55808,
@@ -1120,6 +1122,25 @@
       "opportunityScore": 168.6
     },
     {
+      "avg": 78739,
+      "itemId": "23897",
+      "marketValue": 314957,
+      "median": 79978,
+      "minPrice": 80057,
+      "name": "バードバス",
+      "nameEn": "Birdbath",
+      "nameJa": "バードバス",
+      "npcVendorInfo": "",
+      "percentChange": 1.67,
+      "purchaseAmount": 4,
+      "quantitySold": 4,
+      "state": "stable",
+      "url": "https://universalis.app/market/23897",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 106.4
+    },
+    {
       "avg": 43998,
       "itemId": "38592",
       "marketValue": 307990,
@@ -1747,25 +1768,6 @@
       "opportunityScore": 102.4
     },
     {
-      "avg": 12533,
-      "itemId": "38674",
-      "marketValue": 150398,
-      "median": 7075,
-      "minPrice": 39000,
-      "name": "ルヴェユール・インナーウォール",
-      "nameEn": "Leveilleur Estate Interior Wall",
-      "nameJa": "ルヴェユール・インナーウォール",
-      "npcVendorInfo": "",
-      "percentChange": 211.18,
-      "purchaseAmount": 12,
-      "quantitySold": 12,
-      "state": "spiking",
-      "url": "https://universalis.app/market/38674",
-      "hasListings": true,
-      "recommendationLevel": "hot",
-      "opportunityScore": 232.1
-    },
-    {
       "avg": 49999,
       "itemId": "44932",
       "marketValue": 149999,
@@ -1783,6 +1785,25 @@
       "hasListings": true,
       "recommendationLevel": "steady",
       "opportunityScore": 86.6
+    },
+    {
+      "avg": 13408,
+      "itemId": "38674",
+      "marketValue": 147498,
+      "median": 9150,
+      "minPrice": 39000,
+      "name": "ルヴェユール・インナーウォール",
+      "nameEn": "Leveilleur Estate Interior Wall",
+      "nameJa": "ルヴェユール・インナーウォール",
+      "npcVendorInfo": "",
+      "percentChange": 190.87,
+      "purchaseAmount": 11,
+      "quantitySold": 11,
+      "state": "spiking",
+      "url": "https://universalis.app/market/38674",
+      "hasListings": true,
+      "recommendationLevel": "hot",
+      "opportunityScore": 219.7
     },
     {
       "avg": 28000,

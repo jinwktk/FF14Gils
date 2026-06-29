@@ -1,8 +1,10 @@
 {
-  "generatedAt": "2026-06-29T09:42:30.615Z",
+  "generatedAt": "2026-06-29T10:49:48.374Z",
   "source": "https://api.saddlebagexchange.com/api/ffxivmarketshare",
   "query": {
     "server": "Carbuncle",
+    "periodKey": "7d",
+    "periodLabel": "7日",
     "timePeriod": 168,
     "salesAmount": 3,
     "averagePrice": 10000,
@@ -24,14 +26,14 @@
   },
   "summary": {
     "itemCount": 140,
-    "totalMarketValue": 282332909,
-    "totalQuantitySold": 1725,
+    "totalMarketValue": 283003196,
+    "totalQuantitySold": 1740,
     "stateCounts": {
-      "stable": 81,
+      "stable": 82,
       "spiking": 11,
       "increasing": 34,
       "out of stock": 8,
-      "decreasing": 6
+      "decreasing": 5
     },
     "topItem": {
       "avg": 1241611,
@@ -701,6 +703,25 @@
       "opportunityScore": 447.7
     },
     {
+      "avg": 20698,
+      "itemId": "32226",
+      "marketValue": 765826,
+      "median": 21000,
+      "minPrice": 21589,
+      "name": "ウッドスラット・パーティション",
+      "nameEn": "Wood Slat Partition",
+      "nameJa": "ウッドスラット・パーティション",
+      "npcVendorInfo": "",
+      "percentChange": 4.3,
+      "purchaseAmount": 37,
+      "quantitySold": 37,
+      "state": "stable",
+      "url": "https://universalis.app/market/32226",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 441.7
+    },
+    {
       "avg": 191263,
       "itemId": "32248",
       "marketValue": 765055,
@@ -929,25 +950,6 @@
       "opportunityScore": 230.4
     },
     {
-      "avg": 20356,
-      "itemId": "32226",
-      "marketValue": 488559,
-      "median": 20697,
-      "minPrice": 21600,
-      "name": "ウッドスラット・パーティション",
-      "nameEn": "Wood Slat Partition",
-      "nameJa": "ウッドスラット・パーティション",
-      "npcVendorInfo": "",
-      "percentChange": 6.11,
-      "purchaseAmount": 24,
-      "quantitySold": 24,
-      "state": "stable",
-      "url": "https://universalis.app/market/32226",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 309.8
-    },
-    {
       "avg": 95999,
       "itemId": "22574",
       "marketValue": 479997,
@@ -1022,6 +1024,25 @@
       "hasListings": true,
       "recommendationLevel": "hot",
       "opportunityScore": 158.1
+    },
+    {
+      "avg": 77330,
+      "itemId": "49855",
+      "marketValue": 463980,
+      "median": 76515,
+      "minPrice": 81000,
+      "name": "アドベンチャラー・サプライボックス",
+      "nameEn": "Adventurer's Effects",
+      "nameJa": "アドベンチャラー・サプライボックス",
+      "npcVendorInfo": "",
+      "percentChange": 4.75,
+      "purchaseAmount": 6,
+      "quantitySold": 6,
+      "state": "stable",
+      "url": "https://universalis.app/market/49855",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 129.2
     },
     {
       "avg": 21771,
@@ -1974,25 +1995,6 @@
       "opportunityScore": 227.8
     },
     {
-      "avg": 12165,
-      "itemId": "40636",
-      "marketValue": 133820,
-      "median": 12060,
-      "minPrice": 13000,
-      "name": "マジックスカイスケープ:スターリースカイ",
-      "nameEn": "Starry Sky Phasmascape",
-      "nameJa": "マジックスカイスケープ:スターリースカイ",
-      "npcVendorInfo": "https://na.finalfantasyxiv.com/lodestone/playguide/db/item/969ec98b9e1",
-      "percentChange": 6.86,
-      "purchaseAmount": 11,
-      "quantitySold": 11,
-      "state": "stable",
-      "url": "https://universalis.app/market/40636",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 173.2
-    },
-    {
       "avg": 11519,
       "itemId": "46110",
       "marketValue": 126710,
@@ -2086,6 +2088,25 @@
       "hasListings": true,
       "recommendationLevel": "rising",
       "opportunityScore": 145.2
+    },
+    {
+      "avg": 12276,
+      "itemId": "40636",
+      "marketValue": 122760,
+      "median": 12430,
+      "minPrice": 13000,
+      "name": "マジックスカイスケープ:スターリースカイ",
+      "nameEn": "Starry Sky Phasmascape",
+      "nameJa": "マジックスカイスケープ:スターリースカイ",
+      "npcVendorInfo": "https://na.finalfantasyxiv.com/lodestone/playguide/db/item/969ec98b9e1",
+      "percentChange": 5.9,
+      "purchaseAmount": 10,
+      "quantitySold": 10,
+      "state": "stable",
+      "url": "https://universalis.app/market/40636",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 162.5
     },
     {
       "avg": 17412,
@@ -2523,25 +2544,6 @@
       "hasListings": true,
       "recommendationLevel": "steady",
       "opportunityScore": 97.3
-    },
-    {
-      "avg": 19966,
-      "itemId": "7976",
-      "marketValue": 59900,
-      "median": 20000,
-      "minPrice": 10000,
-      "name": "天球儀",
-      "nameEn": "Model Star Globe",
-      "nameJa": "天球儀",
-      "npcVendorInfo": "",
-      "percentChange": -49.91,
-      "purchaseAmount": 3,
-      "quantitySold": 3,
-      "state": "decreasing",
-      "url": "https://universalis.app/market/7976",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 74.9
     },
     {
       "avg": 19338,

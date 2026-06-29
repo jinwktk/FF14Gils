@@ -18,12 +18,14 @@ const elements = {
   error: document.querySelector('[data-error]'),
   minQuantitySold: document.querySelector('[data-min-quantity]'),
   minQuantityValue: document.querySelector('[data-min-quantity-value]'),
+  periodSelect: document.querySelector('[data-period-select]'),
   resultCount: document.querySelector('[data-result-count]'),
   search: document.querySelector('[data-search]'),
   sortBy: document.querySelector('[data-sort-by]'),
   sortButtons: [...document.querySelectorAll('[data-sort-button]')],
   stateFilters: [...document.querySelectorAll('[data-state-filter]')],
   tableBody: document.querySelector('[data-results]'),
+  updatedAt: document.querySelector('[data-updated-at]'),
   worldSelect: document.querySelector('[data-world-select]'),
 };
 
@@ -42,8 +44,9 @@ async function init() {
     setError('');
     state.worldIndex = await loadWorldIndex();
     populateWorldSelect();
+    populatePeriodSelect();
     bindControls();
-    await loadSelectedWorld();
+    await loadSelectedSnapshot();
   } catch (error) {
     setError(`データを読み込めませんでした: ${error.message}`);
   }
@@ -78,7 +81,10 @@ async function loadSnapshot(path) {
 function bindControls() {
   elements.worldSelect.addEventListener('change', () => {
     document.cookie = buildWorldPreferenceCookie(elements.worldSelect.value);
-    void loadSelectedWorld();
+    void loadSelectedSnapshot();
+  });
+  elements.periodSelect.addEventListener('change', () => {
+    void loadSelectedSnapshot();
   });
   elements.search.addEventListener('input', render);
   elements.sortBy.addEventListener('change', () => {
@@ -117,22 +123,26 @@ function bindControls() {
   updateSortIndicators();
 }
 
-async function loadSelectedWorld() {
+async function loadSelectedSnapshot() {
   const option = state.worldIndex.worlds.find(
     (world) => world.name === elements.worldSelect.value,
   );
-  const path = option?.path ?? DEFAULT_DATA_PATH;
+  const selectedPeriod = elements.periodSelect.value || state.worldIndex.defaultPeriod;
+  const path = option?.periods?.[selectedPeriod] ?? option?.path ?? DEFAULT_DATA_PATH;
 
   try {
     elements.worldSelect.disabled = true;
+    elements.periodSelect.disabled = true;
     setError('');
     const snapshot = await loadSnapshot(path);
     state.items = snapshot.items ?? [];
+    renderUpdatedAt(snapshot.generatedAt);
     render();
   } catch (error) {
     setError(`データを読み込めませんでした: ${error.message}`);
   } finally {
     elements.worldSelect.disabled = false;
+    elements.periodSelect.disabled = false;
   }
 }
 
@@ -162,6 +172,21 @@ function populateWorldSelect() {
   elements.worldSelect.value = preferredWorld;
 }
 
+function populatePeriodSelect() {
+  const fragment = document.createDocumentFragment();
+
+  for (const period of state.worldIndex.periods) {
+    const option = document.createElement('option');
+    option.value = period.key;
+    option.textContent = period.label;
+    option.selected = period.key === state.worldIndex.defaultPeriod;
+    fragment.append(option);
+  }
+
+  elements.periodSelect.replaceChildren(fragment);
+  elements.periodSelect.value = state.worldIndex.defaultPeriod;
+}
+
 function render() {
   const selectedStates = elements.stateFilters
     .filter((checkbox) => checkbox.checked)
@@ -188,6 +213,19 @@ function render() {
     row.append(cell);
     elements.tableBody.append(row);
   }
+}
+
+function renderUpdatedAt(value) {
+  const date = new Date(value);
+  const text = Number.isNaN(date.getTime())
+    ? '-'
+    : new Intl.DateTimeFormat('ja-JP', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+        timeZone: 'Asia/Tokyo',
+      }).format(date);
+
+  elements.updatedAt.textContent = `最終更新 ${text}`;
 }
 
 function renderRow(item, index) {

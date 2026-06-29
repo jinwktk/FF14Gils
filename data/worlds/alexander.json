@@ -1,8 +1,10 @@
 {
-  "generatedAt": "2026-06-29T09:42:30.618Z",
+  "generatedAt": "2026-06-29T10:49:48.376Z",
   "source": "https://api.saddlebagexchange.com/api/ffxivmarketshare",
   "query": {
     "server": "Alexander",
+    "periodKey": "7d",
+    "periodLabel": "7日",
     "timePeriod": 168,
     "salesAmount": 3,
     "averagePrice": 10000,
@@ -857,19 +859,19 @@
       "itemId": "49872",
       "marketValue": 449997,
       "median": 149999,
-      "minPrice": 149000,
+      "minPrice": 140000,
       "name": "コスモシェード",
       "nameEn": "Shady Cosmoshelter",
       "nameJa": "コスモシェード",
       "npcVendorInfo": "",
-      "percentChange": -0.67,
+      "percentChange": -6.67,
       "purchaseAmount": 3,
       "quantitySold": 3,
       "state": "stable",
       "url": "https://universalis.app/market/49872",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 97.7
+      "opportunityScore": 96.2
     },
     {
       "avg": 29349,
@@ -1465,19 +1467,19 @@
       "itemId": "6670",
       "marketValue": 210070,
       "median": 70020,
-      "minPrice": 69030,
+      "minPrice": 68000,
       "name": "ベラフディアン・クリスタルランタン",
       "nameEn": "Belah'dian Crystal Lantern",
       "nameJa": "ベラフディアン・クリスタルランタン",
       "npcVendorInfo": "",
-      "percentChange": -1.42,
+      "percentChange": -2.89,
       "purchaseAmount": 3,
       "quantitySold": 3,
       "state": "stable",
       "url": "https://universalis.app/market/6670",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 93.5
+      "opportunityScore": 93.1
     },
     {
       "avg": 12868,

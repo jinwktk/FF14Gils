@@ -31,6 +31,15 @@ describe('app data loading contract', () => {
     assert.match(app, /selectedPeriod/);
   });
 
+  it('最終更新日時を一覧ヘッダーに表示する', async () => {
+    const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+    const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');
+
+    assert.match(html, /data-updated-at/);
+    assert.match(html, /最終更新/);
+    assert.match(app, /updatedAt/);
+  });
+
   it('ワールド選択はDCごとのカテゴリを描画する', async () => {
     const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');
 

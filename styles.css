@@ -1,23 +1,23 @@
 :root {
-  color-scheme: light;
-  --bg: #f4f6f8;
-  --bg-soft: #eef3f1;
-  --surface: #ffffff;
-  --surface-raised: #fbfcfd;
-  --line: #d9e1e7;
-  --line-strong: #c3ced8;
-  --text: #17202a;
-  --muted: #61707f;
-  --accent: #0f8b8d;
-  --accent-strong: #0b6466;
-  --accent-soft: #e1f4f2;
-  --gold: #a46a12;
-  --gold-soft: #fff2d8;
-  --danger: #b42318;
-  --danger-soft: #fff0ed;
-  --info: #2d5f9a;
-  --info-soft: #eaf1fb;
-  --shadow: 0 14px 34px rgba(23, 32, 42, 0.08);
+  color-scheme: dark;
+  --bg: #0d0d10;
+  --bg-soft: #202025;
+  --surface: #171719;
+  --surface-raised: #202024;
+  --line: #303137;
+  --line-strong: #44464f;
+  --text: #efeff2;
+  --muted: #a9abb4;
+  --accent: #39c8bd;
+  --accent-strong: #7be3dc;
+  --accent-soft: #143a3e;
+  --gold: #f4bd50;
+  --gold-soft: #3d2f16;
+  --danger: #ff7d72;
+  --danger-soft: #3b1f24;
+  --info: #9fc3ff;
+  --info-soft: #1b2d4a;
+  --shadow: 0 18px 46px rgba(0, 0, 0, 0.38);
   --radius: 8px;
   font-family:
     Inter, "Noto Sans JP", ui-sans-serif, system-ui, -apple-system,
@@ -32,8 +32,8 @@ body {
   min-width: 320px;
   margin: 0;
   background:
-    linear-gradient(90deg, rgba(15, 139, 141, 0.08) 1px, transparent 1px),
-    linear-gradient(rgba(15, 139, 141, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(123, 227, 220, 0.05) 1px, transparent 1px),
+    linear-gradient(rgba(244, 189, 80, 0.035) 1px, transparent 1px),
     var(--bg);
   background-size: 48px 48px;
   color: var(--text);
@@ -64,7 +64,7 @@ a:hover {
 .results-panel {
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.94);
+  background: rgba(18, 26, 38, 0.94);
   box-shadow: var(--shadow);
 }
 
@@ -72,7 +72,7 @@ a:hover {
   min-height: 0;
   padding: 22px 24px;
   background:
-    linear-gradient(135deg, rgba(15, 139, 141, 0.13), rgba(255, 255, 255, 0) 52%),
+    linear-gradient(135deg, rgba(57, 200, 189, 0.16), rgba(244, 189, 80, 0.08) 46%, rgba(18, 26, 38, 0) 70%),
     var(--surface);
 }
 
@@ -119,7 +119,7 @@ h2 {
 
 .filter-panel,
 .results-panel {
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(23, 23, 25, 0.96);
 }
 
 .filter-panel {
@@ -161,14 +161,14 @@ select {
   margin-top: 8px;
   border: 1px solid var(--line-strong);
   border-radius: 7px;
-  background: var(--surface);
+  background: #111114;
   color: var(--text);
   font: inherit;
 }
 
 input:focus-visible,
 select:focus-visible {
-  outline: 3px solid rgba(15, 139, 141, 0.22);
+  outline: 3px solid rgba(57, 200, 189, 0.24);
   outline-offset: 2px;
   border-color: var(--accent);
 }
@@ -218,7 +218,7 @@ fieldset input {
 .error {
   margin: 0 18px 12px;
   padding: 13px 14px;
-  border: 1px solid #f4c2bc;
+  border: 1px solid rgba(255, 125, 114, 0.42);
   border-radius: var(--radius);
   background: var(--danger-soft);
   color: var(--danger);
@@ -239,10 +239,26 @@ fieldset input {
   border-bottom: 1px solid var(--line);
 }
 
-.results-header span {
+.result-meta {
+  display: grid;
+  gap: 5px;
+  justify-items: end;
+  min-width: max-content;
+}
+
+.result-meta span {
   min-width: max-content;
   color: var(--muted);
   font-weight: 900;
+}
+
+.result-meta [data-result-count] {
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.updated-at {
+  font-size: 0.76rem;
 }
 
 .table-wrap {
@@ -259,7 +275,7 @@ thead th {
   position: sticky;
   top: 0;
   z-index: 1;
-  background: #f7fafb;
+  background: #202024;
 }
 
 th,
@@ -312,7 +328,7 @@ tbody tr {
 }
 
 tbody tr:hover {
-  background: #f8fcfb;
+  background: #202024;
 }
 
 td:nth-child(2) {
@@ -357,7 +373,7 @@ td:nth-child(2) {
 .state-spiking,
 .state-out-of-stock {
   background: var(--gold-soft);
-  color: #774700;
+  color: var(--gold);
 }
 
 .state-increasing {

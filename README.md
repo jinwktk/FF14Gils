@@ -38,7 +38,7 @@ FF14 のマーケットデータから、金策候補を探すための GitHub P
 }
 ```
 
-ブラウザ側は `data/worlds.json` とワールド別 `data/worlds/<world>.json` のみを読み込み、Saddlebag Exchange API へ直接 POST しません。`data/marketshare.json` は既定ワールド用の互換スナップショットです。未指定時は日本DCの32ワールドを生成し、初期表示は `Hades` です。`data/worlds.json` の各ワールドは `name`、`path`、`dataCenter` を持ち、UIではDCごとのカテゴリとして表示します。利用者が一度選んだワールドは `ff14gils_world` Cookie に保存し、次回表示時に優先します。アイテム名はXIVAPI v2の `language=ja` で補完し、日本語名を表示します。
+ブラウザ側は `data/worlds.json` とワールド別 `data/worlds/<world>.json`、期間別 `data/worlds/<world>-<period>.json` のみを読み込み、Saddlebag Exchange API へ直接 POST しません。`data/marketshare.json` は既定ワールド・既定期間用の互換スナップショットです。未指定時は日本DCの32ワールドと 1日、3日、7日、1か月の期間別データを生成し、初期表示は `Hades` の `7日` です。`data/worlds.json` の各ワールドは `name`、`path`、`dataCenter`、`periods` を持ち、UIではDCごとのカテゴリとして表示します。1か月はSaddlebag Exchange APIの上限が7日までのため、7日候補アイテムを種にしてUniversalis履歴APIの30日販売履歴から売上額・売れた数・平均価格を再集計します。利用者が一度選んだワールドは `ff14gils_world` Cookie に保存し、次回表示時に優先します。アイテム名はXIVAPI v2の `language=ja` で補完し、日本語名を表示します。
 
 ## 開発コマンド
 
@@ -57,7 +57,7 @@ npm run serve
 
 - `FF14GILS_SERVER`: 初期表示するワールド名。生成対象に含まれる場合だけ優先され、未指定時は `Hades`。
 - `FF14GILS_WORLDS`: 生成するワールド名のカンマ区切り。未指定時は日本 DC の主要ワールドを生成。
-- `FF14GILS_TIME_PERIOD`: 集計期間の時間数。既定値は `168`。
+- `FF14GILS_PERIODS`: 生成する売上期間。`1d`、`3d`、`7d`、`30d` をカンマ区切りで指定。未指定時は4期間すべて。
 - `FF14GILS_SALES_AMOUNT`: 最低販売回数。既定値は `3`。
 - `FF14GILS_AVERAGE_PRICE`: 最低平均価格。既定値は `10000`。
 - `FF14GILS_PRESET`: `housing`、`materials`、`consumables`、`collectibles`、`all`、`custom`。
@@ -94,3 +94,5 @@ npm run serve
 - 2026-06-29: 列名クリックで一覧をソートできるように変更。クリックした列は昇順/降順を切り替え、現在の並びはヘッダーの矢印と `aria-sort` に反映する。
 - 2026-06-29: 1日、3日、7日、1か月の売上を見られるようにする方針に変更。`data/worlds.json` に期間一覧と期間別JSONパスを持たせ、7日は従来のワールド別JSONパスを互換として残す。
 - 2026-06-29: 画面全体をダークデザインへ変更する方針にする。暗い背景、低輝度のカード、明るい本文色でマーケットダッシュボードとして読みやすくする。
+- 2026-06-29: 一覧ヘッダーにスナップショットの最終更新日時を表示する方針にする。上部の重複カードは戻さず、件数の近くに小さく表示する。
+- 2026-06-29: Saddlebag Exchange APIは1か月指定を拒否するため、1か月データはUniversalis履歴APIで集計する構成に変更。

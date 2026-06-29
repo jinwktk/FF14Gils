@@ -1,8 +1,10 @@
 {
-  "generatedAt": "2026-06-29T09:42:30.619Z",
+  "generatedAt": "2026-06-29T10:49:48.377Z",
   "source": "https://api.saddlebagexchange.com/api/ffxivmarketshare",
   "query": {
     "server": "Ifrit",
+    "periodKey": "7d",
+    "periodLabel": "7日",
     "timePeriod": 168,
     "salesAmount": 3,
     "averagePrice": 10000,
@@ -23,12 +25,12 @@
     ]
   },
   "summary": {
-    "itemCount": 114,
-    "totalMarketValue": 256953067,
-    "totalQuantitySold": 1234,
+    "itemCount": 115,
+    "totalMarketValue": 265647636,
+    "totalQuantitySold": 1238,
     "stateCounts": {
       "stable": 67,
-      "increasing": 27,
+      "increasing": 28,
       "decreasing": 5,
       "spiking": 13,
       "out of stock": 2
@@ -38,19 +40,19 @@
       "itemId": "51262",
       "marketValue": 41619972,
       "median": 950000,
-      "minPrice": 939999,
+      "minPrice": 899999,
       "name": "エバーキープ・モニター",
       "nameEn": "Everkeep Monitor",
       "nameJa": "エバーキープ・モニター",
       "npcVendorInfo": "",
-      "percentChange": 1.63,
+      "percentChange": -2.69,
       "purchaseAmount": 45,
       "quantitySold": 45,
       "state": "stable",
       "url": "https://universalis.app/market/51262",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 541.8
+      "opportunityScore": 540.8
     }
   },
   "items": [
@@ -59,19 +61,19 @@
       "itemId": "51262",
       "marketValue": 41619972,
       "median": 950000,
-      "minPrice": 939999,
+      "minPrice": 899999,
       "name": "エバーキープ・モニター",
       "nameEn": "Everkeep Monitor",
       "nameJa": "エバーキープ・モニター",
       "npcVendorInfo": "",
-      "percentChange": 1.63,
+      "percentChange": -2.69,
       "purchaseAmount": 45,
       "quantitySold": 45,
       "state": "stable",
       "url": "https://universalis.app/market/51262",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 541.8
+      "opportunityScore": 540.8
     },
     {
       "avg": 2079894,
@@ -192,7 +194,7 @@
       "itemId": "46171",
       "marketValue": 12842060,
       "median": 2998000,
-      "minPrice": 3899996,
+      "minPrice": 3899989,
       "name": "エバーキープ・ランプポスト",
       "nameEn": "Everkeep Lamppost",
       "nameJa": "エバーキープ・ランプポスト",
@@ -205,6 +207,25 @@
       "hasListings": true,
       "recommendationLevel": "rising",
       "opportunityScore": 130.7
+    },
+    {
+      "avg": 1736000,
+      "itemId": "35813",
+      "marketValue": 8680000,
+      "median": 1570000,
+      "minPrice": 2500000,
+      "name": "カフェ・ハウスウォール",
+      "nameEn": "Medium Cafe Walls",
+      "nameJa": "カフェ・ハウスウォール",
+      "npcVendorInfo": "",
+      "percentChange": 44.01,
+      "purchaseAmount": 5,
+      "quantitySold": 5,
+      "state": "increasing",
+      "url": "https://universalis.app/market/35813",
+      "hasListings": true,
+      "recommendationLevel": "rising",
+      "opportunityScore": 144.3
     },
     {
       "avg": 797692,
@@ -397,23 +418,23 @@
       "opportunityScore": 134.4
     },
     {
-      "avg": 21847,
+      "avg": 21886,
       "itemId": "35575",
-      "marketValue": 1114209,
+      "marketValue": 1116208,
       "median": 21990,
-      "minPrice": 23690,
+      "minPrice": 23700,
       "name": "イミテーション・ウッドルーフウィンドウ",
       "nameEn": "Imitation Wooden Skylight",
       "nameJa": "イミテーション・ウッドルーフウィンドウ",
       "npcVendorInfo": "",
-      "percentChange": 8.44,
+      "percentChange": 8.29,
       "purchaseAmount": 51,
       "quantitySold": 51,
       "state": "stable",
       "url": "https://universalis.app/market/35575",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 584.7
+      "opportunityScore": 584.6
     },
     {
       "avg": 151428,
@@ -549,6 +570,25 @@
       "opportunityScore": 99.8
     },
     {
+      "avg": 90000,
+      "itemId": "15159",
+      "marketValue": 630000,
+      "median": 90000,
+      "minPrice": 90000,
+      "name": "ラージガーデンポンド",
+      "nameEn": "Large Garden Pond",
+      "nameJa": "ラージガーデンポンド",
+      "npcVendorInfo": "",
+      "percentChange": 0,
+      "purchaseAmount": 7,
+      "quantitySold": 7,
+      "state": "stable",
+      "url": "https://universalis.app/market/15159",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 139.6
+    },
+    {
       "avg": 16506,
       "itemId": "32226",
       "marketValue": 627240,
@@ -642,25 +682,6 @@
       "hasListings": true,
       "recommendationLevel": "steady",
       "opportunityScore": 259.3
-    },
-    {
-      "avg": 90000,
-      "itemId": "15159",
-      "marketValue": 540000,
-      "median": 90000,
-      "minPrice": 90057,
-      "name": "ラージガーデンポンド",
-      "nameEn": "Large Garden Pond",
-      "nameJa": "ラージガーデンポンド",
-      "npcVendorInfo": "",
-      "percentChange": 0.06,
-      "purchaseAmount": 6,
-      "quantitySold": 6,
-      "state": "stable",
-      "url": "https://universalis.app/market/15159",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 128.8
     },
     {
       "avg": 43329,
@@ -796,25 +817,6 @@
       "opportunityScore": 190.3
     },
     {
-      "avg": 52050,
-      "itemId": "51257",
-      "marketValue": 416400,
-      "median": 52000,
-      "minPrice": 51000,
-      "name": "エバーキープ・ラウンドソファ",
-      "nameEn": "Curved Everkeep Sofa",
-      "nameJa": "エバーキープ・ラウンドソファ",
-      "npcVendorInfo": "",
-      "percentChange": -2.02,
-      "purchaseAmount": 8,
-      "quantitySold": 8,
-      "state": "stable",
-      "url": "https://universalis.app/market/51257",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 146.9
-    },
-    {
       "avg": 44777,
       "itemId": "51266",
       "marketValue": 402997,
@@ -832,6 +834,25 @@
       "hasListings": true,
       "recommendationLevel": "steady",
       "opportunityScore": 159.1
+    },
+    {
+      "avg": 51914,
+      "itemId": "51257",
+      "marketValue": 363400,
+      "median": 52000,
+      "minPrice": 51000,
+      "name": "エバーキープ・ラウンドソファ",
+      "nameEn": "Curved Everkeep Sofa",
+      "nameJa": "エバーキープ・ラウンドソファ",
+      "npcVendorInfo": "",
+      "percentChange": -1.76,
+      "purchaseAmount": 7,
+      "quantitySold": 7,
+      "state": "stable",
+      "url": "https://universalis.app/market/51257",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 136.3
     },
     {
       "avg": 13111,
@@ -1575,25 +1596,6 @@
       "opportunityScore": 122.4
     },
     {
-      "avg": 21047,
-      "itemId": "35559",
-      "marketValue": 147330,
-      "median": 20000,
-      "minPrice": 20030,
-      "name": "ツインクッション",
-      "nameEn": "Matching Cushions",
-      "nameJa": "ツインクッション",
-      "npcVendorInfo": "",
-      "percentChange": -4.83,
-      "purchaseAmount": 7,
-      "quantitySold": 7,
-      "state": "stable",
-      "url": "https://universalis.app/market/35559",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 130.8
-    },
-    {
       "avg": 20848,
       "itemId": "7975",
       "marketValue": 145940,
@@ -1744,6 +1746,25 @@
       "hasListings": true,
       "recommendationLevel": "steady",
       "opportunityScore": 120.3
+    },
+    {
+      "avg": 20483,
+      "itemId": "35559",
+      "marketValue": 122900,
+      "median": 20000,
+      "minPrice": 20030,
+      "name": "ツインクッション",
+      "nameEn": "Matching Cushions",
+      "nameJa": "ツインクッション",
+      "npcVendorInfo": "",
+      "percentChange": -2.21,
+      "purchaseAmount": 6,
+      "quantitySold": 6,
+      "state": "stable",
+      "url": "https://universalis.app/market/35559",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 120.5
     },
     {
       "avg": 40166,

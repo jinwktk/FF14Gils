@@ -1,0 +1,94 @@
+{
+  "generatedAt": "2026-06-29T10:49:48.378Z",
+  "source": "https://api.saddlebagexchange.com/api/ffxivmarketshare",
+  "query": {
+    "server": "Ridill",
+    "periodKey": "1d",
+    "periodLabel": "1日",
+    "timePeriod": 24,
+    "salesAmount": 3,
+    "averagePrice": 10000,
+    "preset": "housing",
+    "sortBy": "marketValue",
+    "filters": [
+      56,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      81,
+      82
+    ]
+  },
+  "summary": {
+    "itemCount": 2,
+    "totalMarketValue": 3174990,
+    "totalQuantitySold": 7,
+    "stateCounts": {
+      "stable": 2
+    },
+    "topItem": {
+      "avg": 1015000,
+      "itemId": "51262",
+      "marketValue": 3045000,
+      "median": 1000000,
+      "minPrice": 1050000,
+      "name": "エバーキープ・モニター",
+      "nameEn": "Everkeep Monitor",
+      "nameJa": "エバーキープ・モニター",
+      "npcVendorInfo": "",
+      "percentChange": 3.45,
+      "purchaseAmount": 3,
+      "quantitySold": 3,
+      "state": "stable",
+      "url": "https://universalis.app/market/51262",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 108.7
+    }
+  },
+  "items": [
+    {
+      "avg": 1015000,
+      "itemId": "51262",
+      "marketValue": 3045000,
+      "median": 1000000,
+      "minPrice": 1050000,
+      "name": "エバーキープ・モニター",
+      "nameEn": "Everkeep Monitor",
+      "nameJa": "エバーキープ・モニター",
+      "npcVendorInfo": "",
+      "percentChange": 3.45,
+      "purchaseAmount": 3,
+      "quantitySold": 3,
+      "state": "stable",
+      "url": "https://universalis.app/market/51262",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 108.7
+    },
+    {
+      "avg": 32497,
+      "itemId": "49847",
+      "marketValue": 129990,
+      "median": 32500,
+      "minPrice": 35000,
+      "name": "ヤーン・ウォールネオン",
+      "nameEn": "Unfriendly Yan Neon Wall Light",
+      "nameJa": "ヤーン・ウォールネオン",
+      "npcVendorInfo": "",
+      "percentChange": 7.7,
+      "purchaseAmount": 4,
+      "quantitySold": 4,
+      "state": "stable",
+      "url": "https://universalis.app/market/49847",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 103.3
+    }
+  ]
+}

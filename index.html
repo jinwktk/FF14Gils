@@ -34,6 +34,16 @@
           </label>
 
           <label>
+            集計期間
+            <select data-period-select aria-label="売上の集計期間">
+              <option value="1d">1日</option>
+              <option value="3d">3日</option>
+              <option value="7d">7日</option>
+              <option value="30d">1か月</option>
+            </select>
+          </label>
+
+          <label>
             アイテム検索
             <input
               data-search
@@ -48,7 +58,7 @@
             <select data-sort-by>
               <option value="opportunityScore">おすすめ度</option>
               <option value="name">アイテム名</option>
-              <option value="marketValue">取引額</option>
+              <option value="marketValue">売上額</option>
               <option value="quantitySold">売れた数</option>
               <option value="avg">平均価格</option>
               <option value="minPrice">最安値</option>
@@ -79,7 +89,10 @@
               <p class="panel-kicker">一覧</p>
               <h2>金策候補</h2>
             </div>
-            <span data-result-count>- 件</span>
+            <div class="result-meta">
+              <span data-result-count>- 件</span>
+              <span class="updated-at" data-updated-at>最終更新 -</span>
+            </div>
           </div>
           <div class="table-wrap">
             <table>
@@ -97,7 +110,7 @@
                   </th>
                   <th scope="col" aria-sort="none">
                     <button type="button" class="sort-button" data-sort-button="marketValue">
-                      取引額<span class="sort-indicator" aria-hidden="true"></span>
+                      売上額<span class="sort-indicator" aria-hidden="true"></span>
                     </button>
                   </th>
                   <th scope="col" aria-sort="none">

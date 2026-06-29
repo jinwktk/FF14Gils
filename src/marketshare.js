@@ -190,6 +190,8 @@ export function createSnapshot({
     source,
     query: {
       server: query.server,
+      periodKey: query.periodKey,
+      periodLabel: query.periodLabel,
       timePeriod: query.timePeriod,
       salesAmount: query.salesAmount,
       averagePrice: query.averagePrice,
