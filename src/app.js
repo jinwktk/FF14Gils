@@ -5,8 +5,10 @@ import {
   stateLabel,
   summarizeMarketshare,
 } from './marketshare.js';
+import { normalizeWorldIndex } from './worlds.js';
 
-const DATA_PATH = 'data/marketshare.json';
+const DEFAULT_DATA_PATH = 'data/marketshare.json';
+const WORLD_INDEX_PATH = 'data/worlds.json';
 const MAX_VISIBLE_ROWS = 80;
 
 const elements = {
@@ -27,11 +29,14 @@ const elements = {
   totalMarketValue: document.querySelector('[data-total-market-value]'),
   totalQuantitySold: document.querySelector('[data-total-quantity-sold]'),
   world: document.querySelector('[data-world]'),
+  worldSelect: document.querySelector('[data-world-select]'),
 };
 
 const state = {
   items: [],
   query: null,
+  snapshots: new Map(),
+  worldIndex: normalizeWorldIndex(null),
 };
 
 init();
@@ -39,30 +44,45 @@ init();
 async function init() {
   try {
     setError('');
-    const snapshot = await loadSnapshot();
-    state.items = snapshot.items ?? [];
-    state.query = snapshot.query ?? {};
-    renderMetadata(snapshot);
-    renderSummary(snapshot.summary ?? summarizeMarketshare(state.items));
-    render();
+    state.worldIndex = await loadWorldIndex();
+    populateWorldSelect();
     bindControls();
+    await loadSelectedWorld();
   } catch (error) {
     setError(`データを読み込めませんでした: ${error.message}`);
   }
 }
 
-async function loadSnapshot() {
-  const response = await fetch(DATA_PATH, { cache: 'no-store' });
+async function loadWorldIndex() {
+  try {
+    const response = await fetch(WORLD_INDEX_PATH, { cache: 'no-store' });
+    if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+    return normalizeWorldIndex(await response.json(), DEFAULT_DATA_PATH);
+  } catch {
+    return normalizeWorldIndex(null, DEFAULT_DATA_PATH);
+  }
+}
+
+async function loadSnapshot(path) {
+  if (state.snapshots.has(path)) {
+    return state.snapshots.get(path);
+  }
+
+  const response = await fetch(path, { cache: 'no-store' });
   if (!response.ok) {
     throw new Error(`${response.status} ${response.statusText}`);
   }
 
   const snapshot = await response.json();
   validateSnapshot(snapshot);
+  state.snapshots.set(path, snapshot);
   return snapshot;
 }
 
 function bindControls() {
+  elements.worldSelect.addEventListener('change', () => {
+    void loadSelectedWorld();
+  });
   elements.search.addEventListener('input', render);
   elements.sortBy.addEventListener('change', render);
   elements.minQuantitySold.addEventListener('input', () => {
@@ -73,6 +93,42 @@ function bindControls() {
   for (const checkbox of elements.stateFilters) {
     checkbox.addEventListener('change', render);
   }
+}
+
+async function loadSelectedWorld() {
+  const option = state.worldIndex.worlds.find(
+    (world) => world.name === elements.worldSelect.value,
+  );
+  const path = option?.path ?? DEFAULT_DATA_PATH;
+
+  try {
+    elements.worldSelect.disabled = true;
+    setError('');
+    const snapshot = await loadSnapshot(path);
+    state.items = snapshot.items ?? [];
+    state.query = snapshot.query ?? {};
+    renderMetadata(snapshot);
+    renderSummary(snapshot.summary ?? summarizeMarketshare(state.items));
+    render();
+  } catch (error) {
+    setError(`データを読み込めませんでした: ${error.message}`);
+  } finally {
+    elements.worldSelect.disabled = false;
+  }
+}
+
+function populateWorldSelect() {
+  const fragment = document.createDocumentFragment();
+
+  for (const world of state.worldIndex.worlds) {
+    const option = document.createElement('option');
+    option.value = world.name;
+    option.textContent = world.name;
+    option.selected = world.name === state.worldIndex.defaultWorld;
+    fragment.append(option);
+  }
+
+  elements.worldSelect.replaceChildren(fragment);
 }
 
 function render() {

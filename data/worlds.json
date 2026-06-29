@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-06-29T09:23:15.123Z",
+  "defaultWorld": "Carbuncle",
+  "worlds": [
+    {
+      "name": "Aegis",
+      "path": "data/worlds/aegis.json"
+    },
+    {
+      "name": "Atomos",
+      "path": "data/worlds/atomos.json"
+    },
+    {
+      "name": "Carbuncle",
+      "path": "data/worlds/carbuncle.json"
+    },
+    {
+      "name": "Garuda",
+      "path": "data/worlds/garuda.json"
+    },
+    {
+      "name": "Gungnir",
+      "path": "data/worlds/gungnir.json"
+    },
+    {
+      "name": "Kujata",
+      "path": "data/worlds/kujata.json"
+    },
+    {
+      "name": "Tonberry",
+      "path": "data/worlds/tonberry.json"
+    },
+    {
+      "name": "Typhon",
+      "path": "data/worlds/typhon.json"
+    },
+    {
+      "name": "Alexander",
+      "path": "data/worlds/alexander.json"
+    },
+    {
+      "name": "Bahamut",
+      "path": "data/worlds/bahamut.json"
+    },
+    {
+      "name": "Durandal",
+      "path": "data/worlds/durandal.json"
+    },
+    {
+      "name": "Fenrir",
+      "path": "data/worlds/fenrir.json"
+    },
+    {
+      "name": "Ifrit",
+      "path": "data/worlds/ifrit.json"
+    },
+    {
+      "name": "Ridill",
+      "path": "data/worlds/ridill.json"
+    },
+    {
+      "name": "Tiamat",
+      "path": "data/worlds/tiamat.json"
+    },
+    {
+      "name": "Ultima",
+      "path": "data/worlds/ultima.json"
+    },
+    {
+      "name": "Anima",
+      "path": "data/worlds/anima.json"
+    },
+    {
+      "name": "Asura",
+      "path": "data/worlds/asura.json"
+    },
+    {
+      "name": "Chocobo",
+      "path": "data/worlds/chocobo.json"
+    },
+    {
+      "name": "Hades",
+      "path": "data/worlds/hades.json"
+    },
+    {
+      "name": "Ixion",
+      "path": "data/worlds/ixion.json"
+    },
+    {
+      "name": "Masamune",
+      "path": "data/worlds/masamune.json"
+    },
+    {
+      "name": "Pandaemonium",
+      "path": "data/worlds/pandaemonium.json"
+    },
+    {
+      "name": "Titan",
+      "path": "data/worlds/titan.json"
+    },
+    {
+      "name": "Belias",
+      "path": "data/worlds/belias.json"
+    },
+    {
+      "name": "Mandragora",
+      "path": "data/worlds/mandragora.json"
+    },
+    {
+      "name": "Ramuh",
+      "path": "data/worlds/ramuh.json"
+    },
+    {
+      "name": "Shinryu",
+      "path": "data/worlds/shinryu.json"
+    },
+    {
+      "name": "Unicorn",
+      "path": "data/worlds/unicorn.json"
+    },
+    {
+      "name": "Valefor",
+      "path": "data/worlds/valefor.json"
+    },
+    {
+      "name": "Yojimbo",
+      "path": "data/worlds/yojimbo.json"
+    },
+    {
+      "name": "Zeromus",
+      "path": "data/worlds/zeromus.json"
+    }
+  ]
+}

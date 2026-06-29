@@ -156,7 +156,9 @@ main {
 
 .controls {
   display: grid;
-  grid-template-columns: minmax(220px, 1fr) minmax(180px, 0.5fr) minmax(220px, 0.7fr) minmax(300px, 1.1fr);
+  grid-template-columns:
+    minmax(150px, 0.45fr) minmax(220px, 1fr) minmax(180px, 0.5fr)
+    minmax(220px, 0.7fr) minmax(300px, 1.1fr);
   gap: 14px;
   align-items: end;
   margin-bottom: 16px;

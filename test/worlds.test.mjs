@@ -5,6 +5,7 @@ import {
   buildWorldSnapshotPath,
   createWorldIndex,
   parseWorldList,
+  resolveDefaultWorld,
   worldSlug,
 } from '../src/worlds.js';
 
@@ -39,6 +40,16 @@ describe('createWorldIndex', () => {
       { name: 'Carbuncle', path: 'data/worlds/carbuncle.json' },
       { name: 'Chocobo', path: 'data/worlds/chocobo.json' },
     ]);
+  });
+});
+
+describe('resolveDefaultWorld', () => {
+  it('指定がない場合は既定ワールドを優先する', () => {
+    assert.equal(resolveDefaultWorld(['Aegis', 'Carbuncle', 'Chocobo']), 'Carbuncle');
+  });
+
+  it('環境変数で指定されたワールドが一覧にあればそれを優先する', () => {
+    assert.equal(resolveDefaultWorld(['Aegis', 'Carbuncle', 'Chocobo'], 'Chocobo'), 'Chocobo');
   });
 });
 

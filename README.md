@@ -6,7 +6,7 @@ FF14 のマーケットデータから、金策候補を探すための GitHub P
 
 - データ元は Saddlebag Exchange の `POST https://api.saddlebagexchange.com/api/ffxivmarketshare` です。
 - GitHub Pages 上のブラウザから直接 API を呼ぶと CORS で失敗する可能性があるため、Actions またはローカルの `scripts/fetch-marketshare.mjs` で `data/marketshare.json` を生成し、サイトはそのスナップショットを表示します。
-- UI は依存を増やさず、`index.html`、`styles.css`、`src/app.js`、`src/marketshare.js` の静的構成です。
+- UI は依存を増やさず、`index.html`、`styles.css`、`src/app.js`、`src/marketshare.js`、`src/worlds.js` の静的構成です。
 - GitHub Actions の `.github/workflows/pages.yml` がデータ取得、ビルド、Pages デプロイを行います。
 
 ## データ契約
@@ -31,7 +31,7 @@ FF14 のマーケットデータから、金策候補を探すための GitHub P
 }
 ```
 
-ブラウザ側は `data/worlds.json` とワールド別 `data/worlds/<world>.json` のみを読み込み、Saddlebag Exchange API へ直接 POST しません。`data/marketshare.json` は既定ワールド用の互換スナップショットです。
+ブラウザ側は `data/worlds.json` とワールド別 `data/worlds/<world>.json` のみを読み込み、Saddlebag Exchange API へ直接 POST しません。`data/marketshare.json` は既定ワールド用の互換スナップショットです。未指定時は日本DCの32ワールドを生成し、初期表示は `Carbuncle` です。
 
 ## 開発コマンド
 
@@ -48,7 +48,7 @@ npm run serve
 
 `npm run fetch:data` は以下の環境変数で取得条件を変更できます。
 
-- `FF14GILS_SERVER`: ワールド名。既定値は `Carbuncle`。
+- `FF14GILS_SERVER`: 初期表示するワールド名。生成対象に含まれる場合だけ優先され、未指定時は `Carbuncle`。
 - `FF14GILS_WORLDS`: 生成するワールド名のカンマ区切り。未指定時は日本 DC の主要ワールドを生成。
 - `FF14GILS_TIME_PERIOD`: 集計期間の時間数。既定値は `168`。
 - `FF14GILS_SALES_AMOUNT`: 最低販売回数。既定値は `3`。
@@ -59,7 +59,7 @@ npm run serve
 
 ## GitHub Pages
 
-リモート設定後は、GitHub 側で Pages の source を GitHub Actions に設定してください。ワークフローは `workflow_dispatch`、6時間ごとの schedule、`master`/`main` への push で動きます。
+`.github/workflows/pages.yml` は GitHub Pages を GitHub Actions 経由で有効化し、`workflow_dispatch`、6時間ごとの schedule、`master`/`main` への push で動きます。
 
 ## 現在の作業状況
 
@@ -72,4 +72,5 @@ npm run serve
 - 2026-06-29: `npm test`、`npm run build`、Chrome によるデスクトップ/モバイル UI スモークテストを通過。
 - 2026-06-29: code-review で指摘された XSS 対策、API schema 検証、Pages の `npm test` gate、ブラウザ配信対象の契約テストを修正し、最終レビューは `APPROVE/CLEAR`。
 - 2026-06-29: UltraQA で通常表示、悪意ある JSON、壊れた JSON、API schema 異常拒否、Chrome デスクトップ/モバイル操作を確認。
-- 2026-06-29: ワールド選択 UI のため、`data/worlds.json` とワールド別スナップショットを追加する方針に変更。
+- 2026-06-29: ワールド選択 UI を追加し、`data/worlds.json` とワールド別スナップショット32件を生成。Chrome smoke で `Carbuncle` から `Chocobo` への切替、表示更新、console error なしを確認。
+- 2026-06-29: Pages workflow の初回公開失敗を受け、`actions/configure-pages` に `enablement: true` を設定。
