@@ -86,3 +86,4 @@ npm run serve
 - 2026-06-29: ブラウザからSaddlebag APIへの直接POSTはCORSで失敗することを確認し、GitHub ActionsのAPI取得を毎時更新にするテスト仕様を追加。
 - 2026-06-29: `src/preferences.js` を追加し、選択したワールドをCookieで180日保持。既定ワールドを `Hades` に変更。
 - 2026-06-29: `scripts/item-name-api.mjs` を追加し、XIVAPI v2から日本語アイテム名を取得して `data/item-names-ja.json` と各ワールドJSONへ反映。
+- 2026-06-29: 使いやすいダッシュボード構造のため、集計ストリップ、絞り込みパネル、結果パネルのHTML契約テストを追加。

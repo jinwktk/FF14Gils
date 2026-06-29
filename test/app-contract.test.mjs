@@ -18,6 +18,17 @@ describe('app data loading contract', () => {
     assert.match(html, /data-world-select/);
   });
 
+  it('操作しやすいダッシュボード構造を持つ', async () => {
+    const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+
+    assert.match(html, /class="app-shell"/);
+    assert.match(html, /class="dashboard-grid"/);
+    assert.match(html, /class="summary-strip"/);
+    assert.match(html, /class="filter-panel"/);
+    assert.match(html, /class="results-panel"/);
+    assert.match(html, /選んだワールドは次回も使えます/);
+  });
+
   it('Pages workflowはデプロイ前にテストを実行する', async () => {
     const workflow = await readFile(
       new URL('../.github/workflows/pages.yml', import.meta.url),
