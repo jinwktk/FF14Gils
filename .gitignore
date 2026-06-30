@@ -2,3 +2,10 @@ dist/
 node_modules/
 data/**/*.tmp
 .tmp/
+.env
+.env.*
+!.env.example
+AGENTS.md
+.agents/
+.codex/
+.omx/
