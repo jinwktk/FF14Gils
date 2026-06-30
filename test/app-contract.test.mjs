@@ -159,9 +159,17 @@ describe('app data loading contract', () => {
     assert.match(legal, /Copyright \(C\) SQUARE ENIX CO\., LTD\. All Rights Reserved\./);
     assert.match(legal, /非公式ファンサイト/);
     assert.match(legal, /Saddlebag Exchange API/);
-    assert.doesNotMatch(legal, /Universalis API/);
+    assert.match(legal, /Saddlebag Exchange API は内部的に Universalis API を利用する/);
     assert.match(legal, /XIVAPI v2/);
     assert.match(legal, /説明文、アイコン、詳細なゲームデータは保存しません。/);
+    assert.match(legal, /Google Analytics 4/);
+    assert.match(legal, /個人を特定できる情報/);
+    assert.match(legal, /Cookie/);
+    assert.match(legal, /https:\/\/docs\.saddlebagexchange\.com\/docs/);
+    assert.match(legal, /https:\/\/v2\.xivapi\.com\/docs\/welcome\//);
+    assert.match(legal, /https:\/\/support\.jp\.square-enix\.com\/rule\.php\?id=5381&amp;la=0&amp;tag=users/);
+    assert.match(legal, /https:\/\/support\.jp\.square-enix\.com\/rule\.php\?id=5381&amp;la=0&amp;tag=authc/);
+    assert.match(legal, /https:\/\/marketingplatform\.google\.com\/about\/analytics\/terms\/jp\//);
     assert.match(build, /'legal\.html'/);
   });
 
