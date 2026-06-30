@@ -105,34 +105,6 @@ a:hover {
   font-weight: 900;
 }
 
-.kofi-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid rgba(57, 200, 189, 0.42);
-  border-radius: 8px;
-  background: #101820;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
-}
-
-.kofi-link:hover {
-  border-color: var(--accent-strong);
-  background: #13202a;
-}
-
-.kofi-link:focus-visible {
-  outline: 3px solid rgba(57, 200, 189, 0.28);
-  outline-offset: 2px;
-}
-
-.kofi-link img {
-  display: block;
-  width: 28px;
-  height: 28px;
-}
-
 .sr-only {
   position: absolute;
   width: 1px;

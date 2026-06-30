@@ -10,6 +10,7 @@ FF14 のマーケットデータから、金策候補を探すための GitHub P
 - 公式 Lodestone のワールド構成に合わせ、Aether、Crystal、Dynamis、Primal、Chaos、Light、Materia、Elemental、Gaia、Mana、Meteor の全DC 85ワールドを対象にします。
 - DC選択は北米、欧州、日本、オセアニアの見出し付きで選べます。選んだDCでワールド候補を絞り込み、期間選択、検索、状態フィルタ、最低販売数フィルタ、列ソートに対応しています。
 - UI 表示言語は日本語と英語を切り替えできます。選択した言語は Cookie に保存されます。
+- 権利・利用条件面の懸念を避けるため、支援リンクなどの外部支援導線は表示しません。
 
 ## データと権利について
 
@@ -70,6 +71,7 @@ flowchart LR
 ブラウザから外部 API へ直接 POST せず、GitHub Pages で配信される同一オリジンの JSON を表示します。
 ワールド選択は全DC 85ワールドを1つの長いプルダウンにせず、北米、欧州、日本、オセアニアの見出し付きDC選択から絞り込んで、該当DCのワールドだけを表示します。
 アクセス計測は Google Analytics 4 の Measurement ID `G-VH5GMQMZ34` を `gtag.js` で読み込みます。
+外部支援リンクは表示せず、JSON-LD の `sameAs` にも支援先 URL を載せません。
 
 ## 開発コマンド
 
