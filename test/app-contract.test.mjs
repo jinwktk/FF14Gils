@@ -22,6 +22,8 @@ describe('app data loading contract', () => {
     assert.match(html, /data-i18n="ui\.dataCenterLabel"/);
     assert.match(app, /dcSelect/);
     assert.match(app, /populateDataCenterSelect/);
+    assert.match(app, /listDataCenterGroupsForWorlds/);
+    assert.match(app, /formatDataCenterGroupLabel/);
     assert.match(app, /filterWorldsByDataCenter/);
   });
 
@@ -50,7 +52,7 @@ describe('app data loading contract', () => {
     assert.match(html, /1日/);
     assert.match(html, /3日/);
     assert.match(html, /7日/);
-    assert.match(html, /1か月/);
+    assert.doesNotMatch(html, /1か月/);
     assert.match(app, /periodSelect/);
     assert.match(app, /selectedPeriod/);
   });
@@ -66,10 +68,13 @@ describe('app data loading contract', () => {
 
   it('ワールド選択は選択中DCの候補だけを描画する', async () => {
     const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');
+    const dataCenterSelectSource = functionSource(app, 'populateDataCenterSelect', 'populateWorldSelect');
+    const worldSelectSource = functionSource(app, 'populateWorldSelect', 'populatePeriodSelect');
 
-    assert.doesNotMatch(app, /createElement\(['"]optgroup['"]\)/);
-    assert.match(app, /filterWorldsByDataCenter/);
-    assert.match(app, /dataCenter/);
+    assert.match(dataCenterSelectSource, /createElement\(['"]optgroup['"]\)/);
+    assert.match(dataCenterSelectSource, /listDataCenterGroupsForWorlds/);
+    assert.match(worldSelectSource, /filterWorldsByDataCenter/);
+    assert.doesNotMatch(worldSelectSource, /optgroup/);
   });
 
   it('列名クリックで一覧をソートできる', async () => {
@@ -155,7 +160,7 @@ describe('app data loading contract', () => {
     assert.match(legal, /Copyright \(C\) SQUARE ENIX CO\., LTD\. All Rights Reserved\./);
     assert.match(legal, /非公式ファンサイト/);
     assert.match(legal, /Saddlebag Exchange API/);
-    assert.match(legal, /Universalis API/);
+    assert.doesNotMatch(legal, /Universalis API/);
     assert.match(legal, /XIVAPI v2/);
     assert.match(legal, /説明文、アイコン、詳細なゲームデータは保存しません。/);
     assert.match(build, /'legal\.html'/);
@@ -263,6 +268,21 @@ describe('app data loading contract', () => {
     assert.match(script, /FF14GILS_PRESET\s*\?\?\s*['"]all['"]/);
     assert.doesNotMatch(script, /FF14GILS_PRESET\s*\?\?\s*['"]housing['"]/);
   });
+
+  it('データ生成スクリプトとREADMEはUniversalis API直利用を説明しない', async () => {
+    const script = await readFile(
+      new URL('../scripts/fetch-marketshare.mjs', import.meta.url),
+      'utf8',
+    );
+    const readme = await readFile(new URL('../README.md', import.meta.url), 'utf8');
+
+    assert.doesNotMatch(script, /universalis\.app\/api/i);
+    assert.doesNotMatch(script, /UNIVERSALIS/i);
+    assert.doesNotMatch(script, /entriesWithin/i);
+    assert.doesNotMatch(readme, /Universalis API/);
+    assert.doesNotMatch(readme, /30 day history/i);
+    assert.doesNotMatch(readme, /30d/);
+  });
 });
 
 async function readBrowserSources() {
@@ -292,4 +312,14 @@ function readIcoHeader(buffer) {
     type: buffer.readUInt16LE(2),
     count: buffer.readUInt16LE(4),
   };
+}
+
+function functionSource(source, startName, endName) {
+  const start = source.indexOf(`function ${startName}`);
+  const end = source.indexOf(`function ${endName}`);
+
+  assert.notEqual(start, -1);
+  assert.notEqual(end, -1);
+
+  return source.slice(start, end);
 }

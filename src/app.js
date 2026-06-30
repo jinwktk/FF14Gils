@@ -20,6 +20,7 @@ import {
 } from './preferences.js';
 import {
   filterWorldsByDataCenter,
+  listDataCenterGroupsForWorlds,
   listDataCentersForWorlds,
   normalizeWorldIndex,
 } from './worlds.js';
@@ -205,12 +206,19 @@ function populateDataCenterSelect(selectedDataCenter = '') {
     selectedDataCenter || resolveDataCenterForWorld(preferredWorld),
   );
 
-  for (const dataCenter of listDataCentersForWorlds(state.worldIndex.worlds)) {
-    const option = document.createElement('option');
-    option.value = dataCenter;
-    option.textContent = formatDataCenterLabel(dataCenter);
-    option.selected = dataCenter === preferredDataCenter;
-    fragment.append(option);
+  for (const group of listDataCenterGroupsForWorlds(state.worldIndex.worlds)) {
+    const optgroup = document.createElement('optgroup');
+    optgroup.label = formatDataCenterGroupLabel(group.key);
+
+    for (const dataCenter of group.dataCenters) {
+      const option = document.createElement('option');
+      option.value = dataCenter;
+      option.textContent = formatDataCenterLabel(dataCenter);
+      option.selected = dataCenter === preferredDataCenter;
+      optgroup.append(option);
+    }
+
+    fragment.append(optgroup);
   }
 
   elements.dcSelect.replaceChildren(fragment);
@@ -315,7 +323,11 @@ function normalizeSelectedDataCenter(dataCenter) {
 function formatDataCenterLabel(dataCenter) {
   const otherDataCenter = translate(state.language, 'ui.otherDataCenter');
 
-  return dataCenter === 'その他' ? otherDataCenter : `${dataCenter} DC`;
+  return dataCenter === 'その他' ? otherDataCenter : dataCenter;
+}
+
+function formatDataCenterGroupLabel(regionKey) {
+  return translate(state.language, `dataCenterRegions.${regionKey}`);
 }
 
 function renderRow(item, index) {

@@ -5,8 +5,9 @@ export const SALES_PERIODS = [
   { key: '1d', label: '1日', hours: 24 },
   { key: '3d', label: '3日', hours: 72 },
   { key: '7d', label: '7日', hours: 168 },
-  { key: '30d', label: '1か月', hours: 720 },
 ];
+
+const SALES_PERIOD_BY_KEY = new Map(SALES_PERIODS.map((period) => [period.key, period]));
 
 export const WORLD_DATA_CENTERS = [
   {
@@ -109,11 +110,35 @@ export const WORLD_DATA_CENTERS = [
   },
 ];
 
+export const WORLD_DATA_CENTER_REGIONS = [
+  {
+    key: 'northAmerica',
+    dataCenters: ['Aether', 'Primal', 'Crystal', 'Dynamis'],
+  },
+  {
+    key: 'europe',
+    dataCenters: ['Chaos', 'Light'],
+  },
+  {
+    key: 'japan',
+    dataCenters: ['Elemental', 'Gaia', 'Mana', 'Meteor'],
+  },
+  {
+    key: 'oceania',
+    dataCenters: ['Materia'],
+  },
+];
+
 export const DEFAULT_WORLDS = WORLD_DATA_CENTERS.flatMap((dataCenter) => dataCenter.worlds);
 
 const WORLD_DATA_CENTER_BY_NAME = new Map(
   WORLD_DATA_CENTERS.flatMap((dataCenter) =>
     dataCenter.worlds.map((world) => [world.toLowerCase(), dataCenter.name]),
+  ),
+);
+const WORLD_DATA_CENTER_REGION_BY_NAME = new Map(
+  WORLD_DATA_CENTER_REGIONS.flatMap((region) =>
+    region.dataCenters.map((dataCenter) => [dataCenter, region.key]),
   ),
 );
 
@@ -145,6 +170,10 @@ export function resolveWorldDataCenter(world) {
 }
 
 export function listDataCentersForWorlds(worlds) {
+  return listDataCenterGroupsForWorlds(worlds).flatMap((group) => group.dataCenters);
+}
+
+export function listDataCenterGroupsForWorlds(worlds) {
   const worldList = Array.isArray(worlds) ? worlds : [];
   const availableDataCenters = new Set(
     worldList
@@ -154,14 +183,23 @@ export function listDataCentersForWorlds(worlds) {
       )
       .filter(Boolean),
   );
-  const officialOrder = WORLD_DATA_CENTERS
-    .map((dataCenter) => dataCenter.name)
-    .filter((dataCenter) => availableDataCenters.has(dataCenter));
+  const groups = WORLD_DATA_CENTER_REGIONS
+    .map((region) => ({
+      key: region.key,
+      dataCenters: region.dataCenters.filter((dataCenter) =>
+        availableDataCenters.has(dataCenter),
+      ),
+    }))
+    .filter((region) => region.dataCenters.length > 0);
   const extras = [...availableDataCenters]
-    .filter((dataCenter) => !officialOrder.includes(dataCenter))
+    .filter((dataCenter) => !WORLD_DATA_CENTER_REGION_BY_NAME.has(dataCenter))
     .sort((a, b) => a.localeCompare(b));
 
-  return [...officialOrder, ...extras];
+  if (extras.length > 0) {
+    groups.push({ key: 'other', dataCenters: extras });
+  }
+
+  return groups;
 }
 
 export function filterWorldsByDataCenter(worlds, dataCenter) {
@@ -181,20 +219,20 @@ export function filterWorldsByDataCenter(worlds, dataCenter) {
 export function resolveSalesPeriod(periodKey) {
   const key = String(periodKey ?? '').trim().toLowerCase();
 
-  return SALES_PERIODS.find((period) => period.key === key) ??
-    SALES_PERIODS.find((period) => period.key === DEFAULT_SALES_PERIOD);
+  return SALES_PERIOD_BY_KEY.get(key) ?? SALES_PERIOD_BY_KEY.get(DEFAULT_SALES_PERIOD);
 }
 
 export function parseSalesPeriodList(value) {
-  if (!value) return SALES_PERIODS.map((period) => ({ ...period }));
+  if (!value) return cloneSalesPeriods();
 
-  const periods = String(value)
+  const uniquePeriods = new Map();
+  String(value)
     .split(/[\s,]+/)
-    .map(resolveSalesPeriod)
-    .filter(Boolean);
-  const uniquePeriods = new Map(periods.map((period) => [period.key, { ...period }]));
+    .map((periodKey) => SALES_PERIOD_BY_KEY.get(periodKey.trim().toLowerCase()))
+    .filter(Boolean)
+    .forEach((period) => uniquePeriods.set(period.key, { ...period }));
 
-  return [...uniquePeriods.values()];
+  return uniquePeriods.size > 0 ? [...uniquePeriods.values()] : cloneSalesPeriods();
 }
 
 export function parseWorldList(value) {
@@ -291,17 +329,14 @@ export function normalizeWorldIndex(index, fallbackPath = 'data/marketshare.json
 
 function normalizePeriods(periods) {
   const sourcePeriods = Array.isArray(periods) && periods.length > 0 ? periods : SALES_PERIODS;
-  const normalized = sourcePeriods
-    .map((period) => ({
-      key: String(period?.key ?? '').trim(),
-      label: String(period?.label ?? '').trim(),
-      hours: Number(period?.hours),
-    }))
-    .filter((period) => period.key && period.label && Number.isInteger(period.hours));
+  const normalized = new Map();
 
-  return normalized.length > 0
-    ? normalized
-    : SALES_PERIODS.map((period) => ({ ...period }));
+  sourcePeriods
+    .map((period) => SALES_PERIOD_BY_KEY.get(String(period?.key ?? '').trim().toLowerCase()))
+    .filter(Boolean)
+    .forEach((period) => normalized.set(period.key, { ...period }));
+
+  return normalized.size > 0 ? [...normalized.values()] : cloneSalesPeriods();
 }
 
 function createPeriodPathMap(world, periods) {
@@ -323,4 +358,8 @@ function normalizeWorldPeriodPaths(world, periods) {
           : world.path),
     ]),
   );
+}
+
+function cloneSalesPeriods() {
+  return SALES_PERIODS.map((period) => ({ ...period }));
 }

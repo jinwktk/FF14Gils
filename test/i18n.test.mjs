@@ -44,10 +44,18 @@ describe('translate', () => {
   it('日本語と英語のUI文言を返す', () => {
     assert.equal(translate('ja', 'ui.filterTitle'), '絞り込み');
     assert.equal(translate('en', 'ui.filterTitle'), 'Filters');
-    assert.equal(translate('ja', 'ui.dataCenterLabel'), 'DC');
+    assert.equal(translate('ja', 'ui.dataCenterLabel'), 'データセンター');
     assert.equal(translate('en', 'ui.dataCenterLabel'), 'Data center');
     assert.equal(translate('ja', 'ui.dataCenterSelect'), 'DCを選択');
     assert.equal(translate('en', 'ui.dataCenterSelect'), 'Select data center');
+    assert.equal(translate('ja', 'dataCenterRegions.northAmerica'), '北米データセンター');
+    assert.equal(translate('en', 'dataCenterRegions.northAmerica'), 'North American Data Centers');
+    assert.equal(translate('ja', 'dataCenterRegions.europe'), '欧州データセンター');
+    assert.equal(translate('en', 'dataCenterRegions.europe'), 'European Data Centers');
+    assert.equal(translate('ja', 'dataCenterRegions.japan'), '日本データセンター');
+    assert.equal(translate('en', 'dataCenterRegions.japan'), 'Japanese Data Centers');
+    assert.equal(translate('ja', 'dataCenterRegions.oceania'), 'オセアニアデータセンター');
+    assert.equal(translate('en', 'dataCenterRegions.oceania'), 'Oceanic Data Centers');
     assert.equal(translate('en', 'table.marketValue'), 'Sales');
     assert.match(translate('ja', 'meta.description'), /全DC/);
     assert.match(translate('en', 'meta.description'), /all data centers/);

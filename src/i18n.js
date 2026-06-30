@@ -10,6 +10,13 @@ const TRANSLATIONS = {
     format: {
       gilUnit: 'ギル',
     },
+    dataCenterRegions: {
+      europe: '欧州データセンター',
+      japan: '日本データセンター',
+      northAmerica: '北米データセンター',
+      oceania: 'オセアニアデータセンター',
+      other: 'その他のデータセンター',
+    },
     meta: {
       title: 'FF14Gils | FF14 マーケット金策',
       description:
@@ -24,7 +31,6 @@ const TRANSLATIONS = {
       '1d': '1日',
       '3d': '3日',
       '7d': '7日',
-      '30d': '1か月',
     },
     recommendations: {
       candidate: '候補',
@@ -65,7 +71,7 @@ const TRANSLATIONS = {
       state: '状態',
     },
     ui: {
-      dataCenterLabel: 'DC',
+      dataCenterLabel: 'データセンター',
       dataCenterSelect: 'DCを選択',
       emptyState: '条件に一致するアイテムがありません。',
       eyebrow: 'FF14 マーケット金策',
@@ -102,6 +108,13 @@ const TRANSLATIONS = {
     format: {
       gilUnit: 'gil',
     },
+    dataCenterRegions: {
+      europe: 'European Data Centers',
+      japan: 'Japanese Data Centers',
+      northAmerica: 'North American Data Centers',
+      oceania: 'Oceanic Data Centers',
+      other: 'Other Data Centers',
+    },
     meta: {
       title: 'FF14Gils | FF14 Market Profit Dashboard',
       description:
@@ -116,7 +129,6 @@ const TRANSLATIONS = {
       '1d': '1 day',
       '3d': '3 days',
       '7d': '7 days',
-      '30d': '1 month',
     },
     recommendations: {
       candidate: 'Candidate',

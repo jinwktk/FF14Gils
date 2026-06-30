@@ -4,11 +4,13 @@ import { describe, it } from 'node:test';
 import {
   DEFAULT_WORLDS,
   WORLD_DATA_CENTERS,
+  WORLD_DATA_CENTER_REGIONS,
   DEFAULT_SALES_PERIOD,
   buildWorldSnapshotPath,
   buildWorldPeriodSnapshotPath,
   createWorldIndex,
   filterWorldsByDataCenter,
+  listDataCenterGroupsForWorlds,
   listDataCentersForWorlds,
   normalizeWorldIndex,
   parseWorldList,
@@ -66,7 +68,6 @@ describe('createWorldIndex', () => {
           '1d': 'data/worlds/carbuncle-1d.json',
           '3d': 'data/worlds/carbuncle-3d.json',
           '7d': 'data/worlds/carbuncle.json',
-          '30d': 'data/worlds/carbuncle-30d.json',
         },
       },
       {
@@ -77,7 +78,6 @@ describe('createWorldIndex', () => {
           '1d': 'data/worlds/chocobo-1d.json',
           '3d': 'data/worlds/chocobo-3d.json',
           '7d': 'data/worlds/chocobo.json',
-          '30d': 'data/worlds/chocobo-30d.json',
         },
       },
     ]);
@@ -86,7 +86,6 @@ describe('createWorldIndex', () => {
       '1d:24',
       '3d:72',
       '7d:168',
-      '30d:720',
     ]);
   });
 
@@ -153,7 +152,7 @@ describe('parseSalesPeriodList', () => {
   it('売上期間を重複なしで解決する', () => {
     assert.deepEqual(
       parseSalesPeriodList('1d, 7d\n30d,1d').map((period) => period.key),
-      ['1d', '7d', '30d'],
+      ['1d', '7d'],
     );
   });
 });
@@ -163,11 +162,40 @@ describe('data center helpers', () => {
     { name: 'Hades', dataCenter: 'Mana' },
     { name: 'Chocobo', dataCenter: 'Mana' },
     { name: 'Adamantoise', dataCenter: 'Aether' },
+    { name: 'Excalibur', dataCenter: 'Primal' },
+    { name: 'Omega', dataCenter: 'Chaos' },
+    { name: 'Ravana', dataCenter: 'Materia' },
     { name: 'Custom', dataCenter: 'その他' },
   ];
 
-  it('worlds.jsonに含まれるDCを公式順で列挙する', () => {
-    assert.deepEqual(listDataCentersForWorlds(worlds), ['Aether', 'Mana', 'その他']);
+  it('DCをリージョン別の表示順で列挙する', () => {
+    assert.deepEqual(
+      WORLD_DATA_CENTER_REGIONS.map((region) => `${region.key}:${region.dataCenters.join(',')}`),
+      [
+        'northAmerica:Aether,Primal,Crystal,Dynamis',
+        'europe:Chaos,Light',
+        'japan:Elemental,Gaia,Mana,Meteor',
+        'oceania:Materia',
+      ],
+    );
+    assert.deepEqual(listDataCentersForWorlds(worlds), [
+      'Aether',
+      'Primal',
+      'Chaos',
+      'Mana',
+      'Materia',
+      'その他',
+    ]);
+  });
+
+  it('worlds.jsonに含まれるDCをリージョン別グループにする', () => {
+    assert.deepEqual(listDataCenterGroupsForWorlds(worlds), [
+      { key: 'northAmerica', dataCenters: ['Aether', 'Primal'] },
+      { key: 'europe', dataCenters: ['Chaos'] },
+      { key: 'japan', dataCenters: ['Mana'] },
+      { key: 'oceania', dataCenters: ['Materia'] },
+      { key: 'other', dataCenters: ['その他'] },
+    ]);
   });
 
   it('選択したDCに属するワールドだけを返す', () => {
@@ -209,7 +237,6 @@ describe('normalizeWorldIndex', () => {
           '1d': 'data/worlds/hades.json',
           '3d': 'data/worlds/hades.json',
           '7d': 'data/worlds/hades.json',
-          '30d': 'data/worlds/hades.json',
         },
       },
     ]);
@@ -227,6 +254,6 @@ describe('buildWorldPeriodSnapshotPath', () => {
   it('7日は従来パスを使い、他期間は期間付きパスを返す', () => {
     assert.equal(buildWorldPeriodSnapshotPath('Hades', '7d'), 'data/worlds/hades.json');
     assert.equal(buildWorldPeriodSnapshotPath('Hades', '1d'), 'data/worlds/hades-1d.json');
-    assert.equal(buildWorldPeriodSnapshotPath('Hades', '30d'), 'data/worlds/hades-30d.json');
+    assert.equal(buildWorldPeriodSnapshotPath('Hades', '30d'), 'data/worlds/hades.json');
   });
 });
