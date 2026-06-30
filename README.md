@@ -82,6 +82,8 @@ npm run favicon:generate
 - `FF14GILS_PERIODS`: 生成する売上期間。`1d`、`3d`、`7d`、`30d`。
 - `FF14GILS_PRESET`: `all`、`housing`、`materials`、`consumables`、`collectibles`、`custom`。
 - `FF14GILS_CUSTOM_FILTERS`: `custom` 用のカテゴリ ID。
+- `FF14GILS_FETCH_RETRIES`: 外部APIの一時的な `429` / `5xx` 応答を再試行する回数。
+- `FF14GILS_FETCH_RETRY_DELAY_MS`: 外部APIリトライの初回待機時間。
 
 データ生成時の Saddlebag Exchange API と Universalis API への通信は、一時的な `429` / `5xx` 応答を短くリトライします。
 

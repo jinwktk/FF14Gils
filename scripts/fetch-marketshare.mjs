@@ -23,6 +23,7 @@ import {
   fetchJapaneseItemNames,
   normalizeItemIds,
 } from './item-name-api.mjs';
+import { fetchWithRetry } from './retry-fetch.mjs';
 
 const dataDir = fileURLToPath(new URL('../data/', import.meta.url));
 const UNIVERSALIS_HISTORY_ENDPOINT = 'https://universalis.app/api/v2/history';
@@ -32,6 +33,10 @@ const itemNameCachePath = fileURLToPath(
 );
 const worldsDir = fileURLToPath(new URL('../data/worlds/', import.meta.url));
 const worldIndexPath = fileURLToPath(new URL('../data/worlds.json', import.meta.url));
+const retryOptions = {
+  retries: Number(process.env.FF14GILS_FETCH_RETRIES ?? 3),
+  baseDelayMs: Number(process.env.FF14GILS_FETCH_RETRY_DELAY_MS ?? 1000),
+};
 const worlds = parseWorldList(process.env.FF14GILS_WORLDS);
 const periods = parseSalesPeriodList(process.env.FF14GILS_PERIODS);
 const query = {
@@ -137,14 +142,18 @@ async function fetchWorldMarketshare(world, period) {
     server: world,
     timePeriod: period.hours,
   });
-  const response = await fetch(SADDLEBAG_MARKETSHARE_ENDPOINT, {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      'user-agent': 'FF14Gils GitHub Pages data fetcher',
+  const response = await fetchWithRetry(
+    SADDLEBAG_MARKETSHARE_ENDPOINT,
+    {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'user-agent': 'FF14Gils GitHub Pages data fetcher',
+      },
+      body: JSON.stringify(payload),
     },
-    body: JSON.stringify(payload),
-  });
+    retryOptions,
+  );
 
   if (!response.ok) {
     throw new Error(
@@ -196,11 +205,15 @@ async function fetchMonthlyHistoryMarketshare(world, period, seedResult) {
   );
   historyUrl.searchParams.set('entriesWithin', String(period.hours * 60 * 60));
 
-  const response = await fetch(historyUrl, {
-    headers: {
-      'user-agent': 'FF14Gils GitHub Pages data fetcher',
+  const response = await fetchWithRetry(
+    historyUrl,
+    {
+      headers: {
+        'user-agent': 'FF14Gils GitHub Pages data fetcher',
+      },
     },
-  });
+    retryOptions,
+  );
 
   if (!response.ok) {
     throw new Error(
