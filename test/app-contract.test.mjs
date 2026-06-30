@@ -132,6 +132,25 @@ describe('app data loading contract', () => {
     assert.match(robots, /Allow:\s*\//);
     assert.match(robots, /Sitemap:\s*https:\/\/jinwktk\.github\.io\/FF14Gils\/sitemap\.xml/);
     assert.match(sitemap, /<loc>https:\/\/jinwktk\.github\.io\/FF14Gils\/<\/loc>/);
+    assert.match(sitemap, /<loc>https:\/\/jinwktk\.github\.io\/FF14Gils\/legal\.html<\/loc>/);
+  });
+
+  it('権利表記とデータ元を説明する公開ページを持つ', async () => {
+    const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+    const legal = await readFile(new URL('../legal.html', import.meta.url), 'utf8');
+    const build = await readFile(new URL('../scripts/build.mjs', import.meta.url), 'utf8');
+
+    assert.match(html, /href="legal\.html"/);
+    assert.match(legal, /<title>権利表記とデータについて \| FF14Gils<\/title>/);
+    assert.match(legal, /&copy; 2026 FF14Gils/);
+    assert.match(legal, /記載されている会社名・製品名・システム名などは、各社の商標、または登録商標です。/);
+    assert.match(legal, /Copyright \(C\) SQUARE ENIX CO\., LTD\. All Rights Reserved\./);
+    assert.match(legal, /非公式ファンサイト/);
+    assert.match(legal, /Saddlebag Exchange API/);
+    assert.match(legal, /Universalis API/);
+    assert.match(legal, /XIVAPI v2/);
+    assert.match(legal, /説明文、アイコン、詳細なゲームデータは保存しません。/);
+    assert.match(build, /'legal\.html'/);
   });
 
   it('Google Search ConsoleのHTML確認ファイルをPages配信対象に含める', async () => {
