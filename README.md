@@ -9,6 +9,59 @@ FF14 のマーケットデータから、金策候補を探すための GitHub P
 - UI は依存を増やさず、`index.html`、`styles.css`、`src/app.js`、`src/marketshare.js`、`src/worlds.js` の静的構成です。
 - GitHub Actions の `.github/workflows/pages.yml` がデータ取得、ビルド、Pages デプロイを行います。
 
+## アーキテクチャ
+
+```mermaid
+flowchart LR
+  subgraph Browser["利用者ブラウザ"]
+    Ui["index.html / styles.css / src/app.js"]
+    Cookie["ff14gils_world Cookie"]
+  end
+
+  subgraph Pages["GitHub Pages 静的配信"]
+    Static["HTML / CSS / JS / assets"]
+    WorldIndex["data/worlds.json"]
+    Snapshots["data/worlds/*.json / data/marketshare.json"]
+  end
+
+  subgraph Pipeline["GitHub Actions またはローカル生成"]
+    Workflow[".github/workflows/pages.yml"]
+    Tests["npm test"]
+    FetchData["npm run fetch:data"]
+    Build["npm run build"]
+    Dist["dist/"]
+  end
+
+  Saddlebag["Saddlebag Exchange API"]
+  Xivapi["XIVAPI v2"]
+  Universalis["Universalis API"]
+
+  Ui -->|"GET same-origin"| Static
+  Ui -->|"GET same-origin"| WorldIndex
+  Ui -->|"GET same-origin"| Snapshots
+  Ui -->|"read / write"| Cookie
+  NoDirect["ブラウザから外部APIへ直接POST/GETしない"]
+  Ui -.-> NoDirect
+  NoDirect -.-> Saddlebag
+  NoDirect -.-> Xivapi
+  NoDirect -.-> Universalis
+
+  Workflow --> Tests
+  Workflow --> FetchData
+  Workflow --> Build
+  FetchData -->|"POST 1日 / 3日 / 7日 marketshare"| Saddlebag
+  FetchData -->|"GET 日本語アイテム名"| Xivapi
+  FetchData -->|"GET 1か月販売履歴"| Universalis
+  FetchData -->|"write"| WorldIndex
+  FetchData -->|"write"| Snapshots
+  Build --> Dist
+  Dist -->|"deploy"| Static
+  Dist -->|"deploy"| WorldIndex
+  Dist -->|"deploy"| Snapshots
+```
+
+ブラウザが実行する外部通信は GitHub Pages から配信された同一オリジンの静的ファイル取得だけです。Saddlebag Exchange、XIVAPI、Universalis への通信は `scripts/fetch-marketshare.mjs` を実行する GitHub Actions またはローカル生成時に限定します。Ko-fi はヘッダーの支援リンクとして置いているだけで、クリックされるまで通信しません。Search Console の HTML 確認ファイル、`robots.txt`、`sitemap.xml` は検索向けの静的配信ファイルです。
+
 ## データ契約
 
 `data/marketshare.json` は以下の形で生成します。
@@ -80,6 +133,7 @@ npm run serve
 
 ## 現在の作業状況
 
+- 2026-06-30: 外部ツール疑いへの説明用に、READMEへMermaidのアーキテクチャ図を追加。ブラウザは同一オリジンの静的JSONのみを読み、Saddlebag Exchange、XIVAPI、Universalisへの通信はGitHub Actionsまたはローカルのデータ生成時に限定されることを明記。
 - 2026-06-30: Ko-fi支援リンクをRukalunPageで使っている `jinnymeia` アカウントへ揃える方針に変更。契約テストでヘッダーリンクとJSON-LDの `sameAs` を固定する。
 - 2026-06-29: 空リポジトリから開始。
 - 2026-06-29: Saddlebag Exchange OpenAPI と実 API 応答を確認し、Marketshare API の必須パラメータとレスポンス形状を確認。
