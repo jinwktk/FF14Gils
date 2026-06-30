@@ -133,7 +133,7 @@ npm run serve
 
 ## 現在の作業状況
 
-- 2026-06-30: 外部ツール疑いへの説明用に、READMEへMermaidのアーキテクチャ図を追加。ブラウザは同一オリジンの静的JSONのみを読み、Saddlebag Exchange、XIVAPI、Universalisへの通信はGitHub Actionsまたはローカルのデータ生成時に限定されることを明記。
+- 2026-06-30: READMEへMermaidのアーキテクチャ図を追加。ブラウザは同一オリジンの静的JSONのみを読み、Saddlebag Exchange、XIVAPI、Universalisへの通信はGitHub Actionsまたはローカルのデータ生成時に限定されることを明記。
 - 2026-06-30: Ko-fi支援リンクをRukalunPageで使っている `jinnymeia` アカウントへ揃える方針に変更。契約テストでヘッダーリンクとJSON-LDの `sameAs` を固定する。
 - 2026-06-29: 空リポジトリから開始。
 - 2026-06-29: Saddlebag Exchange OpenAPI と実 API 応答を確認し、Marketshare API の必須パラメータとレスポンス形状を確認。
