@@ -35,11 +35,13 @@ flowchart LR
   Saddlebag["Saddlebag Exchange API"]
   Xivapi["XIVAPI v2"]
   Universalis["Universalis API"]
+  Analytics["Google Analytics 4"]
 
   Ui -->|"GET same-origin"| Static
   Ui -->|"GET same-origin"| WorldIndex
   Ui -->|"GET same-origin"| Snapshots
   Ui -->|"read / write"| Cookie
+  Ui -->|"gtag.js / page_view"| Analytics
 
   Workflow --> Tests
   Workflow --> FetchData
@@ -54,6 +56,7 @@ flowchart LR
 ```
 
 ブラウザから外部 API へ直接 POST せず、GitHub Pages で配信される同一オリジンの JSON を表示します。
+アクセス計測は Google Analytics 4 の Measurement ID `G-VH5GMQMZ34` を `gtag.js` で読み込みます。
 
 ## 開発コマンド
 

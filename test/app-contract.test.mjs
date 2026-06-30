@@ -128,6 +128,19 @@ describe('app data loading contract', () => {
     assert.match(build, /'googled9f512eea3a99dc1\.html'/);
   });
 
+  it('Google Analytics 4の計測タグを持つ', async () => {
+    const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+
+    assert.match(
+      html,
+      /<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-VH5GMQMZ34"><\/script>/,
+    );
+    assert.match(html, /window\.dataLayer = window\.dataLayer \|\| \[\];/);
+    assert.match(html, /function gtag\(\)\{dataLayer\.push\(arguments\);\}/);
+    assert.match(html, /gtag\('config', 'G-VH5GMQMZ34'\);/);
+    assert.equal(html.match(/G-VH5GMQMZ34/g)?.length, 2);
+  });
+
   it('ヘッダーにKo-fiの支援リンクを持つ', async () => {
     const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
     const icon = await readFile(new URL('../assets/ko-fi.svg', import.meta.url), 'utf8');
