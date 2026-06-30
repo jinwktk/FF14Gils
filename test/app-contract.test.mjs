@@ -12,10 +12,17 @@ describe('app data loading contract', () => {
     assert.doesNotMatch(joined, /method\s*:\s*['"]POST['"]/i);
   });
 
-  it('ワールド選択UIを持つ', async () => {
+  it('DC選択とワールド選択を分けたUIを持つ', async () => {
     const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+    const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');
 
+    assert.match(html, /data-dc-select/);
     assert.match(html, /data-world-select/);
+    assert.ok(html.indexOf('data-dc-select') < html.indexOf('data-world-select'));
+    assert.match(html, /data-i18n="ui\.dataCenterLabel"/);
+    assert.match(app, /dcSelect/);
+    assert.match(app, /populateDataCenterSelect/);
+    assert.match(app, /filterWorldsByDataCenter/);
   });
 
   it('日本語と英語を切り替えるUIとi18n契約を持つ', async () => {
@@ -57,10 +64,11 @@ describe('app data loading contract', () => {
     assert.match(app, /updatedAt/);
   });
 
-  it('ワールド選択はDCごとのカテゴリを描画する', async () => {
+  it('ワールド選択は選択中DCの候補だけを描画する', async () => {
     const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');
 
-    assert.match(app, /createElement\(['"]optgroup['"]\)/);
+    assert.doesNotMatch(app, /createElement\(['"]optgroup['"]\)/);
+    assert.match(app, /filterWorldsByDataCenter/);
     assert.match(app, /dataCenter/);
   });
 

@@ -18,7 +18,11 @@ import {
   buildWorldPreferenceCookie,
   resolvePreferredWorld,
 } from './preferences.js';
-import { normalizeWorldIndex } from './worlds.js';
+import {
+  filterWorldsByDataCenter,
+  listDataCentersForWorlds,
+  normalizeWorldIndex,
+} from './worlds.js';
 
 const DEFAULT_DATA_PATH = 'data/marketshare.json';
 const WORLD_INDEX_PATH = 'data/worlds.json';
@@ -37,6 +41,7 @@ const elements = {
   stateFilters: [...document.querySelectorAll('[data-state-filter]')],
   tableBody: document.querySelector('[data-results]'),
   updatedAt: document.querySelector('[data-updated-at]'),
+  dcSelect: document.querySelector('[data-dc-select]'),
   worldSelect: document.querySelector('[data-world-select]'),
 };
 
@@ -59,6 +64,7 @@ async function init() {
     populateLanguageSelect();
     applyLanguage();
     state.worldIndex = await loadWorldIndex();
+    populateDataCenterSelect();
     populateWorldSelect();
     populatePeriodSelect();
     bindControls();
@@ -98,14 +104,27 @@ function bindControls() {
   elements.languageSelect.addEventListener('change', () => {
     state.language = elements.languageSelect.value;
     document.cookie = buildLanguagePreferenceCookie(state.language);
+    const selectedDataCenter = elements.dcSelect.value;
+    const selectedWorld = elements.worldSelect.value;
     applyLanguage();
-    populateWorldSelect(elements.worldSelect.value);
+    populateDataCenterSelect(selectedDataCenter);
+    populateWorldSelect(selectedWorld);
     populatePeriodSelect(elements.periodSelect.value);
     renderUpdatedAt(state.currentGeneratedAt);
     render();
   });
 
+  elements.dcSelect.addEventListener('change', () => {
+    populateWorldSelect();
+    document.cookie = buildWorldPreferenceCookie(elements.worldSelect.value);
+    void loadSelectedSnapshot();
+  });
+
   elements.worldSelect.addEventListener('change', () => {
+    const dataCenter = resolveDataCenterForWorld(elements.worldSelect.value);
+    if (dataCenter) {
+      elements.dcSelect.value = dataCenter;
+    }
     document.cookie = buildWorldPreferenceCookie(elements.worldSelect.value);
     void loadSelectedSnapshot();
   });
@@ -157,6 +176,7 @@ async function loadSelectedSnapshot() {
   const path = option?.periods?.[selectedPeriod] ?? option?.path ?? DEFAULT_DATA_PATH;
 
   try {
+    elements.dcSelect.disabled = true;
     elements.worldSelect.disabled = true;
     elements.periodSelect.disabled = true;
     setError('');
@@ -168,6 +188,7 @@ async function loadSelectedSnapshot() {
   } catch (error) {
     setError(translate(state.language, 'ui.loadError', { message: error.message }));
   } finally {
+    elements.dcSelect.disabled = false;
     elements.worldSelect.disabled = false;
     elements.periodSelect.disabled = false;
   }
@@ -177,34 +198,48 @@ function populateLanguageSelect() {
   elements.languageSelect.value = state.language;
 }
 
+function populateDataCenterSelect(selectedDataCenter = '') {
+  const fragment = document.createDocumentFragment();
+  const preferredWorld = resolvePreferredWorld(state.worldIndex, document.cookie);
+  const preferredDataCenter = normalizeSelectedDataCenter(
+    selectedDataCenter || resolveDataCenterForWorld(preferredWorld),
+  );
+
+  for (const dataCenter of listDataCentersForWorlds(state.worldIndex.worlds)) {
+    const option = document.createElement('option');
+    option.value = dataCenter;
+    option.textContent = formatDataCenterLabel(dataCenter);
+    option.selected = dataCenter === preferredDataCenter;
+    fragment.append(option);
+  }
+
+  elements.dcSelect.replaceChildren(fragment);
+  elements.dcSelect.value = preferredDataCenter;
+}
+
 function populateWorldSelect(selectedWorld = '') {
   const fragment = document.createDocumentFragment();
+  const selectedDataCenter = normalizeSelectedDataCenter(
+    elements.dcSelect.value || resolveDataCenterForWorld(selectedWorld),
+  );
+  const worlds = filterWorldsByDataCenter(state.worldIndex.worlds, selectedDataCenter);
+  const availableWorlds = new Set(worlds.map((world) => world.name));
   const preferredWorld =
     selectedWorld || resolvePreferredWorld(state.worldIndex, document.cookie);
-  const groups = new Map();
+  const selectedWorldName = availableWorlds.has(preferredWorld)
+    ? preferredWorld
+    : worlds[0]?.name ?? state.worldIndex.worlds[0]?.name ?? '';
 
-  for (const world of state.worldIndex.worlds) {
+  for (const world of worlds) {
     const option = document.createElement('option');
     option.value = world.name;
     option.textContent = world.name;
-    option.selected = world.name === preferredWorld;
-
-    const dataCenter = world.dataCenter ?? translate(state.language, 'ui.otherDataCenter');
-    if (!groups.has(dataCenter)) {
-      const optgroup = document.createElement('optgroup');
-      optgroup.label =
-        dataCenter === translate(state.language, 'ui.otherDataCenter')
-          ? dataCenter
-          : `${dataCenter} DC`;
-      groups.set(dataCenter, optgroup);
-      fragment.append(optgroup);
-    }
-
-    groups.get(dataCenter).append(option);
+    option.selected = world.name === selectedWorldName;
+    fragment.append(option);
   }
 
   elements.worldSelect.replaceChildren(fragment);
-  elements.worldSelect.value = preferredWorld;
+  elements.worldSelect.value = selectedWorldName;
 }
 
 function populatePeriodSelect(selectedPeriod = state.worldIndex.defaultPeriod) {
@@ -265,6 +300,22 @@ function renderUpdatedAt(value) {
   elements.updatedAt.textContent = Number.isNaN(date.getTime())
     ? translate(state.language, 'ui.updatedAtUnknown')
     : translate(state.language, 'ui.updatedAt', { datetime: text });
+}
+
+function resolveDataCenterForWorld(worldName) {
+  return state.worldIndex.worlds.find((world) => world.name === worldName)?.dataCenter ?? '';
+}
+
+function normalizeSelectedDataCenter(dataCenter) {
+  const dataCenters = listDataCentersForWorlds(state.worldIndex.worlds);
+
+  return dataCenters.includes(dataCenter) ? dataCenter : dataCenters[0] ?? '';
+}
+
+function formatDataCenterLabel(dataCenter) {
+  const otherDataCenter = translate(state.language, 'ui.otherDataCenter');
+
+  return dataCenter === 'その他' ? otherDataCenter : `${dataCenter} DC`;
 }
 
 function renderRow(item, index) {

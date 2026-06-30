@@ -44,6 +44,10 @@ describe('translate', () => {
   it('日本語と英語のUI文言を返す', () => {
     assert.equal(translate('ja', 'ui.filterTitle'), '絞り込み');
     assert.equal(translate('en', 'ui.filterTitle'), 'Filters');
+    assert.equal(translate('ja', 'ui.dataCenterLabel'), 'DC');
+    assert.equal(translate('en', 'ui.dataCenterLabel'), 'Data center');
+    assert.equal(translate('ja', 'ui.dataCenterSelect'), 'DCを選択');
+    assert.equal(translate('en', 'ui.dataCenterSelect'), 'Select data center');
     assert.equal(translate('en', 'table.marketValue'), 'Sales');
     assert.match(translate('ja', 'meta.description'), /全DC/);
     assert.match(translate('en', 'meta.description'), /all data centers/);

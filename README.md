@@ -8,7 +8,7 @@ FF14 のマーケットデータから、金策候補を探すための GitHub P
 - マーケットデータの取得と JSON 生成は GitHub Actions またはローカルの `npm run fetch:data` で行います。
 - 初期表示は `Hades`、売上期間は 1日、3日、7日、1か月に対応しています。
 - 公式 Lodestone のワールド構成に合わせ、Aether、Crystal、Dynamis、Primal、Chaos、Light、Materia、Elemental、Gaia、Mana、Meteor の全DC 85ワールドを対象にします。
-- ワールド選択、期間選択、検索、状態フィルタ、最低販売数フィルタ、列ソートに対応しています。
+- DC選択でワールド候補を絞り込み、ワールド選択、期間選択、検索、状態フィルタ、最低販売数フィルタ、列ソートに対応しています。
 - UI 表示言語は日本語と英語を切り替えできます。選択した言語は Cookie に保存されます。
 
 ## データと権利について
@@ -71,6 +71,7 @@ flowchart LR
 ```
 
 ブラウザから外部 API へ直接 POST せず、GitHub Pages で配信される同一オリジンの JSON を表示します。
+ワールド選択は全DC 85ワールドを1つの長いプルダウンにせず、先にDCを選んでから該当DCのワールドだけを表示します。
 アクセス計測は Google Analytics 4 の Measurement ID `G-VH5GMQMZ34` を `gtag.js` で読み込みます。
 
 ## 開発コマンド

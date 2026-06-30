@@ -8,6 +8,8 @@ import {
   buildWorldSnapshotPath,
   buildWorldPeriodSnapshotPath,
   createWorldIndex,
+  filterWorldsByDataCenter,
+  listDataCentersForWorlds,
   normalizeWorldIndex,
   parseWorldList,
   parseSalesPeriodList,
@@ -152,6 +154,30 @@ describe('parseSalesPeriodList', () => {
     assert.deepEqual(
       parseSalesPeriodList('1d, 7d\n30d,1d').map((period) => period.key),
       ['1d', '7d', '30d'],
+    );
+  });
+});
+
+describe('data center helpers', () => {
+  const worlds = [
+    { name: 'Hades', dataCenter: 'Mana' },
+    { name: 'Chocobo', dataCenter: 'Mana' },
+    { name: 'Adamantoise', dataCenter: 'Aether' },
+    { name: 'Custom', dataCenter: 'その他' },
+  ];
+
+  it('worlds.jsonに含まれるDCを公式順で列挙する', () => {
+    assert.deepEqual(listDataCentersForWorlds(worlds), ['Aether', 'Mana', 'その他']);
+  });
+
+  it('選択したDCに属するワールドだけを返す', () => {
+    assert.deepEqual(
+      filterWorldsByDataCenter(worlds, 'Mana').map((world) => world.name),
+      ['Hades', 'Chocobo'],
+    );
+    assert.deepEqual(
+      filterWorldsByDataCenter(worlds, 'Aether').map((world) => world.name),
+      ['Adamantoise'],
     );
   });
 });

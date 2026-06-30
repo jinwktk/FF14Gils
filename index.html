@@ -101,8 +101,17 @@
           <div class="panel-heading">
             <p class="panel-kicker" data-i18n="ui.filterKicker">条件</p>
             <h2 data-i18n="ui.filterTitle">絞り込み</h2>
-            <p data-i18n="ui.filterHelp">選んだワールドは次回も使えます。</p>
+            <p data-i18n="ui.filterHelp">DCを選ぶとワールド候補を絞れます。選んだワールドは次回も使えます。</p>
           </div>
+
+          <label>
+            <span data-i18n="ui.dataCenterLabel">DC</span>
+            <select
+              data-dc-select
+              data-i18n-attr="aria-label:ui.dataCenterSelect"
+              aria-label="DCを選択"
+            ></select>
+          </label>
 
           <label>
             <span data-i18n="ui.worldLabel">ワールド</span>

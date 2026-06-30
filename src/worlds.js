@@ -144,6 +144,40 @@ export function resolveWorldDataCenter(world) {
   return WORLD_DATA_CENTER_BY_NAME.get(key) ?? 'その他';
 }
 
+export function listDataCentersForWorlds(worlds) {
+  const worldList = Array.isArray(worlds) ? worlds : [];
+  const availableDataCenters = new Set(
+    worldList
+      .map((world) =>
+        String(world?.dataCenter ?? resolveWorldDataCenter(world?.name))
+          .trim(),
+      )
+      .filter(Boolean),
+  );
+  const officialOrder = WORLD_DATA_CENTERS
+    .map((dataCenter) => dataCenter.name)
+    .filter((dataCenter) => availableDataCenters.has(dataCenter));
+  const extras = [...availableDataCenters]
+    .filter((dataCenter) => !officialOrder.includes(dataCenter))
+    .sort((a, b) => a.localeCompare(b));
+
+  return [...officialOrder, ...extras];
+}
+
+export function filterWorldsByDataCenter(worlds, dataCenter) {
+  const worldList = Array.isArray(worlds) ? worlds : [];
+  const selectedDataCenter = String(dataCenter ?? '').trim();
+  if (!selectedDataCenter) return [...worldList];
+
+  const filteredWorlds = worldList.filter(
+    (world) =>
+      String(world?.dataCenter ?? resolveWorldDataCenter(world?.name)).trim() ===
+      selectedDataCenter,
+  );
+
+  return filteredWorlds.length > 0 ? filteredWorlds : [...worldList];
+}
+
 export function resolveSalesPeriod(periodKey) {
   const key = String(periodKey ?? '').trim().toLowerCase();
 
