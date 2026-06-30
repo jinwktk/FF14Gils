@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-06-30T06:59:41.623Z",
+  "source": "https://api.saddlebagexchange.com/api/ffxivmarketshare",
+  "query": {
+    "server": "Zurvan",
+    "periodKey": "1d",
+    "periodLabel": "1日",
+    "timePeriod": 24,
+    "salesAmount": 3,
+    "averagePrice": 10000,
+    "preset": "all",
+    "sortBy": "marketValue",
+    "filters": [
+      0
+    ]
+  },
+  "summary": {
+    "itemCount": 3,
+    "totalMarketValue": 2239417,
+    "totalQuantitySold": 26,
+    "stateCounts": {
+      "increasing": 1,
+      "stable": 1,
+      "out of stock": 1
+    },
+    "topItem": {
+      "avg": 586500,
+      "itemId": "35792",
+      "marketValue": 1759500,
+      "median": 630000,
+      "minPrice": 700000,
+      "name": "ディヴァインライト・クリスタル",
+      "nameEn": "Crystal of Divine Light",
+      "nameJa": "ディヴァインライト・クリスタル",
+      "npcVendorInfo": "",
+      "percentChange": 19.35,
+      "purchaseAmount": 3,
+      "quantitySold": 3,
+      "state": "increasing",
+      "url": "https://universalis.app/market/35792",
+      "hasListings": true,
+      "recommendationLevel": "rising",
+      "opportunityScore": 109.8,
+      "names": {
+        "en": "Crystal of Divine Light",
+        "ja": "ディヴァインライト・クリスタル"
+      }
+    }
+  },
+  "items": [
+    {
+      "avg": 586500,
+      "itemId": "35792",
+      "marketValue": 1759500,
+      "median": 630000,
+      "minPrice": 700000,
+      "name": "ディヴァインライト・クリスタル",
+      "nameEn": "Crystal of Divine Light",
+      "nameJa": "ディヴァインライト・クリスタル",
+      "npcVendorInfo": "",
+      "percentChange": 19.35,
+      "purchaseAmount": 3,
+      "quantitySold": 3,
+      "state": "increasing",
+      "url": "https://universalis.app/market/35792",
+      "hasListings": true,
+      "recommendationLevel": "rising",
+      "opportunityScore": 109.8,
+      "names": {
+        "en": "Crystal of Divine Light",
+        "ja": "ディヴァインライト・クリスタル"
+      }
+    },
+    {
+      "avg": 17495,
+      "itemId": "7775",
+      "marketValue": 297417,
+      "median": 17495,
+      "minPrice": 18893,
+      "name": "グレイズナッツ",
+      "nameEn": "Glazenut",
+      "nameJa": "グレイズナッツ",
+      "npcVendorInfo": "",
+      "percentChange": 7.99,
+      "purchaseAmount": 4,
+      "quantitySold": 17,
+      "state": "stable",
+      "url": "https://universalis.app/market/7775",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 237.7,
+      "names": {
+        "en": "Glazenut",
+        "ja": "グレイズナッツ"
+      }
+    },
+    {
+      "avg": 30625,
+      "itemId": "49217",
+      "marketValue": 182500,
+      "median": 30000,
+      "minPrice": null,
+      "name": "オルコ・リネン",
+      "nameEn": "Urqopacha Linen",
+      "nameJa": "オルコ・リネン",
+      "npcVendorInfo": "",
+      "percentChange": 20,
+      "purchaseAmount": 4,
+      "quantitySold": 6,
+      "state": "out of stock",
+      "url": "https://universalis.app/market/49217",
+      "hasListings": false,
+      "recommendationLevel": "needs-restock",
+      "opportunityScore": 428.1,
+      "names": {
+        "en": "Urqopacha Linen",
+        "ja": "オルコ・リネン"
+      }
+    }
+  ]
+}

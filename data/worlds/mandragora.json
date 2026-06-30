@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T14:19:50.343Z",
+  "generatedAt": "2026-06-30T06:59:41.630Z",
   "source": "https://api.saddlebagexchange.com/api/ffxivmarketshare",
   "query": {
     "server": "Mandragora",
@@ -16,92 +16,108 @@
   },
   "summary": {
     "itemCount": 200,
-    "totalMarketValue": 1842166492,
-    "totalQuantitySold": 10464,
+    "totalMarketValue": 1849068970,
+    "totalQuantitySold": 10483,
     "stateCounts": {
-      "stable": 147,
-      "increasing": 23,
+      "stable": 150,
+      "increasing": 22,
       "decreasing": 18,
       "out of stock": 4,
-      "spiking": 8
+      "spiking": 6
     },
     "topItem": {
-      "avg": 3380806,
-      "itemId": "48096",
-      "marketValue": 104805006,
-      "median": 3399999,
-      "minPrice": 3399999,
-      "name": "フォーチュンカロット",
-      "nameEn": "Fortune Carrot",
-      "nameJa": "フォーチュンカロット",
+      "avg": 23880000,
+      "itemId": "50438",
+      "marketValue": 119400000,
+      "median": 23500000,
+      "minPrice": 25000000,
+      "name": "魔人のランプ",
+      "nameEn": "Genie Lamp",
+      "nameJa": "魔人のランプ",
       "npcVendorInfo": "",
-      "percentChange": 0.57,
-      "purchaseAmount": 31,
-      "quantitySold": 31,
+      "percentChange": 4.69,
+      "purchaseAmount": 5,
+      "quantitySold": 5,
       "state": "stable",
-      "url": "https://universalis.app/market/48096",
+      "url": "https://universalis.app/market/50438",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 406.4
+      "opportunityScore": 148.1,
+      "names": {
+        "en": "Genie Lamp",
+        "ja": "魔人のランプ"
+      }
     }
   },
   "items": [
     {
-      "avg": 3380806,
+      "avg": 23880000,
+      "itemId": "50438",
+      "marketValue": 119400000,
+      "median": 23500000,
+      "minPrice": 25000000,
+      "name": "魔人のランプ",
+      "nameEn": "Genie Lamp",
+      "nameJa": "魔人のランプ",
+      "npcVendorInfo": "",
+      "percentChange": 4.69,
+      "purchaseAmount": 5,
+      "quantitySold": 5,
+      "state": "stable",
+      "url": "https://universalis.app/market/50438",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 148.1,
+      "names": {
+        "en": "Genie Lamp",
+        "ja": "魔人のランプ"
+      }
+    },
+    {
+      "avg": 3385862,
       "itemId": "48096",
-      "marketValue": 104805006,
-      "median": 3399999,
-      "minPrice": 3399999,
+      "marketValue": 101790008,
+      "median": 3400000,
+      "minPrice": 3399000,
       "name": "フォーチュンカロット",
       "nameEn": "Fortune Carrot",
       "nameJa": "フォーチュンカロット",
       "npcVendorInfo": "",
-      "percentChange": 0.57,
-      "purchaseAmount": 31,
-      "quantitySold": 31,
+      "percentChange": 0.39,
+      "purchaseAmount": 29,
+      "quantitySold": 30,
       "state": "stable",
       "url": "https://universalis.app/market/48096",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 406.4
+      "opportunityScore": 396.2,
+      "names": {
+        "en": "Fortune Carrot",
+        "ja": "フォーチュンカロット"
+      }
     },
     {
-      "avg": 2311486,
+      "avg": 2281458,
       "itemId": "52288",
-      "marketValue": 104016877,
-      "median": 2201000,
+      "marketValue": 88976877,
+      "median": 2200000,
       "minPrice": 2300000,
       "name": "スコップ",
       "nameEn": "Shovel",
       "nameJa": "スコップ",
       "npcVendorInfo": "",
-      "percentChange": -0.5,
-      "purchaseAmount": 45,
-      "quantitySold": 45,
+      "percentChange": 0.81,
+      "purchaseAmount": 39,
+      "quantitySold": 39,
       "state": "stable",
       "url": "https://universalis.app/market/52288",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 546.1
-    },
-    {
-      "avg": 17079995,
-      "itemId": "44500",
-      "marketValue": 85399975,
-      "median": 16799999,
-      "minPrice": 19999978,
-      "name": "暗黒領域",
-      "nameEn": "Dais of Darkness",
-      "nameJa": "暗黒領域",
-      "npcVendorInfo": "",
-      "percentChange": 17.1,
-      "purchaseAmount": 5,
-      "quantitySold": 5,
-      "state": "increasing",
-      "url": "https://universalis.app/market/44500",
-      "hasListings": true,
-      "recommendationLevel": "rising",
-      "opportunityScore": 149.5
+      "opportunityScore": 485.6,
+      "names": {
+        "en": "Shovel",
+        "ja": "スコップ"
+      }
     },
     {
       "avg": 28333333,
@@ -120,140 +136,195 @@
       "url": "https://universalis.app/market/46834",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 126.6
+      "opportunityScore": 126.6,
+      "names": {
+        "en": "Felyne Support Team Cart Horn",
+        "ja": "ネコ荷車の角笛"
+      }
     },
     {
-      "avg": 6270846,
-      "itemId": "52257",
-      "marketValue": 81520998,
-      "median": 6399999,
-      "minPrice": 6200000,
-      "name": "スペースリフキン・ホイッスル",
-      "nameEn": "Interstellar Leafkin Whistle",
-      "nameJa": "スペースリフキン・ホイッスル",
-      "npcVendorInfo": "",
-      "percentChange": -1.13,
-      "purchaseAmount": 13,
-      "quantitySold": 13,
-      "state": "stable",
-      "url": "https://universalis.app/market/52257",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 224.7
-    },
-    {
-      "avg": 2009994,
-      "itemId": "44119",
-      "marketValue": 80399799,
-      "median": 2000000,
-      "minPrice": 2300000,
-      "name": "ホリゾンタル・ネオンウォールライト",
-      "nameEn": "Horizontal Neon Wall Light",
-      "nameJa": "ホリゾンタル・ネオンウォールライト",
-      "npcVendorInfo": "",
-      "percentChange": 14.43,
-      "purchaseAmount": 40,
-      "quantitySold": 40,
-      "state": "stable",
-      "url": "https://universalis.app/market/44119",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 498.5
-    },
-    {
-      "avg": 1933704,
+      "avg": 1931509,
       "itemId": "52292",
-      "marketValue": 79281892,
+      "marketValue": 79191892,
       "median": 1999997,
-      "minPrice": 2090000,
+      "minPrice": 2080000,
       "name": "演技教本:高笑い",
       "nameEn": "Ballroom Etiquette - Dignified Derision",
       "nameJa": "演技教本:高笑い",
       "npcVendorInfo": "",
-      "percentChange": 8.08,
+      "percentChange": 7.69,
       "purchaseAmount": 41,
       "quantitySold": 41,
       "state": "stable",
       "url": "https://universalis.app/market/52292",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 506.8
+      "opportunityScore": 506.7,
+      "names": {
+        "en": "Ballroom Etiquette - Dignified Derision",
+        "ja": "演技教本:高笑い"
+      }
     },
     {
-      "avg": 23466666,
-      "itemId": "50438",
-      "marketValue": 70400000,
-      "median": 23500000,
-      "minPrice": 24000000,
-      "name": "魔人のランプ",
-      "nameEn": "Genie Lamp",
-      "nameJa": "魔人のランプ",
+      "avg": 2021047,
+      "itemId": "44119",
+      "marketValue": 76799799,
+      "median": 2000000,
+      "minPrice": 2300000,
+      "name": "ホリゾンタル・ネオンウォールライト",
+      "nameEn": "Horizontal Neon Wall Light",
+      "nameJa": "ホリゾンタル・ネオンウォールライト",
       "npcVendorInfo": "",
-      "percentChange": 2.27,
-      "purchaseAmount": 3,
-      "quantitySold": 3,
+      "percentChange": 13.8,
+      "purchaseAmount": 38,
+      "quantitySold": 38,
       "state": "stable",
-      "url": "https://universalis.app/market/50438",
+      "url": "https://universalis.app/market/44119",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 124.7
+      "opportunityScore": 478.1,
+      "names": {
+        "en": "Horizontal Neon Wall Light",
+        "ja": "ホリゾンタル・ネオンウォールライト"
+      }
     },
     {
-      "avg": 590441,
+      "avg": 6260083,
+      "itemId": "52257",
+      "marketValue": 75120998,
+      "median": 6349999,
+      "minPrice": 6200000,
+      "name": "スペースリフキン・ホイッスル",
+      "nameEn": "Interstellar Leafkin Whistle",
+      "nameJa": "スペースリフキン・ホイッスル",
+      "npcVendorInfo": "",
+      "percentChange": -0.96,
+      "purchaseAmount": 12,
+      "quantitySold": 12,
+      "state": "stable",
+      "url": "https://universalis.app/market/52257",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 214.3,
+      "names": {
+        "en": "Interstellar Leafkin Whistle",
+        "ja": "スペースリフキン・ホイッスル"
+      }
+    },
+    {
+      "avg": 1874596,
+      "itemId": "24361",
+      "marketValue": 69360072,
+      "median": 1790000,
+      "minPrice": 1790000,
+      "name": "シーラカンス改級艦橋",
+      "nameEn": "Modified Coelacanth-class Bridge",
+      "nameJa": "シーラカンス改級艦橋",
+      "npcVendorInfo": "",
+      "percentChange": -4.51,
+      "purchaseAmount": 37,
+      "quantitySold": 37,
+      "state": "stable",
+      "url": "https://universalis.app/market/24361",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 463,
+      "names": {
+        "en": "Modified Coelacanth-class Bridge",
+        "ja": "シーラカンス改級艦橋"
+      }
+    },
+    {
+      "avg": 17099994,
+      "itemId": "44500",
+      "marketValue": 68399976,
+      "median": 16299999,
+      "minPrice": 19999978,
+      "name": "暗黒領域",
+      "nameEn": "Dais of Darkness",
+      "nameJa": "暗黒領域",
+      "npcVendorInfo": "",
+      "percentChange": 16.96,
+      "purchaseAmount": 4,
+      "quantitySold": 4,
+      "state": "increasing",
+      "url": "https://universalis.app/market/44500",
+      "hasListings": true,
+      "recommendationLevel": "rising",
+      "opportunityScore": 138.3,
+      "names": {
+        "en": "Dais of Darkness",
+        "ja": "暗黒領域"
+      }
+    },
+    {
+      "avg": 589326,
       "itemId": "13114",
-      "marketValue": 63115217,
+      "marketValue": 56488319,
       "median": 590000,
-      "minPrice": 583000,
+      "minPrice": 577999,
       "name": "カララント:ピュアホワイト",
       "nameEn": "General-purpose Pure White Dye",
       "nameJa": "カララント:ピュアホワイト",
       "npcVendorInfo": "",
-      "percentChange": -1.26,
-      "purchaseAmount": 72,
-      "quantitySold": 107,
+      "percentChange": -1.92,
+      "purchaseAmount": 67,
+      "quantitySold": 96,
       "state": "stable",
       "url": "https://universalis.app/market/13114",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 1163.3
+      "opportunityScore": 1052.5,
+      "names": {
+        "en": "General-purpose Pure White Dye",
+        "ja": "カララント:ピュアホワイト"
+      }
     },
     {
-      "avg": 544592,
+      "avg": 541689,
       "itemId": "13115",
-      "marketValue": 45170543,
-      "median": 548000,
-      "minPrice": 520000,
+      "marketValue": 44960553,
+      "median": 547000,
+      "minPrice": 540000,
       "name": "カララント:ジェットブラック",
       "nameEn": "General-purpose Jet Black Dye",
       "nameJa": "カララント:ジェットブラック",
       "npcVendorInfo": "",
-      "percentChange": -4.52,
+      "percentChange": -0.31,
       "purchaseAmount": 62,
       "quantitySold": 83,
       "state": "stable",
       "url": "https://universalis.app/market/13115",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 920.7
+      "opportunityScore": 921.8,
+      "names": {
+        "en": "General-purpose Jet Black Dye",
+        "ja": "カララント:ジェットブラック"
+      }
     },
     {
-      "avg": 1935469,
+      "avg": 1943730,
       "itemId": "45070",
-      "marketValue": 44515799,
+      "marketValue": 44705799,
       "median": 1830000,
-      "minPrice": 1800000,
+      "minPrice": 1810000,
       "name": "ドリーム・オブ・ウェポンチェスト",
       "nameEn": "Figmental Weapon Coffer",
       "nameJa": "ドリーム・オブ・ウェポンチェスト",
       "npcVendorInfo": "",
-      "percentChange": -7,
+      "percentChange": -6.88,
       "purchaseAmount": 23,
       "quantitySold": 23,
       "state": "stable",
       "url": "https://universalis.app/market/45070",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 320
+      "opportunityScore": 320.1,
+      "names": {
+        "en": "Figmental Weapon Coffer",
+        "ja": "ドリーム・オブ・ウェポンチェスト"
+      }
     },
     {
       "avg": 3138071,
@@ -272,26 +343,11 @@
       "url": "https://universalis.app/market/46171",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 234.5
-    },
-    {
-      "avg": 10874999,
-      "itemId": "50334",
-      "marketValue": 43499999,
-      "median": 10999999,
-      "minPrice": 11000000,
-      "name": "演技教本:地団駄を踏む",
-      "nameEn": "Ballroom Etiquette - Galumphing Grievance",
-      "nameJa": "演技教本:地団駄を踏む",
-      "npcVendorInfo": "",
-      "percentChange": 1.15,
-      "purchaseAmount": 4,
-      "quantitySold": 4,
-      "state": "stable",
-      "url": "https://universalis.app/market/50334",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 131.9
+      "opportunityScore": 234.5,
+      "names": {
+        "en": "Everkeep Lamppost",
+        "ja": "エバーキープ・ランプポスト"
+      }
     },
     {
       "avg": 1235765,
@@ -310,7 +366,11 @@
       "url": "https://universalis.app/market/51269",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 432.4
+      "opportunityScore": 432.4,
+      "names": {
+        "en": "Garden Mood Lighting",
+        "ja": "ガーデン・パーティライト"
+      }
     },
     {
       "avg": 159573,
@@ -329,83 +389,103 @@
       "url": "https://universalis.app/market/35833",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 2320.4
+      "opportunityScore": 2320.4,
+      "names": {
+        "en": "Bicolor Gemstone Voucher",
+        "ja": "バイカラージェム納品証"
+      }
     },
     {
-      "avg": 676775,
+      "avg": 659171,
       "itemId": "52630",
-      "marketValue": 32574900,
-      "median": 600000,
-      "minPrice": 540000,
+      "marketValue": 33441900,
+      "median": 565000,
+      "minPrice": 537000,
       "name": "スウェットクロス",
       "nameEn": "Sweatcloth",
       "nameJa": "スウェットクロス",
       "npcVendorInfo": "",
-      "percentChange": -20.21,
-      "purchaseAmount": 45,
-      "quantitySold": 49,
+      "percentChange": -18.53,
+      "purchaseAmount": 46,
+      "quantitySold": 52,
       "state": "decreasing",
       "url": "https://universalis.app/market/52630",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 575.1
+      "opportunityScore": 605.7,
+      "names": {
+        "en": "Sweatcloth",
+        "ja": "スウェットクロス"
+      }
     },
     {
-      "avg": 1914708,
-      "itemId": "24361",
-      "marketValue": 32550048,
-      "median": 1790000,
-      "minPrice": 1790000,
-      "name": "シーラカンス改級艦橋",
-      "nameEn": "Modified Coelacanth-class Bridge",
-      "nameJa": "シーラカンス改級艦橋",
+      "avg": 10999999,
+      "itemId": "50334",
+      "marketValue": 32999999,
+      "median": 11000000,
+      "minPrice": 11000000,
+      "name": "演技教本:地団駄を踏む",
+      "nameEn": "Ballroom Etiquette - Galumphing Grievance",
+      "nameJa": "演技教本:地団駄を踏む",
       "npcVendorInfo": "",
-      "percentChange": -6.51,
-      "purchaseAmount": 17,
-      "quantitySold": 17,
+      "percentChange": 0,
+      "purchaseAmount": 3,
+      "quantitySold": 3,
       "state": "stable",
-      "url": "https://universalis.app/market/24361",
+      "url": "https://universalis.app/market/50334",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 258.5
+      "opportunityScore": 120.2,
+      "names": {
+        "en": "Ballroom Etiquette - Galumphing Grievance",
+        "ja": "演技教本:地団駄を踏む"
+      }
     },
     {
-      "avg": 16618,
+      "avg": 16628,
       "itemId": "50415",
-      "marketValue": 32540738,
+      "marketValue": 32708528,
       "median": 17000,
-      "minPrice": 14000,
+      "minPrice": 13900,
       "name": "アウクセシア・エネルギーパック",
       "nameEn": "Auxesia Drone Module",
       "nameJa": "アウクセシア・エネルギーパック",
       "npcVendorInfo": "",
-      "percentChange": -15.75,
+      "percentChange": -16.41,
       "purchaseAmount": 92,
-      "quantitySold": 1934,
+      "quantitySold": 1952,
       "state": "decreasing",
       "url": "https://universalis.app/market/50415",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 19426.2
+      "opportunityScore": 19606.1,
+      "names": {
+        "en": "Auxesia Drone Module",
+        "ja": "アウクセシア・エネルギーパック"
+      }
     },
     {
       "avg": 6225399,
       "itemId": "46798",
       "marketValue": 31126998,
       "median": 6378000,
-      "minPrice": 6180000,
+      "minPrice": 6170000,
       "name": "ヘアカタログ:シンプルストレート",
       "nameEn": "Modern Aesthetics - Simple and Clean",
       "nameJa": "ヘアカタログ:シンプルストレート",
       "npcVendorInfo": "",
-      "percentChange": -0.73,
+      "percentChange": -0.89,
       "purchaseAmount": 5,
       "quantitySold": 5,
       "state": "stable",
       "url": "https://universalis.app/market/46798",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 139.7
+      "opportunityScore": 139.7,
+      "names": {
+        "en": "Modern Aesthetics - Simple and Clean",
+        "ja": "ヘアカタログ:シンプルストレート"
+      }
     },
     {
       "avg": 500000,
@@ -424,31 +504,39 @@
       "url": "https://universalis.app/market/21794",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 619.1
+      "opportunityScore": 619.1,
+      "names": {
+        "en": "Shark-class Pressure Hull",
+        "ja": "シャーク級艦体"
+      }
     },
     {
-      "avg": 1087788,
+      "avg": 1087110,
       "itemId": "51262",
-      "marketValue": 20667980,
+      "marketValue": 19567980,
       "median": 1100000,
       "minPrice": 1190000,
       "name": "エバーキープ・モニター",
       "nameEn": "Everkeep Monitor",
       "nameJa": "エバーキープ・モニター",
       "npcVendorInfo": "",
-      "percentChange": 9.4,
-      "purchaseAmount": 19,
-      "quantitySold": 19,
+      "percentChange": 9.46,
+      "purchaseAmount": 18,
+      "quantitySold": 18,
       "state": "stable",
       "url": "https://universalis.app/market/51262",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 280.1
+      "opportunityScore": 269.9,
+      "names": {
+        "en": "Everkeep Monitor",
+        "ja": "エバーキープ・モニター"
+      }
     },
     {
       "avg": 500000,
       "itemId": "21792",
-      "marketValue": 19000000,
+      "marketValue": 18500000,
       "median": 500000,
       "minPrice": 500000,
       "name": "シャーク級艦首",
@@ -456,13 +544,17 @@
       "nameJa": "シャーク級艦首",
       "npcVendorInfo": "",
       "percentChange": 0,
-      "purchaseAmount": 38,
-      "quantitySold": 38,
+      "purchaseAmount": 37,
+      "quantitySold": 37,
       "state": "stable",
       "url": "https://universalis.app/market/21792",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 467.3
+      "opportunityScore": 457.2,
+      "names": {
+        "en": "Shark-class Bow",
+        "ja": "シャーク級艦首"
+      }
     },
     {
       "avg": 6063000,
@@ -481,64 +573,11 @@
       "url": "https://universalis.app/market/40390",
       "hasListings": true,
       "recommendationLevel": "rising",
-      "opportunityScore": 123
-    },
-    {
-      "avg": 997728,
-      "itemId": "23904",
-      "marketValue": 17959116,
-      "median": 998000,
-      "minPrice": 998000,
-      "name": "シーラカンス級艦橋",
-      "nameEn": "Coelacanth-class Bridge",
-      "nameJa": "シーラカンス級艦橋",
-      "npcVendorInfo": "",
-      "percentChange": 0.03,
-      "purchaseAmount": 18,
-      "quantitySold": 18,
-      "state": "stable",
-      "url": "https://universalis.app/market/23904",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 267.1
-    },
-    {
-      "avg": 13147,
-      "itemId": "41780",
-      "marketValue": 16254091,
-      "median": 13217,
-      "minPrice": 13333,
-      "name": "巨匠のハイアルテマテリジャ",
-      "nameEn": "Craftsman's Command Materia XII",
-      "nameJa": "巨匠のハイアルテマテリジャ",
-      "npcVendorInfo": "",
-      "percentChange": 1.41,
-      "purchaseAmount": 165,
-      "quantitySold": 1204,
-      "state": "stable",
-      "url": "https://universalis.app/market/41780",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 12126.9
-    },
-    {
-      "avg": 12238,
-      "itemId": "46252",
-      "marketValue": 16008622,
-      "median": 12000,
-      "minPrice": 15000,
-      "name": "石匠の研磨剤",
-      "nameEn": "Mason's Abrasive",
-      "nameJa": "石匠の研磨剤",
-      "npcVendorInfo": "",
-      "percentChange": 22.57,
-      "purchaseAmount": 224,
-      "quantitySold": 1292,
-      "state": "increasing",
-      "url": "https://universalis.app/market/46252",
-      "hasListings": true,
-      "recommendationLevel": "rising",
-      "opportunityScore": 13012.1
+      "opportunityScore": 123,
+      "names": {
+        "en": "Magicked Children's Bed",
+        "ja": "マジックキッズベッド"
+      }
     },
     {
       "avg": 666683,
@@ -557,7 +596,34 @@
       "url": "https://universalis.app/market/44111",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 327.3
+      "opportunityScore": 327.3,
+      "names": {
+        "en": "Stone Partition",
+        "ja": "ストーンパーティション"
+      }
+    },
+    {
+      "avg": 997694,
+      "itemId": "23904",
+      "marketValue": 15963116,
+      "median": 998000,
+      "minPrice": 998000,
+      "name": "シーラカンス級艦橋",
+      "nameEn": "Coelacanth-class Bridge",
+      "nameJa": "シーラカンス級艦橋",
+      "npcVendorInfo": "",
+      "percentChange": 0.03,
+      "purchaseAmount": 16,
+      "quantitySold": 16,
+      "state": "stable",
+      "url": "https://universalis.app/market/23904",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 246.4,
+      "names": {
+        "en": "Coelacanth-class Bridge",
+        "ja": "シーラカンス級艦橋"
+      }
     },
     {
       "avg": 500000,
@@ -576,45 +642,80 @@
       "url": "https://universalis.app/market/21795",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 386.1
+      "opportunityScore": 386.1,
+      "names": {
+        "en": "Shark-class Stern",
+        "ja": "シャーク級艦尾"
+      }
     },
     {
-      "avg": 133184,
+      "avg": 13118,
+      "itemId": "41780",
+      "marketValue": 14669101,
+      "median": 13217,
+      "minPrice": 13333,
+      "name": "巨匠のハイアルテマテリジャ",
+      "nameEn": "Craftsman's Command Materia XII",
+      "nameJa": "巨匠のハイアルテマテリジャ",
+      "npcVendorInfo": "",
+      "percentChange": 1.64,
+      "purchaseAmount": 157,
+      "quantitySold": 1085,
+      "state": "stable",
+      "url": "https://universalis.app/market/41780",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 10936.4,
+      "names": {
+        "en": "Craftsman's Command Materia XII",
+        "ja": "巨匠のハイアルテマテリジャ"
+      }
+    },
+    {
+      "avg": 12301,
+      "itemId": "46252",
+      "marketValue": 14130922,
+      "median": 12000,
+      "minPrice": 13000,
+      "name": "石匠の研磨剤",
+      "nameEn": "Mason's Abrasive",
+      "nameJa": "石匠の研磨剤",
+      "npcVendorInfo": "",
+      "percentChange": 5.68,
+      "purchaseAmount": 204,
+      "quantitySold": 1129,
+      "state": "stable",
+      "url": "https://universalis.app/market/46252",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 11377.2,
+      "names": {
+        "en": "Mason's Abrasive",
+        "ja": "石匠の研磨剤"
+      }
+    },
+    {
+      "avg": 132993,
       "itemId": "43961",
-      "marketValue": 12716350,
-      "median": 134500,
+      "marketValue": 13850150,
+      "median": 134000,
       "minPrice": 137800,
       "name": "バイカラージェム納品証【黄金】",
       "nameEn": "Turali Bicolor Gemstone Voucher",
       "nameJa": "バイカラージェム納品証【黄金】",
       "npcVendorInfo": "",
-      "percentChange": 3.47,
-      "purchaseAmount": 22,
-      "quantitySold": 95,
+      "percentChange": 3.61,
+      "purchaseAmount": 24,
+      "quantitySold": 104,
       "state": "stable",
       "url": "https://universalis.app/market/43961",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 1036.1
-    },
-    {
-      "avg": 491415,
-      "itemId": "38608",
-      "marketValue": 11793982,
-      "median": 490000,
-      "minPrice": 499999,
-      "name": "ストーンロフト",
-      "nameEn": "Flagstone Loft",
-      "nameJa": "ストーンロフト",
-      "npcVendorInfo": "",
-      "percentChange": 1.75,
-      "purchaseAmount": 24,
-      "quantitySold": 24,
-      "state": "stable",
-      "url": "https://universalis.app/market/38608",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 325.3
+      "opportunityScore": 1126.6,
+      "names": {
+        "en": "Turali Bicolor Gemstone Voucher",
+        "ja": "バイカラージェム納品証【黄金】"
+      }
     },
     {
       "avg": 1907996,
@@ -633,26 +734,34 @@
       "url": "https://universalis.app/market/52445",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 144.3
+      "opportunityScore": 144.3,
+      "names": {
+        "en": "The Faces We Wear - Studded Eyepatch (Right)",
+        "ja": "スタイルカタログ:スタッズアイパッチ:右"
+      }
     },
     {
-      "avg": 1014000,
-      "itemId": "52632",
-      "marketValue": 11240003,
-      "median": 1000000,
-      "minPrice": 999900,
-      "name": "耐候性合板",
-      "nameEn": "Weatherproof Plywood",
-      "nameJa": "耐候性合板",
+      "avg": 491477,
+      "itemId": "38608",
+      "marketValue": 11303982,
+      "median": 490000,
+      "minPrice": 499999,
+      "name": "ストーンロフト",
+      "nameEn": "Flagstone Loft",
+      "nameJa": "ストーンロフト",
       "npcVendorInfo": "",
-      "percentChange": -1.39,
-      "purchaseAmount": 10,
-      "quantitySold": 11,
+      "percentChange": 1.73,
+      "purchaseAmount": 23,
+      "quantitySold": 23,
       "state": "stable",
-      "url": "https://universalis.app/market/52632",
+      "url": "https://universalis.app/market/38608",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 194.3
+      "opportunityScore": 315.1,
+      "names": {
+        "en": "Flagstone Loft",
+        "ja": "ストーンロフト"
+      }
     },
     {
       "avg": 999909,
@@ -671,7 +780,11 @@
       "url": "https://universalis.app/market/21793",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 194.5
+      "opportunityScore": 194.5,
+      "names": {
+        "en": "Shark-class Bridge",
+        "ja": "シャーク級艦橋"
+      }
     },
     {
       "avg": 1084900,
@@ -690,26 +803,11 @@
       "url": "https://universalis.app/market/21796",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 184.7
-    },
-    {
-      "avg": 736836,
-      "itemId": "48138",
-      "marketValue": 10315704,
-      "median": 736842,
-      "minPrice": 736842,
-      "name": "アストロオーブ",
-      "nameEn": "Celestial Sphere",
-      "nameJa": "アストロオーブ",
-      "npcVendorInfo": "",
-      "percentChange": 0,
-      "purchaseAmount": 14,
-      "quantitySold": 14,
-      "state": "stable",
-      "url": "https://universalis.app/market/48138",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 224.2
+      "opportunityScore": 184.7,
+      "names": {
+        "en": "Unkiu-class Bow",
+        "ja": "ウンキウ級艦首"
+      }
     },
     {
       "avg": 1000000,
@@ -728,12 +826,108 @@
       "url": "https://universalis.app/market/22527",
       "hasListings": false,
       "recommendationLevel": "needs-restock",
-      "opportunityScore": 534
+      "opportunityScore": 534,
+      "names": {
+        "en": "Whale-class Bridge",
+        "ja": "ホエール級艦橋"
+      }
     },
     {
-      "avg": 999600,
+      "avg": 736835,
+      "itemId": "48138",
+      "marketValue": 9578862,
+      "median": 736842,
+      "minPrice": 736842,
+      "name": "アストロオーブ",
+      "nameEn": "Celestial Sphere",
+      "nameJa": "アストロオーブ",
+      "npcVendorInfo": "",
+      "percentChange": 0,
+      "purchaseAmount": 13,
+      "quantitySold": 13,
+      "state": "stable",
+      "url": "https://universalis.app/market/48138",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 213.8,
+      "names": {
+        "en": "Celestial Sphere",
+        "ja": "アストロオーブ"
+      }
+    },
+    {
+      "avg": 24498,
+      "itemId": "50414",
+      "marketValue": 9307600,
+      "median": 24700,
+      "minPrice": 24700,
+      "name": "オイジュス・エネルギーパック",
+      "nameEn": "Oizys Drone Module",
+      "nameJa": "オイジュス・エネルギーパック",
+      "npcVendorInfo": "",
+      "percentChange": 0.82,
+      "purchaseAmount": 19,
+      "quantitySold": 379,
+      "state": "stable",
+      "url": "https://universalis.app/market/50414",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 3873.8,
+      "names": {
+        "en": "Oizys Drone Module",
+        "ja": "オイジュス・エネルギーパック"
+      }
+    },
+    {
+      "avg": 1017500,
+      "itemId": "52632",
+      "marketValue": 9240001,
+      "median": 1000000,
+      "minPrice": 999900,
+      "name": "耐候性合板",
+      "nameEn": "Weatherproof Plywood",
+      "nameJa": "耐候性合板",
+      "npcVendorInfo": "",
+      "percentChange": -1.73,
+      "purchaseAmount": 8,
+      "quantitySold": 9,
+      "state": "stable",
+      "url": "https://universalis.app/market/52632",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 173.2,
+      "names": {
+        "en": "Weatherproof Plywood",
+        "ja": "耐候性合板"
+      }
+    },
+    {
+      "avg": 1314302,
+      "itemId": "39474",
+      "marketValue": 9200119,
+      "median": 1500000,
+      "minPrice": 1500000,
+      "name": "コーギー",
+      "nameEn": "Corgi",
+      "nameJa": "コーギー",
+      "npcVendorInfo": "",
+      "percentChange": 14.13,
+      "purchaseAmount": 7,
+      "quantitySold": 7,
+      "state": "stable",
+      "url": "https://universalis.app/market/39474",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 157.1,
+      "names": {
+        "en": "Corgi",
+        "ja": "コーギー"
+      }
+    },
+    {
+      "avg": 999555,
       "itemId": "22528",
-      "marketValue": 9996000,
+      "marketValue": 8996000,
       "median": 1000000,
       "minPrice": 1000000,
       "name": "ホエール級艦体",
@@ -741,222 +935,178 @@
       "nameJa": "ホエール級艦体",
       "npcVendorInfo": "",
       "percentChange": 0.04,
-      "purchaseAmount": 10,
-      "quantitySold": 10,
+      "purchaseAmount": 9,
+      "quantitySold": 9,
       "state": "stable",
       "url": "https://universalis.app/market/22528",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 184
+      "opportunityScore": 173.5,
+      "names": {
+        "en": "Whale-class Pressure Hull",
+        "ja": "ホエール級艦体"
+      }
     },
     {
-      "avg": 137203,
+      "avg": 13558,
+      "itemId": "52256",
+      "marketValue": 8492703,
+      "median": 12701,
+      "minPrice": 11000,
+      "name": "カララント:アディショナルカラー2",
+      "nameEn": "Wide Spectrum #2 Dye",
+      "nameJa": "カララント:アディショナルカラー2",
+      "npcVendorInfo": "",
+      "percentChange": -18.87,
+      "purchaseAmount": 192,
+      "quantitySold": 642,
+      "state": "decreasing",
+      "url": "https://universalis.app/market/52256",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 6498.4,
+      "names": {
+        "en": "Wide Spectrum #2 Dye",
+        "ja": "カララント:アディショナルカラー2"
+      }
+    },
+    {
+      "avg": 135791,
       "itemId": "52631",
-      "marketValue": 9806601,
-      "median": 141000,
+      "marketValue": 8354003,
+      "median": 140000,
       "minPrice": 110000,
       "name": "インディゴツイルクロス",
       "nameEn": "Indigo Twill Cloth",
       "nameJa": "インディゴツイルクロス",
       "npcVendorInfo": "",
-      "percentChange": -19.83,
-      "purchaseAmount": 57,
-      "quantitySold": 72,
+      "percentChange": -18.99,
+      "purchaseAmount": 48,
+      "quantitySold": 62,
       "state": "decreasing",
       "url": "https://universalis.app/market/52631",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 798.9
+      "opportunityScore": 698.3,
+      "names": {
+        "en": "Indigo Twill Cloth",
+        "ja": "インディゴツイルクロス"
+      }
     },
     {
-      "avg": 1314302,
-      "itemId": "39474",
-      "marketValue": 9200119,
-      "median": 1500000,
-      "minPrice": 1650000,
-      "name": "コーギー",
-      "nameEn": "Corgi",
-      "nameJa": "コーギー",
+      "avg": 143141,
+      "itemId": "52605",
+      "marketValue": 7729658,
+      "median": 149000,
+      "minPrice": 119997,
+      "name": "コスモオペレーター・チェスト",
+      "nameEn": "Cosmic Operator's Attire Coffer",
+      "nameJa": "コスモオペレーター・チェスト",
       "npcVendorInfo": "",
-      "percentChange": 25.54,
-      "purchaseAmount": 7,
-      "quantitySold": 7,
-      "state": "increasing",
-      "url": "https://universalis.app/market/39474",
+      "percentChange": -16.17,
+      "purchaseAmount": 54,
+      "quantitySold": 54,
+      "state": "decreasing",
+      "url": "https://universalis.app/market/52605",
       "hasListings": true,
-      "recommendationLevel": "rising",
-      "opportunityScore": 160
+      "recommendationLevel": "steady",
+      "opportunityScore": 618.6,
+      "names": {
+        "en": "Cosmic Operator's Attire Coffer",
+        "ja": "コスモオペレーター・チェスト"
+      }
     },
     {
-      "avg": 3000000,
-      "itemId": "50327",
-      "marketValue": 9000000,
-      "median": 3000000,
-      "minPrice": 3000000,
-      "name": "ヘアカタログ:ガイウス",
-      "nameEn": "Modern Aesthetics - Shadowhunter Chic",
-      "nameJa": "ヘアカタログ:ガイウス",
+      "avg": 2530000,
+      "itemId": "47336",
+      "marketValue": 7590000,
+      "median": 2500000,
+      "minPrice": 2390000,
+      "name": "コスモボード",
+      "nameEn": "Cosmoboard",
+      "nameJa": "コスモボード",
       "npcVendorInfo": "",
-      "percentChange": 0,
+      "percentChange": -5.53,
       "purchaseAmount": 3,
       "quantitySold": 3,
       "state": "stable",
-      "url": "https://universalis.app/market/50327",
+      "url": "https://universalis.app/market/47336",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 113.5
-    },
-    {
-      "avg": 1407833,
-      "itemId": "46793",
-      "marketValue": 8447000,
-      "median": 1400000,
-      "minPrice": 1479000,
-      "name": "演技教本:緑茶を飲む",
-      "nameEn": "Ballroom Etiquette - The Ceremony of Tea",
-      "nameJa": "演技教本:緑茶を飲む",
-      "npcVendorInfo": "",
-      "percentChange": 5.06,
-      "purchaseAmount": 6,
-      "quantitySold": 6,
-      "state": "stable",
-      "url": "https://universalis.app/market/46793",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 144.4
-    },
-    {
-      "avg": 24561,
-      "itemId": "50414",
-      "marketValue": 8024600,
-      "median": 24750,
-      "minPrice": 24000,
-      "name": "オイジュス・エネルギーパック",
-      "nameEn": "Oizys Drone Module",
-      "nameJa": "オイジュス・エネルギーパック",
-      "npcVendorInfo": "",
-      "percentChange": -2.28,
-      "purchaseAmount": 16,
-      "quantitySold": 326,
-      "state": "stable",
-      "url": "https://universalis.app/market/50414",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 3342.3
-    },
-    {
-      "avg": 271343,
-      "itemId": "44120",
-      "marketValue": 7868960,
-      "median": 265000,
-      "minPrice": 280000,
-      "name": "ヴァーティカル・ネオンウォールライト",
-      "nameEn": "Vertical Neon Wall Light",
-      "nameJa": "ヴァーティカル・ネオンウォールライト",
-      "npcVendorInfo": "",
-      "percentChange": 3.19,
-      "purchaseAmount": 29,
-      "quantitySold": 29,
-      "state": "stable",
-      "url": "https://universalis.app/market/44120",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 373.5
-    },
-    {
-      "avg": 13726,
-      "itemId": "52256",
-      "marketValue": 7437522,
-      "median": 12980,
-      "minPrice": 11800,
-      "name": "カララント:アディショナルカラー2",
-      "nameEn": "Wide Spectrum #2 Dye",
-      "nameJa": "カララント:アディショナルカラー2",
-      "npcVendorInfo": "",
-      "percentChange": -14.03,
-      "purchaseAmount": 185,
-      "quantitySold": 542,
-      "state": "stable",
-      "url": "https://universalis.app/market/52256",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 5498.9
+      "opportunityScore": 111.2,
+      "names": {
+        "en": "Cosmoboard",
+        "ja": "コスモボード"
+      }
     },
     {
       "avg": 1787250,
       "itemId": "46847",
       "marketValue": 7149000,
       "median": 1785000,
-      "minPrice": 1898000,
+      "minPrice": 1899000,
       "name": "ブルーピクシーパラソル",
       "nameEn": "Blue Pixie Parasol",
       "nameJa": "ブルーピクシーパラソル",
       "npcVendorInfo": "",
-      "percentChange": 6.2,
+      "percentChange": 6.25,
       "purchaseAmount": 4,
       "quantitySold": 4,
       "state": "stable",
       "url": "https://universalis.app/market/46847",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 123.8
+      "opportunityScore": 123.8,
+      "names": {
+        "en": "Blue Pixie Parasol",
+        "ja": "ブルーピクシーパラソル"
+      }
     },
     {
-      "avg": 148534,
-      "itemId": "52605",
-      "marketValue": 7129668,
-      "median": 150000,
-      "minPrice": 110000,
-      "name": "コスモオペレーター・チェスト",
-      "nameEn": "Cosmic Operator's Attire Coffer",
-      "nameJa": "コスモオペレーター・チェスト",
+      "avg": 1389400,
+      "itemId": "46793",
+      "marketValue": 6947000,
+      "median": 1350000,
+      "minPrice": 1477000,
+      "name": "演技教本:緑茶を飲む",
+      "nameEn": "Ballroom Etiquette - The Ceremony of Tea",
+      "nameJa": "演技教本:緑茶を飲む",
       "npcVendorInfo": "",
-      "percentChange": -25.94,
-      "purchaseAmount": 48,
-      "quantitySold": 48,
-      "state": "decreasing",
-      "url": "https://universalis.app/market/52605",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 555.8
-    },
-    {
-      "avg": 495992,
-      "itemId": "33258",
-      "marketValue": 6943890,
-      "median": 497445,
-      "minPrice": 498000,
-      "name": "イースタンインドアポンド",
-      "nameEn": "Eastern Indoor Pond",
-      "nameJa": "イースタンインドアポンド",
-      "npcVendorInfo": "",
-      "percentChange": 0.4,
-      "purchaseAmount": 14,
-      "quantitySold": 14,
+      "percentChange": 6.3,
+      "purchaseAmount": 5,
+      "quantitySold": 5,
       "state": "stable",
-      "url": "https://universalis.app/market/33258",
+      "url": "https://universalis.app/market/46793",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 222.2
+      "opportunityScore": 133.7,
+      "names": {
+        "en": "Ballroom Etiquette - The Ceremony of Tea",
+        "ja": "演技教本:緑茶を飲む"
+      }
     },
     {
-      "avg": 278282,
-      "itemId": "48229",
-      "marketValue": 6670498,
-      "median": 280000,
-      "minPrice": 280000,
-      "name": "バウンシーレザーバンド",
-      "nameEn": "Flexible Leather Band",
-      "nameJa": "バウンシーレザーバンド",
+      "avg": 30172,
+      "itemId": "46773",
+      "marketValue": 6642286,
+      "median": 29499,
+      "minPrice": 30000,
+      "name": "エナジードリンクGG",
+      "nameEn": "DAM",
+      "nameJa": "エナジードリンクGG",
       "npcVendorInfo": "",
-      "percentChange": 0.62,
-      "purchaseAmount": 23,
-      "quantitySold": 24,
+      "percentChange": -0.57,
+      "purchaseAmount": 36,
+      "quantitySold": 224,
       "state": "stable",
-      "url": "https://universalis.app/market/48229",
+      "url": "https://universalis.app/market/46773",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 322
+      "opportunityScore": 2321.7,
+      "names": {
+        "en": "DAM",
+        "ja": "エナジードリンクGG"
+      }
     },
     {
       "avg": 2176666,
@@ -975,26 +1125,11 @@
       "url": "https://universalis.app/market/49829",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 111.8
-    },
-    {
-      "avg": 97543,
-      "itemId": "52267",
-      "marketValue": 6340295,
-      "median": 98000,
-      "minPrice": 100000,
-      "name": "コスモ・アームドウェポン改認証鍵",
-      "nameEn": "Cosmic Armored Weapon Beta Identification Key",
-      "nameJa": "コスモ・アームドウェポン改認証鍵",
-      "npcVendorInfo": "",
-      "percentChange": 2.52,
-      "purchaseAmount": 65,
-      "quantitySold": 65,
-      "state": "stable",
-      "url": "https://universalis.app/market/52267",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 732.3
+      "opportunityScore": 111.8,
+      "names": {
+        "en": "Occult Ring of Blood",
+        "ja": "クレセントマギ・ファイターリング"
+      }
     },
     {
       "avg": 1006000,
@@ -1013,7 +1148,11 @@
       "url": "https://universalis.app/market/52612",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 140.7
+      "opportunityScore": 140.7,
+      "names": {
+        "en": "Plain Hooded Tunic",
+        "ja": "プレーンフーディー"
+      }
     },
     {
       "avg": 999841,
@@ -1032,26 +1171,57 @@
       "url": "https://universalis.app/market/12650",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 140.8
+      "opportunityScore": 140.8,
+      "names": {
+        "en": "Lupin Seedling",
+        "ja": "ルピナスの苗"
+      }
     },
     {
-      "avg": 158803,
-      "itemId": "52268",
-      "marketValue": 5875728,
-      "median": 160780,
-      "minPrice": 155000,
-      "name": "コスモ・プレデター認証鍵",
-      "nameEn": "Cosmic Predator Identification Key",
-      "nameJa": "コスモ・プレデター認証鍵",
+      "avg": 270861,
+      "itemId": "44120",
+      "marketValue": 5958960,
+      "median": 266500,
+      "minPrice": 280000,
+      "name": "ヴァーティカル・ネオンウォールライト",
+      "nameEn": "Vertical Neon Wall Light",
+      "nameJa": "ヴァーティカル・ネオンウォールライト",
       "npcVendorInfo": "",
-      "percentChange": -2.39,
-      "purchaseAmount": 37,
-      "quantitySold": 37,
+      "percentChange": 3.37,
+      "purchaseAmount": 22,
+      "quantitySold": 22,
       "state": "stable",
-      "url": "https://universalis.app/market/52268",
+      "url": "https://universalis.app/market/44120",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 450.6
+      "opportunityScore": 302.1,
+      "names": {
+        "en": "Vertical Neon Wall Light",
+        "ja": "ヴァーティカル・ネオンウォールライト"
+      }
+    },
+    {
+      "avg": 94854,
+      "itemId": "52267",
+      "marketValue": 5691295,
+      "median": 97499,
+      "minPrice": 99990,
+      "name": "コスモ・アームドウェポン改認証鍵",
+      "nameEn": "Cosmic Armored Weapon Beta Identification Key",
+      "nameJa": "コスモ・アームドウェポン改認証鍵",
+      "npcVendorInfo": "",
+      "percentChange": 5.41,
+      "purchaseAmount": 60,
+      "quantitySold": 60,
+      "state": "stable",
+      "url": "https://universalis.app/market/52267",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 682.4,
+      "names": {
+        "en": "Cosmic Armored Weapon Beta Identification Key",
+        "ja": "コスモ・アームドウェポン改認証鍵"
+      }
     },
     {
       "avg": 31232,
@@ -1070,26 +1240,11 @@
       "url": "https://universalis.app/market/46185",
       "hasListings": true,
       "recommendationLevel": "hot",
-      "opportunityScore": 1863.9
-    },
-    {
-      "avg": 493363,
-      "itemId": "44509",
-      "marketValue": 5427001,
-      "median": 498000,
-      "minPrice": 499000,
-      "name": "演技教本:タブレットで記録する",
-      "nameEn": "Ballroom Etiquette - Personal Perfection",
-      "nameJa": "演技教本:タブレットで記録する",
-      "npcVendorInfo": "",
-      "percentChange": 1.14,
-      "purchaseAmount": 11,
-      "quantitySold": 11,
-      "state": "stable",
-      "url": "https://universalis.app/market/44509",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 191.1
+      "opportunityScore": 1863.9,
+      "names": {
+        "en": "Timeworn Gargantuaskin Map",
+        "ja": "古ぼけた地図G18"
+      }
     },
     {
       "avg": 532979,
@@ -1108,45 +1263,57 @@
       "url": "https://universalis.app/market/52272",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 181.8
+      "opportunityScore": 181.8,
+      "names": {
+        "en": "Carbide Grey Warp Loader Identification Key",
+        "ja": "グレーホイールローダー起動鍵"
+      }
     },
     {
-      "avg": 887996,
-      "itemId": "47983",
-      "marketValue": 5327980,
-      "median": 890000,
-      "minPrice": 899000,
-      "name": "演技教本:くるっと回る",
-      "nameEn": "Ballroom Etiquette: Fashion Forward",
-      "nameJa": "演技教本:くるっと回る",
+      "avg": 278138,
+      "itemId": "48229",
+      "marketValue": 5276497,
+      "median": 280000,
+      "minPrice": 280000,
+      "name": "バウンシーレザーバンド",
+      "nameEn": "Flexible Leather Band",
+      "nameJa": "バウンシーレザーバンド",
       "npcVendorInfo": "",
-      "percentChange": 1.24,
-      "purchaseAmount": 6,
-      "quantitySold": 6,
+      "percentChange": 0.67,
+      "purchaseAmount": 18,
+      "quantitySold": 19,
       "state": "stable",
-      "url": "https://universalis.app/market/47983",
+      "url": "https://universalis.app/market/48229",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 141
+      "opportunityScore": 270.8,
+      "names": {
+        "en": "Flexible Leather Band",
+        "ja": "バウンシーレザーバンド"
+      }
     },
     {
-      "avg": 880965,
-      "itemId": "47184",
-      "marketValue": 5285791,
-      "median": 498150,
-      "minPrice": 496500,
-      "name": "ピーコック・クラフターヘッドバンド",
-      "nameEn": "Crested Headband of Crafting",
-      "nameJa": "ピーコック・クラフターヘッドバンド",
+      "avg": 151468,
+      "itemId": "52268",
+      "marketValue": 5149938,
+      "median": 160780,
+      "minPrice": 155000,
+      "name": "コスモ・プレデター認証鍵",
+      "nameEn": "Cosmic Predator Identification Key",
+      "nameJa": "コスモ・プレデター認証鍵",
       "npcVendorInfo": "",
-      "percentChange": -43.64,
-      "purchaseAmount": 6,
-      "quantitySold": 6,
-      "state": "decreasing",
-      "url": "https://universalis.app/market/47184",
+      "percentChange": 2.33,
+      "purchaseAmount": 34,
+      "quantitySold": 34,
+      "state": "stable",
+      "url": "https://universalis.app/market/52268",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 129.8
+      "opportunityScore": 421.1,
+      "names": {
+        "en": "Cosmic Predator Identification Key",
+        "ja": "コスモ・プレデター認証鍵"
+      }
     },
     {
       "avg": 341822,
@@ -1165,7 +1332,11 @@
       "url": "https://universalis.app/market/49272",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 229.9
+      "opportunityScore": 229.9,
+      "names": {
+        "en": "Courtly Lover's Surcoat of Fending",
+        "ja": "コートリーラヴァー・ディフェンダーサーコート"
+      }
     },
     {
       "avg": 1682929,
@@ -1184,45 +1355,57 @@
       "url": "https://universalis.app/market/50789",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 110.7
+      "opportunityScore": 110.7,
+      "names": {
+        "en": "Absolute Tyranny Orchestrion Roll",
+        "ja": "オーケストリオン譜:Absolute Tyranny"
+      }
     },
     {
-      "avg": 29906,
-      "itemId": "46773",
-      "marketValue": 4982291,
-      "median": 28000,
-      "minPrice": 37000,
-      "name": "エナジードリンクGG",
-      "nameEn": "DAM",
-      "nameJa": "エナジードリンクGG",
+      "avg": 38000,
+      "itemId": "47343",
+      "marketValue": 4980000,
+      "median": 45000,
+      "minPrice": 32000,
+      "name": "惑星パエンナ探索計画の証書",
+      "nameEn": "Phaenna Token Booklet",
+      "nameJa": "惑星パエンナ探索計画の証書",
       "npcVendorInfo": "",
-      "percentChange": 23.72,
-      "purchaseAmount": 30,
-      "quantitySold": 170,
-      "state": "increasing",
-      "url": "https://universalis.app/market/46773",
+      "percentChange": -15.79,
+      "purchaseAmount": 8,
+      "quantitySold": 148,
+      "state": "decreasing",
+      "url": "https://universalis.app/market/47343",
       "hasListings": true,
-      "recommendationLevel": "rising",
-      "opportunityScore": 1786.3
+      "recommendationLevel": "steady",
+      "opportunityScore": 1556.4,
+      "names": {
+        "en": "Phaenna Token Booklet",
+        "ja": "惑星パエンナ探索計画の証書"
+      }
     },
     {
       "avg": 1245000,
       "itemId": "47964",
       "marketValue": 4980000,
       "median": 1200000,
-      "minPrice": 1340000,
+      "minPrice": 1337060,
       "name": "タイニーヤーン",
       "nameEn": "Mini Yan",
       "nameJa": "タイニーヤーン",
       "npcVendorInfo": "",
-      "percentChange": 7.63,
+      "percentChange": 7.39,
       "purchaseAmount": 4,
       "quantitySold": 4,
       "state": "stable",
       "url": "https://universalis.app/market/47964",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 122.3
+      "opportunityScore": 122.2,
+      "names": {
+        "en": "Mini Yan",
+        "ja": "タイニーヤーン"
+      }
     },
     {
       "avg": 552755,
@@ -1241,7 +1424,11 @@
       "url": "https://universalis.app/market/52271",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 170.2
+      "opportunityScore": 170.2,
+      "names": {
+        "en": "Excavating Vacuum Suit Identification Key",
+        "ja": "掘採型パワーローダー認証鍵"
+      }
     },
     {
       "avg": 991200,
@@ -1260,26 +1447,80 @@
       "url": "https://universalis.app/market/52613",
       "hasListings": true,
       "recommendationLevel": "rising",
-      "opportunityScore": 140.7
+      "opportunityScore": 140.7,
+      "names": {
+        "en": "Oversized Plain Hooded Tunic",
+        "ja": "プレーンフーディー:オーバーサイズ"
+      }
+    },
+    {
+      "avg": 495189,
+      "itemId": "33258",
+      "marketValue": 4951890,
+      "median": 497000,
+      "minPrice": 498000,
+      "name": "イースタンインドアポンド",
+      "nameEn": "Eastern Indoor Pond",
+      "nameJa": "イースタンインドアポンド",
+      "npcVendorInfo": "",
+      "percentChange": 0.57,
+      "purchaseAmount": 10,
+      "quantitySold": 10,
+      "state": "stable",
+      "url": "https://universalis.app/market/33258",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 180.5,
+      "names": {
+        "en": "Eastern Indoor Pond",
+        "ja": "イースタンインドアポンド"
+      }
     },
     {
       "avg": 1626662,
       "itemId": "52443",
       "marketValue": 4879988,
       "median": 2300000,
-      "minPrice": 2339998,
+      "minPrice": 2310000,
       "name": "スタイルカタログ:ベルトアイガード:右",
       "nameEn": "The Faces We Wear - Sash Blinder (Right)",
       "nameJa": "スタイルカタログ:ベルトアイガード:右",
       "npcVendorInfo": "",
-      "percentChange": 43.85,
+      "percentChange": 42.01,
       "purchaseAmount": 3,
       "quantitySold": 3,
       "state": "increasing",
       "url": "https://universalis.app/market/52443",
       "hasListings": true,
       "recommendationLevel": "rising",
-      "opportunityScore": 121.2
+      "opportunityScore": 120.8,
+      "names": {
+        "en": "The Faces We Wear - Sash Blinder (Right)",
+        "ja": "スタイルカタログ:ベルトアイガード:右"
+      }
+    },
+    {
+      "avg": 958858,
+      "itemId": "47184",
+      "marketValue": 4794291,
+      "median": 498300,
+      "minPrice": 496500,
+      "name": "ピーコック・クラフターヘッドバンド",
+      "nameEn": "Crested Headband of Crafting",
+      "nameJa": "ピーコック・クラフターヘッドバンド",
+      "npcVendorInfo": "",
+      "percentChange": -48.22,
+      "purchaseAmount": 5,
+      "quantitySold": 5,
+      "state": "decreasing",
+      "url": "https://universalis.app/market/47184",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 118.1,
+      "names": {
+        "en": "Crested Headband of Crafting",
+        "ja": "ピーコック・クラフターヘッドバンド"
+      }
     },
     {
       "avg": 131990,
@@ -1298,7 +1539,11 @@
       "url": "https://universalis.app/market/8166",
       "hasListings": true,
       "recommendationLevel": "rising",
-      "opportunityScore": 533
+      "opportunityScore": 533,
+      "names": {
+        "en": "Thavnairian Onion",
+        "ja": "サベネアの野菜"
+      }
     },
     {
       "avg": 950000,
@@ -1317,83 +1562,172 @@
       "url": "https://universalis.app/market/21797",
       "hasListings": false,
       "recommendationLevel": "needs-restock",
-      "opportunityScore": 480.1
+      "opportunityScore": 480.1,
+      "names": {
+        "en": "Unkiu-class Bridge",
+        "ja": "ウンキウ級艦橋"
+      }
     },
     {
-      "avg": 440999,
-      "itemId": "7032",
-      "marketValue": 4409990,
-      "median": 440000,
-      "minPrice": 450000,
-      "name": "ロータスリーフ",
-      "nameEn": "Lotus Leaf",
-      "nameJa": "ロータスリーフ",
+      "avg": 887596,
+      "itemId": "47983",
+      "marketValue": 4437980,
+      "median": 890000,
+      "minPrice": 899000,
+      "name": "演技教本:くるっと回る",
+      "nameEn": "Ballroom Etiquette: Fashion Forward",
+      "nameJa": "演技教本:くるっと回る",
       "npcVendorInfo": "",
-      "percentChange": 2.04,
-      "purchaseAmount": 10,
-      "quantitySold": 10,
+      "percentChange": 1.28,
+      "purchaseAmount": 5,
+      "quantitySold": 5,
       "state": "stable",
-      "url": "https://universalis.app/market/7032",
+      "url": "https://universalis.app/market/47983",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 180.2
+      "opportunityScore": 130.1,
+      "names": {
+        "en": "Ballroom Etiquette: Fashion Forward",
+        "ja": "演技教本:くるっと回る"
+      }
     },
     {
-      "avg": 45551,
+      "avg": 492222,
+      "itemId": "44509",
+      "marketValue": 4430001,
+      "median": 498000,
+      "minPrice": 499000,
+      "name": "演技教本:タブレットで記録する",
+      "nameEn": "Ballroom Etiquette - Personal Perfection",
+      "nameJa": "演技教本:タブレットで記録する",
+      "npcVendorInfo": "",
+      "percentChange": 1.38,
+      "purchaseAmount": 9,
+      "quantitySold": 9,
+      "state": "stable",
+      "url": "https://universalis.app/market/44509",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 170.1,
+      "names": {
+        "en": "Ballroom Etiquette - Personal Perfection",
+        "ja": "演技教本:タブレットで記録する"
+      }
+    },
+    {
+      "avg": 491883,
+      "itemId": "47197",
+      "marketValue": 4426950,
+      "median": 353000,
+      "minPrice": 348950,
+      "name": "ピーコック・クラフターリング",
+      "nameEn": "Crested Ring of Crafting",
+      "nameJa": "ピーコック・クラフターリング",
+      "npcVendorInfo": "",
+      "percentChange": -29.06,
+      "purchaseAmount": 9,
+      "quantitySold": 9,
+      "state": "decreasing",
+      "url": "https://universalis.app/market/47197",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 162.5,
+      "names": {
+        "en": "Crested Ring of Crafting",
+        "ja": "ピーコック・クラフターリング"
+      }
+    },
+    {
+      "avg": 45662,
       "itemId": "41807",
-      "marketValue": 4272042,
+      "marketValue": 3960240,
       "median": 45000,
-      "minPrice": 50849,
+      "minPrice": 48000,
       "name": "騎獣の交換手形",
       "nameEn": "Rroneek Horn Token",
       "nameJa": "騎獣の交換手形",
       "npcVendorInfo": "",
-      "percentChange": 11.63,
-      "purchaseAmount": 37,
-      "quantitySold": 93,
+      "percentChange": 5.12,
+      "purchaseAmount": 34,
+      "quantitySold": 86,
       "state": "stable",
       "url": "https://universalis.app/market/41807",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 1012.5
+      "opportunityScore": 940.5,
+      "names": {
+        "en": "Rroneek Horn Token",
+        "ja": "騎獣の交換手形"
+      }
     },
     {
-      "avg": 319393,
-      "itemId": "52442",
-      "marketValue": 4152117,
-      "median": 319000,
-      "minPrice": 338999,
-      "name": "スタイルカタログ:ベルトアイガード:左",
-      "nameEn": "The Faces We Wear - Sash Blinder (Left)",
-      "nameJa": "スタイルカタログ:ベルトアイガード:左",
+      "avg": 244326,
+      "itemId": "49275",
+      "marketValue": 3909231,
+      "median": 189900,
+      "minPrice": 315982,
+      "name": "コートリーラヴァー・ディフェンダーブーツ",
+      "nameEn": "Courtly Lover's Boots of Fending",
+      "nameJa": "コートリーラヴァー・ディフェンダーブーツ",
       "npcVendorInfo": "",
-      "percentChange": 6.14,
-      "purchaseAmount": 13,
-      "quantitySold": 13,
+      "percentChange": 29.33,
+      "purchaseAmount": 16,
+      "quantitySold": 16,
+      "state": "increasing",
+      "url": "https://universalis.app/market/49275",
+      "hasListings": true,
+      "recommendationLevel": "rising",
+      "opportunityScore": 246.4,
+      "names": {
+        "en": "Courtly Lover's Boots of Fending",
+        "ja": "コートリーラヴァー・ディフェンダーブーツ"
+      }
+    },
+    {
+      "avg": 432375,
+      "itemId": "47190",
+      "marketValue": 3891375,
+      "median": 394685,
+      "minPrice": 398000,
+      "name": "ピーコック・ギャザラーコート",
+      "nameEn": "Crested Coat of Gathering",
+      "nameJa": "ピーコック・ギャザラーコート",
+      "npcVendorInfo": "",
+      "percentChange": -7.95,
+      "purchaseAmount": 9,
+      "quantitySold": 9,
       "state": "stable",
-      "url": "https://universalis.app/market/52442",
+      "url": "https://universalis.app/market/47190",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 211
+      "opportunityScore": 167.1,
+      "names": {
+        "en": "Crested Coat of Gathering",
+        "ja": "ピーコック・ギャザラーコート"
+      }
     },
     {
-      "avg": 39142,
-      "itemId": "47343",
-      "marketValue": 4080000,
-      "median": 45000,
-      "minPrice": 32000,
-      "name": "惑星パエンナ探索計画の証書",
-      "nameEn": "Phaenna Token Booklet",
-      "nameJa": "惑星パエンナ探索計画の証書",
+      "avg": 25662,
+      "itemId": "49217",
+      "marketValue": 3831971,
+      "median": 27000,
+      "minPrice": 26000,
+      "name": "オルコ・リネン",
+      "nameEn": "Urqopacha Linen",
+      "nameJa": "オルコ・リネン",
       "npcVendorInfo": "",
-      "percentChange": -18.25,
-      "purchaseAmount": 7,
-      "quantitySold": 118,
-      "state": "decreasing",
-      "url": "https://universalis.app/market/47343",
+      "percentChange": 1.32,
+      "purchaseAmount": 80,
+      "quantitySold": 150,
+      "state": "stable",
+      "url": "https://universalis.app/market/49217",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 1254.8
+      "opportunityScore": 1579.3,
+      "names": {
+        "en": "Urqopacha Linen",
+        "ja": "オルコ・リネン"
+      }
     },
     {
       "avg": 225234,
@@ -1412,7 +1746,11 @@
       "url": "https://universalis.app/market/49292",
       "hasListings": true,
       "recommendationLevel": "rising",
-      "opportunityScore": 262.3
+      "opportunityScore": 262.3,
+      "names": {
+        "en": "Courtly Lover's Shirt of Scouting",
+        "ja": "コートリーラヴァー・スカウトシャツ"
+      }
     },
     {
       "avg": 290692,
@@ -1431,121 +1769,103 @@
       "url": "https://universalis.app/market/50828",
       "hasListings": true,
       "recommendationLevel": "hot",
-      "opportunityScore": 258.9
+      "opportunityScore": 258.9,
+      "names": {
+        "en": "Powersuit Coffer",
+        "ja": "コスモパワードスーツ・チェスト"
+      }
     },
     {
-      "avg": 26511,
-      "itemId": "39591",
-      "marketValue": 3738171,
-      "median": 24921,
-      "minPrice": 27980,
-      "name": "古ぼけた地図G15",
-      "nameEn": "Timeworn Ophiotauroskin Map",
-      "nameJa": "古ぼけた地図G15",
+      "avg": 312676,
+      "itemId": "52442",
+      "marketValue": 3752118,
+      "median": 316065,
+      "minPrice": 338999,
+      "name": "スタイルカタログ:ベルトアイガード:左",
+      "nameEn": "The Faces We Wear - Sash Blinder (Left)",
+      "nameJa": "スタイルカタログ:ベルトアイガード:左",
       "npcVendorInfo": "",
-      "percentChange": 5.54,
-      "purchaseAmount": 141,
-      "quantitySold": 141,
+      "percentChange": 8.42,
+      "purchaseAmount": 12,
+      "quantitySold": 12,
       "state": "stable",
-      "url": "https://universalis.app/market/39591",
+      "url": "https://universalis.app/market/52442",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 1490.3
+      "opportunityScore": 201,
+      "names": {
+        "en": "The Faces We Wear - Sash Blinder (Left)",
+        "ja": "スタイルカタログ:ベルトアイガード:左"
+      }
     },
     {
-      "avg": 50716,
+      "avg": 50319,
       "itemId": "13708",
-      "marketValue": 3642137,
-      "median": 49998,
+      "marketValue": 3682141,
+      "median": 49999,
       "minPrice": 49000,
       "name": "カララント:パステルピンク",
       "nameEn": "General-purpose Pastel Pink Dye",
       "nameJa": "カララント:パステルピンク",
       "npcVendorInfo": "",
-      "percentChange": -3.38,
-      "purchaseAmount": 26,
-      "quantitySold": 73,
+      "percentChange": -2.62,
+      "purchaseAmount": 27,
+      "quantitySold": 74,
       "state": "stable",
       "url": "https://universalis.app/market/13708",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 807.9
+      "opportunityScore": 818.1,
+      "names": {
+        "en": "General-purpose Pastel Pink Dye",
+        "ja": "カララント:パステルピンク"
+      }
     },
     {
-      "avg": 218736,
-      "itemId": "49287",
-      "marketValue": 3499785,
-      "median": 227999,
-      "minPrice": 229498,
-      "name": "コートリーラヴァー・レンジャーシャツ",
-      "nameEn": "Courtly Lover's Shirt of Aiming",
-      "nameJa": "コートリーラヴァー・レンジャーシャツ",
+      "avg": 441248,
+      "itemId": "7032",
+      "marketValue": 3529990,
+      "median": 440000,
+      "minPrice": 450000,
+      "name": "ロータスリーフ",
+      "nameEn": "Lotus Leaf",
+      "nameJa": "ロータスリーフ",
       "npcVendorInfo": "",
-      "percentChange": 4.92,
-      "purchaseAmount": 16,
-      "quantitySold": 16,
+      "percentChange": 1.98,
+      "purchaseAmount": 8,
+      "quantitySold": 8,
       "state": "stable",
-      "url": "https://universalis.app/market/49287",
+      "url": "https://universalis.app/market/7032",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 239.8
+      "opportunityScore": 159.1,
+      "names": {
+        "en": "Lotus Leaf",
+        "ja": "ロータスリーフ"
+      }
     },
     {
-      "avg": 205866,
-      "itemId": "49289",
-      "marketValue": 3499722,
-      "median": 219970,
-      "minPrice": 219998,
-      "name": "コートリーラヴァー・レンジャートラウザー",
-      "nameEn": "Courtly Lover's Trousers of Aiming",
-      "nameJa": "コートリーラヴァー・レンジャートラウザー",
+      "avg": 27358,
+      "itemId": "39591",
+      "marketValue": 3474497,
+      "median": 25000,
+      "minPrice": 27980,
+      "name": "古ぼけた地図G15",
+      "nameEn": "Timeworn Ophiotauroskin Map",
+      "nameJa": "古ぼけた地図G15",
       "npcVendorInfo": "",
-      "percentChange": 6.86,
-      "purchaseAmount": 17,
-      "quantitySold": 17,
+      "percentChange": 2.27,
+      "purchaseAmount": 127,
+      "quantitySold": 127,
       "state": "stable",
-      "url": "https://universalis.app/market/49289",
+      "url": "https://universalis.app/market/39591",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 250.2
-    },
-    {
-      "avg": 317254,
-      "itemId": "38607",
-      "marketValue": 3489798,
-      "median": 300000,
-      "minPrice": 399980,
-      "name": "ストーンステップ",
-      "nameEn": "Flagstone Steps",
-      "nameJa": "ストーンステップ",
-      "npcVendorInfo": "",
-      "percentChange": 26.08,
-      "purchaseAmount": 11,
-      "quantitySold": 11,
-      "state": "increasing",
-      "url": "https://universalis.app/market/38607",
-      "hasListings": true,
-      "recommendationLevel": "rising",
-      "opportunityScore": 195
-    },
-    {
-      "avg": 866500,
-      "itemId": "50442",
-      "marketValue": 3466000,
-      "median": 864500,
-      "minPrice": 850000,
-      "name": "コスモ・アームドウェポン認証鍵",
-      "nameEn": "Cosmic Armored Weapon Identification Key",
-      "nameJa": "コスモ・アームドウェポン認証鍵",
-      "npcVendorInfo": "",
-      "percentChange": -1.9,
-      "purchaseAmount": 4,
-      "quantitySold": 4,
-      "state": "stable",
-      "url": "https://universalis.app/market/50442",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 118
+      "opportunityScore": 1349.1,
+      "names": {
+        "en": "Timeworn Ophiotauroskin Map",
+        "ja": "古ぼけた地図G15"
+      }
     },
     {
       "avg": 563666,
@@ -1564,83 +1884,103 @@
       "url": "https://universalis.app/market/47174",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 134.4
+      "opportunityScore": 134.4,
+      "names": {
+        "en": "Gold Thumb's Claw Hammer",
+        "ja": "ゴールデンサム・クローハンマー"
+      }
     },
     {
-      "avg": 25871,
-      "itemId": "49217",
-      "marketValue": 3292322,
-      "median": 27000,
-      "minPrice": 27000,
-      "name": "オルコ・リネン",
-      "nameEn": "Urqopacha Linen",
-      "nameJa": "オルコ・リネン",
+      "avg": 218659,
+      "itemId": "49287",
+      "marketValue": 3279888,
+      "median": 227999,
+      "minPrice": 229498,
+      "name": "コートリーラヴァー・レンジャーシャツ",
+      "nameEn": "Courtly Lover's Shirt of Aiming",
+      "nameJa": "コートリーラヴァー・レンジャーシャツ",
       "npcVendorInfo": "",
-      "percentChange": 4.36,
-      "purchaseAmount": 67,
-      "quantitySold": 125,
+      "percentChange": 4.96,
+      "purchaseAmount": 15,
+      "quantitySold": 15,
       "state": "stable",
-      "url": "https://universalis.app/market/49217",
+      "url": "https://universalis.app/market/49287",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 1329.3
+      "opportunityScore": 229.4,
+      "names": {
+        "en": "Courtly Lover's Shirt of Aiming",
+        "ja": "コートリーラヴァー・レンジャーシャツ"
+      }
     },
     {
-      "avg": 15151,
+      "avg": 204983,
+      "itemId": "49289",
+      "marketValue": 3279740,
+      "median": 219970,
+      "minPrice": 219998,
+      "name": "コートリーラヴァー・レンジャートラウザー",
+      "nameEn": "Courtly Lover's Trousers of Aiming",
+      "nameJa": "コートリーラヴァー・レンジャートラウザー",
+      "npcVendorInfo": "",
+      "percentChange": 7.32,
+      "purchaseAmount": 16,
+      "quantitySold": 16,
+      "state": "stable",
+      "url": "https://universalis.app/market/49289",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 240,
+      "names": {
+        "en": "Courtly Lover's Trousers of Aiming",
+        "ja": "コートリーラヴァー・レンジャートラウザー"
+      }
+    },
+    {
+      "avg": 318979,
+      "itemId": "38607",
+      "marketValue": 3189798,
+      "median": 300000,
+      "minPrice": 399980,
+      "name": "ストーンステップ",
+      "nameEn": "Flagstone Steps",
+      "nameJa": "ストーンステップ",
+      "npcVendorInfo": "",
+      "percentChange": 25.39,
+      "purchaseAmount": 10,
+      "quantitySold": 10,
+      "state": "increasing",
+      "url": "https://universalis.app/market/38607",
+      "hasListings": true,
+      "recommendationLevel": "rising",
+      "opportunityScore": 184.4,
+      "names": {
+        "en": "Flagstone Steps",
+        "ja": "ストーンステップ"
+      }
+    },
+    {
+      "avg": 15171,
       "itemId": "43557",
-      "marketValue": 3287871,
-      "median": 14999,
-      "minPrice": 9000,
+      "marketValue": 3110067,
+      "median": 15000,
+      "minPrice": 11000,
       "name": "古ぼけた地図G17",
       "nameEn": "Timeworn Br'aaxskin Map",
       "nameJa": "古ぼけた地図G17",
       "npcVendorInfo": "",
-      "percentChange": -40.6,
-      "purchaseAmount": 217,
-      "quantitySold": 217,
+      "percentChange": -27.49,
+      "purchaseAmount": 205,
+      "quantitySold": 205,
       "state": "decreasing",
       "url": "https://universalis.app/market/43557",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 2238.1
-    },
-    {
-      "avg": 296088,
-      "itemId": "46848",
-      "marketValue": 3256977,
-      "median": 297000,
-      "minPrice": 285000,
-      "name": "松明",
-      "nameEn": "Torch",
-      "nameJa": "松明",
-      "npcVendorInfo": "",
-      "percentChange": -3.74,
-      "purchaseAmount": 11,
-      "quantitySold": 11,
-      "state": "stable",
-      "url": "https://universalis.app/market/46848",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 187.2
-    },
-    {
-      "avg": 782250,
-      "itemId": "50299",
-      "marketValue": 3129001,
-      "median": 784500,
-      "minPrice": 780000,
-      "name": "ストーリースピナー・サルエル",
-      "nameEn": "Story-spinner's Sarouel",
-      "nameJa": "ストーリースピナー・サルエル",
-      "npcVendorInfo": "",
-      "percentChange": -0.29,
-      "purchaseAmount": 4,
-      "quantitySold": 4,
-      "state": "stable",
-      "url": "https://universalis.app/market/50299",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 117.9
+      "opportunityScore": 2121,
+      "names": {
+        "en": "Timeworn Br'aaxskin Map",
+        "ja": "古ぼけた地図G17"
+      }
     },
     {
       "avg": 20152,
@@ -1659,7 +1999,11 @@
       "url": "https://universalis.app/market/46251",
       "hasListings": true,
       "recommendationLevel": "rising",
-      "opportunityScore": 1333.9
+      "opportunityScore": 1333.9,
+      "names": {
+        "en": "Craftsman's Tri-solution",
+        "ja": "匠の宝水"
+      }
     },
     {
       "avg": 1016000,
@@ -1678,7 +2022,11 @@
       "url": "https://universalis.app/market/39592",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 108.4
+      "opportunityScore": 108.4,
+      "names": {
+        "en": "Burning Horn",
+        "ja": "熱を帯びた角片"
+      }
     },
     {
       "avg": 377500,
@@ -1697,45 +2045,11 @@
       "url": "https://universalis.app/market/52623",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 159.3
-    },
-    {
-      "avg": 94463,
-      "itemId": "7772",
-      "marketValue": 2994803,
-      "median": 100000,
-      "minPrice": 118990,
-      "name": "耐水綿布",
-      "nameEn": "Mariner Cotton Cloth",
-      "nameJa": "耐水綿布",
-      "npcVendorInfo": "",
-      "percentChange": 25.96,
-      "purchaseAmount": 19,
-      "quantitySold": 31,
-      "state": "increasing",
-      "url": "https://universalis.app/market/7772",
-      "hasListings": true,
-      "recommendationLevel": "rising",
-      "opportunityScore": 394.2
-    },
-    {
-      "avg": 297004,
-      "itemId": "35792",
-      "marketValue": 2970047,
-      "median": 300000,
-      "minPrice": 300000,
-      "name": "ディヴァインライト・クリスタル",
-      "nameEn": "Crystal of Divine Light",
-      "nameJa": "ディヴァインライト・クリスタル",
-      "npcVendorInfo": "",
-      "percentChange": 1.01,
-      "purchaseAmount": 10,
-      "quantitySold": 10,
-      "state": "stable",
-      "url": "https://universalis.app/market/35792",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 177.9
+      "opportunityScore": 159.3,
+      "names": {
+        "en": "Baggy Twill Trousers",
+        "ja": "バギー・ツイルパンツ"
+      }
     },
     {
       "avg": 983000,
@@ -1754,26 +2068,11 @@
       "url": "https://universalis.app/market/38450",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 107.8
-    },
-    {
-      "avg": 163644,
-      "itemId": "49325",
-      "marketValue": 2945594,
-      "median": 164043,
-      "minPrice": 160000,
-      "name": "コートリーラヴァー・キャスターリング",
-      "nameEn": "Courtly Lover's Ring of Casting",
-      "nameJa": "コートリーラヴァー・キャスターリング",
-      "npcVendorInfo": "",
-      "percentChange": -2.23,
-      "purchaseAmount": 18,
-      "quantitySold": 18,
-      "state": "stable",
-      "url": "https://universalis.app/market/49325",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 257.1
+      "opportunityScore": 107.8,
+      "names": {
+        "en": "Pterosquirrel",
+        "ja": "モモンガ"
+      }
     },
     {
       "avg": 732250,
@@ -1792,33 +2091,41 @@
       "url": "https://universalis.app/market/47973",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 118.2
+      "opportunityScore": 118.2,
+      "names": {
+        "en": "Warp Loader Identification Key",
+        "ja": "ホイールローダー起動鍵"
+      }
     },
     {
-      "avg": 212348,
-      "itemId": "38570",
-      "marketValue": 2760526,
-      "median": 210000,
-      "minPrice": 230000,
-      "name": "演技教本:目を輝かせる",
-      "nameEn": "Ballroom Etiquette - Ample Appreciation",
-      "nameJa": "演技教本:目を輝かせる",
+      "avg": 306330,
+      "itemId": "46848",
+      "marketValue": 2756977,
+      "median": 298000,
+      "minPrice": 285000,
+      "name": "松明",
+      "nameEn": "Torch",
+      "nameJa": "松明",
       "npcVendorInfo": "",
-      "percentChange": 8.31,
-      "purchaseAmount": 13,
-      "quantitySold": 13,
+      "percentChange": -6.96,
+      "purchaseAmount": 9,
+      "quantitySold": 9,
       "state": "stable",
-      "url": "https://universalis.app/market/38570",
+      "url": "https://universalis.app/market/46848",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 209.4
+      "opportunityScore": 165.5,
+      "names": {
+        "en": "Torch",
+        "ja": "松明"
+      }
     },
     {
       "avg": 388889,
       "itemId": "49282",
       "marketValue": 2722229,
       "median": 388877,
-      "minPrice": 388830,
+      "minPrice": 388803,
       "name": "コートリーラヴァー・ストライカークローク",
       "nameEn": "Courtly Lover's Cloak of Striking",
       "nameJa": "コートリーラヴァー・ストライカークローク",
@@ -1830,26 +2137,11 @@
       "url": "https://universalis.app/market/49282",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 147.2
-    },
-    {
-      "avg": 381739,
-      "itemId": "49304",
-      "marketValue": 2672178,
-      "median": 378899,
-      "minPrice": 378694,
-      "name": "コートリーラヴァー・キャスターパンタロン",
-      "nameEn": "Courtly Lover's Pantaloons of Casting",
-      "nameJa": "コートリーラヴァー・キャスターパンタロン",
-      "npcVendorInfo": "",
-      "percentChange": -0.8,
-      "purchaseAmount": 7,
-      "quantitySold": 7,
-      "state": "stable",
-      "url": "https://universalis.app/market/49304",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 146.9
+      "opportunityScore": 147.2,
+      "names": {
+        "en": "Courtly Lover's Cloak of Striking",
+        "ja": "コートリーラヴァー・ストライカークローク"
+      }
     },
     {
       "avg": 445166,
@@ -1868,7 +2160,34 @@
       "url": "https://universalis.app/market/49264",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 139.9
+      "opportunityScore": 139.9,
+      "names": {
+        "en": "Courtly Lover's Gunblade",
+        "ja": "コートリーラヴァー・ガンブレード"
+      }
+    },
+    {
+      "avg": 296671,
+      "itemId": "35792",
+      "marketValue": 2670047,
+      "median": 300000,
+      "minPrice": 300000,
+      "name": "ディヴァインライト・クリスタル",
+      "nameEn": "Crystal of Divine Light",
+      "nameJa": "ディヴァインライト・クリスタル",
+      "npcVendorInfo": "",
+      "percentChange": 1.12,
+      "purchaseAmount": 9,
+      "quantitySold": 9,
+      "state": "stable",
+      "url": "https://universalis.app/market/35792",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 167.4,
+      "names": {
+        "en": "Crystal of Divine Light",
+        "ja": "ディヴァインライト・クリスタル"
+      }
     },
     {
       "avg": 886333,
@@ -1887,64 +2206,126 @@
       "url": "https://universalis.app/market/50297",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 106.9
+      "opportunityScore": 106.9,
+      "names": {
+        "en": "Story-spinner's Chestwrap",
+        "ja": "ストーリースピナー・チェストラップ"
+      }
     },
     {
-      "avg": 439999,
-      "itemId": "50445",
-      "marketValue": 2639999,
-      "median": 435000,
-      "minPrice": 380000,
-      "name": "量産型パワーローダー認証鍵",
-      "nameEn": "Rapid-fab Vacuum Suit Identification Key",
-      "nameJa": "量産型パワーローダー認証鍵",
+      "avg": 883333,
+      "itemId": "50790",
+      "marketValue": 2650000,
+      "median": 900000,
+      "minPrice": 950000,
+      "name": "オーケストリオン譜:Everything Burns",
+      "nameEn": "Everything Burns Orchestrion Roll",
+      "nameJa": "オーケストリオン譜:Everything Burns",
       "npcVendorInfo": "",
-      "percentChange": -13.64,
-      "purchaseAmount": 6,
-      "quantitySold": 6,
+      "percentChange": 7.55,
+      "purchaseAmount": 3,
+      "quantitySold": 3,
       "state": "stable",
-      "url": "https://universalis.app/market/50445",
+      "url": "https://universalis.app/market/50790",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 133.6
+      "opportunityScore": 109,
+      "names": {
+        "en": "Everything Burns Orchestrion Roll",
+        "ja": "オーケストリオン譜:Everything Burns"
+      }
     },
     {
-      "avg": 375847,
-      "itemId": "49302",
-      "marketValue": 2630935,
-      "median": 375499,
-      "minPrice": 375377,
-      "name": "コートリーラヴァー・キャスターバトルドレス",
-      "nameEn": "Courtly Lover's Longcoat of Casting",
-      "nameJa": "コートリーラヴァー・キャスターバトルドレス",
+      "avg": 163575,
+      "itemId": "49325",
+      "marketValue": 2617203,
+      "median": 163741,
+      "minPrice": 160000,
+      "name": "コートリーラヴァー・キャスターリング",
+      "nameEn": "Courtly Lover's Ring of Casting",
+      "nameJa": "コートリーラヴァー・キャスターリング",
       "npcVendorInfo": "",
-      "percentChange": -0.13,
-      "purchaseAmount": 7,
-      "quantitySold": 7,
+      "percentChange": -2.19,
+      "purchaseAmount": 16,
+      "quantitySold": 16,
       "state": "stable",
-      "url": "https://universalis.app/market/49302",
+      "url": "https://universalis.app/market/49325",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 147
+      "opportunityScore": 236.5,
+      "names": {
+        "en": "Courtly Lover's Ring of Casting",
+        "ja": "コートリーラヴァー・キャスターリング"
+      }
     },
     {
-      "avg": 209744,
-      "itemId": "49299",
-      "marketValue": 2516936,
-      "median": 209845,
-      "minPrice": 209389,
-      "name": "コートリーラヴァー・ヒーラーパンタロン",
-      "nameEn": "Courtly Lover's Pantaloons of Healing",
-      "nameJa": "コートリーラヴァー・ヒーラーパンタロン",
+      "avg": 859333,
+      "itemId": "50442",
+      "marketValue": 2578000,
+      "median": 849000,
+      "minPrice": 850000,
+      "name": "コスモ・アームドウェポン認証鍵",
+      "nameEn": "Cosmic Armored Weapon Identification Key",
+      "nameJa": "コスモ・アームドウェポン認証鍵",
       "npcVendorInfo": "",
-      "percentChange": -0.17,
+      "percentChange": -1.09,
+      "purchaseAmount": 3,
+      "quantitySold": 3,
+      "state": "stable",
+      "url": "https://universalis.app/market/50442",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 106.7,
+      "names": {
+        "en": "Cosmic Armored Weapon Identification Key",
+        "ja": "コスモ・アームドウェポン認証鍵"
+      }
+    },
+    {
+      "avg": 15059,
+      "itemId": "45975",
+      "marketValue": 2560917,
+      "median": 14012,
+      "minPrice": 14412,
+      "name": "オクタヘドライトナゲット",
+      "nameEn": "Octahedrite Nugget",
+      "nameJa": "オクタヘドライトナゲット",
+      "npcVendorInfo": "",
+      "percentChange": -4.3,
+      "purchaseAmount": 107,
+      "quantitySold": 156,
+      "state": "stable",
+      "url": "https://universalis.app/market/45975",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 1635.8,
+      "names": {
+        "en": "Octahedrite Nugget",
+        "ja": "オクタヘドライトナゲット"
+      }
+    },
+    {
+      "avg": 213377,
+      "itemId": "38570",
+      "marketValue": 2560526,
+      "median": 210000,
+      "minPrice": 230000,
+      "name": "演技教本:目を輝かせる",
+      "nameEn": "Ballroom Etiquette - Ample Appreciation",
+      "nameJa": "演技教本:目を輝かせる",
+      "npcVendorInfo": "",
+      "percentChange": 7.79,
       "purchaseAmount": 12,
       "quantitySold": 12,
       "state": "stable",
-      "url": "https://universalis.app/market/49299",
+      "url": "https://universalis.app/market/38570",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 196.8
+      "opportunityScore": 198.8,
+      "names": {
+        "en": "Ballroom Etiquette - Ample Appreciation",
+        "ja": "演技教本:目を輝かせる"
+      }
     },
     {
       "avg": 303333,
@@ -1963,7 +2344,11 @@
       "url": "https://universalis.app/market/28631",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 158
+      "opportunityScore": 158,
+      "names": {
+        "en": "Hades's Auracite",
+        "ja": "ハーデスの結晶片"
+      }
     },
     {
       "avg": 398614,
@@ -1982,7 +2367,57 @@
       "url": "https://universalis.app/market/41650",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 136.6
+      "opportunityScore": 136.6,
+      "names": {
+        "en": "Island Adenium Whistle",
+        "ja": "アイル・アデニウムホイッスル"
+      }
+    },
+    {
+      "avg": 197749,
+      "itemId": "33027",
+      "marketValue": 2377498,
+      "median": 199999,
+      "minPrice": 199800,
+      "name": "カーフレザー",
+      "nameEn": "Calf Leather",
+      "nameJa": "カーフレザー",
+      "npcVendorInfo": "",
+      "percentChange": 1.04,
+      "purchaseAmount": 10,
+      "quantitySold": 12,
+      "state": "stable",
+      "url": "https://universalis.app/market/33027",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 196.8,
+      "names": {
+        "en": "Calf Leather",
+        "ja": "カーフレザー"
+      }
+    },
+    {
+      "avg": 789666,
+      "itemId": "50299",
+      "marketValue": 2369000,
+      "median": 790000,
+      "minPrice": 780000,
+      "name": "ストーリースピナー・サルエル",
+      "nameEn": "Story-spinner's Sarouel",
+      "nameJa": "ストーリースピナー・サルエル",
+      "npcVendorInfo": "",
+      "percentChange": -1.22,
+      "purchaseAmount": 3,
+      "quantitySold": 3,
+      "state": "stable",
+      "url": "https://universalis.app/market/50299",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 106.2,
+      "names": {
+        "en": "Story-spinner's Sarouel",
+        "ja": "ストーリースピナー・サルエル"
+      }
     },
     {
       "avg": 262652,
@@ -2001,45 +2436,34 @@
       "url": "https://universalis.app/market/49297",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 166.4
+      "opportunityScore": 166.4,
+      "names": {
+        "en": "Courtly Lover's Longcoat of Healing",
+        "ja": "コートリーラヴァー・ヒーラーバトルドレス"
+      }
     },
     {
-      "avg": 22411,
-      "itemId": "43556",
-      "marketValue": 2353237,
-      "median": 21998,
-      "minPrice": 22000,
-      "name": "古ぼけた地図G16",
-      "nameEn": "Timeworn Loboskin Map",
-      "nameJa": "古ぼけた地図G16",
+      "avg": 209721,
+      "itemId": "49299",
+      "marketValue": 2306941,
+      "median": 209793,
+      "minPrice": 209389,
+      "name": "コートリーラヴァー・ヒーラーパンタロン",
+      "nameEn": "Courtly Lover's Pantaloons of Healing",
+      "nameJa": "コートリーラヴァー・ヒーラーパンタロン",
       "npcVendorInfo": "",
-      "percentChange": -1.83,
-      "purchaseAmount": 105,
-      "quantitySold": 105,
+      "percentChange": -0.16,
+      "purchaseAmount": 11,
+      "quantitySold": 11,
       "state": "stable",
-      "url": "https://universalis.app/market/43556",
+      "url": "https://universalis.app/market/49299",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 1126
-    },
-    {
-      "avg": 15853,
-      "itemId": "45975",
-      "marketValue": 2308456,
-      "median": 15000,
-      "minPrice": 10000,
-      "name": "オクタヘドライトナゲット",
-      "nameEn": "Octahedrite Nugget",
-      "nameJa": "オクタヘドライトナゲット",
-      "npcVendorInfo": "",
-      "percentChange": -36.92,
-      "purchaseAmount": 93,
-      "quantitySold": 132,
-      "state": "decreasing",
-      "url": "https://universalis.app/market/45975",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 1387.1
+      "opportunityScore": 186.3,
+      "names": {
+        "en": "Courtly Lover's Pantaloons of Healing",
+        "ja": "コートリーラヴァー・ヒーラーパンタロン"
+      }
     },
     {
       "avg": 325714,
@@ -2058,26 +2482,57 @@
       "url": "https://universalis.app/market/52626",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 148.2
+      "opportunityScore": 148.2,
+      "names": {
+        "en": "Worn Baggy Twill Trousers",
+        "ja": "ダメージドバギー・ツイルパンツ"
+      }
     },
     {
-      "avg": 224710,
-      "itemId": "52419",
-      "marketValue": 2247102,
-      "median": 234400,
-      "minPrice": 170000,
-      "name": "コスモエクスプローラー・ジャケット",
-      "nameEn": "Cosmic Explorer's Jacket",
-      "nameJa": "コスモエクスプローラー・ジャケット",
+      "avg": 379064,
+      "itemId": "49304",
+      "marketValue": 2274384,
+      "median": 378797,
+      "minPrice": 378694,
+      "name": "コートリーラヴァー・キャスターパンタロン",
+      "nameEn": "Courtly Lover's Pantaloons of Casting",
+      "nameJa": "コートリーラヴァー・キャスターパンタロン",
       "npcVendorInfo": "",
-      "percentChange": -24.35,
-      "purchaseAmount": 10,
-      "quantitySold": 10,
-      "state": "decreasing",
-      "url": "https://universalis.app/market/52419",
+      "percentChange": -0.1,
+      "purchaseAmount": 6,
+      "quantitySold": 6,
+      "state": "stable",
+      "url": "https://universalis.app/market/49304",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 170.1
+      "opportunityScore": 136.3,
+      "names": {
+        "en": "Courtly Lover's Pantaloons of Casting",
+        "ja": "コートリーラヴァー・キャスターパンタロン"
+      }
+    },
+    {
+      "avg": 375690,
+      "itemId": "49302",
+      "marketValue": 2254143,
+      "median": 375438,
+      "minPrice": 375377,
+      "name": "コートリーラヴァー・キャスターバトルドレス",
+      "nameEn": "Courtly Lover's Longcoat of Casting",
+      "nameJa": "コートリーラヴァー・キャスターバトルドレス",
+      "npcVendorInfo": "",
+      "percentChange": -0.08,
+      "purchaseAmount": 6,
+      "quantitySold": 6,
+      "state": "stable",
+      "url": "https://universalis.app/market/49302",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 136.2,
+      "names": {
+        "en": "Courtly Lover's Longcoat of Casting",
+        "ja": "コートリーラヴァー・キャスターバトルドレス"
+      }
     },
     {
       "avg": 159986,
@@ -2096,45 +2551,57 @@
       "url": "https://universalis.app/market/49321",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 216.2
+      "opportunityScore": 216.2,
+      "names": {
+        "en": "Courtly Lover's Ring of Fending",
+        "ja": "コートリーラヴァー・ディフェンダーリング"
+      }
     },
     {
-      "avg": 203600,
-      "itemId": "37491",
-      "marketValue": 2236000,
-      "median": 200000,
-      "minPrice": 207000,
-      "name": "煌びやかな羽根",
-      "nameEn": "Resplendent Feather",
-      "nameJa": "煌びやかな羽根",
+      "avg": 278498,
+      "itemId": "52425",
+      "marketValue": 2227989,
+      "median": 298995,
+      "minPrice": 240000,
+      "name": "コスモオペレーター・カバーオール",
+      "nameEn": "Cosmic Operator's Coverall Top",
+      "nameJa": "コスモオペレーター・カバーオール",
       "npcVendorInfo": "",
-      "percentChange": 1.67,
+      "percentChange": -13.82,
+      "purchaseAmount": 8,
+      "quantitySold": 8,
+      "state": "stable",
+      "url": "https://universalis.app/market/52425",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 152.7,
+      "names": {
+        "en": "Cosmic Operator's Coverall Top",
+        "ja": "コスモオペレーター・カバーオール"
+      }
+    },
+    {
+      "avg": 217730,
+      "itemId": "52419",
+      "marketValue": 2177302,
+      "median": 224801,
+      "minPrice": 170000,
+      "name": "コスモエクスプローラー・ジャケット",
+      "nameEn": "Cosmic Explorer's Jacket",
+      "nameJa": "コスモエクスプローラー・ジャケット",
+      "npcVendorInfo": "",
+      "percentChange": -21.92,
       "purchaseAmount": 10,
-      "quantitySold": 11,
-      "state": "stable",
-      "url": "https://universalis.app/market/37491",
+      "quantitySold": 10,
+      "state": "decreasing",
+      "url": "https://universalis.app/market/52419",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 186.6
-    },
-    {
-      "avg": 198610,
-      "itemId": "33027",
-      "marketValue": 2187497,
-      "median": 200000,
-      "minPrice": 199890,
-      "name": "カーフレザー",
-      "nameEn": "Calf Leather",
-      "nameJa": "カーフレザー",
-      "npcVendorInfo": "",
-      "percentChange": 0.64,
-      "purchaseAmount": 9,
-      "quantitySold": 11,
-      "state": "stable",
-      "url": "https://universalis.app/market/33027",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 186.2
+      "opportunityScore": 170.6,
+      "names": {
+        "en": "Cosmic Explorer's Jacket",
+        "ja": "コスモエクスプローラー・ジャケット"
+      }
     },
     {
       "avg": 360000,
@@ -2153,7 +2620,34 @@
       "url": "https://universalis.app/market/52627",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 138.8
+      "opportunityScore": 138.8,
+      "names": {
+        "en": "Stonewashed Twill Trousers",
+        "ja": "ウォッシュド・ツイルパンツ"
+      }
+    },
+    {
+      "avg": 427999,
+      "itemId": "50445",
+      "marketValue": 2139999,
+      "median": 370000,
+      "minPrice": 380000,
+      "name": "量産型パワーローダー認証鍵",
+      "nameEn": "Rapid-fab Vacuum Suit Identification Key",
+      "nameJa": "量産型パワーローダー認証鍵",
+      "npcVendorInfo": "",
+      "percentChange": -11.21,
+      "purchaseAmount": 5,
+      "quantitySold": 5,
+      "state": "stable",
+      "url": "https://universalis.app/market/50445",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 123.2,
+      "names": {
+        "en": "Rapid-fab Vacuum Suit Identification Key",
+        "ja": "量産型パワーローダー認証鍵"
+      }
     },
     {
       "avg": 418319,
@@ -2172,26 +2666,11 @@
       "url": "https://universalis.app/market/49259",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 125.8
-    },
-    {
-      "avg": 159986,
-      "itemId": "49322",
-      "marketValue": 2079825,
-      "median": 159985,
-      "minPrice": 159985,
-      "name": "コートリーラヴァー・アタッカーリング",
-      "nameEn": "Courtly Lover's Ring of Slaying",
-      "nameJa": "コートリーラヴァー・アタッカーリング",
-      "npcVendorInfo": "",
-      "percentChange": 0,
-      "purchaseAmount": 13,
-      "quantitySold": 13,
-      "state": "stable",
-      "url": "https://universalis.app/market/49322",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 205.8
+      "opportunityScore": 125.8,
+      "names": {
+        "en": "Courtly Lover's Greatsword",
+        "ja": "コートリーラヴァー・グレートソード"
+      }
     },
     {
       "avg": 343333,
@@ -2210,7 +2689,34 @@
       "url": "https://universalis.app/market/52621",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 136.3
+      "opportunityScore": 136.3,
+      "names": {
+        "en": "Straight-cut Twill Trousers",
+        "ja": "ストレート・ツイルパンツ"
+      }
+    },
+    {
+      "avg": 14693,
+      "itemId": "45978",
+      "marketValue": 2047412,
+      "median": 12000,
+      "minPrice": 11000,
+      "name": "ディアトリマの毛布",
+      "nameEn": "Diatryma Felt",
+      "nameJa": "ディアトリマの毛布",
+      "npcVendorInfo": "",
+      "percentChange": -25.13,
+      "purchaseAmount": 103,
+      "quantitySold": 139,
+      "state": "decreasing",
+      "url": "https://universalis.app/market/45978",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 1459.5,
+      "names": {
+        "en": "Diatryma Felt",
+        "ja": "ディアトリマの毛布"
+      }
     },
     {
       "avg": 494875,
@@ -2229,7 +2735,11 @@
       "url": "https://universalis.app/market/47187",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 115.3
+      "opportunityScore": 115.3,
+      "names": {
+        "en": "Crested Culottes of Crafting",
+        "ja": "ピーコック・クラフターキュロット"
+      }
     },
     {
       "avg": 164587,
@@ -2248,7 +2758,11 @@
       "url": "https://universalis.app/market/27951",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 195.6
+      "opportunityScore": 195.6,
+      "names": {
+        "en": "Dancing Wing",
+        "ja": "ティターニアの羽根"
+      }
     },
     {
       "avg": 640000,
@@ -2267,7 +2781,34 @@
       "url": "https://universalis.app/market/47176",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 98.6
+      "opportunityScore": 98.6,
+      "names": {
+        "en": "Gold Thumb's Pliers",
+        "ja": "ゴールデンサム・プライヤー"
+      }
+    },
+    {
+      "avg": 159986,
+      "itemId": "49322",
+      "marketValue": 1919837,
+      "median": 159984,
+      "minPrice": 159985,
+      "name": "コートリーラヴァー・アタッカーリング",
+      "nameEn": "Courtly Lover's Ring of Slaying",
+      "nameJa": "コートリーラヴァー・アタッカーリング",
+      "npcVendorInfo": "",
+      "percentChange": 0,
+      "purchaseAmount": 12,
+      "quantitySold": 12,
+      "state": "stable",
+      "url": "https://universalis.app/market/49322",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 195.4,
+      "names": {
+        "en": "Courtly Lover's Ring of Slaying",
+        "ja": "コートリーラヴァー・アタッカーリング"
+      }
     },
     {
       "avg": 315498,
@@ -2286,7 +2827,11 @@
       "url": "https://universalis.app/market/47919",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 138.1
+      "opportunityScore": 138.1,
+      "names": {
+        "en": "Bouncer's Holster Vest",
+        "ja": "バウンサーズ・ホルスターベスト"
+      }
     },
     {
       "avg": 375161,
@@ -2305,7 +2850,11 @@
       "url": "https://universalis.app/market/49254",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 125.3
+      "opportunityScore": 125.3,
+      "names": {
+        "en": "Courtly Lover's Cane",
+        "ja": "コートリーラヴァー・ケーン"
+      }
     },
     {
       "avg": 624333,
@@ -2324,7 +2873,11 @@
       "url": "https://universalis.app/market/47163",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 97.9
+      "opportunityScore": 97.9,
+      "names": {
+        "en": "Gold Thumb's Saw",
+        "ja": "ゴールデンサム・ソー"
+      }
     },
     {
       "avg": 366000,
@@ -2343,7 +2896,34 @@
       "url": "https://universalis.app/market/52624",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 127.5
+      "opportunityScore": 127.5,
+      "names": {
+        "en": "Worn Twill Trousers",
+        "ja": "ダメージド・ツイルパンツ"
+      }
+    },
+    {
+      "avg": 362200,
+      "itemId": "47177",
+      "marketValue": 1811000,
+      "median": 445000,
+      "minPrice": 498000,
+      "name": "ゴールデンサム・グラインディングホイール",
+      "nameEn": "Gold Thumb's Grinding Wheel",
+      "nameJa": "ゴールデンサム・グラインディングホイール",
+      "npcVendorInfo": "",
+      "percentChange": 37.49,
+      "purchaseAmount": 5,
+      "quantitySold": 5,
+      "state": "increasing",
+      "url": "https://universalis.app/market/47177",
+      "hasListings": true,
+      "recommendationLevel": "rising",
+      "opportunityScore": 134.5,
+      "names": {
+        "en": "Gold Thumb's Grinding Wheel",
+        "ja": "ゴールデンサム・グラインディングホイール"
+      }
     },
     {
       "avg": 600000,
@@ -2362,26 +2942,11 @@
       "url": "https://universalis.app/market/50337",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 105.1
-    },
-    {
-      "avg": 297998,
-      "itemId": "52425",
-      "marketValue": 1787988,
-      "median": 299994,
-      "minPrice": 240000,
-      "name": "コスモオペレーター・カバーオール",
-      "nameEn": "Cosmic Operator's Coverall Top",
-      "nameJa": "コスモオペレーター・カバーオール",
-      "npcVendorInfo": "",
-      "percentChange": -19.46,
-      "purchaseAmount": 6,
-      "quantitySold": 6,
-      "state": "decreasing",
-      "url": "https://universalis.app/market/52425",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 130.2
+      "opportunityScore": 105.1,
+      "names": {
+        "en": "Ballroom Etiquette - Saving Face",
+        "ja": "演技教本:ほっぺたが落ちる"
+      }
     },
     {
       "avg": 352000,
@@ -2400,7 +2965,34 @@
       "url": "https://universalis.app/market/52622",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 128.4
+      "opportunityScore": 128.4,
+      "names": {
+        "en": "Bell-bottom Twill Trousers",
+        "ja": "ベルボトム・ツイルパンツ"
+      }
+    },
+    {
+      "avg": 22190,
+      "itemId": "43556",
+      "marketValue": 1753080,
+      "median": 21020,
+      "minPrice": 22000,
+      "name": "古ぼけた地図G16",
+      "nameEn": "Timeworn Loboskin Map",
+      "nameJa": "古ぼけた地図G16",
+      "npcVendorInfo": "",
+      "percentChange": -0.86,
+      "purchaseAmount": 79,
+      "quantitySold": 79,
+      "state": "stable",
+      "url": "https://universalis.app/market/43556",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 864.7,
+      "names": {
+        "en": "Timeworn Loboskin Map",
+        "ja": "古ぼけた地図G16"
+      }
     },
     {
       "avg": 23890,
@@ -2419,45 +3011,34 @@
       "url": "https://universalis.app/market/30898",
       "hasListings": true,
       "recommendationLevel": "hot",
-      "opportunityScore": 902.2
+      "opportunityScore": 902.2,
+      "names": {
+        "en": "Forgotten Fragment of Transcendence",
+        "ja": "未鑑定ロストシャード:福音"
+      }
     },
     {
-      "avg": 346494,
-      "itemId": "49284",
-      "marketValue": 1732471,
-      "median": 344998,
-      "minPrice": 348693,
-      "name": "コートリーラヴァー・ストライカーブレー",
-      "nameEn": "Courtly Lover's Brais of Striking",
-      "nameJa": "コートリーラヴァー・ストライカーブレー",
+      "avg": 46709,
+      "itemId": "12242",
+      "marketValue": 1728238,
+      "median": 20000,
+      "minPrice": 21000,
+      "name": "古ぼけた地図G7",
+      "nameEn": "Timeworn Wyvernskin Map",
+      "nameJa": "古ぼけた地図G7",
       "npcVendorInfo": "",
-      "percentChange": 0.63,
-      "purchaseAmount": 5,
-      "quantitySold": 5,
-      "state": "stable",
-      "url": "https://universalis.app/market/49284",
+      "percentChange": -55.04,
+      "purchaseAmount": 37,
+      "quantitySold": 37,
+      "state": "decreasing",
+      "url": "https://universalis.app/market/12242",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 125
-    },
-    {
-      "avg": 154979,
-      "itemId": "49323",
-      "marketValue": 1704775,
-      "median": 154983,
-      "minPrice": 154987,
-      "name": "コートリーラヴァー・レンジャーリング",
-      "nameEn": "Courtly Lover's Ring of Aiming",
-      "nameJa": "コートリーラヴァー・レンジャーリング",
-      "npcVendorInfo": "",
-      "percentChange": 0.01,
-      "purchaseAmount": 11,
-      "quantitySold": 11,
-      "state": "stable",
-      "url": "https://universalis.app/market/49323",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 184.8
+      "opportunityScore": 432.4,
+      "names": {
+        "en": "Timeworn Wyvernskin Map",
+        "ja": "古ぼけた地図G7"
+      }
     },
     {
       "avg": 211428,
@@ -2476,7 +3057,11 @@
       "url": "https://universalis.app/market/37492",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 154.6
+      "opportunityScore": 154.6,
+      "names": {
+        "en": "Blue Feather",
+        "ja": "ブルーフェザー"
+      }
     },
     {
       "avg": 12028,
@@ -2495,26 +3080,11 @@
       "url": "https://universalis.app/market/24809",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 1453.5
-    },
-    {
-      "avg": 48654,
-      "itemId": "12242",
-      "marketValue": 1654259,
-      "median": 20000,
-      "minPrice": 18000,
-      "name": "古ぼけた地図G7",
-      "nameEn": "Timeworn Wyvernskin Map",
-      "nameJa": "古ぼけた地図G7",
-      "npcVendorInfo": "",
-      "percentChange": -63,
-      "purchaseAmount": 34,
-      "quantitySold": 34,
-      "state": "decreasing",
-      "url": "https://universalis.app/market/12242",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 402.1
+      "opportunityScore": 1453.5,
+      "names": {
+        "en": "Obscure Logogram",
+        "ja": "未鑑定ロゴスシャード:封印"
+      }
     },
     {
       "avg": 44022,
@@ -2533,64 +3103,34 @@
       "url": "https://universalis.app/market/32250",
       "hasListings": false,
       "recommendationLevel": "needs-restock",
-      "opportunityScore": 794.5
+      "opportunityScore": 794.5,
+      "names": {
+        "en": "La Noscean Grape Pergola",
+        "ja": "ラノシアン・グレープパーゴラ"
+      }
     },
     {
-      "avg": 21894,
-      "itemId": "6688",
-      "marketValue": 1620207,
-      "median": 21000,
-      "minPrice": 26000,
-      "name": "古ぼけた地図G1",
-      "nameEn": "Timeworn Leather Map",
-      "nameJa": "古ぼけた地図G1",
+      "avg": 201000,
+      "itemId": "37491",
+      "marketValue": 1607000,
+      "median": 200000,
+      "minPrice": 207000,
+      "name": "煌びやかな羽根",
+      "nameEn": "Resplendent Feather",
+      "nameJa": "煌びやかな羽根",
       "npcVendorInfo": "",
-      "percentChange": 18.75,
-      "purchaseAmount": 74,
-      "quantitySold": 74,
-      "state": "increasing",
-      "url": "https://universalis.app/market/6688",
-      "hasListings": true,
-      "recommendationLevel": "rising",
-      "opportunityScore": 819.2
-    },
-    {
-      "avg": 14247,
-      "itemId": "45978",
-      "marketValue": 1592512,
-      "median": 12004,
-      "minPrice": 14000,
-      "name": "ディアトリマの毛布",
-      "nameEn": "Diatryma Felt",
-      "nameJa": "ディアトリマの毛布",
-      "npcVendorInfo": "",
-      "percentChange": -1.73,
-      "purchaseAmount": 85,
-      "quantitySold": 111,
+      "percentChange": 2.99,
+      "purchaseAmount": 7,
+      "quantitySold": 8,
       "state": "stable",
-      "url": "https://universalis.app/market/45978",
+      "url": "https://universalis.app/market/37491",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 1184
-    },
-    {
-      "avg": 313299,
-      "itemId": "49283",
-      "marketValue": 1566495,
-      "median": 317998,
-      "minPrice": 318424,
-      "name": "コートリーラヴァー・ストライカーアームガード",
-      "nameEn": "Courtly Lover's Armguards of Striking",
-      "nameJa": "コートリーラヴァー・ストライカーアームガード",
-      "npcVendorInfo": "",
-      "percentChange": 1.64,
-      "purchaseAmount": 5,
-      "quantitySold": 5,
-      "state": "stable",
-      "url": "https://universalis.app/market/49283",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 124.7
+      "opportunityScore": 155.2,
+      "names": {
+        "en": "Resplendent Feather",
+        "ja": "煌びやかな羽根"
+      }
     },
     {
       "avg": 36952,
@@ -2609,7 +3149,34 @@
       "url": "https://universalis.app/market/44912",
       "hasListings": true,
       "recommendationLevel": "rising",
-      "opportunityScore": 501
+      "opportunityScore": 501,
+      "names": {
+        "en": "Rail-and-stile Partition",
+        "ja": "オープン・パーティション"
+      }
+    },
+    {
+      "avg": 22031,
+      "itemId": "6688",
+      "marketValue": 1542207,
+      "median": 21989,
+      "minPrice": 26000,
+      "name": "古ぼけた地図G1",
+      "nameEn": "Timeworn Leather Map",
+      "nameJa": "古ぼけた地図G1",
+      "npcVendorInfo": "",
+      "percentChange": 18.02,
+      "purchaseAmount": 70,
+      "quantitySold": 70,
+      "state": "increasing",
+      "url": "https://universalis.app/market/6688",
+      "hasListings": true,
+      "recommendationLevel": "rising",
+      "opportunityScore": 778.8,
+      "names": {
+        "en": "Timeworn Leather Map",
+        "ja": "古ぼけた地図G1"
+      }
     },
     {
       "avg": 128500,
@@ -2628,7 +3195,11 @@
       "url": "https://universalis.app/market/41435",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 195.9
+      "opportunityScore": 195.9,
+      "names": {
+        "en": "Aloalo Island Palm",
+        "ja": "アロアロ・アイランドパーム"
+      }
     },
     {
       "avg": 384875,
@@ -2647,7 +3218,11 @@
       "url": "https://universalis.app/market/50301",
       "hasListings": false,
       "recommendationLevel": "needs-restock",
-      "opportunityScore": 464.2
+      "opportunityScore": 464.2,
+      "names": {
+        "en": "Powersuit Helm",
+        "ja": "コスモパワードヘルム"
+      }
     },
     {
       "avg": 375000,
@@ -2666,45 +3241,11 @@
       "url": "https://universalis.app/market/52629",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 115.8
-    },
-    {
-      "avg": 149617,
-      "itemId": "49290",
-      "marketValue": 1496170,
-      "median": 150612,
-      "minPrice": 129994,
-      "name": "コートリーラヴァー・レンジャーシューズ",
-      "nameEn": "Courtly Lover's Shoes of Aiming",
-      "nameJa": "コートリーラヴァー・レンジャーシューズ",
-      "npcVendorInfo": "",
-      "percentChange": -13.12,
-      "purchaseAmount": 10,
-      "quantitySold": 10,
-      "state": "stable",
-      "url": "https://universalis.app/market/49290",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 170.8
-    },
-    {
-      "avg": 295657,
-      "itemId": "49303",
-      "marketValue": 1478285,
-      "median": 295998,
-      "minPrice": 294996,
-      "name": "コートリーラヴァー・キャスターグローブ",
-      "nameEn": "Courtly Lover's Gloves of Casting",
-      "nameJa": "コートリーラヴァー・キャスターグローブ",
-      "npcVendorInfo": "",
-      "percentChange": -0.22,
-      "purchaseAmount": 5,
-      "quantitySold": 5,
-      "state": "stable",
-      "url": "https://universalis.app/market/49303",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 124
+      "opportunityScore": 115.8,
+      "names": {
+        "en": "Stonewashed Baggy Twill Trousers",
+        "ja": "ウォッシュドバギー・ツイルパンツ"
+      }
     },
     {
       "avg": 160146,
@@ -2723,26 +3264,11 @@
       "url": "https://universalis.app/market/49273",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 164.7
-    },
-    {
-      "avg": 94076,
-      "itemId": "37490",
-      "marketValue": 1426041,
-      "median": 96800,
-      "minPrice": 109970,
-      "name": "漂流種子",
-      "nameEn": "Driftseeds",
-      "nameJa": "漂流種子",
-      "npcVendorInfo": "",
-      "percentChange": 16.89,
-      "purchaseAmount": 11,
-      "quantitySold": 15,
-      "state": "increasing",
-      "url": "https://universalis.app/market/37490",
-      "hasListings": true,
-      "recommendationLevel": "rising",
-      "opportunityScore": 228.1
+      "opportunityScore": 164.7,
+      "names": {
+        "en": "Courtly Lover's Gauntlets of Fending",
+        "ja": "コートリーラヴァー・ディフェンダーガントレット"
+      }
     },
     {
       "avg": 474166,
@@ -2761,26 +3287,57 @@
       "url": "https://universalis.app/market/47181",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 102.5
+      "opportunityScore": 102.5,
+      "names": {
+        "en": "Gold Thumb's Culinary Knife",
+        "ja": "ゴールデンサム・クリナリーナイフ"
+      }
     },
     {
-      "avg": 348975,
-      "itemId": "47197",
-      "marketValue": 1395900,
-      "median": 344950,
-      "minPrice": 348950,
-      "name": "ピーコック・クラフターリング",
-      "nameEn": "Crested Ring of Crafting",
-      "nameJa": "ピーコック・クラフターリング",
+      "avg": 154978,
+      "itemId": "49323",
+      "marketValue": 1394808,
+      "median": 154983,
+      "minPrice": 154987,
+      "name": "コートリーラヴァー・レンジャーリング",
+      "nameEn": "Courtly Lover's Ring of Aiming",
+      "nameJa": "コートリーラヴァー・レンジャーリング",
       "npcVendorInfo": "",
-      "percentChange": -0.01,
-      "purchaseAmount": 4,
-      "quantitySold": 4,
+      "percentChange": 0.01,
+      "purchaseAmount": 9,
+      "quantitySold": 9,
       "state": "stable",
-      "url": "https://universalis.app/market/47197",
+      "url": "https://universalis.app/market/49323",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 113.7
+      "opportunityScore": 163.7,
+      "names": {
+        "en": "Courtly Lover's Ring of Aiming",
+        "ja": "コートリーラヴァー・レンジャーリング"
+      }
+    },
+    {
+      "avg": 92485,
+      "itemId": "7772",
+      "marketValue": 1394803,
+      "median": 100000,
+      "minPrice": 118990,
+      "name": "耐水綿布",
+      "nameEn": "Mariner Cotton Cloth",
+      "nameJa": "耐水綿布",
+      "npcVendorInfo": "",
+      "percentChange": 28.66,
+      "purchaseAmount": 14,
+      "quantitySold": 15,
+      "state": "increasing",
+      "url": "https://universalis.app/market/7772",
+      "hasListings": true,
+      "recommendationLevel": "rising",
+      "opportunityScore": 230.9,
+      "names": {
+        "en": "Mariner Cotton Cloth",
+        "ja": "耐水綿布"
+      }
     },
     {
       "avg": 463333,
@@ -2799,7 +3356,34 @@
       "url": "https://universalis.app/market/39388",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 104.6
+      "opportunityScore": 104.6,
+      "names": {
+        "en": "Allagan Terminal Alpha",
+        "ja": "アラガンターミナル Type:α"
+      }
+    },
+    {
+      "avg": 346868,
+      "itemId": "49284",
+      "marketValue": 1387473,
+      "median": 346843,
+      "minPrice": 348693,
+      "name": "コートリーラヴァー・ストライカーブレー",
+      "nameEn": "Courtly Lover's Brais of Striking",
+      "nameJa": "コートリーラヴァー・ストライカーブレー",
+      "npcVendorInfo": "",
+      "percentChange": 0.53,
+      "purchaseAmount": 4,
+      "quantitySold": 4,
+      "state": "stable",
+      "url": "https://universalis.app/market/49284",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 113.8,
+      "names": {
+        "en": "Courtly Lover's Brais of Striking",
+        "ja": "コートリーラヴァー・ストライカーブレー"
+      }
     },
     {
       "avg": 137889,
@@ -2818,26 +3402,34 @@
       "url": "https://universalis.app/market/36341",
       "hasListings": true,
       "recommendationLevel": "hot",
-      "opportunityScore": 195.8
+      "opportunityScore": 195.8,
+      "names": {
+        "en": "Archangel Wings",
+        "ja": "アーク・エンジェルウィング"
+      }
     },
     {
-      "avg": 339975,
-      "itemId": "14065",
-      "marketValue": 1359900,
-      "median": 339950,
-      "minPrice": 330000,
-      "name": "鹿威し",
-      "nameEn": "Shishi-odoshi",
-      "nameJa": "鹿威し",
+      "avg": 449766,
+      "itemId": "47185",
+      "marketValue": 1349300,
+      "median": 448000,
+      "minPrice": 435940,
+      "name": "ピーコック・クラフターシャツ",
+      "nameEn": "Crested Shirt of Crafting",
+      "nameJa": "ピーコック・クラフターシャツ",
       "npcVendorInfo": "",
-      "percentChange": -2.93,
-      "purchaseAmount": 4,
-      "quantitySold": 4,
+      "percentChange": -3.07,
+      "purchaseAmount": 3,
+      "quantitySold": 3,
       "state": "stable",
-      "url": "https://universalis.app/market/14065",
+      "url": "https://universalis.app/market/47185",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 112.9
+      "opportunityScore": 102.8,
+      "names": {
+        "en": "Crested Shirt of Crafting",
+        "ja": "ピーコック・クラフターシャツ"
+      }
     },
     {
       "avg": 334623,
@@ -2856,7 +3448,11 @@
       "url": "https://universalis.app/market/49285",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 113.3
+      "opportunityScore": 113.3,
+      "names": {
+        "en": "Courtly Lover's Boots of Striking",
+        "ja": "コートリーラヴァー・ストライカーブーツ"
+      }
     },
     {
       "avg": 133446,
@@ -2875,7 +3471,57 @@
       "url": "https://universalis.app/market/49298",
       "hasListings": true,
       "recommendationLevel": "rising",
-      "opportunityScore": 178.3
+      "opportunityScore": 178.3,
+      "names": {
+        "en": "Courtly Lover's Gloves of Healing",
+        "ja": "コートリーラヴァー・ヒーラーグローブ"
+      }
+    },
+    {
+      "avg": 93716,
+      "itemId": "37490",
+      "marketValue": 1328361,
+      "median": 96400,
+      "minPrice": 109970,
+      "name": "漂流種子",
+      "nameEn": "Driftseeds",
+      "nameJa": "漂流種子",
+      "npcVendorInfo": "",
+      "percentChange": 17.34,
+      "purchaseAmount": 10,
+      "quantitySold": 14,
+      "state": "increasing",
+      "url": "https://universalis.app/market/37490",
+      "hasListings": true,
+      "recommendationLevel": "rising",
+      "opportunityScore": 217.8,
+      "names": {
+        "en": "Driftseeds",
+        "ja": "漂流種子"
+      }
+    },
+    {
+      "avg": 147213,
+      "itemId": "49290",
+      "marketValue": 1324924,
+      "median": 129998,
+      "minPrice": 129994,
+      "name": "コートリーラヴァー・レンジャーシューズ",
+      "nameEn": "Courtly Lover's Shoes of Aiming",
+      "nameJa": "コートリーラヴァー・レンジャーシューズ",
+      "npcVendorInfo": "",
+      "percentChange": -11.7,
+      "purchaseAmount": 9,
+      "quantitySold": 9,
+      "state": "stable",
+      "url": "https://universalis.app/market/49290",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 160.5,
+      "names": {
+        "en": "Courtly Lover's Shoes of Aiming",
+        "ja": "コートリーラヴァー・レンジャーシューズ"
+      }
     },
     {
       "avg": 439910,
@@ -2894,26 +3540,11 @@
       "url": "https://universalis.app/market/49260",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 103.4
-    },
-    {
-      "avg": 57343,
-      "itemId": "47899",
-      "marketValue": 1318899,
-      "median": 57000,
-      "minPrice": 60000,
-      "name": "タイクーンプリンセス・タイツ",
-      "nameEn": "Tycoon Tights",
-      "nameJa": "タイクーンプリンセス・タイツ",
-      "npcVendorInfo": "",
-      "percentChange": 4.63,
-      "purchaseAmount": 23,
-      "quantitySold": 23,
-      "state": "stable",
-      "url": "https://universalis.app/market/47899",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 304.6
+      "opportunityScore": 103.4,
+      "names": {
+        "en": "Courtly Lover's Pistol",
+        "ja": "コートリーラヴァー・ハンドガン"
+      }
     },
     {
       "avg": 188167,
@@ -2932,26 +3563,11 @@
       "url": "https://universalis.app/market/49296",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 143.4
-    },
-    {
-      "avg": 17255,
-      "itemId": "17836",
-      "marketValue": 1311428,
-      "median": 17899,
-      "minPrice": 17999,
-      "name": "古ぼけた地図G10",
-      "nameEn": "Timeworn Gazelleskin Map",
-      "nameJa": "古ぼけた地図G10",
-      "npcVendorInfo": "",
-      "percentChange": 4.31,
-      "purchaseAmount": 76,
-      "quantitySold": 76,
-      "state": "stable",
-      "url": "https://universalis.app/market/17836",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 834.5
+      "opportunityScore": 143.4,
+      "names": {
+        "en": "Courtly Lover's Hood of Healing",
+        "ja": "コートリーラヴァー・ヒーラーフード"
+      }
     },
     {
       "avg": 20345,
@@ -2970,7 +3586,11 @@
       "url": "https://universalis.app/market/13716",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 678
+      "opportunityScore": 678,
+      "names": {
+        "en": "General-purpose Dark Purple Dye",
+        "ja": "カララント:ダークパープル"
+      }
     },
     {
       "avg": 433333,
@@ -2989,26 +3609,34 @@
       "url": "https://universalis.app/market/49265",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 102.4
+      "opportunityScore": 102.4,
+      "names": {
+        "en": "Courtly Lover's War Quoits",
+        "ja": "コートリーラヴァー・ウォーコイト"
+      }
     },
     {
-      "avg": 64950,
-      "itemId": "47897",
-      "marketValue": 1299000,
-      "median": 63000,
-      "minPrice": 120000,
-      "name": "タイクーンプリンセス・レオタード",
-      "nameEn": "Tycoon Leotard",
-      "nameJa": "タイクーンプリンセス・レオタード",
+      "avg": 17285,
+      "itemId": "17836",
+      "marketValue": 1296407,
+      "median": 17900,
+      "minPrice": 17999,
+      "name": "古ぼけた地図G10",
+      "nameEn": "Timeworn Gazelleskin Map",
+      "nameJa": "古ぼけた地図G10",
       "npcVendorInfo": "",
-      "percentChange": 84.76,
-      "purchaseAmount": 20,
-      "quantitySold": 20,
-      "state": "spiking",
-      "url": "https://universalis.app/market/47897",
+      "percentChange": 4.13,
+      "purchaseAmount": 75,
+      "quantitySold": 75,
+      "state": "stable",
+      "url": "https://universalis.app/market/17836",
       "hasListings": true,
-      "recommendationLevel": "hot",
-      "opportunityScore": 294.6
+      "recommendationLevel": "steady",
+      "opportunityScore": 824.4,
+      "names": {
+        "en": "Timeworn Gazelleskin Map",
+        "ja": "古ぼけた地図G10"
+      }
     },
     {
       "avg": 430998,
@@ -3027,7 +3655,11 @@
       "url": "https://universalis.app/market/32799",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 103.3
+      "opportunityScore": 103.3,
+      "names": {
+        "en": "Calfskin Rider's Jacket",
+        "ja": "カーフスキン・ライダースジャケット"
+      }
     },
     {
       "avg": 61443,
@@ -3046,7 +3678,11 @@
       "url": "https://universalis.app/market/41805",
       "hasListings": true,
       "recommendationLevel": "rising",
-      "opportunityScore": 290
+      "opportunityScore": 290,
+      "names": {
+        "en": "Twilight Gemstone",
+        "ja": "トワイライトジェム"
+      }
     },
     {
       "avg": 10956,
@@ -3065,45 +3701,149 @@
       "url": "https://universalis.app/market/5827",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 1233.4
+      "opportunityScore": 1233.4,
+      "names": {
+        "en": "Allagan Platinum Piece",
+        "ja": "アラグ白金貨"
+      }
     },
     {
-      "avg": 114480,
-      "itemId": "49288",
-      "marketValue": 1259281,
-      "median": 90000,
-      "minPrice": 90000,
-      "name": "コートリーラヴァー・レンジャーハーフグローブ",
-      "nameEn": "Courtly Lover's Halfgloves of Aiming",
-      "nameJa": "コートリーラヴァー・レンジャーハーフグローブ",
+      "avg": 57449,
+      "itemId": "47899",
+      "marketValue": 1263899,
+      "median": 57000,
+      "minPrice": 60000,
+      "name": "タイクーンプリンセス・タイツ",
+      "nameEn": "Tycoon Tights",
+      "nameJa": "タイクーンプリンセス・タイツ",
       "npcVendorInfo": "",
-      "percentChange": -21.38,
-      "purchaseAmount": 11,
-      "quantitySold": 11,
-      "state": "decreasing",
-      "url": "https://universalis.app/market/49288",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 177.9
-    },
-    {
-      "avg": 244598,
-      "itemId": "49281",
-      "marketValue": 1222992,
-      "median": 244996,
-      "minPrice": 239998,
-      "name": "コートリーラヴァー・ストライカーテンプルチェーン",
-      "nameEn": "Courtly Lover's Temple Chain of Striking",
-      "nameJa": "コートリーラヴァー・ストライカーテンプルチェーン",
-      "npcVendorInfo": "",
-      "percentChange": -1.88,
-      "purchaseAmount": 5,
-      "quantitySold": 5,
+      "percentChange": 4.44,
+      "purchaseAmount": 22,
+      "quantitySold": 22,
       "state": "stable",
-      "url": "https://universalis.app/market/49281",
+      "url": "https://universalis.app/market/47899",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 122.6
+      "opportunityScore": 294.3,
+      "names": {
+        "en": "Tycoon Tights",
+        "ja": "タイクーンプリンセス・タイツ"
+      }
+    },
+    {
+      "avg": 13135,
+      "itemId": "23892",
+      "marketValue": 1247870,
+      "median": 14000,
+      "minPrice": 15000,
+      "name": "グリーンパーティション",
+      "nameEn": "Verdant Partition",
+      "nameJa": "グリーンパーティション",
+      "npcVendorInfo": "",
+      "percentChange": 14.2,
+      "purchaseAmount": 95,
+      "quantitySold": 95,
+      "state": "stable",
+      "url": "https://universalis.app/market/23892",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 1026.7,
+      "names": {
+        "en": "Verdant Partition",
+        "ja": "グリーンパーティション"
+      }
+    },
+    {
+      "avg": 65210,
+      "itemId": "47897",
+      "marketValue": 1239000,
+      "median": 63000,
+      "minPrice": 120000,
+      "name": "タイクーンプリンセス・レオタード",
+      "nameEn": "Tycoon Leotard",
+      "nameJa": "タイクーンプリンセス・レオタード",
+      "npcVendorInfo": "",
+      "percentChange": 84.02,
+      "purchaseAmount": 19,
+      "quantitySold": 19,
+      "state": "spiking",
+      "url": "https://universalis.app/market/47897",
+      "hasListings": true,
+      "recommendationLevel": "hot",
+      "opportunityScore": 284.1,
+      "names": {
+        "en": "Tycoon Leotard",
+        "ja": "タイクーンプリンセス・レオタード"
+      }
+    },
+    {
+      "avg": 34379,
+      "itemId": "35575",
+      "marketValue": 1203274,
+      "median": 39000,
+      "minPrice": 39450,
+      "name": "イミテーション・ウッドルーフウィンドウ",
+      "nameEn": "Imitation Wooden Skylight",
+      "nameJa": "イミテーション・ウッドルーフウィンドウ",
+      "npcVendorInfo": "",
+      "percentChange": 14.75,
+      "purchaseAmount": 35,
+      "quantitySold": 35,
+      "state": "stable",
+      "url": "https://universalis.app/market/35575",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 426.7,
+      "names": {
+        "en": "Imitation Wooden Skylight",
+        "ja": "イミテーション・ウッドルーフウィンドウ"
+      }
+    },
+    {
+      "avg": 34835,
+      "itemId": "52276",
+      "marketValue": 1184396,
+      "median": 34842,
+      "minPrice": 33988,
+      "name": "カプリーヌ",
+      "nameEn": "Caprino",
+      "nameJa": "カプリーヌ",
+      "npcVendorInfo": "",
+      "percentChange": -2.43,
+      "purchaseAmount": 34,
+      "quantitySold": 34,
+      "state": "stable",
+      "url": "https://universalis.app/market/52276",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 412.3,
+      "names": {
+        "en": "Caprino",
+        "ja": "カプリーヌ"
+      }
+    },
+    {
+      "avg": 295547,
+      "itemId": "49303",
+      "marketValue": 1182191,
+      "median": 295598,
+      "minPrice": 294996,
+      "name": "コートリーラヴァー・キャスターグローブ",
+      "nameEn": "Courtly Lover's Gloves of Casting",
+      "nameJa": "コートリーラヴァー・キャスターグローブ",
+      "npcVendorInfo": "",
+      "percentChange": -0.19,
+      "purchaseAmount": 4,
+      "quantitySold": 4,
+      "state": "stable",
+      "url": "https://universalis.app/market/49303",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 112.8,
+      "names": {
+        "en": "Courtly Lover's Gloves of Casting",
+        "ja": "コートリーラヴァー・キャスターグローブ"
+      }
     },
     {
       "avg": 196614,
@@ -3122,64 +3862,11 @@
       "url": "https://universalis.app/market/49294",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 133.3
-    },
-    {
-      "avg": 13031,
-      "itemId": "23892",
-      "marketValue": 1172872,
-      "median": 14000,
-      "minPrice": 15000,
-      "name": "グリーンパーティション",
-      "nameEn": "Verdant Partition",
-      "nameJa": "グリーンパーティション",
-      "npcVendorInfo": "",
-      "percentChange": 15.11,
-      "purchaseAmount": 90,
-      "quantitySold": 90,
-      "state": "increasing",
-      "url": "https://universalis.app/market/23892",
-      "hasListings": true,
-      "recommendationLevel": "rising",
-      "opportunityScore": 976.6
-    },
-    {
-      "avg": 192333,
-      "itemId": "32846",
-      "marketValue": 1154000,
-      "median": 190000,
-      "minPrice": 184999,
-      "name": "ガブリエルIII号機認証鍵",
-      "nameEn": "Gabriel Mark III Identification Key",
-      "nameJa": "ガブリエルIII号機認証鍵",
-      "npcVendorInfo": "",
-      "percentChange": -3.81,
-      "purchaseAmount": 6,
-      "quantitySold": 6,
-      "state": "stable",
-      "url": "https://universalis.app/market/32846",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 131.8
-    },
-    {
-      "avg": 34740,
-      "itemId": "52276",
-      "marketValue": 1146440,
-      "median": 34842,
-      "minPrice": 33988,
-      "name": "カプリーヌ",
-      "nameEn": "Caprino",
-      "nameJa": "カプリーヌ",
-      "npcVendorInfo": "",
-      "percentChange": -2.16,
-      "purchaseAmount": 33,
-      "quantitySold": 33,
-      "state": "stable",
-      "url": "https://universalis.app/market/52276",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 402.2
+      "opportunityScore": 133.3,
+      "names": {
+        "en": "Courtly Lover's Trousers of Scouting",
+        "ja": "コートリーラヴァー・スカウトトラウザー"
+      }
     },
     {
       "avg": 158988,
@@ -3198,26 +3885,34 @@
       "url": "https://universalis.app/market/49324",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 142.6
+      "opportunityScore": 142.6,
+      "names": {
+        "en": "Courtly Lover's Ring of Healing",
+        "ja": "コートリーラヴァー・ヒーラーリング"
+      }
     },
     {
-      "avg": 273561,
-      "itemId": "47928",
-      "marketValue": 1094244,
-      "median": 300000,
-      "minPrice": 498000,
-      "name": "バウンサーズ・ホルスタースラックス",
-      "nameEn": "Bouncer's Holster Slacks",
-      "nameJa": "バウンサーズ・ホルスタースラックス",
+      "avg": 111108,
+      "itemId": "49288",
+      "marketValue": 1111088,
+      "median": 90000,
+      "minPrice": 90000,
+      "name": "コートリーラヴァー・レンジャーハーフグローブ",
+      "nameEn": "Courtly Lover's Halfgloves of Aiming",
+      "nameJa": "コートリーラヴァー・レンジャーハーフグローブ",
       "npcVendorInfo": "",
-      "percentChange": 82.04,
-      "purchaseAmount": 4,
-      "quantitySold": 4,
-      "state": "spiking",
-      "url": "https://universalis.app/market/47928",
+      "percentChange": -19,
+      "purchaseAmount": 10,
+      "quantitySold": 10,
+      "state": "decreasing",
+      "url": "https://universalis.app/market/49288",
       "hasListings": true,
-      "recommendationLevel": "hot",
-      "opportunityScore": 133
+      "recommendationLevel": "steady",
+      "opportunityScore": 167.8,
+      "names": {
+        "en": "Courtly Lover's Halfgloves of Aiming",
+        "ja": "コートリーラヴァー・レンジャーハーフグローブ"
+      }
     },
     {
       "avg": 362664,
@@ -3236,26 +3931,34 @@
       "url": "https://universalis.app/market/49253",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 100.4
+      "opportunityScore": 100.4,
+      "names": {
+        "en": "Courtly Lover's Longbow",
+        "ja": "コートリーラヴァー・ロングボウ"
+      }
     },
     {
-      "avg": 180630,
-      "itemId": "49286",
-      "marketValue": 1083782,
-      "median": 188649,
-      "minPrice": 119998,
-      "name": "コートリーラヴァー・レンジャーヘアピン",
-      "nameEn": "Courtly Lover's Hairpin of Aiming",
-      "nameJa": "コートリーラヴァー・レンジャーヘアピン",
+      "avg": 269997,
+      "itemId": "30759",
+      "marketValue": 1079990,
+      "median": 289995,
+      "minPrice": 300000,
+      "name": "カジュアルジャケット",
+      "nameEn": "Casual Jacket",
+      "nameJa": "カジュアルジャケット",
       "npcVendorInfo": "",
-      "percentChange": -33.57,
-      "purchaseAmount": 6,
-      "quantitySold": 6,
-      "state": "decreasing",
-      "url": "https://universalis.app/market/49286",
+      "percentChange": 11.11,
+      "purchaseAmount": 4,
+      "quantitySold": 4,
+      "state": "stable",
+      "url": "https://universalis.app/market/30759",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 124
+      "opportunityScore": 115.2,
+      "names": {
+        "en": "Casual Jacket",
+        "ja": "カジュアルジャケット"
+      }
     },
     {
       "avg": 215896,
@@ -3274,7 +3977,11 @@
       "url": "https://universalis.app/market/49277",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 121.8
+      "opportunityScore": 121.8,
+      "names": {
+        "en": "Courtly Lover's Surcoat of Maiming",
+        "ja": "コートリーラヴァー・スレイヤーサーコート"
+      }
     },
     {
       "avg": 13300,
@@ -3293,7 +4000,11 @@
       "url": "https://universalis.app/market/30894",
       "hasListings": true,
       "recommendationLevel": "rising",
-      "opportunityScore": 888.7
+      "opportunityScore": 888.7,
+      "names": {
+        "en": "Forgotten Fragment of Superstition",
+        "ja": "未鑑定ロストシャード:信仰"
+      }
     },
     {
       "avg": 265243,
@@ -3312,7 +4023,11 @@
       "url": "https://universalis.app/market/49249",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 112.3
+      "opportunityScore": 112.3,
+      "names": {
+        "en": "Courtly Lover's Sword",
+        "ja": "コートリーラヴァー・ソード"
+      }
     },
     {
       "avg": 353333,
@@ -3331,45 +4046,57 @@
       "url": "https://universalis.app/market/52628",
       "hasListings": true,
       "recommendationLevel": "rising",
-      "opportunityScore": 116.6
+      "opportunityScore": 116.6,
+      "names": {
+        "en": "Stonewashed Bell-bottom Twill Trousers",
+        "ja": "ウォッシュドベルボトム・ツイルパンツ"
+      }
     },
     {
-      "avg": 209992,
-      "itemId": "49279",
-      "marketValue": 1049963,
-      "median": 209993,
-      "minPrice": 209977,
-      "name": "コートリーラヴァー・スレイヤーブリーチ",
-      "nameEn": "Courtly Lover's Breeches of Maiming",
-      "nameJa": "コートリーラヴァー・スレイヤーブリーチ",
+      "avg": 14160,
+      "itemId": "26745",
+      "marketValue": 1047872,
+      "median": 14979,
+      "minPrice": 14000,
+      "name": "古ぼけた地図G12",
+      "nameEn": "Timeworn Zonureskin Map",
+      "nameJa": "古ぼけた地図G12",
       "npcVendorInfo": "",
-      "percentChange": -0.01,
-      "purchaseAmount": 5,
-      "quantitySold": 5,
+      "percentChange": -1.13,
+      "purchaseAmount": 74,
+      "quantitySold": 74,
       "state": "stable",
-      "url": "https://universalis.app/market/49279",
+      "url": "https://universalis.app/market/26745",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 122.3
+      "opportunityScore": 812,
+      "names": {
+        "en": "Timeworn Zonureskin Map",
+        "ja": "古ぼけた地図G12"
+      }
     },
     {
-      "avg": 173313,
-      "itemId": "49301",
-      "marketValue": 1039880,
-      "median": 149996,
-      "minPrice": 149994,
-      "name": "コートリーラヴァー・キャスターフード",
-      "nameEn": "Courtly Lover's Hood of Casting",
-      "nameJa": "コートリーラヴァー・キャスターフード",
+      "avg": 24093,
+      "itemId": "44879",
+      "marketValue": 1036035,
+      "median": 20045,
+      "minPrice": 37045,
+      "name": "ボタニカルロフト",
+      "nameEn": "Botanical Loft",
+      "nameJa": "ボタニカルロフト",
       "npcVendorInfo": "",
-      "percentChange": -13.45,
-      "purchaseAmount": 6,
-      "quantitySold": 6,
-      "state": "stable",
-      "url": "https://universalis.app/market/49301",
+      "percentChange": 53.76,
+      "purchaseAmount": 43,
+      "quantitySold": 43,
+      "state": "increasing",
+      "url": "https://universalis.app/market/44879",
       "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 128.8
+      "recommendationLevel": "rising",
+      "opportunityScore": 515.6,
+      "names": {
+        "en": "Botanical Loft",
+        "ja": "ボタニカルロフト"
+      }
     },
     {
       "avg": 344666,
@@ -3388,26 +4115,11 @@
       "url": "https://universalis.app/market/50441",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 98.9
-    },
-    {
-      "avg": 146387,
-      "itemId": "49310",
-      "marketValue": 1024713,
-      "median": 145968,
-      "minPrice": 145958,
-      "name": "コートリーラヴァー・キャスターイヤリング",
-      "nameEn": "Courtly Lover's Earrings of Casting",
-      "nameJa": "コートリーラヴァー・キャスターイヤリング",
-      "npcVendorInfo": "",
-      "percentChange": -0.29,
-      "purchaseAmount": 7,
-      "quantitySold": 7,
-      "state": "stable",
-      "url": "https://universalis.app/market/49310",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 142.1
+      "opportunityScore": 98.9,
+      "names": {
+        "en": "Volatile Gravity Vacuum Suit Identification Key",
+        "ja": "局地用パワーローダー認証鍵"
+      }
     },
     {
       "avg": 339999,
@@ -3426,7 +4138,34 @@
       "url": "https://universalis.app/market/49267",
       "hasListings": true,
       "recommendationLevel": "rising",
-      "opportunityScore": 106.5
+      "opportunityScore": 106.5,
+      "names": {
+        "en": "Courtly Lover's Pendulums",
+        "ja": "コートリーラヴァー・ペンデュラム"
+      }
+    },
+    {
+      "avg": 336666,
+      "itemId": "14065",
+      "marketValue": 1010000,
+      "median": 330000,
+      "minPrice": 330000,
+      "name": "鹿威し",
+      "nameEn": "Shishi-odoshi",
+      "nameJa": "鹿威し",
+      "npcVendorInfo": "",
+      "percentChange": -1.98,
+      "purchaseAmount": 3,
+      "quantitySold": 3,
+      "state": "stable",
+      "url": "https://universalis.app/market/14065",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 101.6,
+      "names": {
+        "en": "Shishi-odoshi",
+        "ja": "鹿威し"
+      }
     },
     {
       "avg": 17454,
@@ -3445,26 +4184,11 @@
       "url": "https://universalis.app/market/32834",
       "hasListings": true,
       "recommendationLevel": "rising",
-      "opportunityScore": 564.9
-    },
-    {
-      "avg": 246787,
-      "itemId": "41651",
-      "marketValue": 987150,
-      "median": 249000,
-      "minPrice": 250000,
-      "name": "アルザダール・トレジャーラグ",
-      "nameEn": "Alzadaal's Treasure Rug",
-      "nameJa": "アルザダール・トレジャーラグ",
-      "npcVendorInfo": "",
-      "percentChange": 1.3,
-      "purchaseAmount": 4,
-      "quantitySold": 4,
-      "state": "stable",
-      "url": "https://universalis.app/market/41651",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 112.3
+      "opportunityScore": 564.9,
+      "names": {
+        "en": "Forgotten Fragment of Divinity",
+        "ja": "未鑑定ロストシャード:祈祷"
+      }
     },
     {
       "avg": 16714,
@@ -3483,26 +4207,11 @@
       "url": "https://universalis.app/market/32165",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 723.9
-    },
-    {
-      "avg": 196998,
-      "itemId": "49315",
-      "marketValue": 984993,
-      "median": 189999,
-      "minPrice": 189997,
-      "name": "コートリーラヴァー・キャスターチョーカー",
-      "nameEn": "Courtly Lover's Choker of Casting",
-      "nameJa": "コートリーラヴァー・キャスターチョーカー",
-      "npcVendorInfo": "",
-      "percentChange": -3.55,
-      "purchaseAmount": 5,
-      "quantitySold": 5,
-      "state": "stable",
-      "url": "https://universalis.app/market/49315",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 121
+      "opportunityScore": 723.9,
+      "names": {
+        "en": "Forgotten Fragment of Clarity",
+        "ja": "未鑑定ロストシャード:叡智"
+      }
     },
     {
       "avg": 98450,
@@ -3521,102 +4230,103 @@
       "url": "https://universalis.app/market/8156",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 172.3
+      "opportunityScore": 172.3,
+      "names": {
+        "en": "Unhidden Leather Map",
+        "ja": "隠された地図G1"
+      }
     },
     {
-      "avg": 325965,
-      "itemId": "44116",
-      "marketValue": 977895,
-      "median": 339995,
-      "minPrice": 370000,
-      "name": "ナインズ・ベンディングマシン",
-      "nameEn": "Vending Machine Nine",
-      "nameJa": "ナインズ・ベンディングマシン",
+      "avg": 244499,
+      "itemId": "49281",
+      "marketValue": 977996,
+      "median": 242498,
+      "minPrice": 239965,
+      "name": "コートリーラヴァー・ストライカーテンプルチェーン",
+      "nameEn": "Courtly Lover's Temple Chain of Striking",
+      "nameJa": "コートリーラヴァー・ストライカーテンプルチェーン",
       "npcVendorInfo": "",
-      "percentChange": 13.51,
-      "purchaseAmount": 3,
-      "quantitySold": 3,
+      "percentChange": -1.85,
+      "purchaseAmount": 4,
+      "quantitySold": 4,
       "state": "stable",
-      "url": "https://universalis.app/market/44116",
+      "url": "https://universalis.app/market/49281",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 105.3
+      "opportunityScore": 111.4,
+      "names": {
+        "en": "Courtly Lover's Temple Chain of Striking",
+        "ja": "コートリーラヴァー・ストライカーテンプルチェーン"
+      }
     },
     {
-      "avg": 14277,
-      "itemId": "26745",
-      "marketValue": 970871,
-      "median": 14979,
-      "minPrice": 10001,
-      "name": "古ぼけた地図G12",
-      "nameEn": "Timeworn Zonureskin Map",
-      "nameJa": "古ぼけた地図G12",
+      "avg": 191000,
+      "itemId": "32846",
+      "marketValue": 955000,
+      "median": 190000,
+      "minPrice": 179999,
+      "name": "ガブリエルIII号機認証鍵",
+      "nameEn": "Gabriel Mark III Identification Key",
+      "nameJa": "ガブリエルIII号機認証鍵",
       "npcVendorInfo": "",
-      "percentChange": -29.95,
-      "purchaseAmount": 68,
-      "quantitySold": 68,
-      "state": "decreasing",
-      "url": "https://universalis.app/market/26745",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 744.4
-    },
-    {
-      "avg": 193398,
-      "itemId": "49312",
-      "marketValue": 966994,
-      "median": 188999,
-      "minPrice": 167000,
-      "name": "コートリーラヴァー・アタッカーチョーカー",
-      "nameEn": "Courtly Lover's Choker of Slaying",
-      "nameJa": "コートリーラヴァー・アタッカーチョーカー",
-      "npcVendorInfo": "",
-      "percentChange": -13.65,
+      "percentChange": -5.76,
       "purchaseAmount": 5,
       "quantitySold": 5,
       "state": "stable",
-      "url": "https://universalis.app/market/49312",
+      "url": "https://universalis.app/market/32846",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 118.4
+      "opportunityScore": 120.3,
+      "names": {
+        "en": "Gabriel Mark III Identification Key",
+        "ja": "ガブリエルIII号機認証鍵"
+      }
     },
     {
-      "avg": 68707,
-      "itemId": "47900",
-      "marketValue": 961900,
-      "median": 68000,
-      "minPrice": 70000,
-      "name": "タイクーンプリンセス・ブーティ",
-      "nameEn": "Tycoon Bootlets",
-      "nameJa": "タイクーンプリンセス・ブーティ",
-      "npcVendorInfo": "",
-      "percentChange": 1.88,
-      "purchaseAmount": 14,
-      "quantitySold": 14,
-      "state": "stable",
-      "url": "https://universalis.app/market/47900",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 212.3
-    },
-    {
-      "avg": 16030,
+      "avg": 16306,
       "itemId": "6692",
-      "marketValue": 945792,
+      "marketValue": 945771,
       "median": 15000,
       "minPrice": 28000,
       "name": "古ぼけた地図G5",
       "nameEn": "Timeworn Peisteskin Map",
       "nameJa": "古ぼけた地図G5",
       "npcVendorInfo": "",
-      "percentChange": 74.67,
-      "purchaseAmount": 59,
-      "quantitySold": 59,
+      "percentChange": 71.72,
+      "purchaseAmount": 58,
+      "quantitySold": 58,
       "state": "spiking",
       "url": "https://universalis.app/market/6692",
       "hasListings": true,
       "recommendationLevel": "hot",
-      "opportunityScore": 680.4
+      "opportunityScore": 669.6,
+      "names": {
+        "en": "Timeworn Peisteskin Map",
+        "ja": "古ぼけた地図G5"
+      }
+    },
+    {
+      "avg": 310166,
+      "itemId": "49283",
+      "marketValue": 930498,
+      "median": 313998,
+      "minPrice": 318424,
+      "name": "コートリーラヴァー・ストライカーアームガード",
+      "nameEn": "Courtly Lover's Armguards of Striking",
+      "nameJa": "コートリーラヴァー・ストライカーアームガード",
+      "npcVendorInfo": "",
+      "percentChange": 2.66,
+      "purchaseAmount": 3,
+      "quantitySold": 3,
+      "state": "stable",
+      "url": "https://universalis.app/market/49283",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 102.3,
+      "names": {
+        "en": "Courtly Lover's Armguards of Striking",
+        "ja": "コートリーラヴァー・ストライカーアームガード"
+      }
     },
     {
       "avg": 155000,
@@ -3635,7 +4345,11 @@
       "url": "https://universalis.app/market/47985",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 134
+      "opportunityScore": 134,
+      "names": {
+        "en": "Ballroom Etiquette - Bearing Insult",
+        "ja": "演技教本:怒りに震える"
+      }
     },
     {
       "avg": 310000,
@@ -3654,45 +4368,11 @@
       "url": "https://universalis.app/market/49251",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 101.6
-    },
-    {
-      "avg": 33159,
-      "itemId": "35575",
-      "marketValue": 928466,
-      "median": 35960,
-      "minPrice": 39059,
-      "name": "イミテーション・ウッドルーフウィンドウ",
-      "nameEn": "Imitation Wooden Skylight",
-      "nameJa": "イミテーション・ウッドルーフウィンドウ",
-      "npcVendorInfo": "",
-      "percentChange": 17.79,
-      "purchaseAmount": 28,
-      "quantitySold": 28,
-      "state": "increasing",
-      "url": "https://universalis.app/market/35575",
-      "hasListings": true,
-      "recommendationLevel": "rising",
-      "opportunityScore": 356.1
-    },
-    {
-      "avg": 181996,
-      "itemId": "49305",
-      "marketValue": 909980,
-      "median": 189995,
-      "minPrice": 190000,
-      "name": "コートリーラヴァー・キャスターシューズ",
-      "nameEn": "Courtly Lover's Shoes of Casting",
-      "nameJa": "コートリーラヴァー・キャスターシューズ",
-      "npcVendorInfo": "",
-      "percentChange": 4.4,
-      "purchaseAmount": 5,
-      "quantitySold": 5,
-      "state": "stable",
-      "url": "https://universalis.app/market/49305",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 122.6
+      "opportunityScore": 101.6,
+      "names": {
+        "en": "Courtly Lover's Labrys",
+        "ja": "コートリーラヴァー・ラブリュス"
+      }
     },
     {
       "avg": 128271,
@@ -3711,7 +4391,103 @@
       "url": "https://universalis.app/market/47262",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 143.7
+      "opportunityScore": 143.7,
+      "names": {
+        "en": "Summertide Formal Dress Shoes",
+        "ja": "サマーフォーマル・ドレスシューズ"
+      }
+    },
+    {
+      "avg": 24471,
+      "itemId": "45974",
+      "marketValue": 895626,
+      "median": 23000,
+      "minPrice": 23500,
+      "name": "コーディア材",
+      "nameEn": "Cordia Lumber",
+      "nameJa": "コーディア材",
+      "npcVendorInfo": "",
+      "percentChange": -3.97,
+      "purchaseAmount": 31,
+      "quantitySold": 37,
+      "state": "stable",
+      "url": "https://universalis.app/market/45974",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 440.4,
+      "names": {
+        "en": "Cordia Lumber",
+        "ja": "コーディア材"
+      }
+    },
+    {
+      "avg": 178937,
+      "itemId": "49286",
+      "marketValue": 894689,
+      "median": 188400,
+      "minPrice": 119998,
+      "name": "コートリーラヴァー・レンジャーヘアピン",
+      "nameEn": "Courtly Lover's Hairpin of Aiming",
+      "nameJa": "コートリーラヴァー・レンジャーヘアピン",
+      "npcVendorInfo": "",
+      "percentChange": -32.94,
+      "purchaseAmount": 5,
+      "quantitySold": 5,
+      "state": "decreasing",
+      "url": "https://universalis.app/market/49286",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 113.2,
+      "names": {
+        "en": "Courtly Lover's Hairpin of Aiming",
+        "ja": "コートリーラヴァー・レンジャーヘアピン"
+      }
+    },
+    {
+      "avg": 68761,
+      "itemId": "47900",
+      "marketValue": 893900,
+      "median": 68000,
+      "minPrice": 70000,
+      "name": "タイクーンプリンセス・ブーティ",
+      "nameEn": "Tycoon Bootlets",
+      "nameJa": "タイクーンプリンセス・ブーティ",
+      "npcVendorInfo": "",
+      "percentChange": 1.8,
+      "purchaseAmount": 13,
+      "quantitySold": 13,
+      "state": "stable",
+      "url": "https://universalis.app/market/47900",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 201.9,
+      "names": {
+        "en": "Tycoon Bootlets",
+        "ja": "タイクーンプリンセス・ブーティ"
+      }
+    },
+    {
+      "avg": 146293,
+      "itemId": "49310",
+      "marketValue": 877759,
+      "median": 145966,
+      "minPrice": 145958,
+      "name": "コートリーラヴァー・キャスターイヤリング",
+      "nameEn": "Courtly Lover's Earrings of Casting",
+      "nameJa": "コートリーラヴァー・キャスターイヤリング",
+      "npcVendorInfo": "",
+      "percentChange": -0.23,
+      "purchaseAmount": 6,
+      "quantitySold": 6,
+      "state": "stable",
+      "url": "https://universalis.app/market/49310",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 131.3,
+      "names": {
+        "en": "Courtly Lover's Earrings of Casting",
+        "ja": "コートリーラヴァー・キャスターイヤリング"
+      }
     },
     {
       "avg": 109428,
@@ -3730,7 +4506,11 @@
       "url": "https://universalis.app/market/8026",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 154.9
+      "opportunityScore": 154.9,
+      "names": {
+        "en": "Mist Silk",
+        "ja": "ミストシルク"
+      }
     },
     {
       "avg": 286663,
@@ -3749,7 +4529,34 @@
       "url": "https://universalis.app/market/37402",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 101.5
+      "opportunityScore": 101.5,
+      "names": {
+        "en": "Planter Set",
+        "ja": "プランターセット"
+      }
+    },
+    {
+      "avg": 24500,
+      "itemId": "24009",
+      "marketValue": 856000,
+      "median": 24000,
+      "minPrice": 30000,
+      "name": "未鑑定ロゴスシャード:治癒",
+      "nameEn": "Curative Logogram",
+      "nameJa": "未鑑定ロゴスシャード:治癒",
+      "npcVendorInfo": "",
+      "percentChange": 22.45,
+      "purchaseAmount": 4,
+      "quantitySold": 30,
+      "state": "increasing",
+      "url": "https://universalis.app/market/24009",
+      "hasListings": true,
+      "recommendationLevel": "rising",
+      "opportunityScore": 376.8,
+      "names": {
+        "en": "Curative Logogram",
+        "ja": "未鑑定ロゴスシャード:治癒"
+      }
     },
     {
       "avg": 34266,
@@ -3768,26 +4575,11 @@
       "url": "https://universalis.app/market/32831",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 321.3
-    },
-    {
-      "avg": 140499,
-      "itemId": "48162",
-      "marketValue": 842999,
-      "median": 140000,
-      "minPrice": 138000,
-      "name": "ブラックレースパラソル",
-      "nameEn": "Black Embroidered Parasol",
-      "nameJa": "ブラックレースパラソル",
-      "npcVendorInfo": "",
-      "percentChange": -1.78,
-      "purchaseAmount": 6,
-      "quantitySold": 6,
-      "state": "stable",
-      "url": "https://universalis.app/market/48162",
-      "hasListings": true,
-      "recommendationLevel": "steady",
-      "opportunityScore": 130.7
+      "opportunityScore": 321.3,
+      "names": {
+        "en": "Forgotten Fragment of Contention",
+        "ja": "未鑑定ロストシャード:剣豪"
+      }
     },
     {
       "avg": 167977,
@@ -3806,7 +4598,34 @@
       "url": "https://universalis.app/market/49271",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 121.4
+      "opportunityScore": 121.4,
+      "names": {
+        "en": "Courtly Lover's Hairpin of Fending",
+        "ja": "コートリーラヴァー・ディフェンダーヘアピン"
+      }
+    },
+    {
+      "avg": 31509,
+      "itemId": "32249",
+      "marketValue": 819254,
+      "median": 33750,
+      "minPrice": 35000,
+      "name": "スクウェアペイヴド・ブリック",
+      "nameEn": "Brick Paving",
+      "nameJa": "スクウェアペイヴド・ブリック",
+      "npcVendorInfo": "",
+      "percentChange": 11.08,
+      "purchaseAmount": 26,
+      "quantitySold": 26,
+      "state": "stable",
+      "url": "https://universalis.app/market/32249",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 333.7,
+      "names": {
+        "en": "Brick Paving",
+        "ja": "スクウェアペイヴド・ブリック"
+      }
     },
     {
       "avg": 24488,
@@ -3825,26 +4644,11 @@
       "url": "https://universalis.app/market/49215",
       "hasListings": true,
       "recommendationLevel": "steady",
-      "opportunityScore": 360.9
-    },
-    {
-      "avg": 18460,
-      "itemId": "44879",
-      "marketValue": 812279,
-      "median": 17250,
-      "minPrice": 34000,
-      "name": "ボタニカルロフト",
-      "nameEn": "Botanical Loft",
-      "nameJa": "ボタニカルロフト",
-      "npcVendorInfo": "",
-      "percentChange": 84.18,
-      "purchaseAmount": 44,
-      "quantitySold": 44,
-      "state": "spiking",
-      "url": "https://universalis.app/market/44879",
-      "hasListings": true,
-      "recommendationLevel": "hot",
-      "opportunityScore": 532
+      "opportunityScore": 360.9,
+      "names": {
+        "en": "Rose Garnet",
+        "ja": "ローズガーネット"
+      }
     }
   ]
 }

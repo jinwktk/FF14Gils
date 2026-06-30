@@ -1,0 +1,97 @@
+{
+  "generatedAt": "2026-06-30T06:59:41.620Z",
+  "source": "https://api.saddlebagexchange.com/api/ffxivmarketshare",
+  "query": {
+    "server": "Bismarck",
+    "periodKey": "1d",
+    "periodLabel": "1日",
+    "timePeriod": 24,
+    "salesAmount": 3,
+    "averagePrice": 10000,
+    "preset": "all",
+    "sortBy": "marketValue",
+    "filters": [
+      0
+    ]
+  },
+  "summary": {
+    "itemCount": 2,
+    "totalMarketValue": 2201703,
+    "totalQuantitySold": 7,
+    "stateCounts": {
+      "stable": 1,
+      "spiking": 1
+    },
+    "topItem": {
+      "avg": 538332,
+      "itemId": "13115",
+      "marketValue": 2144995,
+      "median": 530000,
+      "minPrice": 529999,
+      "name": "カララント:ジェットブラック",
+      "nameEn": "General-purpose Jet Black Dye",
+      "nameJa": "カララント:ジェットブラック",
+      "npcVendorInfo": "",
+      "percentChange": -1.55,
+      "purchaseAmount": 3,
+      "quantitySold": 4,
+      "state": "stable",
+      "url": "https://universalis.app/market/13115",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 115.6,
+      "names": {
+        "en": "General-purpose Jet Black Dye",
+        "ja": "カララント:ジェットブラック"
+      }
+    }
+  },
+  "items": [
+    {
+      "avg": 538332,
+      "itemId": "13115",
+      "marketValue": 2144995,
+      "median": 530000,
+      "minPrice": 529999,
+      "name": "カララント:ジェットブラック",
+      "nameEn": "General-purpose Jet Black Dye",
+      "nameJa": "カララント:ジェットブラック",
+      "npcVendorInfo": "",
+      "percentChange": -1.55,
+      "purchaseAmount": 3,
+      "quantitySold": 4,
+      "state": "stable",
+      "url": "https://universalis.app/market/13115",
+      "hasListings": true,
+      "recommendationLevel": "steady",
+      "opportunityScore": 115.6,
+      "names": {
+        "en": "General-purpose Jet Black Dye",
+        "ja": "カララント:ジェットブラック"
+      }
+    },
+    {
+      "avg": 18902,
+      "itemId": "37753",
+      "marketValue": 56708,
+      "median": 18000,
+      "minPrice": 34999,
+      "name": "リナシータ・コーデックス",
+      "nameEn": "Rinascita Codex",
+      "nameJa": "リナシータ・コーデックス",
+      "npcVendorInfo": "",
+      "percentChange": 85.16,
+      "purchaseAmount": 3,
+      "quantitySold": 3,
+      "state": "spiking",
+      "url": "https://universalis.app/market/37753",
+      "hasListings": true,
+      "recommendationLevel": "hot",
+      "opportunityScore": 108.3,
+      "names": {
+        "en": "Rinascita Codex",
+        "ja": "リナシータ・コーデックス"
+      }
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T14:19:50.687Z",
+  "generatedAt": "2026-06-30T06:59:42.383Z",
   "defaultWorld": "Hades",
   "defaultPeriod": "7d",
   "periods": [
@@ -17,14 +17,539 @@
       "key": "7d",
       "label": "7日",
       "hours": 168
-    },
-    {
-      "key": "30d",
-      "label": "1か月",
-      "hours": 720
     }
   ],
   "worlds": [
+    {
+      "name": "Adamantoise",
+      "path": "data/worlds/adamantoise.json",
+      "dataCenter": "Aether",
+      "periods": {
+        "1d": "data/worlds/adamantoise-1d.json",
+        "3d": "data/worlds/adamantoise-3d.json",
+        "7d": "data/worlds/adamantoise.json"
+      }
+    },
+    {
+      "name": "Cactuar",
+      "path": "data/worlds/cactuar.json",
+      "dataCenter": "Aether",
+      "periods": {
+        "1d": "data/worlds/cactuar-1d.json",
+        "3d": "data/worlds/cactuar-3d.json",
+        "7d": "data/worlds/cactuar.json"
+      }
+    },
+    {
+      "name": "Faerie",
+      "path": "data/worlds/faerie.json",
+      "dataCenter": "Aether",
+      "periods": {
+        "1d": "data/worlds/faerie-1d.json",
+        "3d": "data/worlds/faerie-3d.json",
+        "7d": "data/worlds/faerie.json"
+      }
+    },
+    {
+      "name": "Gilgamesh",
+      "path": "data/worlds/gilgamesh.json",
+      "dataCenter": "Aether",
+      "periods": {
+        "1d": "data/worlds/gilgamesh-1d.json",
+        "3d": "data/worlds/gilgamesh-3d.json",
+        "7d": "data/worlds/gilgamesh.json"
+      }
+    },
+    {
+      "name": "Jenova",
+      "path": "data/worlds/jenova.json",
+      "dataCenter": "Aether",
+      "periods": {
+        "1d": "data/worlds/jenova-1d.json",
+        "3d": "data/worlds/jenova-3d.json",
+        "7d": "data/worlds/jenova.json"
+      }
+    },
+    {
+      "name": "Midgardsormr",
+      "path": "data/worlds/midgardsormr.json",
+      "dataCenter": "Aether",
+      "periods": {
+        "1d": "data/worlds/midgardsormr-1d.json",
+        "3d": "data/worlds/midgardsormr-3d.json",
+        "7d": "data/worlds/midgardsormr.json"
+      }
+    },
+    {
+      "name": "Sargatanas",
+      "path": "data/worlds/sargatanas.json",
+      "dataCenter": "Aether",
+      "periods": {
+        "1d": "data/worlds/sargatanas-1d.json",
+        "3d": "data/worlds/sargatanas-3d.json",
+        "7d": "data/worlds/sargatanas.json"
+      }
+    },
+    {
+      "name": "Siren",
+      "path": "data/worlds/siren.json",
+      "dataCenter": "Aether",
+      "periods": {
+        "1d": "data/worlds/siren-1d.json",
+        "3d": "data/worlds/siren-3d.json",
+        "7d": "data/worlds/siren.json"
+      }
+    },
+    {
+      "name": "Balmung",
+      "path": "data/worlds/balmung.json",
+      "dataCenter": "Crystal",
+      "periods": {
+        "1d": "data/worlds/balmung-1d.json",
+        "3d": "data/worlds/balmung-3d.json",
+        "7d": "data/worlds/balmung.json"
+      }
+    },
+    {
+      "name": "Brynhildr",
+      "path": "data/worlds/brynhildr.json",
+      "dataCenter": "Crystal",
+      "periods": {
+        "1d": "data/worlds/brynhildr-1d.json",
+        "3d": "data/worlds/brynhildr-3d.json",
+        "7d": "data/worlds/brynhildr.json"
+      }
+    },
+    {
+      "name": "Coeurl",
+      "path": "data/worlds/coeurl.json",
+      "dataCenter": "Crystal",
+      "periods": {
+        "1d": "data/worlds/coeurl-1d.json",
+        "3d": "data/worlds/coeurl-3d.json",
+        "7d": "data/worlds/coeurl.json"
+      }
+    },
+    {
+      "name": "Diabolos",
+      "path": "data/worlds/diabolos.json",
+      "dataCenter": "Crystal",
+      "periods": {
+        "1d": "data/worlds/diabolos-1d.json",
+        "3d": "data/worlds/diabolos-3d.json",
+        "7d": "data/worlds/diabolos.json"
+      }
+    },
+    {
+      "name": "Goblin",
+      "path": "data/worlds/goblin.json",
+      "dataCenter": "Crystal",
+      "periods": {
+        "1d": "data/worlds/goblin-1d.json",
+        "3d": "data/worlds/goblin-3d.json",
+        "7d": "data/worlds/goblin.json"
+      }
+    },
+    {
+      "name": "Malboro",
+      "path": "data/worlds/malboro.json",
+      "dataCenter": "Crystal",
+      "periods": {
+        "1d": "data/worlds/malboro-1d.json",
+        "3d": "data/worlds/malboro-3d.json",
+        "7d": "data/worlds/malboro.json"
+      }
+    },
+    {
+      "name": "Mateus",
+      "path": "data/worlds/mateus.json",
+      "dataCenter": "Crystal",
+      "periods": {
+        "1d": "data/worlds/mateus-1d.json",
+        "3d": "data/worlds/mateus-3d.json",
+        "7d": "data/worlds/mateus.json"
+      }
+    },
+    {
+      "name": "Zalera",
+      "path": "data/worlds/zalera.json",
+      "dataCenter": "Crystal",
+      "periods": {
+        "1d": "data/worlds/zalera-1d.json",
+        "3d": "data/worlds/zalera-3d.json",
+        "7d": "data/worlds/zalera.json"
+      }
+    },
+    {
+      "name": "Cuchulainn",
+      "path": "data/worlds/cuchulainn.json",
+      "dataCenter": "Dynamis",
+      "periods": {
+        "1d": "data/worlds/cuchulainn-1d.json",
+        "3d": "data/worlds/cuchulainn-3d.json",
+        "7d": "data/worlds/cuchulainn.json"
+      }
+    },
+    {
+      "name": "Golem",
+      "path": "data/worlds/golem.json",
+      "dataCenter": "Dynamis",
+      "periods": {
+        "1d": "data/worlds/golem-1d.json",
+        "3d": "data/worlds/golem-3d.json",
+        "7d": "data/worlds/golem.json"
+      }
+    },
+    {
+      "name": "Halicarnassus",
+      "path": "data/worlds/halicarnassus.json",
+      "dataCenter": "Dynamis",
+      "periods": {
+        "1d": "data/worlds/halicarnassus-1d.json",
+        "3d": "data/worlds/halicarnassus-3d.json",
+        "7d": "data/worlds/halicarnassus.json"
+      }
+    },
+    {
+      "name": "Kraken",
+      "path": "data/worlds/kraken.json",
+      "dataCenter": "Dynamis",
+      "periods": {
+        "1d": "data/worlds/kraken-1d.json",
+        "3d": "data/worlds/kraken-3d.json",
+        "7d": "data/worlds/kraken.json"
+      }
+    },
+    {
+      "name": "Maduin",
+      "path": "data/worlds/maduin.json",
+      "dataCenter": "Dynamis",
+      "periods": {
+        "1d": "data/worlds/maduin-1d.json",
+        "3d": "data/worlds/maduin-3d.json",
+        "7d": "data/worlds/maduin.json"
+      }
+    },
+    {
+      "name": "Marilith",
+      "path": "data/worlds/marilith.json",
+      "dataCenter": "Dynamis",
+      "periods": {
+        "1d": "data/worlds/marilith-1d.json",
+        "3d": "data/worlds/marilith-3d.json",
+        "7d": "data/worlds/marilith.json"
+      }
+    },
+    {
+      "name": "Rafflesia",
+      "path": "data/worlds/rafflesia.json",
+      "dataCenter": "Dynamis",
+      "periods": {
+        "1d": "data/worlds/rafflesia-1d.json",
+        "3d": "data/worlds/rafflesia-3d.json",
+        "7d": "data/worlds/rafflesia.json"
+      }
+    },
+    {
+      "name": "Seraph",
+      "path": "data/worlds/seraph.json",
+      "dataCenter": "Dynamis",
+      "periods": {
+        "1d": "data/worlds/seraph-1d.json",
+        "3d": "data/worlds/seraph-3d.json",
+        "7d": "data/worlds/seraph.json"
+      }
+    },
+    {
+      "name": "Behemoth",
+      "path": "data/worlds/behemoth.json",
+      "dataCenter": "Primal",
+      "periods": {
+        "1d": "data/worlds/behemoth-1d.json",
+        "3d": "data/worlds/behemoth-3d.json",
+        "7d": "data/worlds/behemoth.json"
+      }
+    },
+    {
+      "name": "Excalibur",
+      "path": "data/worlds/excalibur.json",
+      "dataCenter": "Primal",
+      "periods": {
+        "1d": "data/worlds/excalibur-1d.json",
+        "3d": "data/worlds/excalibur-3d.json",
+        "7d": "data/worlds/excalibur.json"
+      }
+    },
+    {
+      "name": "Exodus",
+      "path": "data/worlds/exodus.json",
+      "dataCenter": "Primal",
+      "periods": {
+        "1d": "data/worlds/exodus-1d.json",
+        "3d": "data/worlds/exodus-3d.json",
+        "7d": "data/worlds/exodus.json"
+      }
+    },
+    {
+      "name": "Famfrit",
+      "path": "data/worlds/famfrit.json",
+      "dataCenter": "Primal",
+      "periods": {
+        "1d": "data/worlds/famfrit-1d.json",
+        "3d": "data/worlds/famfrit-3d.json",
+        "7d": "data/worlds/famfrit.json"
+      }
+    },
+    {
+      "name": "Hyperion",
+      "path": "data/worlds/hyperion.json",
+      "dataCenter": "Primal",
+      "periods": {
+        "1d": "data/worlds/hyperion-1d.json",
+        "3d": "data/worlds/hyperion-3d.json",
+        "7d": "data/worlds/hyperion.json"
+      }
+    },
+    {
+      "name": "Lamia",
+      "path": "data/worlds/lamia.json",
+      "dataCenter": "Primal",
+      "periods": {
+        "1d": "data/worlds/lamia-1d.json",
+        "3d": "data/worlds/lamia-3d.json",
+        "7d": "data/worlds/lamia.json"
+      }
+    },
+    {
+      "name": "Leviathan",
+      "path": "data/worlds/leviathan.json",
+      "dataCenter": "Primal",
+      "periods": {
+        "1d": "data/worlds/leviathan-1d.json",
+        "3d": "data/worlds/leviathan-3d.json",
+        "7d": "data/worlds/leviathan.json"
+      }
+    },
+    {
+      "name": "Ultros",
+      "path": "data/worlds/ultros.json",
+      "dataCenter": "Primal",
+      "periods": {
+        "1d": "data/worlds/ultros-1d.json",
+        "3d": "data/worlds/ultros-3d.json",
+        "7d": "data/worlds/ultros.json"
+      }
+    },
+    {
+      "name": "Cerberus",
+      "path": "data/worlds/cerberus.json",
+      "dataCenter": "Chaos",
+      "periods": {
+        "1d": "data/worlds/cerberus-1d.json",
+        "3d": "data/worlds/cerberus-3d.json",
+        "7d": "data/worlds/cerberus.json"
+      }
+    },
+    {
+      "name": "Louisoix",
+      "path": "data/worlds/louisoix.json",
+      "dataCenter": "Chaos",
+      "periods": {
+        "1d": "data/worlds/louisoix-1d.json",
+        "3d": "data/worlds/louisoix-3d.json",
+        "7d": "data/worlds/louisoix.json"
+      }
+    },
+    {
+      "name": "Moogle",
+      "path": "data/worlds/moogle.json",
+      "dataCenter": "Chaos",
+      "periods": {
+        "1d": "data/worlds/moogle-1d.json",
+        "3d": "data/worlds/moogle-3d.json",
+        "7d": "data/worlds/moogle.json"
+      }
+    },
+    {
+      "name": "Omega",
+      "path": "data/worlds/omega.json",
+      "dataCenter": "Chaos",
+      "periods": {
+        "1d": "data/worlds/omega-1d.json",
+        "3d": "data/worlds/omega-3d.json",
+        "7d": "data/worlds/omega.json"
+      }
+    },
+    {
+      "name": "Phantom",
+      "path": "data/worlds/phantom.json",
+      "dataCenter": "Chaos",
+      "periods": {
+        "1d": "data/worlds/phantom-1d.json",
+        "3d": "data/worlds/phantom-3d.json",
+        "7d": "data/worlds/phantom.json"
+      }
+    },
+    {
+      "name": "Ragnarok",
+      "path": "data/worlds/ragnarok.json",
+      "dataCenter": "Chaos",
+      "periods": {
+        "1d": "data/worlds/ragnarok-1d.json",
+        "3d": "data/worlds/ragnarok-3d.json",
+        "7d": "data/worlds/ragnarok.json"
+      }
+    },
+    {
+      "name": "Sagittarius",
+      "path": "data/worlds/sagittarius.json",
+      "dataCenter": "Chaos",
+      "periods": {
+        "1d": "data/worlds/sagittarius-1d.json",
+        "3d": "data/worlds/sagittarius-3d.json",
+        "7d": "data/worlds/sagittarius.json"
+      }
+    },
+    {
+      "name": "Spriggan",
+      "path": "data/worlds/spriggan.json",
+      "dataCenter": "Chaos",
+      "periods": {
+        "1d": "data/worlds/spriggan-1d.json",
+        "3d": "data/worlds/spriggan-3d.json",
+        "7d": "data/worlds/spriggan.json"
+      }
+    },
+    {
+      "name": "Alpha",
+      "path": "data/worlds/alpha.json",
+      "dataCenter": "Light",
+      "periods": {
+        "1d": "data/worlds/alpha-1d.json",
+        "3d": "data/worlds/alpha-3d.json",
+        "7d": "data/worlds/alpha.json"
+      }
+    },
+    {
+      "name": "Lich",
+      "path": "data/worlds/lich.json",
+      "dataCenter": "Light",
+      "periods": {
+        "1d": "data/worlds/lich-1d.json",
+        "3d": "data/worlds/lich-3d.json",
+        "7d": "data/worlds/lich.json"
+      }
+    },
+    {
+      "name": "Odin",
+      "path": "data/worlds/odin.json",
+      "dataCenter": "Light",
+      "periods": {
+        "1d": "data/worlds/odin-1d.json",
+        "3d": "data/worlds/odin-3d.json",
+        "7d": "data/worlds/odin.json"
+      }
+    },
+    {
+      "name": "Phoenix",
+      "path": "data/worlds/phoenix.json",
+      "dataCenter": "Light",
+      "periods": {
+        "1d": "data/worlds/phoenix-1d.json",
+        "3d": "data/worlds/phoenix-3d.json",
+        "7d": "data/worlds/phoenix.json"
+      }
+    },
+    {
+      "name": "Raiden",
+      "path": "data/worlds/raiden.json",
+      "dataCenter": "Light",
+      "periods": {
+        "1d": "data/worlds/raiden-1d.json",
+        "3d": "data/worlds/raiden-3d.json",
+        "7d": "data/worlds/raiden.json"
+      }
+    },
+    {
+      "name": "Shiva",
+      "path": "data/worlds/shiva.json",
+      "dataCenter": "Light",
+      "periods": {
+        "1d": "data/worlds/shiva-1d.json",
+        "3d": "data/worlds/shiva-3d.json",
+        "7d": "data/worlds/shiva.json"
+      }
+    },
+    {
+      "name": "Twintania",
+      "path": "data/worlds/twintania.json",
+      "dataCenter": "Light",
+      "periods": {
+        "1d": "data/worlds/twintania-1d.json",
+        "3d": "data/worlds/twintania-3d.json",
+        "7d": "data/worlds/twintania.json"
+      }
+    },
+    {
+      "name": "Zodiark",
+      "path": "data/worlds/zodiark.json",
+      "dataCenter": "Light",
+      "periods": {
+        "1d": "data/worlds/zodiark-1d.json",
+        "3d": "data/worlds/zodiark-3d.json",
+        "7d": "data/worlds/zodiark.json"
+      }
+    },
+    {
+      "name": "Bismarck",
+      "path": "data/worlds/bismarck.json",
+      "dataCenter": "Materia",
+      "periods": {
+        "1d": "data/worlds/bismarck-1d.json",
+        "3d": "data/worlds/bismarck-3d.json",
+        "7d": "data/worlds/bismarck.json"
+      }
+    },
+    {
+      "name": "Ravana",
+      "path": "data/worlds/ravana.json",
+      "dataCenter": "Materia",
+      "periods": {
+        "1d": "data/worlds/ravana-1d.json",
+        "3d": "data/worlds/ravana-3d.json",
+        "7d": "data/worlds/ravana.json"
+      }
+    },
+    {
+      "name": "Sephirot",
+      "path": "data/worlds/sephirot.json",
+      "dataCenter": "Materia",
+      "periods": {
+        "1d": "data/worlds/sephirot-1d.json",
+        "3d": "data/worlds/sephirot-3d.json",
+        "7d": "data/worlds/sephirot.json"
+      }
+    },
+    {
+      "name": "Sophia",
+      "path": "data/worlds/sophia.json",
+      "dataCenter": "Materia",
+      "periods": {
+        "1d": "data/worlds/sophia-1d.json",
+        "3d": "data/worlds/sophia-3d.json",
+        "7d": "data/worlds/sophia.json"
+      }
+    },
+    {
+      "name": "Zurvan",
+      "path": "data/worlds/zurvan.json",
+      "dataCenter": "Materia",
+      "periods": {
+        "1d": "data/worlds/zurvan-1d.json",
+        "3d": "data/worlds/zurvan-3d.json",
+        "7d": "data/worlds/zurvan.json"
+      }
+    },
     {
       "name": "Aegis",
       "path": "data/worlds/aegis.json",
@@ -32,8 +557,7 @@
       "periods": {
         "1d": "data/worlds/aegis-1d.json",
         "3d": "data/worlds/aegis-3d.json",
-        "7d": "data/worlds/aegis.json",
-        "30d": "data/worlds/aegis-30d.json"
+        "7d": "data/worlds/aegis.json"
       }
     },
     {
@@ -43,8 +567,7 @@
       "periods": {
         "1d": "data/worlds/atomos-1d.json",
         "3d": "data/worlds/atomos-3d.json",
-        "7d": "data/worlds/atomos.json",
-        "30d": "data/worlds/atomos-30d.json"
+        "7d": "data/worlds/atomos.json"
       }
     },
     {
@@ -54,8 +577,7 @@
       "periods": {
         "1d": "data/worlds/carbuncle-1d.json",
         "3d": "data/worlds/carbuncle-3d.json",
-        "7d": "data/worlds/carbuncle.json",
-        "30d": "data/worlds/carbuncle-30d.json"
+        "7d": "data/worlds/carbuncle.json"
       }
     },
     {
@@ -65,8 +587,7 @@
       "periods": {
         "1d": "data/worlds/garuda-1d.json",
         "3d": "data/worlds/garuda-3d.json",
-        "7d": "data/worlds/garuda.json",
-        "30d": "data/worlds/garuda-30d.json"
+        "7d": "data/worlds/garuda.json"
       }
     },
     {
@@ -76,8 +597,7 @@
       "periods": {
         "1d": "data/worlds/gungnir-1d.json",
         "3d": "data/worlds/gungnir-3d.json",
-        "7d": "data/worlds/gungnir.json",
-        "30d": "data/worlds/gungnir-30d.json"
+        "7d": "data/worlds/gungnir.json"
       }
     },
     {
@@ -87,8 +607,7 @@
       "periods": {
         "1d": "data/worlds/kujata-1d.json",
         "3d": "data/worlds/kujata-3d.json",
-        "7d": "data/worlds/kujata.json",
-        "30d": "data/worlds/kujata-30d.json"
+        "7d": "data/worlds/kujata.json"
       }
     },
     {
@@ -98,8 +617,7 @@
       "periods": {
         "1d": "data/worlds/tonberry-1d.json",
         "3d": "data/worlds/tonberry-3d.json",
-        "7d": "data/worlds/tonberry.json",
-        "30d": "data/worlds/tonberry-30d.json"
+        "7d": "data/worlds/tonberry.json"
       }
     },
     {
@@ -109,8 +627,7 @@
       "periods": {
         "1d": "data/worlds/typhon-1d.json",
         "3d": "data/worlds/typhon-3d.json",
-        "7d": "data/worlds/typhon.json",
-        "30d": "data/worlds/typhon-30d.json"
+        "7d": "data/worlds/typhon.json"
       }
     },
     {
@@ -120,8 +637,7 @@
       "periods": {
         "1d": "data/worlds/alexander-1d.json",
         "3d": "data/worlds/alexander-3d.json",
-        "7d": "data/worlds/alexander.json",
-        "30d": "data/worlds/alexander-30d.json"
+        "7d": "data/worlds/alexander.json"
       }
     },
     {
@@ -131,8 +647,7 @@
       "periods": {
         "1d": "data/worlds/bahamut-1d.json",
         "3d": "data/worlds/bahamut-3d.json",
-        "7d": "data/worlds/bahamut.json",
-        "30d": "data/worlds/bahamut-30d.json"
+        "7d": "data/worlds/bahamut.json"
       }
     },
     {
@@ -142,8 +657,7 @@
       "periods": {
         "1d": "data/worlds/durandal-1d.json",
         "3d": "data/worlds/durandal-3d.json",
-        "7d": "data/worlds/durandal.json",
-        "30d": "data/worlds/durandal-30d.json"
+        "7d": "data/worlds/durandal.json"
       }
     },
     {
@@ -153,8 +667,7 @@
       "periods": {
         "1d": "data/worlds/fenrir-1d.json",
         "3d": "data/worlds/fenrir-3d.json",
-        "7d": "data/worlds/fenrir.json",
-        "30d": "data/worlds/fenrir-30d.json"
+        "7d": "data/worlds/fenrir.json"
       }
     },
     {
@@ -164,8 +677,7 @@
       "periods": {
         "1d": "data/worlds/ifrit-1d.json",
         "3d": "data/worlds/ifrit-3d.json",
-        "7d": "data/worlds/ifrit.json",
-        "30d": "data/worlds/ifrit-30d.json"
+        "7d": "data/worlds/ifrit.json"
       }
     },
     {
@@ -175,8 +687,7 @@
       "periods": {
         "1d": "data/worlds/ridill-1d.json",
         "3d": "data/worlds/ridill-3d.json",
-        "7d": "data/worlds/ridill.json",
-        "30d": "data/worlds/ridill-30d.json"
+        "7d": "data/worlds/ridill.json"
       }
     },
     {
@@ -186,8 +697,7 @@
       "periods": {
         "1d": "data/worlds/tiamat-1d.json",
         "3d": "data/worlds/tiamat-3d.json",
-        "7d": "data/worlds/tiamat.json",
-        "30d": "data/worlds/tiamat-30d.json"
+        "7d": "data/worlds/tiamat.json"
       }
     },
     {
@@ -197,8 +707,7 @@
       "periods": {
         "1d": "data/worlds/ultima-1d.json",
         "3d": "data/worlds/ultima-3d.json",
-        "7d": "data/worlds/ultima.json",
-        "30d": "data/worlds/ultima-30d.json"
+        "7d": "data/worlds/ultima.json"
       }
     },
     {
@@ -208,8 +717,7 @@
       "periods": {
         "1d": "data/worlds/anima-1d.json",
         "3d": "data/worlds/anima-3d.json",
-        "7d": "data/worlds/anima.json",
-        "30d": "data/worlds/anima-30d.json"
+        "7d": "data/worlds/anima.json"
       }
     },
     {
@@ -219,8 +727,7 @@
       "periods": {
         "1d": "data/worlds/asura-1d.json",
         "3d": "data/worlds/asura-3d.json",
-        "7d": "data/worlds/asura.json",
-        "30d": "data/worlds/asura-30d.json"
+        "7d": "data/worlds/asura.json"
       }
     },
     {
@@ -230,8 +737,7 @@
       "periods": {
         "1d": "data/worlds/chocobo-1d.json",
         "3d": "data/worlds/chocobo-3d.json",
-        "7d": "data/worlds/chocobo.json",
-        "30d": "data/worlds/chocobo-30d.json"
+        "7d": "data/worlds/chocobo.json"
       }
     },
     {
@@ -241,8 +747,7 @@
       "periods": {
         "1d": "data/worlds/hades-1d.json",
         "3d": "data/worlds/hades-3d.json",
-        "7d": "data/worlds/hades.json",
-        "30d": "data/worlds/hades-30d.json"
+        "7d": "data/worlds/hades.json"
       }
     },
     {
@@ -252,8 +757,7 @@
       "periods": {
         "1d": "data/worlds/ixion-1d.json",
         "3d": "data/worlds/ixion-3d.json",
-        "7d": "data/worlds/ixion.json",
-        "30d": "data/worlds/ixion-30d.json"
+        "7d": "data/worlds/ixion.json"
       }
     },
     {
@@ -263,8 +767,7 @@
       "periods": {
         "1d": "data/worlds/masamune-1d.json",
         "3d": "data/worlds/masamune-3d.json",
-        "7d": "data/worlds/masamune.json",
-        "30d": "data/worlds/masamune-30d.json"
+        "7d": "data/worlds/masamune.json"
       }
     },
     {
@@ -274,8 +777,7 @@
       "periods": {
         "1d": "data/worlds/pandaemonium-1d.json",
         "3d": "data/worlds/pandaemonium-3d.json",
-        "7d": "data/worlds/pandaemonium.json",
-        "30d": "data/worlds/pandaemonium-30d.json"
+        "7d": "data/worlds/pandaemonium.json"
       }
     },
     {
@@ -285,8 +787,7 @@
       "periods": {
         "1d": "data/worlds/titan-1d.json",
         "3d": "data/worlds/titan-3d.json",
-        "7d": "data/worlds/titan.json",
-        "30d": "data/worlds/titan-30d.json"
+        "7d": "data/worlds/titan.json"
       }
     },
     {
@@ -296,8 +797,7 @@
       "periods": {
         "1d": "data/worlds/belias-1d.json",
         "3d": "data/worlds/belias-3d.json",
-        "7d": "data/worlds/belias.json",
-        "30d": "data/worlds/belias-30d.json"
+        "7d": "data/worlds/belias.json"
       }
     },
     {
@@ -307,8 +807,7 @@
       "periods": {
         "1d": "data/worlds/mandragora-1d.json",
         "3d": "data/worlds/mandragora-3d.json",
-        "7d": "data/worlds/mandragora.json",
-        "30d": "data/worlds/mandragora-30d.json"
+        "7d": "data/worlds/mandragora.json"
       }
     },
     {
@@ -318,8 +817,7 @@
       "periods": {
         "1d": "data/worlds/ramuh-1d.json",
         "3d": "data/worlds/ramuh-3d.json",
-        "7d": "data/worlds/ramuh.json",
-        "30d": "data/worlds/ramuh-30d.json"
+        "7d": "data/worlds/ramuh.json"
       }
     },
     {
@@ -329,8 +827,7 @@
       "periods": {
         "1d": "data/worlds/shinryu-1d.json",
         "3d": "data/worlds/shinryu-3d.json",
-        "7d": "data/worlds/shinryu.json",
-        "30d": "data/worlds/shinryu-30d.json"
+        "7d": "data/worlds/shinryu.json"
       }
     },
     {
@@ -340,8 +837,7 @@
       "periods": {
         "1d": "data/worlds/unicorn-1d.json",
         "3d": "data/worlds/unicorn-3d.json",
-        "7d": "data/worlds/unicorn.json",
-        "30d": "data/worlds/unicorn-30d.json"
+        "7d": "data/worlds/unicorn.json"
       }
     },
     {
@@ -351,8 +847,7 @@
       "periods": {
         "1d": "data/worlds/valefor-1d.json",
         "3d": "data/worlds/valefor-3d.json",
-        "7d": "data/worlds/valefor.json",
-        "30d": "data/worlds/valefor-30d.json"
+        "7d": "data/worlds/valefor.json"
       }
     },
     {
@@ -362,8 +857,7 @@
       "periods": {
         "1d": "data/worlds/yojimbo-1d.json",
         "3d": "data/worlds/yojimbo-3d.json",
-        "7d": "data/worlds/yojimbo.json",
-        "30d": "data/worlds/yojimbo-30d.json"
+        "7d": "data/worlds/yojimbo.json"
       }
     },
     {
@@ -373,8 +867,7 @@
       "periods": {
         "1d": "data/worlds/zeromus-1d.json",
         "3d": "data/worlds/zeromus-3d.json",
-        "7d": "data/worlds/zeromus.json",
-        "30d": "data/worlds/zeromus-30d.json"
+        "7d": "data/worlds/zeromus.json"
       }
     }
   ]
