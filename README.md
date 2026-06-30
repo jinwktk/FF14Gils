@@ -8,6 +8,20 @@ FF14 のマーケットデータから、金策候補を探すための GitHub P
 - マーケットデータの取得と JSON 生成は GitHub Actions またはローカルの `npm run fetch:data` で行います。
 - 初期表示は `Hades`、売上期間は 1日、3日、7日、1か月に対応しています。
 - ワールド選択、期間選択、検索、状態フィルタ、最低販売数フィルタ、列ソートに対応しています。
+- UI 表示言語は日本語と英語を切り替えできます。選択した言語は Cookie に保存されます。
+
+## データと権利について
+
+FF14Gils は FINAL FANTASY XIV の非公式ファンサイトです。SQUARE ENIX CO., LTD. とは関係ありません。
+FINAL FANTASY XIV に関する名称、データ、画像、その他の権利は SQUARE ENIX CO., LTD. に帰属します。
+
+データ生成では以下の公開データ元を利用します。
+
+- Saddlebag Exchange API: 1日、3日、7日のマーケット集計候補を取得します。
+- Universalis API: 1か月表示の販売履歴再集計に利用します。
+- XIVAPI v2: アイテム名の取得だけに利用します。説明文、アイコン、詳細なゲームデータは保存しません。
+
+外部データ元の仕様や利用条件は変更される可能性があります。運用時は各サービスの公開ドキュメントと利用条件を確認し、必要に応じて取得方法や表示内容を見直します。
 
 ## アーキテクチャ
 
@@ -15,7 +29,7 @@ FF14 のマーケットデータから、金策候補を探すための GitHub P
 flowchart LR
   subgraph Browser["利用者ブラウザ"]
     Ui["index.html / styles.css / src/app.js"]
-    Cookie["ff14gils_world Cookie"]
+    Cookie["ff14gils_world / ff14gils_language Cookie"]
   end
 
   subgraph Pages["GitHub Pages 静的配信"]
@@ -84,8 +98,10 @@ npm run favicon:generate
 - `FF14GILS_CUSTOM_FILTERS`: `custom` 用のカテゴリ ID。
 - `FF14GILS_FETCH_RETRIES`: 外部APIの一時的な `429` / `5xx` 応答を再試行する回数。
 - `FF14GILS_FETCH_RETRY_DELAY_MS`: 外部APIリトライの初回待機時間。
+- `FF14GILS_ITEM_NAME_LANGUAGE`: XIVAPI v2 から取得するアイテム名の言語。`ja`、`en`、`fr`、`de`。
 
 データ生成時の Saddlebag Exchange API と Universalis API への通信は、一時的な `429` / `5xx` 応答を短くリトライします。
+既定では `ja` のアイテム名を `data/item-names-ja.json` にキャッシュします。英語UIでは Saddlebag 由来の英語名を優先表示し、日本語UIでは XIVAPI 由来の日本語名を優先表示します。
 
 ## デプロイ
 

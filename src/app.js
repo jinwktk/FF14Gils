@@ -5,6 +5,16 @@ import {
   stateLabel,
 } from './marketshare.js';
 import {
+  buildLanguagePreferenceCookie,
+  localeForLanguage,
+  periodLabel,
+  recommendationLabel,
+  resolvePreferredLanguage,
+  selectItemAlternateName,
+  selectItemDisplayName,
+  translate,
+} from './i18n.js';
+import {
   buildWorldPreferenceCookie,
   resolvePreferredWorld,
 } from './preferences.js';
@@ -16,6 +26,7 @@ const MAX_VISIBLE_ROWS = 80;
 
 const elements = {
   error: document.querySelector('[data-error]'),
+  languageSelect: document.querySelector('[data-language-select]'),
   minQuantitySold: document.querySelector('[data-min-quantity]'),
   minQuantityValue: document.querySelector('[data-min-quantity-value]'),
   periodSelect: document.querySelector('[data-period-select]'),
@@ -30,7 +41,9 @@ const elements = {
 };
 
 const state = {
+  currentGeneratedAt: '',
   items: [],
+  language: 'ja',
   snapshots: new Map(),
   sortBy: 'opportunityScore',
   sortDirection: 'desc',
@@ -41,14 +54,17 @@ init();
 
 async function init() {
   try {
+    state.language = resolvePreferredLanguage(document.cookie, navigator.language);
     setError('');
+    populateLanguageSelect();
+    applyLanguage();
     state.worldIndex = await loadWorldIndex();
     populateWorldSelect();
     populatePeriodSelect();
     bindControls();
     await loadSelectedSnapshot();
   } catch (error) {
-    setError(`データを読み込めませんでした: ${error.message}`);
+    setError(translate(state.language, 'ui.loadError', { message: error.message }));
   }
 }
 
@@ -79,6 +95,16 @@ async function loadSnapshot(path) {
 }
 
 function bindControls() {
+  elements.languageSelect.addEventListener('change', () => {
+    state.language = elements.languageSelect.value;
+    document.cookie = buildLanguagePreferenceCookie(state.language);
+    applyLanguage();
+    populateWorldSelect(elements.worldSelect.value);
+    populatePeriodSelect(elements.periodSelect.value);
+    renderUpdatedAt(state.currentGeneratedAt);
+    render();
+  });
+
   elements.worldSelect.addEventListener('change', () => {
     document.cookie = buildWorldPreferenceCookie(elements.worldSelect.value);
     void loadSelectedSnapshot();
@@ -136,19 +162,25 @@ async function loadSelectedSnapshot() {
     setError('');
     const snapshot = await loadSnapshot(path);
     state.items = snapshot.items ?? [];
+    state.currentGeneratedAt = snapshot.generatedAt;
     renderUpdatedAt(snapshot.generatedAt);
     render();
   } catch (error) {
-    setError(`データを読み込めませんでした: ${error.message}`);
+    setError(translate(state.language, 'ui.loadError', { message: error.message }));
   } finally {
     elements.worldSelect.disabled = false;
     elements.periodSelect.disabled = false;
   }
 }
 
-function populateWorldSelect() {
+function populateLanguageSelect() {
+  elements.languageSelect.value = state.language;
+}
+
+function populateWorldSelect(selectedWorld = '') {
   const fragment = document.createDocumentFragment();
-  const preferredWorld = resolvePreferredWorld(state.worldIndex, document.cookie);
+  const preferredWorld =
+    selectedWorld || resolvePreferredWorld(state.worldIndex, document.cookie);
   const groups = new Map();
 
   for (const world of state.worldIndex.worlds) {
@@ -157,10 +189,13 @@ function populateWorldSelect() {
     option.textContent = world.name;
     option.selected = world.name === preferredWorld;
 
-    const dataCenter = world.dataCenter ?? 'その他';
+    const dataCenter = world.dataCenter ?? translate(state.language, 'ui.otherDataCenter');
     if (!groups.has(dataCenter)) {
       const optgroup = document.createElement('optgroup');
-      optgroup.label = dataCenter === 'その他' ? dataCenter : `${dataCenter} DC`;
+      optgroup.label =
+        dataCenter === translate(state.language, 'ui.otherDataCenter')
+          ? dataCenter
+          : `${dataCenter} DC`;
       groups.set(dataCenter, optgroup);
       fragment.append(optgroup);
     }
@@ -172,19 +207,19 @@ function populateWorldSelect() {
   elements.worldSelect.value = preferredWorld;
 }
 
-function populatePeriodSelect() {
+function populatePeriodSelect(selectedPeriod = state.worldIndex.defaultPeriod) {
   const fragment = document.createDocumentFragment();
 
   for (const period of state.worldIndex.periods) {
     const option = document.createElement('option');
     option.value = period.key;
-    option.textContent = period.label;
-    option.selected = period.key === state.worldIndex.defaultPeriod;
+    option.textContent = periodLabel(period.key, state.language, period.label);
+    option.selected = period.key === selectedPeriod;
     fragment.append(option);
   }
 
   elements.periodSelect.replaceChildren(fragment);
-  elements.periodSelect.value = state.worldIndex.defaultPeriod;
+  elements.periodSelect.value = selectedPeriod;
 }
 
 function render() {
@@ -199,7 +234,9 @@ function render() {
     sortDirection: state.sortDirection,
   });
 
-  elements.resultCount.textContent = `${formatNumber(filteredItems.length)} 件`;
+  elements.resultCount.textContent = translate(state.language, 'results.count', {
+    count: formatNumber(filteredItems.length, state.language),
+  });
   elements.tableBody.replaceChildren(
     ...filteredItems.slice(0, MAX_VISIBLE_ROWS).map(renderRow),
   );
@@ -209,7 +246,7 @@ function render() {
     const cell = document.createElement('td');
     cell.colSpan = 8;
     cell.className = 'empty-state';
-    cell.textContent = '条件に一致するアイテムがありません。';
+    cell.textContent = translate(state.language, 'ui.emptyState');
     row.append(cell);
     elements.tableBody.append(row);
   }
@@ -219,23 +256,23 @@ function renderUpdatedAt(value) {
   const date = new Date(value);
   const text = Number.isNaN(date.getTime())
     ? '-'
-    : new Intl.DateTimeFormat('ja-JP', {
+    : new Intl.DateTimeFormat(localeForLanguage(state.language), {
         dateStyle: 'medium',
         timeStyle: 'short',
         timeZone: 'Asia/Tokyo',
       }).format(date);
 
-  elements.updatedAt.textContent = `最終更新 ${text}`;
+  elements.updatedAt.textContent = Number.isNaN(date.getTime())
+    ? translate(state.language, 'ui.updatedAtUnknown')
+    : translate(state.language, 'ui.updatedAt', { datetime: text });
 }
 
 function renderRow(item, index) {
   const row = document.createElement('tr');
-  const recommendationLabel = {
-    hot: '高騰',
-    'needs-restock': '補充候補',
-    rising: '上昇',
-    steady: '堅調',
-  }[item.recommendationLevel] ?? '候補';
+  const itemRecommendationLabel = recommendationLabel(
+    item.recommendationLevel,
+    state.language,
+  );
   const percentChange = Number.isFinite(item.percentChange)
     ? item.percentChange.toFixed(2)
     : '0.00';
@@ -243,12 +280,12 @@ function renderRow(item, index) {
   row.append(
     createCell(String(index + 1), 'rank'),
     createItemCell(item),
-    createCell(formatGil(item.marketValue)),
-    createCell(formatGil(item.avg)),
-    createCell(formatGil(item.minPrice)),
-    createCell(formatNumber(item.quantitySold)),
+    createCell(formatGil(item.marketValue, state.language)),
+    createCell(formatGil(item.avg, state.language)),
+    createCell(formatGil(item.minPrice, state.language)),
+    createCell(formatNumber(item.quantitySold, state.language)),
     createCell(`${percentChange}%`, item.percentChange >= 0 ? 'positive' : 'negative'),
-    createStateCell(item, recommendationLabel),
+    createStateCell(item, itemRecommendationLabel),
   );
 
   return row;
@@ -268,9 +305,11 @@ function createItemCell(item) {
   link.href = safeUniversalisUrl(item.url);
   link.target = '_blank';
   link.rel = 'noreferrer';
-  link.textContent = item.name;
-  if (item.nameEn && item.nameEn !== item.name) {
-    link.title = item.nameEn;
+  link.textContent = selectItemDisplayName(item, state.language);
+
+  const alternateName = selectItemAlternateName(item, state.language);
+  if (alternateName) {
+    link.title = alternateName;
   }
 
   const id = document.createElement('span');
@@ -285,7 +324,7 @@ function createStateCell(item, recommendationLabel) {
   const cell = document.createElement('td');
   const state = document.createElement('span');
   state.classList.add('state-pill', `state-${sanitizeClassName(item.state)}`);
-  state.textContent = stateLabel(item.state);
+  state.textContent = stateLabel(item.state, state.language);
 
   const recommendation = document.createElement('span');
   recommendation.className = 'recommendation';
@@ -300,11 +339,15 @@ function validateSnapshot(snapshot) {
   const missingKeys = requiredKeys.filter((key) => !(key in snapshot));
 
   if (missingKeys.length > 0) {
-    throw new Error(`JSON契約が不足しています: ${missingKeys.join(', ')}`);
+    throw new Error(
+      translate(state.language, 'ui.missingContract', {
+        keys: missingKeys.join(', '),
+      }),
+    );
   }
 
   if (!Array.isArray(snapshot.items)) {
-    throw new Error('items が配列ではありません');
+    throw new Error(translate(state.language, 'ui.itemsNotArray'));
   }
 }
 
@@ -334,6 +377,54 @@ function updateSortIndicators() {
           : '↓'
         : '↕';
     }
+  }
+}
+
+function applyLanguage() {
+  document.documentElement.lang = state.language;
+  document.title = translate(state.language, 'meta.title');
+  setMetaContent('description', translate(state.language, 'meta.description'));
+  setMetaContent('twitter:title', translate(state.language, 'meta.title'));
+  setMetaContent('twitter:description', translate(state.language, 'meta.description'));
+  setMetaProperty('og:locale', translate(state.language, 'meta.locale'));
+  setMetaProperty('og:title', translate(state.language, 'meta.title'));
+  setMetaProperty('og:description', translate(state.language, 'meta.ogDescription'));
+  setMetaProperty('og:image:alt', translate(state.language, 'meta.imageAlt'));
+  updateJsonLdLanguage();
+
+  for (const element of document.querySelectorAll('[data-i18n]')) {
+    element.textContent = translate(state.language, element.dataset.i18n);
+  }
+
+  for (const element of document.querySelectorAll('[data-i18n-attr]')) {
+    for (const pair of element.dataset.i18nAttr.split(';')) {
+      const [attribute, key] = pair.split(':');
+      if (attribute && key) {
+        element.setAttribute(attribute, translate(state.language, key));
+      }
+    }
+  }
+}
+
+function setMetaContent(name, content) {
+  document.querySelector(`meta[name="${name}"]`)?.setAttribute('content', content);
+}
+
+function setMetaProperty(property, content) {
+  document.querySelector(`meta[property="${property}"]`)?.setAttribute('content', content);
+}
+
+function updateJsonLdLanguage() {
+  const script = document.querySelector('script[type="application/ld+json"]');
+  if (!script) return;
+
+  try {
+    const data = JSON.parse(script.textContent);
+    data.description = translate(state.language, 'meta.description');
+    data.inLanguage = translate(state.language, 'meta.inLanguage');
+    script.textContent = `${JSON.stringify(data, null, 2)}\n`;
+  } catch {
+    // Keep the static JSON-LD if a browser extension or manual edit breaks parsing.
   }
 }
 

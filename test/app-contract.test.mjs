@@ -18,6 +18,23 @@ describe('app data loading contract', () => {
     assert.match(html, /data-world-select/);
   });
 
+  it('日本語と英語を切り替えるUIとi18n契約を持つ', async () => {
+    const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+    const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');
+
+    assert.match(html, /<html lang="ja">/);
+    assert.match(html, /data-language-select/);
+    assert.match(html, /<option value="ja">日本語<\/option>/);
+    assert.match(html, /<option value="en">English<\/option>/);
+    assert.match(html, /data-i18n="ui\.filterTitle"/);
+    assert.match(html, /data-i18n="table\.marketValue"/);
+    assert.match(html, /data-i18n-attr="aria-label:ui\.kofiSupport"/);
+    assert.match(app, /from '\.\/i18n\.js'/);
+    assert.match(app, /languageSelect/);
+    assert.match(app, /buildLanguagePreferenceCookie/);
+    assert.match(app, /document\.documentElement\.lang/);
+  });
+
   it('売上の集計期間を選択できる', async () => {
     const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
     const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');

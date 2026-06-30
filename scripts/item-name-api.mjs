@@ -1,4 +1,5 @@
 export const XIVAPI_ITEM_ENDPOINT = 'https://v2.xivapi.com/api/sheet/Item';
+export const SUPPORTED_XIVAPI_LANGUAGES = ['ja', 'en', 'fr', 'de'];
 
 const DEFAULT_LANGUAGE = 'ja';
 const DEFAULT_CONCURRENCY = 8;
@@ -12,12 +13,12 @@ export function buildXivapiItemNameUrl(itemId, { language = DEFAULT_LANGUAGE } =
 
   const url = new URL(`${XIVAPI_ITEM_ENDPOINT}/${normalizedItemId}`);
   url.searchParams.set('fields', 'Name');
-  url.searchParams.set('language', language);
+  url.searchParams.set('language', normalizeXivapiLanguage(language));
 
   return url.toString();
 }
 
-export async function fetchJapaneseItemNames(
+export async function fetchItemNames(
   itemIds,
   {
     concurrency = DEFAULT_CONCURRENCY,
@@ -37,7 +38,7 @@ export async function fetchJapaneseItemNames(
       nextIndex += 1;
 
       try {
-        const name = await fetchJapaneseItemName(id, { fetchImpl, language });
+        const name = await fetchItemName(id, { fetchImpl, language });
         if (name) {
           results[id] = name;
         }
@@ -54,6 +55,16 @@ export async function fetchJapaneseItemNames(
   );
 }
 
+export function fetchJapaneseItemNames(itemIds, options = {}) {
+  return fetchItemNames(itemIds, { ...options, language: DEFAULT_LANGUAGE });
+}
+
+export function normalizeXivapiLanguage(language) {
+  const value = String(language ?? '').trim().toLowerCase().split(/[-_]/)[0];
+
+  return SUPPORTED_XIVAPI_LANGUAGES.includes(value) ? value : DEFAULT_LANGUAGE;
+}
+
 export function normalizeItemIds(itemIds) {
   return [
     ...new Set(
@@ -64,14 +75,14 @@ export function normalizeItemIds(itemIds) {
   ].sort((left, right) => Number(left) - Number(right));
 }
 
-async function fetchJapaneseItemName(itemId, { fetchImpl, language }) {
+async function fetchItemName(itemId, { fetchImpl, language }) {
   const url = buildXivapiItemNameUrl(itemId, { language });
 
   for (const [attempt, delayMs] of [0, ...RETRY_DELAYS_MS].entries()) {
     try {
       const response = await fetchImpl(url, {
         headers: {
-          'user-agent': 'FF14Gils Japanese item name fetcher',
+          'user-agent': 'FF14Gils item name fetcher',
         },
       });
 

@@ -58,44 +58,68 @@
       <header class="site-header">
         <div class="brand-block">
           <div class="brand-copy">
-            <p class="eyebrow">FF14 マーケット金策</p>
+            <p class="eyebrow" data-i18n="ui.eyebrow">FF14 マーケット金策</p>
             <h1>FF14Gils</h1>
-            <p class="lead">
+            <p class="lead" data-i18n="ui.lead">
               マーケットの売れ行きと相場から、売りやすい金策候補を探せます。
             </p>
           </div>
           <div class="header-actions">
+            <label class="language-control">
+              <span class="sr-only" data-i18n="ui.languageLabel">表示言語</span>
+              <select
+                data-language-select
+                data-i18n-attr="aria-label:ui.languageSelect"
+                aria-label="表示言語を選択"
+              >
+                <option value="ja">日本語</option>
+                <option value="en">English</option>
+              </select>
+            </label>
             <a
               class="kofi-link"
               href="https://ko-fi.com/jinnymeia"
               target="_blank"
               rel="me noopener noreferrer"
+              data-i18n-attr="aria-label:ui.kofiSupport"
               aria-label="Ko-fiで支援する"
               title="Ko-fi"
             >
               <img src="assets/ko-fi.svg" width="28" height="28" alt="" aria-hidden="true" />
-              <span class="sr-only">Ko-fiで支援する</span>
+              <span class="sr-only" data-i18n="ui.kofiSupport">Ko-fiで支援する</span>
             </a>
           </div>
         </div>
       </header>
 
       <main class="dashboard-grid">
-        <aside class="filter-panel controls" aria-label="絞り込み">
+        <aside
+          class="filter-panel controls"
+          data-i18n-attr="aria-label:ui.filterPanelLabel"
+          aria-label="絞り込み"
+        >
           <div class="panel-heading">
-            <p class="panel-kicker">条件</p>
-            <h2>絞り込み</h2>
-            <p>選んだワールドは次回も使えます。</p>
+            <p class="panel-kicker" data-i18n="ui.filterKicker">条件</p>
+            <h2 data-i18n="ui.filterTitle">絞り込み</h2>
+            <p data-i18n="ui.filterHelp">選んだワールドは次回も使えます。</p>
           </div>
 
           <label>
-            ワールド
-            <select data-world-select aria-label="ワールドを選択"></select>
+            <span data-i18n="ui.worldLabel">ワールド</span>
+            <select
+              data-world-select
+              data-i18n-attr="aria-label:ui.worldSelect"
+              aria-label="ワールドを選択"
+            ></select>
           </label>
 
           <label>
-            集計期間
-            <select data-period-select aria-label="売上の集計期間">
+            <span data-i18n="ui.periodLabel">集計期間</span>
+            <select
+              data-period-select
+              data-i18n-attr="aria-label:ui.periodSelect"
+              aria-label="売上の集計期間"
+            >
               <option value="1d">1日</option>
               <option value="3d">3日</option>
               <option value="7d">7日</option>
@@ -104,50 +128,57 @@
           </label>
 
           <label>
-            アイテム検索
+            <span data-i18n="ui.itemSearch">アイテム検索</span>
             <input
               data-search
               type="search"
+              data-i18n-attr="placeholder:ui.searchPlaceholder;aria-label:ui.searchLabel"
               placeholder="日本語名・英語名・ID"
+              aria-label="アイテム検索"
               autocomplete="off"
             />
           </label>
 
           <label>
-            並び替え
+            <span data-i18n="ui.sortLabel">並び替え</span>
             <select data-sort-by>
-              <option value="opportunityScore">おすすめ度</option>
-              <option value="name">アイテム名</option>
-              <option value="marketValue">売上額</option>
-              <option value="quantitySold">売れた数</option>
-              <option value="avg">平均価格</option>
-              <option value="minPrice">最安値</option>
-              <option value="percentChange">価格変動</option>
-              <option value="state">状態</option>
+              <option value="opportunityScore" data-i18n="sort.opportunityScore">おすすめ度</option>
+              <option value="name" data-i18n="sort.name">アイテム名</option>
+              <option value="marketValue" data-i18n="sort.marketValue">売上額</option>
+              <option value="quantitySold" data-i18n="sort.quantitySold">売れた数</option>
+              <option value="avg" data-i18n="sort.avg">平均価格</option>
+              <option value="minPrice" data-i18n="sort.minPrice">最安値</option>
+              <option value="percentChange" data-i18n="sort.percentChange">価格変動</option>
+              <option value="state" data-i18n="sort.state">状態</option>
             </select>
           </label>
 
           <label class="range-control">
-            最低販売数 <span data-min-quantity-value>0</span>
+            <span data-i18n="ui.minQuantity">最低販売数</span>
+            <span data-min-quantity-value>0</span>
             <input data-min-quantity type="range" min="0" max="100" step="1" value="0" />
           </label>
 
           <fieldset>
-            <legend>状態</legend>
-            <label><input data-state-filter type="checkbox" value="stable" /> 安定</label>
-            <label><input data-state-filter type="checkbox" value="increasing" /> 上昇中</label>
-            <label><input data-state-filter type="checkbox" value="spiking" /> 急騰</label>
-            <label><input data-state-filter type="checkbox" value="out of stock" /> 在庫なし</label>
-            <label><input data-state-filter type="checkbox" value="decreasing" /> 値下がり</label>
+            <legend data-i18n="ui.stateLegend">状態</legend>
+            <label><input data-state-filter type="checkbox" value="stable" /> <span data-i18n="states.stable">安定</span></label>
+            <label><input data-state-filter type="checkbox" value="increasing" /> <span data-i18n="states.increasing">上昇中</span></label>
+            <label><input data-state-filter type="checkbox" value="spiking" /> <span data-i18n="states.spiking">急騰</span></label>
+            <label><input data-state-filter type="checkbox" value="out of stock" /> <span data-i18n="states.out_of_stock">在庫なし</span></label>
+            <label><input data-state-filter type="checkbox" value="decreasing" /> <span data-i18n="states.decreasing">値下がり</span></label>
           </fieldset>
         </aside>
 
-        <section class="results-panel results" aria-label="金策候補">
+        <section
+          class="results-panel results"
+          data-i18n-attr="aria-label:ui.resultsLabel"
+          aria-label="金策候補"
+        >
           <p data-error class="error" hidden></p>
           <div class="results-header">
             <div>
-              <p class="panel-kicker">一覧</p>
-              <h2>金策候補</h2>
+              <p class="panel-kicker" data-i18n="ui.resultsKicker">一覧</p>
+              <h2 data-i18n="ui.resultsTitle">金策候補</h2>
             </div>
             <div class="result-meta">
               <span data-result-count>- 件</span>
@@ -160,42 +191,42 @@
                 <tr>
                   <th scope="col" aria-sort="descending">
                     <button type="button" class="sort-button" data-sort-button="opportunityScore">
-                      順位<span class="sort-indicator" aria-hidden="true"></span>
+                      <span data-i18n="table.rank">順位</span><span class="sort-indicator" aria-hidden="true"></span>
                     </button>
                   </th>
                   <th scope="col" aria-sort="none">
                     <button type="button" class="sort-button" data-sort-button="name">
-                      アイテム<span class="sort-indicator" aria-hidden="true"></span>
+                      <span data-i18n="table.item">アイテム</span><span class="sort-indicator" aria-hidden="true"></span>
                     </button>
                   </th>
                   <th scope="col" aria-sort="none">
                     <button type="button" class="sort-button" data-sort-button="marketValue">
-                      売上額<span class="sort-indicator" aria-hidden="true"></span>
+                      <span data-i18n="table.marketValue">売上額</span><span class="sort-indicator" aria-hidden="true"></span>
                     </button>
                   </th>
                   <th scope="col" aria-sort="none">
                     <button type="button" class="sort-button" data-sort-button="avg">
-                      平均価格<span class="sort-indicator" aria-hidden="true"></span>
+                      <span data-i18n="table.avg">平均価格</span><span class="sort-indicator" aria-hidden="true"></span>
                     </button>
                   </th>
                   <th scope="col" aria-sort="none">
                     <button type="button" class="sort-button" data-sort-button="minPrice">
-                      最安値<span class="sort-indicator" aria-hidden="true"></span>
+                      <span data-i18n="table.minPrice">最安値</span><span class="sort-indicator" aria-hidden="true"></span>
                     </button>
                   </th>
                   <th scope="col" aria-sort="none">
                     <button type="button" class="sort-button" data-sort-button="quantitySold">
-                      売れた数<span class="sort-indicator" aria-hidden="true"></span>
+                      <span data-i18n="table.quantitySold">売れた数</span><span class="sort-indicator" aria-hidden="true"></span>
                     </button>
                   </th>
                   <th scope="col" aria-sort="none">
                     <button type="button" class="sort-button" data-sort-button="percentChange">
-                      価格変動<span class="sort-indicator" aria-hidden="true"></span>
+                      <span data-i18n="table.percentChange">価格変動</span><span class="sort-indicator" aria-hidden="true"></span>
                     </button>
                   </th>
                   <th scope="col" aria-sort="none">
                     <button type="button" class="sort-button" data-sort-button="state">
-                      状態<span class="sort-indicator" aria-hidden="true"></span>
+                      <span data-i18n="table.state">状態</span><span class="sort-indicator" aria-hidden="true"></span>
                     </button>
                   </th>
                 </tr>

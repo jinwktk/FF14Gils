@@ -91,6 +91,20 @@ a:hover {
   align-items: center;
 }
 
+.language-control {
+  display: inline-flex;
+  align-items: center;
+}
+
+.language-control select {
+  width: auto;
+  min-width: 112px;
+  margin-top: 0;
+  padding: 0 30px 0 10px;
+  font-size: 0.86rem;
+  font-weight: 900;
+}
+
 .kofi-link {
   display: inline-flex;
   align-items: center;
@@ -483,15 +497,13 @@ td:nth-child(2) {
   }
 
   .brand-block {
-    position: relative;
-    display: block;
-    padding: 16px 74px 16px 16px;
+    display: grid;
+    gap: 14px;
+    padding: 16px;
   }
 
   .header-actions {
-    position: absolute;
-    top: 16px;
-    right: 16px;
+    justify-content: flex-start;
   }
 
   h1 {

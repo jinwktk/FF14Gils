@@ -8,6 +8,7 @@ import {
   filterMarketshareItems,
   formatGil,
   normalizeMarketshareResponse,
+  stateLabel,
   summarizeMarketshare,
 } from '../src/marketshare.js';
 import { buildMarketsharePayload } from '../scripts/marketshare-api.mjs';
@@ -245,6 +246,10 @@ describe('filterMarketshareItems', () => {
       filterMarketshareItems(items, { search: 'garden' }).map((item) => item.itemId),
       ['51269'],
     );
+    assert.deepEqual(
+      filterMarketshareItems(items, { search: 'ガーデン' }).map((item) => item.itemId),
+      ['51269'],
+    );
   });
 
   it('指定した列と方向で並び替える', () => {
@@ -285,5 +290,18 @@ describe('formatGil', () => {
   it('ギル表記を3桁区切りにする', () => {
     assert.equal(formatGil(39731558), '39,731,558 ギル');
     assert.equal(formatGil(null), '-');
+  });
+
+  it('英語表示ではgil表記にする', () => {
+    assert.equal(formatGil(39731558, 'en'), '39,731,558 gil');
+  });
+});
+
+describe('stateLabel', () => {
+  it('状態ラベルを日本語と英語で返す', () => {
+    assert.equal(stateLabel('out of stock', 'ja'), '在庫なし');
+    assert.equal(stateLabel('out of stock', 'en'), 'Out of stock');
+    assert.equal(stateLabel('spiking', 'en'), 'Spiking');
+    assert.equal(stateLabel('unexpected', 'en'), 'Unknown');
   });
 });

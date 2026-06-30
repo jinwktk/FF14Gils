@@ -20,16 +20,20 @@ import {
   SADDLEBAG_MARKETSHARE_ENDPOINT,
 } from './marketshare-api.mjs';
 import {
-  fetchJapaneseItemNames,
+  fetchItemNames,
   normalizeItemIds,
+  normalizeXivapiLanguage,
 } from './item-name-api.mjs';
 import { fetchWithRetry } from './retry-fetch.mjs';
 
 const dataDir = fileURLToPath(new URL('../data/', import.meta.url));
 const UNIVERSALIS_HISTORY_ENDPOINT = 'https://universalis.app/api/v2/history';
 const outputPath = fileURLToPath(new URL('../data/marketshare.json', import.meta.url));
+const itemNameLanguage = normalizeXivapiLanguage(
+  process.env.FF14GILS_ITEM_NAME_LANGUAGE ?? 'ja',
+);
 const itemNameCachePath = fileURLToPath(
-  new URL('../data/item-names-ja.json', import.meta.url),
+  new URL(`../data/item-names-${itemNameLanguage}.json`, import.meta.url),
 );
 const worldsDir = fileURLToPath(new URL('../data/worlds/', import.meta.url));
 const worldIndexPath = fileURLToPath(new URL('../data/worlds.json', import.meta.url));
@@ -85,7 +89,7 @@ for (const world of worlds) {
   }
 }
 
-const itemNames = await resolveJapaneseItemNames(marketshareResults);
+const itemNames = await resolveItemNames(marketshareResults);
 const snapshots = marketshareResults.map(({ apiResponse, query: snapshotQuery }) =>
   createSnapshot({
     query: snapshotQuery,
@@ -95,6 +99,7 @@ const snapshots = marketshareResults.map(({ apiResponse, query: snapshotQuery })
         ? `${SADDLEBAG_MARKETSHARE_ENDPOINT} + ${UNIVERSALIS_HISTORY_ENDPOINT}`
         : SADDLEBAG_MARKETSHARE_ENDPOINT,
     itemNames,
+    itemNameLanguage,
   }),
 );
 
@@ -285,7 +290,7 @@ function createMonthlyMarketshareItem(seedItem, historyItem) {
   };
 }
 
-async function resolveJapaneseItemNames(results) {
+async function resolveItemNames(results) {
   const itemIds = normalizeItemIds(
     results.flatMap(({ apiResponse }) =>
       apiResponse.data.map((item) => item.itemID ?? item.itemId),
@@ -295,10 +300,13 @@ async function resolveJapaneseItemNames(results) {
   const missingIds = itemIds.filter((itemId) => !cachedNames[itemId]);
 
   if (missingIds.length > 0) {
-    console.log(`Fetching ${missingIds.length} Japanese item names from XIVAPI`);
+    console.log(
+      `Fetching ${missingIds.length} ${itemNameLanguage} item names from XIVAPI`,
+    );
   }
 
-  const fetchedNames = await fetchJapaneseItemNames(missingIds, {
+  const fetchedNames = await fetchItemNames(missingIds, {
+    language: itemNameLanguage,
     log: (message) => console.warn(message),
   });
   const itemNames = Object.fromEntries(
@@ -307,7 +315,7 @@ async function resolveJapaneseItemNames(results) {
       .sort(([left], [right]) => Number(left) - Number(right)),
   );
 
-  console.log(`Resolved ${Object.keys(itemNames).length} Japanese item names`);
+  console.log(`Resolved ${Object.keys(itemNames).length} ${itemNameLanguage} item names`);
 
   return itemNames;
 }

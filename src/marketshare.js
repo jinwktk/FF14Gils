@@ -1,3 +1,9 @@
+import {
+  localeForLanguage,
+  normalizeLanguage,
+  translate,
+} from './i18n.js';
+
 export const CATEGORY_PRESETS = {
   housing: {
     label: 'ハウジング',
@@ -126,31 +132,26 @@ export function filterMarketshareItems(
     .sort((a, b) => compareMarketshareItems(a, b, sortKey, direction));
 }
 
-export function formatGil(value) {
+export function formatGil(value, language = 'ja') {
   const number = toFiniteNumber(value);
   if (number === null) return '-';
 
-  return `${Math.round(number).toLocaleString('ja-JP')} ギル`;
+  const normalizedLanguage = normalizeLanguage(language);
+  return `${Math.round(number).toLocaleString(localeForLanguage(normalizedLanguage))} ${translate(normalizedLanguage, 'format.gilUnit')}`;
 }
 
-export function formatNumber(value) {
+export function formatNumber(value, language = 'ja') {
   const number = toFiniteNumber(value);
   if (number === null) return '-';
 
-  return Math.round(number).toLocaleString('en-US');
+  return Math.round(number).toLocaleString(localeForLanguage(language));
 }
 
-export function stateLabel(state) {
-  const labels = {
-    decreasing: '値下がり',
-    increasing: '上昇中',
-    'out of stock': '在庫なし',
-    spiking: '急騰',
-    stable: '安定',
-    unknown: '不明',
-  };
+export function stateLabel(state, language = 'ja') {
+  const key = stateTranslationKey(state);
+  const label = translate(language, `states.${key}`);
 
-  return labels[state] ?? labels.unknown;
+  return label === `states.${key}` ? translate(language, 'states.unknown') : label;
 }
 
 export function assertMarketshareResponse(response) {
@@ -178,10 +179,11 @@ export function createSnapshot({
   response,
   source,
   itemNames = {},
+  itemNameLanguage = 'ja',
   generatedAt = new Date(),
 }) {
   const items = normalizeMarketshareResponse(response).map((item) =>
-    localizeMarketshareItem(item, itemNames),
+    localizeMarketshareItem(item, itemNames, itemNameLanguage),
   );
   const summary = summarizeMarketshare(items);
 
@@ -204,15 +206,31 @@ export function createSnapshot({
   };
 }
 
-export function localizeMarketshareItem(item, itemNames = {}) {
-  const nameJa = lookupItemName(itemNames, item.itemId) || item.nameJa;
-  const nameEn = item.nameEn || item.name;
+export function localizeMarketshareItem(item, itemNames = {}, itemNameLanguage = 'ja') {
+  const normalizedItemNameLanguage = normalizeItemNameLanguage(itemNameLanguage);
+  const localizedName = lookupItemName(itemNames, item.itemId);
+  const nameEn =
+    normalizedItemNameLanguage === 'en'
+      ? localizedName || item.nameEn || item.name
+      : item.nameEn || item.name;
+  const nameJa =
+    normalizedItemNameLanguage === 'ja'
+      ? localizedName || item.nameJa
+      : item.nameJa;
+  const names = {
+    ...(item.names ?? {}),
+    en: nameEn,
+  };
+
+  if (nameJa) names.ja = nameJa;
+  if (localizedName) names[normalizedItemNameLanguage] = localizedName;
 
   return {
     ...item,
     name: nameJa || item.name,
     nameEn,
     nameJa,
+    names,
   };
 }
 
@@ -275,6 +293,22 @@ function toFiniteNumber(value) {
 function normalizeText(value) {
   if (typeof value !== 'string') return '';
   return value.trim();
+}
+
+function stateTranslationKey(state) {
+  const key = String(state || 'unknown')
+    .trim()
+    .toLowerCase()
+    .replaceAll(' ', '_')
+    .replace(/[^a-z0-9_]/g, '');
+
+  return key || 'unknown';
+}
+
+function normalizeItemNameLanguage(language) {
+  const value = String(language ?? '').trim().toLowerCase().split(/[-_]/)[0];
+
+  return ['ja', 'en', 'fr', 'de'].includes(value) ? value : 'ja';
 }
 
 function lookupItemName(itemNames, itemId) {

@@ -3,7 +3,9 @@ import { describe, it } from 'node:test';
 
 import {
   buildXivapiItemNameUrl,
+  fetchItemNames,
   fetchJapaneseItemNames,
+  normalizeXivapiLanguage,
 } from '../scripts/item-name-api.mjs';
 
 describe('buildXivapiItemNameUrl', () => {
@@ -13,12 +15,21 @@ describe('buildXivapiItemNameUrl', () => {
       'https://v2.xivapi.com/api/sheet/Item/51269?fields=Name&language=ja',
     );
   });
+
+  it('XIVAPI v2 の取得言語を指定できる', () => {
+    assert.equal(
+      buildXivapiItemNameUrl('51269', { language: 'en' }),
+      'https://v2.xivapi.com/api/sheet/Item/51269?fields=Name&language=en',
+    );
+    assert.equal(normalizeXivapiLanguage('fr'), 'fr');
+    assert.equal(normalizeXivapiLanguage('invalid'), 'ja');
+  });
 });
 
-describe('fetchJapaneseItemNames', () => {
+describe('fetchItemNames', () => {
   it('重複IDをまとめ、XIVAPIのNameをID別に返す', async () => {
     const requestedUrls = [];
-    const names = await fetchJapaneseItemNames(['51269', '15157', '51269'], {
+    const names = await fetchItemNames(['51269', '15157', '51269'], {
       fetchImpl: async (url) => {
         requestedUrls.push(url);
         const id = url.match(/Item\/(\d+)/)?.[1];
@@ -42,5 +53,20 @@ describe('fetchJapaneseItemNames', () => {
       15157: 'ビーチチェア',
       51269: 'ガーデン・パーティライト',
     });
+  });
+
+  it('既存の日本語名取得関数も互換維持する', async () => {
+    const names = await fetchJapaneseItemNames(['51269'], {
+      fetchImpl: async () => ({
+        ok: true,
+        status: 200,
+        statusText: 'OK',
+        json: async () => ({
+          fields: { Name: 'ガーデン・パーティライト' },
+        }),
+      }),
+    });
+
+    assert.deepEqual(names, { 51269: 'ガーデン・パーティライト' });
   });
 });
