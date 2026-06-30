@@ -10,6 +10,88 @@ export const SALES_PERIODS = [
 
 export const WORLD_DATA_CENTERS = [
   {
+    name: 'Aether',
+    worlds: [
+      'Adamantoise',
+      'Cactuar',
+      'Faerie',
+      'Gilgamesh',
+      'Jenova',
+      'Midgardsormr',
+      'Sargatanas',
+      'Siren',
+    ],
+  },
+  {
+    name: 'Crystal',
+    worlds: [
+      'Balmung',
+      'Brynhildr',
+      'Coeurl',
+      'Diabolos',
+      'Goblin',
+      'Malboro',
+      'Mateus',
+      'Zalera',
+    ],
+  },
+  {
+    name: 'Dynamis',
+    worlds: [
+      'Cuchulainn',
+      'Golem',
+      'Halicarnassus',
+      'Kraken',
+      'Maduin',
+      'Marilith',
+      'Rafflesia',
+      'Seraph',
+    ],
+  },
+  {
+    name: 'Primal',
+    worlds: [
+      'Behemoth',
+      'Excalibur',
+      'Exodus',
+      'Famfrit',
+      'Hyperion',
+      'Lamia',
+      'Leviathan',
+      'Ultros',
+    ],
+  },
+  {
+    name: 'Chaos',
+    worlds: [
+      'Cerberus',
+      'Louisoix',
+      'Moogle',
+      'Omega',
+      'Phantom',
+      'Ragnarok',
+      'Sagittarius',
+      'Spriggan',
+    ],
+  },
+  {
+    name: 'Light',
+    worlds: [
+      'Alpha',
+      'Lich',
+      'Odin',
+      'Phoenix',
+      'Raiden',
+      'Shiva',
+      'Twintania',
+      'Zodiark',
+    ],
+  },
+  {
+    name: 'Materia',
+    worlds: ['Bismarck', 'Ravana', 'Sephirot', 'Sophia', 'Zurvan'],
+  },
+  {
     name: 'Elemental',
     worlds: ['Aegis', 'Atomos', 'Carbuncle', 'Garuda', 'Gungnir', 'Kujata', 'Tonberry', 'Typhon'],
   },

@@ -7,6 +7,7 @@ FF14 のマーケットデータから、金策候補を探すための GitHub P
 - 利用者ブラウザは GitHub Pages 上の静的ファイルと生成済み JSON だけを読み込みます。
 - マーケットデータの取得と JSON 生成は GitHub Actions またはローカルの `npm run fetch:data` で行います。
 - 初期表示は `Hades`、売上期間は 1日、3日、7日、1か月に対応しています。
+- 公式 Lodestone のワールド構成に合わせ、Aether、Crystal、Dynamis、Primal、Chaos、Light、Materia、Elemental、Gaia、Mana、Meteor の全DC 85ワールドを対象にします。
 - ワールド選択、期間選択、検索、状態フィルタ、最低販売数フィルタ、列ソートに対応しています。
 - UI 表示言語は日本語と英語を切り替えできます。選択した言語は Cookie に保存されます。
 
@@ -92,7 +93,7 @@ npm run favicon:generate
 `npm run fetch:data` は主に以下の環境変数で取得条件を変更できます。
 
 - `FF14GILS_SERVER`: 初期表示するワールド名。
-- `FF14GILS_WORLDS`: 生成するワールド名のカンマ区切り。
+- `FF14GILS_WORLDS`: 生成するワールド名のカンマ区切り。未指定時は全DC 85ワールド。
 - `FF14GILS_PERIODS`: 生成する売上期間。`1d`、`3d`、`7d`、`30d`。
 - `FF14GILS_PRESET`: `all`、`housing`、`materials`、`consumables`、`collectibles`、`custom`。
 - `FF14GILS_CUSTOM_FILTERS`: `custom` 用のカテゴリ ID。
@@ -102,6 +103,7 @@ npm run favicon:generate
 
 データ生成時の Saddlebag Exchange API と Universalis API への通信は、一時的な `429` / `5xx` 応答を短くリトライします。
 既定では `ja` のアイテム名を `data/item-names-ja.json` にキャッシュします。英語UIでは Saddlebag 由来の英語名を優先表示し、日本語UIでは XIVAPI 由来の日本語名を優先表示します。
+全DC生成時は 85ワールド x 4期間の最大340スナップショットを生成します。
 
 ## デプロイ
 

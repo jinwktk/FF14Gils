@@ -45,6 +45,8 @@ describe('translate', () => {
     assert.equal(translate('ja', 'ui.filterTitle'), '絞り込み');
     assert.equal(translate('en', 'ui.filterTitle'), 'Filters');
     assert.equal(translate('en', 'table.marketValue'), 'Sales');
+    assert.match(translate('ja', 'meta.description'), /全DC/);
+    assert.match(translate('en', 'meta.description'), /all data centers/);
   });
 
   it('件数などの値を埋め込める', () => {

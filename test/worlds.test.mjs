@@ -2,6 +2,8 @@ import { strict as assert } from 'node:assert';
 import { describe, it } from 'node:test';
 
 import {
+  DEFAULT_WORLDS,
+  WORLD_DATA_CENTERS,
   DEFAULT_SALES_PERIOD,
   buildWorldSnapshotPath,
   buildWorldPeriodSnapshotPath,
@@ -10,6 +12,7 @@ import {
   parseWorldList,
   parseSalesPeriodList,
   resolveDefaultWorld,
+  resolveWorldDataCenter,
   worldSlug,
 } from '../src/worlds.js';
 
@@ -28,6 +31,18 @@ describe('parseWorldList', () => {
       'Chocobo',
       'Fenrir',
     ]);
+  });
+
+  it('未指定時は全DCのワールドを生成対象にする', () => {
+    const worlds = parseWorldList('');
+
+    assert.equal(worlds.length, 85);
+    assert.ok(worlds.includes('Adamantoise'));
+    assert.ok(worlds.includes('Cuchulainn'));
+    assert.ok(worlds.includes('Phantom'));
+    assert.ok(worlds.includes('Ravana'));
+    assert.ok(worlds.includes('Hades'));
+    assert.deepEqual(worlds, DEFAULT_WORLDS);
   });
 });
 
@@ -73,16 +88,62 @@ describe('createWorldIndex', () => {
     ]);
   });
 
-  it('日本DCの並びをDCごとのカテゴリとして保持する', () => {
+  it('全リージョンのDCをカテゴリとして保持する', () => {
     const index = createWorldIndex({
-      worlds: ['Aegis', 'Alexander', 'Hades', 'Shinryu'],
+      worlds: [
+        'Adamantoise',
+        'Balmung',
+        'Rafflesia',
+        'Excalibur',
+        'Omega',
+        'Alpha',
+        'Ravana',
+        'Aegis',
+        'Alexander',
+        'Hades',
+        'Shinryu',
+      ],
       generatedAt: '2026-06-29T00:00:00.000Z',
     });
 
     assert.deepEqual(
       index.worlds.map((world) => `${world.dataCenter}:${world.name}`),
-      ['Elemental:Aegis', 'Gaia:Alexander', 'Mana:Hades', 'Meteor:Shinryu'],
+      [
+        'Aether:Adamantoise',
+        'Crystal:Balmung',
+        'Dynamis:Rafflesia',
+        'Primal:Excalibur',
+        'Chaos:Omega',
+        'Light:Alpha',
+        'Materia:Ravana',
+        'Elemental:Aegis',
+        'Gaia:Alexander',
+        'Mana:Hades',
+        'Meteor:Shinryu',
+      ],
     );
+  });
+
+  it('公式Lodestoneの全DC構成を保持する', () => {
+    assert.deepEqual(
+      WORLD_DATA_CENTERS.map((dataCenter) => `${dataCenter.name}:${dataCenter.worlds.length}`),
+      [
+        'Aether:8',
+        'Crystal:8',
+        'Dynamis:8',
+        'Primal:8',
+        'Chaos:8',
+        'Light:8',
+        'Materia:5',
+        'Elemental:8',
+        'Gaia:8',
+        'Mana:8',
+        'Meteor:8',
+      ],
+    );
+    assert.equal(resolveWorldDataCenter('Seraph'), 'Dynamis');
+    assert.equal(resolveWorldDataCenter('Spriggan'), 'Chaos');
+    assert.equal(resolveWorldDataCenter('Bismarck'), 'Materia');
   });
 });
 
