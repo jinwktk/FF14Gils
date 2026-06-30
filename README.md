@@ -83,6 +83,8 @@ npm run favicon:generate
 - `FF14GILS_PRESET`: `all`、`housing`、`materials`、`consumables`、`collectibles`、`custom`。
 - `FF14GILS_CUSTOM_FILTERS`: `custom` 用のカテゴリ ID。
 
+データ生成時の Saddlebag Exchange API と Universalis API への通信は、一時的な `429` / `5xx` 応答を短くリトライします。
+
 ## デプロイ
 
 `.github/workflows/pages.yml` が `npm test`、`npm run fetch:data`、`npm run build` を実行し、生成された `dist/` を GitHub Pages へデプロイします。
