@@ -5,6 +5,7 @@ import {
   DEFAULT_LANGUAGE,
   LANGUAGE_COOKIE_NAME,
   buildLanguagePreferenceCookie,
+  formatUpdatedAtDate,
   normalizeLanguage,
   resolvePreferredLanguage,
   selectItemDisplayName,
@@ -64,6 +65,23 @@ describe('translate', () => {
   it('件数などの値を埋め込める', () => {
     assert.equal(translate('ja', 'results.count', { count: '12' }), '12 件');
     assert.equal(translate('en', 'results.count', { count: '12' }), '12 items');
+  });
+});
+
+describe('formatUpdatedAtDate', () => {
+  const generatedAt = '2026-06-30T08:26:11.932Z';
+
+  it('指定されたタイムゾーンで最終更新時刻を出し分ける', () => {
+    const tokyo = formatUpdatedAtDate(generatedAt, 'ja', { timeZone: 'Asia/Tokyo' });
+    const newYork = formatUpdatedAtDate(generatedAt, 'ja', {
+      timeZone: 'America/New_York',
+    });
+
+    assert.notEqual(tokyo, newYork);
+    assert.match(tokyo, /17:26/);
+    assert.match(tokyo, /JST|GMT\+9/);
+    assert.match(newYork, /04:26/);
+    assert.match(newYork, /GMT-4|EDT/);
   });
 });
 

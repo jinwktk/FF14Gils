@@ -6,7 +6,7 @@ import {
 } from './marketshare.js';
 import {
   buildLanguagePreferenceCookie,
-  localeForLanguage,
+  formatUpdatedAtDate,
   periodLabel,
   recommendationLabel,
   resolvePreferredLanguage,
@@ -296,18 +296,11 @@ function render() {
 }
 
 function renderUpdatedAt(value) {
-  const date = new Date(value);
-  const text = Number.isNaN(date.getTime())
-    ? '-'
-    : new Intl.DateTimeFormat(localeForLanguage(state.language), {
-        dateStyle: 'medium',
-        timeStyle: 'short',
-        timeZone: 'Asia/Tokyo',
-      }).format(date);
+  const text = formatUpdatedAtDate(value, state.language);
 
-  elements.updatedAt.textContent = Number.isNaN(date.getTime())
-    ? translate(state.language, 'ui.updatedAtUnknown')
-    : translate(state.language, 'ui.updatedAt', { datetime: text });
+  elements.updatedAt.textContent = text
+    ? translate(state.language, 'ui.updatedAt', { datetime: text })
+    : translate(state.language, 'ui.updatedAtUnknown');
 }
 
 function resolveDataCenterForWorld(worldName) {

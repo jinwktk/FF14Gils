@@ -238,6 +238,26 @@ export function localeForLanguage(language) {
   return normalizeLanguage(language) === 'en' ? 'en-US' : 'ja-JP';
 }
 
+export function formatUpdatedAtDate(value, language = DEFAULT_LANGUAGE, { timeZone } = {}) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+
+  const options = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZoneName: 'short',
+  };
+
+  if (timeZone) {
+    options.timeZone = timeZone;
+  }
+
+  return new Intl.DateTimeFormat(localeForLanguage(language), options).format(date);
+}
+
 export function selectItemDisplayName(item, language = DEFAULT_LANGUAGE) {
   const normalizedLanguage = normalizeLanguage(language);
 

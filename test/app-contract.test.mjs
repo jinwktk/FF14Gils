@@ -63,6 +63,8 @@ describe('app data loading contract', () => {
     assert.match(html, /data-updated-at/);
     assert.match(html, /最終更新/);
     assert.match(app, /updatedAt/);
+    assert.match(app, /formatUpdatedAtDate/);
+    assert.doesNotMatch(app, /timeZone:\s*['"]Asia\/Tokyo['"]/);
   });
 
   it('ワールド選択は選択中DCの候補だけを描画する', async () => {
