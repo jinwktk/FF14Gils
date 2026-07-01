@@ -118,5 +118,6 @@ npm run favicon:generate
 
 ## デプロイ
 
-`.github/workflows/pages.yml` が `npm test`、`npm run fetch:data`、`npm run build` を実行し、生成された `dist/` を GitHub Pages へデプロイします。
-定期実行は毎時17分の schedule です。GitHub Actions の schedule は遅延または間引きされる場合があるため、厳密な1時間更新を保証するものではありません。
+`.github/workflows/pages.yml` が `npm test`、`npm run build` を実行し、生成された `dist/` を GitHub Pages へデプロイします。
+API制限を避けるため、`npm run fetch:data` は毎時17分の schedule でだけ実行します。`master` / `main` への push と手動 `workflow_dispatch` は、リポジトリにある生成済み JSON を使ってビルドとデプロイだけを行います。
+GitHub Actions の schedule は遅延または間引きされる場合があるため、厳密な1時間更新を保証するものではありません。

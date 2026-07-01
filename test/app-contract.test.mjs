@@ -366,16 +366,23 @@ describe('app data loading contract', () => {
     );
 
     assert.match(workflow, /run:\s*npm test/);
-    assert.ok(workflow.indexOf('run: npm test') < workflow.indexOf('run: npm run fetch:data'));
+    assert.match(workflow, /run:\s*npm run build/);
+    assert.ok(workflow.indexOf('run: npm test') < workflow.indexOf('run: npm run build'));
   });
 
-  it('Pages workflowはAPIデータを1時間ごとに更新する', async () => {
+  it('Pages workflowはAPIデータをschedule時だけ1時間ごとに更新する', async () => {
     const workflow = await readFile(
       new URL('../.github/workflows/pages.yml', import.meta.url),
       'utf8',
     );
 
+    assert.match(workflow, /workflow_dispatch:/);
+    assert.match(workflow, /push:\s*[\s\S]*branches:/);
     assert.match(workflow, /cron:\s*['"]17 \* \* \* \*['"]/);
+    assert.match(
+      workflow,
+      /- name: Fetch marketshare data\s+if:\s*\$\{\{\s*github\.event_name == 'schedule'\s*\}\}\s+run:\s*npm run fetch:data/,
+    );
     assert.ok(workflow.indexOf('run: npm run fetch:data') < workflow.indexOf('run: npm run build'));
   });
 

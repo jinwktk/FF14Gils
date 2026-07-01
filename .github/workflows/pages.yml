@@ -40,6 +40,7 @@ jobs:
         run: npm test
 
       - name: Fetch marketshare data
+        if: ${{ github.event_name == 'schedule' }}
         run: npm run fetch:data
 
       - name: Build static site
