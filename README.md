@@ -53,9 +53,12 @@ flowchart LR
   subgraph Pipeline["GitHub Actions / local"]
     Tests["npm test"]
     FetchData["npm run fetch:data"]
+    Dispatch["npm run dispatch:refresh"]
     Build["npm run build"]
     Dist["dist/"]
   end
+
+  ExternalScheduler["外部スケジューラ"]
 
   Saddlebag["Saddlebag Exchange API"]
   Xivapi["XIVAPI v2"]
@@ -71,6 +74,8 @@ flowchart LR
   FetchData --> Xivapi
   FetchData --> WorldIndex
   FetchData --> Snapshots
+  ExternalScheduler -->|"repository_dispatch: refresh-marketshare"| Dispatch
+  Dispatch -->|"GitHub API"| FetchData
   Tests --> Build
   Build --> Dist
   Dist --> Pages
@@ -83,6 +88,7 @@ flowchart LR
 ```powershell
 npm test
 npm run fetch:data
+npm run dispatch:refresh
 npm run restore:published-data
 npm run build
 npm run serve
@@ -107,6 +113,13 @@ npm run favicon:generate
 - `FF14GILS_FETCH_RETRY_DELAY_MS`: 外部 API リトライの初回待機時間
 - `FF14GILS_ITEM_NAME_LANGUAGE`: XIVAPI v2 から取得するアイテム名の言語。`ja`、`en`、`fr`、`de`
 
+`npm run dispatch:refresh` は外部スケジューラから GitHub Actions の `repository_dispatch: refresh-marketshare` を送るためのコマンドです。
+
+- `FF14GILS_GITHUB_TOKEN` または `GITHUB_TOKEN`: GitHub API へ `repository_dispatch` を送るトークン。repo には保存しません。
+- `FF14GILS_GITHUB_REPOSITORY`: 送信先。未指定時は `jinwktk/FF14Gils`
+- `FF14GILS_DISPATCH_EVENT_TYPE`: イベント名。未指定時は `refresh-marketshare`
+- `FF14GILS_DISPATCH_SOURCE`: `client_payload.source`。未指定時は `external-hourly-scheduler`
+
 ## デプロイ
 
 `.github/workflows/pages.yml` が GitHub Pages デプロイを担当します。
@@ -116,4 +129,4 @@ npm run favicon:generate
 - データ更新あり: `schedule` と `repository_dispatch`
 - データ更新なし: `push` と `workflow_dispatch`。`npm run restore:published-data` で公開中データを復元
 
-定期更新は毎時17分の schedule ですが、GitHub Actions の schedule は遅延または間引きされる場合があります。
+毎時データ更新の主経路は、外部スケジューラから `npm run dispatch:refresh` を実行して `repository_dispatch: refresh-marketshare` を送る運用です。GitHub Actions の schedule は補助として毎時17分に残しますが、GitHub 側の遅延または間引きがあるため、厳密な毎時起動の主経路にはしません。

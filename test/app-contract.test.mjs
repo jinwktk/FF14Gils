@@ -436,6 +436,21 @@ describe('app data loading contract', () => {
     );
   });
 
+  it('毎時データ更新は外部スケジューラからrepository_dispatchを送れる', async () => {
+    const packageJson = JSON.parse(
+      await readFile(new URL('../package.json', import.meta.url), 'utf8'),
+    );
+    const readme = await readFile(new URL('../README.md', import.meta.url), 'utf8');
+
+    assert.equal(packageJson.scripts['dispatch:refresh'], 'node scripts/dispatch-refresh.mjs');
+    assert.match(readme, /npm run dispatch:refresh/);
+    assert.match(readme, /repository_dispatch: refresh-marketshare/);
+    assert.match(readme, /FF14GILS_GITHUB_TOKEN/);
+    assert.match(readme, /GITHUB_TOKEN/);
+    assert.match(readme, /外部スケジューラ/);
+    assert.match(readme, /GitHub Actions の schedule は補助/);
+  });
+
   it('データ生成の既定カテゴリは全般にする', async () => {
     const script = await readFile(
       new URL('../scripts/fetch-marketshare.mjs', import.meta.url),
