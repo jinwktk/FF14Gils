@@ -306,11 +306,11 @@
           aria-label="権利表記とデータについて"
           hidden
         >
-          <section class="results-panel legal-document">
+          <article class="results-panel legal-document" aria-labelledby="legal-title">
             <div class="results-header legal-header">
               <div>
                 <p class="panel-kicker">FF14Gils</p>
-                <h2 data-i18n="legal.title">権利表記とデータについて</h2>
+                <h2 id="legal-title" data-i18n="legal.title">権利表記とデータについて</h2>
               </div>
             </div>
             <p class="ranking-lead legal-lead" data-i18n="legal.lead">
@@ -318,8 +318,8 @@
             </p>
 
             <div class="legal-content">
-              <section class="legal-section">
-                <h2 data-i18n="legal.rightsTitle">権利表記</h2>
+              <section class="legal-section" aria-labelledby="legal-rights-title">
+                <h3 id="legal-rights-title" data-i18n="legal.rightsTitle">権利表記</h3>
                 <p data-i18n="legal.copyright">&copy; 2026 FF14Gils</p>
                 <p data-i18n="legal.trademarks">
                   記載されている会社名・製品名・システム名などは、各社の商標、または登録商標です。
@@ -327,8 +327,8 @@
                 <p data-i18n="legal.squareEnixCopyright">Copyright (C) SQUARE ENIX CO., LTD. All Rights Reserved.</p>
               </section>
 
-              <section class="legal-section">
-                <h2 data-i18n="legal.unofficialTitle">非公式サイトについて</h2>
+              <section class="legal-section" aria-labelledby="legal-unofficial-title">
+                <h3 id="legal-unofficial-title" data-i18n="legal.unofficialTitle">非公式サイトについて</h3>
                 <p data-i18n="legal.unofficialText">
                   FF14Gils は SQUARE ENIX CO., LTD. による公式サービスではありません。
                   FINAL FANTASY XIV に関する名称、データ、画像、その他の権利は
@@ -336,8 +336,8 @@
                 </p>
               </section>
 
-              <section class="legal-section">
-                <h2 data-i18n="legal.sourcesTitle">利用しているデータ元</h2>
+              <section class="legal-section" aria-labelledby="legal-sources-title">
+                <h3 id="legal-sources-title" data-i18n="legal.sourcesTitle">利用しているデータ元</h3>
                 <p class="legal-note" data-i18n="legal.externalToolDataNotice">
                   データ元には、外部ツールで入手したデータが含まれる場合があります。
                   FF14Gils は、その取得方法を管理または保証しません。
@@ -369,8 +369,8 @@
                 </dl>
               </section>
 
-              <section class="legal-section">
-                <h2 data-i18n="legal.ffxivTermsTitle">FINAL FANTASY XIV の利用条件</h2>
+              <section class="legal-section" aria-labelledby="legal-ffxiv-terms-title">
+                <h3 id="legal-ffxiv-terms-title" data-i18n="legal.ffxivTermsTitle">FINAL FANTASY XIV の利用条件</h3>
                 <p>
                   <span data-i18n="legal.ffxivTermsIntro">FINAL FANTASY XIV の利用は、</span>
                   <a href="https://support.jp.square-enix.com/rule.php?id=5381&amp;la=0&amp;tag=users" rel="noreferrer" data-i18n="legal.ffxivUserAgreement">ファイナルファンタジーXIV 利用規約</a>
@@ -380,8 +380,8 @@
                 </p>
               </section>
 
-              <section class="legal-section">
-                <h2 data-i18n="legal.dataHandlingTitle">データの扱い</h2>
+              <section class="legal-section" aria-labelledby="legal-data-handling-title">
+                <h3 id="legal-data-handling-title" data-i18n="legal.dataHandlingTitle">データの扱い</h3>
                 <p data-i18n="legal.dataHandlingBrowser">
                   利用者のブラウザは、GitHub Pages で配信される生成済み JSON を読み込みます。
                   ブラウザから外部 API へ直接 POST する処理はありません。
@@ -396,7 +396,7 @@
                 </p>
               </section>
             </div>
-          </section>
+          </article>
         </section>
       </main>
 
