@@ -47,15 +47,18 @@ jobs:
         run: npm run build
 
       - name: Setup Pages
+        if: ${{ github.event_name == 'schedule' }}
         uses: actions/configure-pages@v5
         with:
           enablement: true
 
       - name: Upload artifact
+        if: ${{ github.event_name == 'schedule' }}
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
       - name: Deploy to GitHub Pages
+        if: ${{ github.event_name == 'schedule' }}
         id: deployment
         uses: actions/deploy-pages@v4
