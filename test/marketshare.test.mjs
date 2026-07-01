@@ -4,6 +4,7 @@ import { describe, it } from 'node:test';
 import {
   CATEGORY_PRESETS,
   assertMarketshareResponse,
+  createMoneyFlowSummary,
   createSnapshot,
   filterMarketshareItems,
   formatGil,
@@ -195,6 +196,44 @@ describe('summarizeMarketshare', () => {
     assert.equal(summary.stateCounts.stable, 1);
     assert.equal(summary.stateCounts['out of stock'], 1);
     assert.equal(summary.topItem.name, 'Garden Mood Lighting');
+  });
+});
+
+describe('createMoneyFlowSummary', () => {
+  it('グラフ画面向けに売上額、状態別売上、価格変動を集計する', () => {
+    const summary = createMoneyFlowSummary(normalizeMarketshareResponse(apiResponse));
+
+    assert.equal(summary.totalMarketValue, 41831558);
+    assert.equal(summary.totalQuantitySold, 35);
+    assert.equal(summary.averageMarketValuePerItem, 20915779);
+    assert.deepEqual(
+      summary.topSales.map((item) => item.itemId),
+      ['51269', '15157'],
+    );
+    assert.deepEqual(summary.salesByState, [
+      { state: 'stable', marketValue: 39731558, quantitySold: 32, itemCount: 1 },
+      { state: 'out of stock', marketValue: 2100000, quantitySold: 3, itemCount: 1 },
+    ]);
+    assert.deepEqual(
+      summary.topPriceChanges.map((item) => item.itemId),
+      ['15157', '51269'],
+    );
+  });
+
+  it('表示件数を制限でき、空配列も安全に扱う', () => {
+    const summary = createMoneyFlowSummary(normalizeMarketshareResponse(apiResponse), {
+      limit: 1,
+    });
+    const empty = createMoneyFlowSummary([]);
+
+    assert.deepEqual(
+      summary.topSales.map((item) => item.itemId),
+      ['51269'],
+    );
+    assert.deepEqual(summary.topPriceChanges.map((item) => item.itemId), ['15157']);
+    assert.equal(empty.totalMarketValue, 0);
+    assert.equal(empty.averageMarketValuePerItem, 0);
+    assert.deepEqual(empty.salesByState, []);
   });
 });
 

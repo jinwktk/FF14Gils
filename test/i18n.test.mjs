@@ -57,6 +57,12 @@ describe('translate', () => {
     assert.equal(translate('en', 'dataCenterRegions.japan'), 'Japanese Data Centers');
     assert.equal(translate('ja', 'dataCenterRegions.oceania'), 'オセアニアデータセンター');
     assert.equal(translate('en', 'dataCenterRegions.oceania'), 'Oceanic Data Centers');
+    assert.equal(translate('ja', 'view.charts'), 'グラフ');
+    assert.equal(translate('en', 'view.charts'), 'Charts');
+    assert.equal(translate('ja', 'chart.topSalesTitle'), '売上額トップ');
+    assert.equal(translate('en', 'chart.topSalesTitle'), 'Top sales');
+    assert.equal(translate('ja', 'chart.priceChangeTitle'), '価格変動');
+    assert.equal(translate('en', 'chart.priceChangeTitle'), 'Price movement');
     assert.equal(translate('en', 'table.marketValue'), 'Sales');
     assert.match(translate('ja', 'meta.description'), /全DC/);
     assert.match(translate('en', 'meta.description'), /all data centers/);

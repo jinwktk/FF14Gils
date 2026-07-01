@@ -1,4 +1,5 @@
 import {
+  createMoneyFlowSummary,
   filterMarketshareItems,
   formatGil,
   formatNumber,
@@ -28,25 +29,37 @@ import {
 const DEFAULT_DATA_PATH = 'data/marketshare.json';
 const WORLD_INDEX_PATH = 'data/worlds.json';
 const MAX_VISIBLE_ROWS = 80;
+const MAX_VISIBLE_CHART_ITEMS = 8;
 
 const elements = {
+  chartPanel: document.querySelector('[data-chart-panel]'),
   error: document.querySelector('[data-error]'),
   languageSelect: document.querySelector('[data-language-select]'),
   minQuantitySold: document.querySelector('[data-min-quantity]'),
   minQuantityValue: document.querySelector('[data-min-quantity-value]'),
+  moneyAverage: document.querySelector('[data-money-average]'),
+  moneyItems: document.querySelector('[data-money-items]'),
+  moneyQuantity: document.querySelector('[data-money-quantity]'),
+  moneyTotal: document.querySelector('[data-money-total]'),
   periodSelect: document.querySelector('[data-period-select]'),
+  priceChangeChart: document.querySelector('[data-price-change-chart]'),
   resultCount: document.querySelector('[data-result-count]'),
+  salesChart: document.querySelector('[data-sales-chart]'),
   search: document.querySelector('[data-search]'),
   sortBy: document.querySelector('[data-sort-by]'),
   sortButtons: [...document.querySelectorAll('[data-sort-button]')],
   stateFilters: [...document.querySelectorAll('[data-state-filter]')],
+  stateChart: document.querySelector('[data-state-chart]'),
   tableBody: document.querySelector('[data-results]'),
+  tablePanel: document.querySelector('[data-table-panel]'),
   updatedAt: document.querySelector('[data-updated-at]'),
+  viewTabs: [...document.querySelectorAll('[data-view-tab]')],
   dcSelect: document.querySelector('[data-dc-select]'),
   worldSelect: document.querySelector('[data-world-select]'),
 };
 
 const state = {
+  activeView: 'table',
   currentGeneratedAt: '',
   items: [],
   language: 'ja',
@@ -102,6 +115,12 @@ async function loadSnapshot(path) {
 }
 
 function bindControls() {
+  for (const tab of elements.viewTabs) {
+    tab.addEventListener('click', () => {
+      setActiveView(tab.dataset.viewTab);
+    });
+  }
+
   elements.languageSelect.addEventListener('change', () => {
     state.language = elements.languageSelect.value;
     document.cookie = buildLanguagePreferenceCookie(state.language);
@@ -167,6 +186,21 @@ function bindControls() {
   }
 
   updateSortIndicators();
+  setActiveView(state.activeView);
+}
+
+function setActiveView(view) {
+  state.activeView = view === 'charts' ? 'charts' : 'table';
+  elements.tablePanel.hidden = state.activeView !== 'table';
+  elements.chartPanel.hidden = state.activeView !== 'charts';
+
+  for (const tab of elements.viewTabs) {
+    const isActive = tab.dataset.viewTab === state.activeView;
+
+    tab.setAttribute('aria-selected', String(isActive));
+    tab.tabIndex = isActive ? 0 : -1;
+    tab.dataset.active = String(isActive);
+  }
 }
 
 async function loadSelectedSnapshot() {
@@ -280,6 +314,11 @@ function render() {
   elements.resultCount.textContent = translate(state.language, 'results.count', {
     count: formatNumber(filteredItems.length, state.language),
   });
+  renderTable(filteredItems);
+  renderCharts(filteredItems);
+}
+
+function renderTable(filteredItems) {
   elements.tableBody.replaceChildren(
     ...filteredItems.slice(0, MAX_VISIBLE_ROWS).map(renderRow),
   );
@@ -292,6 +331,106 @@ function render() {
     cell.textContent = translate(state.language, 'ui.emptyState');
     row.append(cell);
     elements.tableBody.append(row);
+  }
+}
+
+function renderCharts(filteredItems) {
+  const summary = createMoneyFlowSummary(filteredItems, {
+    limit: MAX_VISIBLE_CHART_ITEMS,
+  });
+
+  elements.moneyTotal.textContent = formatGil(summary.totalMarketValue, state.language);
+  elements.moneyQuantity.textContent = formatNumber(
+    summary.totalQuantitySold,
+    state.language,
+  );
+  elements.moneyAverage.textContent = formatGil(
+    summary.averageMarketValuePerItem,
+    state.language,
+  );
+  elements.moneyItems.textContent = formatNumber(filteredItems.length, state.language);
+
+  renderBarChart(
+    elements.salesChart,
+    summary.topSales.map((item) => ({
+      label: selectItemDisplayName(item, state.language),
+      value: item.marketValue,
+      valueText: formatGil(item.marketValue, state.language),
+    })),
+  );
+  renderBarChart(
+    elements.stateChart,
+    summary.salesByState.map((entry) => ({
+      label: stateLabel(entry.state, state.language),
+      value: entry.marketValue,
+      valueText: formatGil(entry.marketValue, state.language),
+      detailText: translate(state.language, 'results.count', {
+        count: formatNumber(entry.itemCount, state.language),
+      }),
+    })),
+  );
+  renderBarChart(
+    elements.priceChangeChart,
+    summary.topPriceChanges.map((item) => ({
+      label: selectItemDisplayName(item, state.language),
+      value: item.percentChange,
+      valueText: `${formatPercent(item.percentChange)}%`,
+      detailText: formatGil(item.marketValue, state.language),
+    })),
+    { signed: true },
+  );
+}
+
+function renderBarChart(container, rows, { signed = false } = {}) {
+  container.replaceChildren();
+
+  if (rows.length === 0) {
+    const empty = document.createElement('p');
+    empty.className = 'empty-state chart-empty';
+    empty.textContent = translate(state.language, 'chart.noData');
+    container.append(empty);
+    return;
+  }
+
+  const maxValue = Math.max(...rows.map((row) => Math.abs(Number(row.value) || 0)), 1);
+
+  for (const row of rows) {
+    const value = Number(row.value) || 0;
+    const width = Math.max((Math.abs(value) / maxValue) * 100, 2);
+    const item = document.createElement('div');
+    const header = document.createElement('div');
+    const label = document.createElement('span');
+    const valueLabel = document.createElement('span');
+    const track = document.createElement('div');
+    const bar = document.createElement('span');
+
+    item.className = 'bar-row';
+    if (signed) {
+      item.classList.add(value < 0 ? 'bar-row-negative' : 'bar-row-positive');
+    }
+
+    header.className = 'bar-row-header';
+    label.className = 'bar-label';
+    label.textContent = row.label;
+    valueLabel.className = 'bar-value';
+    valueLabel.textContent = row.valueText;
+
+    track.className = 'bar-track';
+    bar.className = 'bar-fill';
+    bar.style.width = `${width}%`;
+
+    header.append(label, valueLabel);
+    track.append(bar);
+    item.append(header, track);
+
+    if (row.detailText) {
+      const detail = document.createElement('span');
+      detail.className = 'bar-detail';
+      detail.textContent = row.detailText;
+      item.append(detail);
+    }
+
+    container.append(item);
   }
 }
 
@@ -486,6 +625,12 @@ function updateJsonLdLanguage() {
 
 function defaultSortDirection(sortBy) {
   return ['name', 'state'].includes(sortBy) ? 'asc' : 'desc';
+}
+
+function formatPercent(value) {
+  const number = Number(value);
+
+  return Number.isFinite(number) ? number.toFixed(2) : '0.00';
 }
 
 function safeUniversalisUrl(value) {

@@ -22,10 +22,20 @@ const TRANSLATIONS = {
       description:
         'FF14のマーケット売上、相場、販売数から、全DCの金策候補を探せるダークテーマのマーケットダッシュボードです。',
       ogDescription:
-        'マーケットの売れ行きと相場から、売りやすい金策候補を探せます。Hades初期表示、全DC対応。',
+        'マーケットの売れ行きと相場から、売りやすい金策候補を探せます。Chocobo初期表示、全DC対応。',
       imageAlt: 'FF14Gilsのマーケット金策ダッシュボード画像',
       locale: 'ja_JP',
       inLanguage: 'ja-JP',
+    },
+    chart: {
+      averageSales: '平均売上',
+      itemCount: '対象アイテム',
+      noData: '表示できるデータがありません。',
+      priceChangeTitle: '価格変動',
+      salesByStateTitle: '状態別売上',
+      soldQuantity: '販売数',
+      topSalesTitle: '売上額トップ',
+      totalSales: '売上合計',
     },
     periods: {
       '1d': '1日',
@@ -70,6 +80,11 @@ const TRANSLATIONS = {
       rank: '順位',
       state: '状態',
     },
+    view: {
+      charts: 'グラフ',
+      table: '一覧',
+      tabsLabel: '表示切替',
+    },
     ui: {
       dataCenterLabel: 'データセンター',
       dataCenterSelect: 'DCを選択',
@@ -89,7 +104,7 @@ const TRANSLATIONS = {
       otherDataCenter: 'その他',
       periodLabel: '集計期間',
       periodSelect: '売上の集計期間',
-      resultsKicker: '一覧',
+      resultsKicker: '結果',
       resultsLabel: '金策候補',
       resultsTitle: '金策候補',
       searchLabel: 'アイテム検索',
@@ -119,10 +134,20 @@ const TRANSLATIONS = {
       description:
         'A dark market dashboard for finding profitable Final Fantasy XIV items from sales, prices, and purchase volume across all data centers.',
       ogDescription:
-        'Find easier-to-sell market opportunities from sales volume and price trends. Starts on Hades and supports all data centers.',
+        'Find easier-to-sell market opportunities from sales volume and price trends. Starts on Chocobo and supports all data centers.',
       imageAlt: 'FF14Gils market profit dashboard image',
       locale: 'en_US',
       inLanguage: 'en-US',
+    },
+    chart: {
+      averageSales: 'Average sales',
+      itemCount: 'Items',
+      noData: 'No chart data for the current filters.',
+      priceChangeTitle: 'Price movement',
+      salesByStateTitle: 'Sales by state',
+      soldQuantity: 'Sold',
+      topSalesTitle: 'Top sales',
+      totalSales: 'Total sales',
     },
     periods: {
       '1d': '1 day',
@@ -166,6 +191,11 @@ const TRANSLATIONS = {
       quantitySold: 'Sold',
       rank: 'Rank',
       state: 'State',
+    },
+    view: {
+      charts: 'Charts',
+      table: 'List',
+      tabsLabel: 'View switcher',
     },
     ui: {
       dataCenterLabel: 'Data center',

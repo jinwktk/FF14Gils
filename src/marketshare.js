@@ -100,6 +100,61 @@ export function summarizeMarketshare(items) {
   };
 }
 
+export function createMoneyFlowSummary(items, { limit = 8 } = {}) {
+  const safeItems = Array.isArray(items) ? items : [];
+  const visibleLimit = normalizeLimit(limit);
+  const salesByState = new Map();
+  let totalMarketValue = 0;
+  let totalQuantitySold = 0;
+
+  for (const item of safeItems) {
+    const marketValue = toFiniteNumber(item?.marketValue) ?? 0;
+    const quantitySold = toFiniteNumber(item?.quantitySold) ?? 0;
+    const state = String(item?.state || 'unknown').trim() || 'unknown';
+    const stateSummary = salesByState.get(state) ?? {
+      state,
+      marketValue: 0,
+      quantitySold: 0,
+      itemCount: 0,
+    };
+
+    totalMarketValue += marketValue;
+    totalQuantitySold += quantitySold;
+    stateSummary.marketValue += marketValue;
+    stateSummary.quantitySold += quantitySold;
+    stateSummary.itemCount += 1;
+    salesByState.set(state, stateSummary);
+  }
+
+  return {
+    totalMarketValue,
+    totalQuantitySold,
+    averageMarketValuePerItem:
+      safeItems.length > 0 ? Math.round(totalMarketValue / safeItems.length) : 0,
+    topSales: [...safeItems]
+      .sort(
+        (a, b) =>
+          (toFiniteNumber(b?.marketValue) ?? 0) -
+          (toFiniteNumber(a?.marketValue) ?? 0),
+      )
+      .slice(0, visibleLimit),
+    salesByState: [...salesByState.values()]
+      .sort((a, b) => b.marketValue - a.marketValue)
+      .slice(0, visibleLimit),
+    topPriceChanges: [...safeItems]
+      .filter((item) => Number.isFinite(toFiniteNumber(item?.percentChange)))
+      .sort((a, b) => {
+        const changeDifference =
+          Math.abs(toFiniteNumber(b.percentChange) ?? 0) -
+          Math.abs(toFiniteNumber(a.percentChange) ?? 0);
+
+        if (changeDifference !== 0) return changeDifference;
+        return (toFiniteNumber(b.marketValue) ?? 0) - (toFiniteNumber(a.marketValue) ?? 0);
+      })
+      .slice(0, visibleLimit),
+  };
+}
+
 export function filterMarketshareItems(
   items,
   {
@@ -293,6 +348,12 @@ function toFiniteNumber(value) {
 function normalizeText(value) {
   if (typeof value !== 'string') return '';
   return value.trim();
+}
+
+function normalizeLimit(limit) {
+  const number = Number(limit);
+
+  return Number.isFinite(number) && number > 0 ? Math.floor(number) : 8;
 }
 
 function stateTranslationKey(state) {

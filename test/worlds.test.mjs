@@ -2,6 +2,7 @@ import { strict as assert } from 'node:assert';
 import { describe, it } from 'node:test';
 
 import {
+  DEFAULT_WORLD,
   DEFAULT_WORLDS,
   WORLD_DATA_CENTERS,
   WORLD_DATA_CENTER_REGIONS,
@@ -45,8 +46,14 @@ describe('parseWorldList', () => {
     assert.ok(worlds.includes('Cuchulainn'));
     assert.ok(worlds.includes('Phantom'));
     assert.ok(worlds.includes('Ravana'));
-    assert.ok(worlds.includes('Hades'));
+    assert.ok(worlds.includes('Chocobo'));
     assert.deepEqual(worlds, DEFAULT_WORLDS);
+  });
+});
+
+describe('DEFAULT_WORLD', () => {
+  it('初期表示ワールドはChocoboにする', () => {
+    assert.equal(DEFAULT_WORLD, 'Chocobo');
   });
 });
 
@@ -212,7 +219,7 @@ describe('data center helpers', () => {
 
 describe('resolveDefaultWorld', () => {
   it('指定がない場合は既定ワールドを優先する', () => {
-    assert.equal(resolveDefaultWorld(['Aegis', 'Carbuncle', 'Hades']), 'Hades');
+    assert.equal(resolveDefaultWorld(['Aegis', 'Carbuncle', 'Chocobo']), 'Chocobo');
   });
 
   it('環境変数で指定されたワールドが一覧にあればそれを優先する', () => {

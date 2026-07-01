@@ -9,7 +9,7 @@ import {
 } from '../src/preferences.js';
 
 const worldIndex = {
-  defaultWorld: 'Hades',
+  defaultWorld: 'Chocobo',
   worlds: [
     { name: 'Carbuncle', path: 'data/worlds/carbuncle.json' },
     { name: 'Hades', path: 'data/worlds/hades.json' },
@@ -31,20 +31,20 @@ describe('resolvePreferredWorld', () => {
     assert.equal(resolvePreferredWorld(worldIndex, `${WORLD_COOKIE_NAME}=Chocobo`), 'Chocobo');
   });
 
-  it('保存済みワールドがない場合はHadesを初期表示にする', () => {
-    assert.equal(resolvePreferredWorld(worldIndex, ''), 'Hades');
+  it('保存済みワールドがない場合はChocoboを初期表示にする', () => {
+    assert.equal(resolvePreferredWorld(worldIndex, ''), 'Chocobo');
   });
 
   it('存在しない保存済みワールドは無視する', () => {
-    assert.equal(resolvePreferredWorld(worldIndex, `${WORLD_COOKIE_NAME}=Missing`), 'Hades');
+    assert.equal(resolvePreferredWorld(worldIndex, `${WORLD_COOKIE_NAME}=Missing`), 'Chocobo');
   });
 });
 
 describe('buildWorldPreferenceCookie', () => {
   it('選択したワールドをCookieへ保存する文字列を作る', () => {
     assert.equal(
-      buildWorldPreferenceCookie('Hades'),
-      `${WORLD_COOKIE_NAME}=Hades; Max-Age=15552000; Path=/; SameSite=Lax`,
+      buildWorldPreferenceCookie('Chocobo'),
+      `${WORLD_COOKIE_NAME}=Chocobo; Max-Age=15552000; Path=/; SameSite=Lax`,
     );
   });
 });

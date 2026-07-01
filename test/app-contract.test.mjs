@@ -56,6 +56,48 @@ describe('app data loading contract', () => {
     assert.match(app, /selectedPeriod/);
   });
 
+  it('初期表示ワールドはChocoboにする', async () => {
+    const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+    const i18n = await readFile(new URL('../src/i18n.js', import.meta.url), 'utf8');
+    const worlds = await readFile(new URL('../src/worlds.js', import.meta.url), 'utf8');
+    const worldIndex = JSON.parse(
+      await readFile(new URL('../data/worlds.json', import.meta.url), 'utf8'),
+    );
+    const marketshare = JSON.parse(
+      await readFile(new URL('../data/marketshare.json', import.meta.url), 'utf8'),
+    );
+
+    assert.match(worlds, /DEFAULT_WORLD\s*=\s*['"]Chocobo['"]/);
+    assert.equal(worldIndex.defaultWorld, 'Chocobo');
+    assert.equal(marketshare.query.server, 'Chocobo');
+    assert.match(html, /Chocobo初期表示/);
+    assert.doesNotMatch(html, /Hades初期表示/);
+    assert.match(i18n, /Chocobo初期表示/);
+    assert.doesNotMatch(i18n, /Starts on Hades/);
+  });
+
+  it('お金の動きを見るグラフ画面を持つ', async () => {
+    const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+    const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');
+    const styles = await readFile(new URL('../styles.css', import.meta.url), 'utf8');
+
+    assert.match(html, /data-view-tab="table"/);
+    assert.match(html, /data-view-tab="charts"/);
+    assert.match(html, /data-table-panel/);
+    assert.match(html, /data-chart-panel/);
+    assert.match(html, /data-money-total/);
+    assert.match(html, /data-sales-chart/);
+    assert.match(html, /data-state-chart/);
+    assert.match(html, /data-price-change-chart/);
+    assert.match(app, /activeView/);
+    assert.match(app, /createMoneyFlowSummary/);
+    assert.match(app, /renderCharts/);
+    assert.match(app, /renderBarChart/);
+    assert.match(styles, /\.view-tabs/);
+    assert.match(styles, /\.chart-grid/);
+    assert.match(styles, /\.bar-row/);
+  });
+
   it('最終更新日時を一覧ヘッダーに表示する', async () => {
     const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
     const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');

@@ -14,7 +14,7 @@
     <meta property="og:site_name" content="FF14Gils" />
     <meta property="og:locale" content="ja_JP" />
     <meta property="og:title" content="FF14Gils | FF14 マーケット金策" />
-    <meta property="og:description" content="マーケットの売れ行きと相場から、売りやすい金策候補を探せます。Hades初期表示、全DC対応。" />
+    <meta property="og:description" content="マーケットの売れ行きと相場から、売りやすい金策候補を探せます。Chocobo初期表示、全DC対応。" />
     <meta property="og:url" content="https://jinwktk.github.io/FF14Gils/" />
     <meta property="og:image" content="https://jinwktk.github.io/FF14Gils/assets/og-image.png" />
     <meta property="og:image:width" content="1200" />
@@ -172,63 +172,123 @@
           <p data-error class="error" hidden></p>
           <div class="results-header">
             <div>
-              <p class="panel-kicker" data-i18n="ui.resultsKicker">一覧</p>
+              <p class="panel-kicker" data-i18n="ui.resultsKicker">結果</p>
               <h2 data-i18n="ui.resultsTitle">金策候補</h2>
             </div>
-            <div class="result-meta">
-              <span data-result-count>- 件</span>
-              <span class="updated-at" data-updated-at>最終更新 -</span>
+            <div class="results-actions">
+              <div
+                class="view-tabs"
+                role="tablist"
+                data-i18n-attr="aria-label:view.tabsLabel"
+                aria-label="表示切替"
+              >
+                <button
+                  type="button"
+                  role="tab"
+                  data-view-tab="table"
+                  aria-selected="true"
+                  data-i18n="view.table"
+                >一覧</button>
+                <button
+                  type="button"
+                  role="tab"
+                  data-view-tab="charts"
+                  aria-selected="false"
+                  data-i18n="view.charts"
+                >グラフ</button>
+              </div>
+              <div class="result-meta">
+                <span data-result-count>- 件</span>
+                <span class="updated-at" data-updated-at>最終更新 -</span>
+              </div>
             </div>
           </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col" aria-sort="descending">
-                    <button type="button" class="sort-button" data-sort-button="opportunityScore">
-                      <span data-i18n="table.rank">順位</span><span class="sort-indicator" aria-hidden="true"></span>
-                    </button>
-                  </th>
-                  <th scope="col" aria-sort="none">
-                    <button type="button" class="sort-button" data-sort-button="name">
-                      <span data-i18n="table.item">アイテム</span><span class="sort-indicator" aria-hidden="true"></span>
-                    </button>
-                  </th>
-                  <th scope="col" aria-sort="none">
-                    <button type="button" class="sort-button" data-sort-button="marketValue">
-                      <span data-i18n="table.marketValue">売上額</span><span class="sort-indicator" aria-hidden="true"></span>
-                    </button>
-                  </th>
-                  <th scope="col" aria-sort="none">
-                    <button type="button" class="sort-button" data-sort-button="avg">
-                      <span data-i18n="table.avg">平均価格</span><span class="sort-indicator" aria-hidden="true"></span>
-                    </button>
-                  </th>
-                  <th scope="col" aria-sort="none">
-                    <button type="button" class="sort-button" data-sort-button="minPrice">
-                      <span data-i18n="table.minPrice">最安値</span><span class="sort-indicator" aria-hidden="true"></span>
-                    </button>
-                  </th>
-                  <th scope="col" aria-sort="none">
-                    <button type="button" class="sort-button" data-sort-button="quantitySold">
-                      <span data-i18n="table.quantitySold">売れた数</span><span class="sort-indicator" aria-hidden="true"></span>
-                    </button>
-                  </th>
-                  <th scope="col" aria-sort="none">
-                    <button type="button" class="sort-button" data-sort-button="percentChange">
-                      <span data-i18n="table.percentChange">価格変動</span><span class="sort-indicator" aria-hidden="true"></span>
-                    </button>
-                  </th>
-                  <th scope="col" aria-sort="none">
-                    <button type="button" class="sort-button" data-sort-button="state">
-                      <span data-i18n="table.state">状態</span><span class="sort-indicator" aria-hidden="true"></span>
-                    </button>
-                  </th>
-                </tr>
-              </thead>
-              <tbody data-results></tbody>
-            </table>
+          <div data-table-panel>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col" aria-sort="descending">
+                      <button type="button" class="sort-button" data-sort-button="opportunityScore">
+                        <span data-i18n="table.rank">順位</span><span class="sort-indicator" aria-hidden="true"></span>
+                      </button>
+                    </th>
+                    <th scope="col" aria-sort="none">
+                      <button type="button" class="sort-button" data-sort-button="name">
+                        <span data-i18n="table.item">アイテム</span><span class="sort-indicator" aria-hidden="true"></span>
+                      </button>
+                    </th>
+                    <th scope="col" aria-sort="none">
+                      <button type="button" class="sort-button" data-sort-button="marketValue">
+                        <span data-i18n="table.marketValue">売上額</span><span class="sort-indicator" aria-hidden="true"></span>
+                      </button>
+                    </th>
+                    <th scope="col" aria-sort="none">
+                      <button type="button" class="sort-button" data-sort-button="avg">
+                        <span data-i18n="table.avg">平均価格</span><span class="sort-indicator" aria-hidden="true"></span>
+                      </button>
+                    </th>
+                    <th scope="col" aria-sort="none">
+                      <button type="button" class="sort-button" data-sort-button="minPrice">
+                        <span data-i18n="table.minPrice">最安値</span><span class="sort-indicator" aria-hidden="true"></span>
+                      </button>
+                    </th>
+                    <th scope="col" aria-sort="none">
+                      <button type="button" class="sort-button" data-sort-button="quantitySold">
+                        <span data-i18n="table.quantitySold">売れた数</span><span class="sort-indicator" aria-hidden="true"></span>
+                      </button>
+                    </th>
+                    <th scope="col" aria-sort="none">
+                      <button type="button" class="sort-button" data-sort-button="percentChange">
+                        <span data-i18n="table.percentChange">価格変動</span><span class="sort-indicator" aria-hidden="true"></span>
+                      </button>
+                    </th>
+                    <th scope="col" aria-sort="none">
+                      <button type="button" class="sort-button" data-sort-button="state">
+                        <span data-i18n="table.state">状態</span><span class="sort-indicator" aria-hidden="true"></span>
+                      </button>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody data-results></tbody>
+              </table>
+            </div>
           </div>
+
+          <section class="chart-panel" data-chart-panel hidden>
+            <div class="money-metrics" data-money-flow-summary>
+              <div class="metric-block">
+                <span data-i18n="chart.totalSales">売上合計</span>
+                <strong data-money-total>-</strong>
+              </div>
+              <div class="metric-block">
+                <span data-i18n="chart.soldQuantity">販売数</span>
+                <strong data-money-quantity>-</strong>
+              </div>
+              <div class="metric-block">
+                <span data-i18n="chart.averageSales">平均売上</span>
+                <strong data-money-average>-</strong>
+              </div>
+              <div class="metric-block">
+                <span data-i18n="chart.itemCount">対象アイテム</span>
+                <strong data-money-items>-</strong>
+              </div>
+            </div>
+            <div class="chart-grid">
+              <section class="chart-block">
+                <h3 data-i18n="chart.topSalesTitle">売上額トップ</h3>
+                <div class="bar-chart" data-sales-chart></div>
+              </section>
+              <section class="chart-block">
+                <h3 data-i18n="chart.salesByStateTitle">状態別売上</h3>
+                <div class="bar-chart" data-state-chart></div>
+              </section>
+              <section class="chart-block chart-block-wide">
+                <h3 data-i18n="chart.priceChangeTitle">価格変動</h3>
+                <div class="bar-chart" data-price-change-chart></div>
+              </section>
+            </div>
+          </section>
         </section>
       </main>
 
