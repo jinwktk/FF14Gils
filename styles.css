@@ -643,8 +643,9 @@ td:nth-child(2) {
 
 .data-source-list {
   display: grid;
-  max-width: 88ch;
   margin: 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
 }
 
 .data-source-list div {

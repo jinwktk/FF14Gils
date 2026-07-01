@@ -255,8 +255,10 @@ describe('app data loading contract', () => {
     assert.match(styles, /\.legal-section h3\s*{[^}]*font-size:\s*1\.08rem/s);
     assert.match(styles, /\.legal-section p,\s*\.legal-section dd\s*{[^}]*font-size:\s*0\.98rem/s);
     assert.match(styles, /\.legal-section p,\s*\.legal-section dd\s*{[^}]*line-height:\s*1\.9/s);
-    assert.match(styles, /\.data-source-list\s*{[^}]*max-width:\s*88ch/s);
+    assert.match(styles, /\.data-source-list\s*{[^}]*border-top:\s*1px solid var\(--line\)/s);
+    assert.match(styles, /\.data-source-list\s*{[^}]*padding-top:\s*16px/s);
     assert.match(styles, /\.data-source-list div \+ div\s*{[^}]*border-top:\s*1px solid var\(--line\)/s);
+    assert.doesNotMatch(styles, /\.data-source-list\s*{[^}]*max-width:\s*88ch/s);
     assert.doesNotMatch(styles, /\.data-source-list div\s*{[^}]*border-top:\s*1px solid var\(--line\)/s);
     assert.match(html, /&copy; 2026 FF14Gils/);
     assert.match(html, /記載されている会社名・製品名・システム名などは、各社の商標、または登録商標です。/);
