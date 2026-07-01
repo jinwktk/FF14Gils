@@ -1,6 +1,7 @@
 import { strict as assert } from 'node:assert';
 import { access, readdir, readFile } from 'node:fs/promises';
 import { describe, it } from 'node:test';
+import { translate } from '../src/i18n.js';
 
 describe('app data loading contract', () => {
   it('GitHub Pages上のUI配信対象は生成済みJSONだけを読み、Saddlebag APIへ直接POSTしない', async () => {
@@ -249,6 +250,12 @@ describe('app data loading contract', () => {
     assert.match(html, /非公式ファンサイト/);
     assert.match(html, /Saddlebag Exchange API/);
     assert.match(html, /Saddlebag Exchange API は内部的に Universalis API を利用する/);
+    assert.match(html, /data-i18n="legal\.externalToolDataNotice"/);
+    assert.match(html, /データ元には、外部ツールで入手したデータが含まれる場合があります。/);
+    assert.equal(
+      translate('en', 'legal.externalToolDataNotice'),
+      'The data sources may include data obtained through external tools. FF14Gils does not control or guarantee the methods used to collect that data.',
+    );
     assert.match(html, /XIVAPI v2/);
     assert.match(html, /説明文、アイコン、詳細なゲームデータは保存しません。/);
     assert.match(html, /Google Analytics 4/);

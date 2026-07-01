@@ -625,6 +625,10 @@ td:nth-child(2) {
   margin-top: 10px;
 }
 
+.legal-note {
+  margin-bottom: 14px;
+}
+
 .data-source-list {
   display: grid;
   gap: 14px;

@@ -49,6 +49,8 @@ const TRANSLATIONS = {
         'の対象です。FF14Gils はゲームクライアント、アカウント、プレイ操作へ接続せず、RMT、BOT、外部ツールによる自動操作を目的としません。',
       ffxivTermsTitle: 'FINAL FANTASY XIV の利用条件',
       ffxivUserAgreement: 'ファイナルファンタジーXIV 利用規約',
+      externalToolDataNotice:
+        'データ元には、外部ツールで入手したデータが含まれる場合があります。FF14Gils は、その取得方法を管理または保証しません。',
       gaIntro: 'アクセス状況の把握だけに利用します。',
       gaTerms: 'Google Analytics 利用規約',
       gaText:
@@ -208,6 +210,8 @@ const TRANSLATIONS = {
         '. FF14Gils does not connect to the game client, accounts, or player actions, and is not intended for RMT, bots, or automated play tools.',
       ffxivTermsTitle: 'FINAL FANTASY XIV terms',
       ffxivUserAgreement: 'FINAL FANTASY XIV User Agreement',
+      externalToolDataNotice:
+        'The data sources may include data obtained through external tools. FF14Gils does not control or guarantee the methods used to collect that data.',
       gaIntro: 'Used only to understand page views. The',
       gaTerms: 'Google Analytics Terms of Service',
       gaText:
