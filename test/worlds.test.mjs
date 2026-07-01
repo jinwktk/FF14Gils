@@ -10,12 +10,14 @@ import {
   buildWorldSnapshotPath,
   buildWorldPeriodSnapshotPath,
   createWorldIndex,
+  createWorldRankings,
   filterWorldsByDataCenter,
   listDataCenterGroupsForWorlds,
   listDataCentersForWorlds,
   normalizeWorldIndex,
   parseWorldList,
   parseSalesPeriodList,
+  resolveDataCenterRegion,
   resolveDefaultWorld,
   resolveWorldDataCenter,
   worldSlug,
@@ -152,6 +154,57 @@ describe('createWorldIndex', () => {
     assert.equal(resolveWorldDataCenter('Seraph'), 'Dynamis');
     assert.equal(resolveWorldDataCenter('Spriggan'), 'Chaos');
     assert.equal(resolveWorldDataCenter('Bismarck'), 'Materia');
+    assert.equal(resolveDataCenterRegion('Mana'), 'japan');
+    assert.equal(resolveDataCenterRegion('Materia'), 'oceania');
+    assert.equal(resolveDataCenterRegion('Unknown'), 'other');
+  });
+});
+
+describe('createWorldRankings', () => {
+  it('期間別にワールド売上ランキングを生成する', () => {
+    const rankings = createWorldRankings([
+      {
+        query: { server: 'Hades', periodKey: '7d' },
+        summary: {
+          itemCount: 12,
+          totalMarketValue: 1200,
+          totalQuantitySold: 30,
+          topItem: { itemId: '1', name: '高額品', nameJa: '高額品', nameEn: 'Expensive item' },
+        },
+      },
+      {
+        query: { server: 'Chocobo', periodKey: '7d' },
+        summary: {
+          itemCount: 8,
+          totalMarketValue: 2400,
+          totalQuantitySold: 20,
+          topItem: { itemId: '2', name: '人気品', nameJa: '人気品', nameEn: 'Popular item' },
+        },
+      },
+      {
+        query: { server: 'Aegis', periodKey: '1d' },
+        summary: {
+          itemCount: 5,
+          totalMarketValue: 500,
+          totalQuantitySold: 10,
+          topItem: { itemId: '3', name: '短期品', nameJa: '短期品', nameEn: 'Short-term item' },
+        },
+      },
+    ]);
+
+    assert.deepEqual(
+      rankings['7d'].map((row) => `${row.name}:${row.totalMarketValue}:${row.topItemName}`),
+      ['Chocobo:2400:人気品', 'Hades:1200:高額品'],
+    );
+    assert.equal(rankings['7d'][0].dataCenter, 'Mana');
+    assert.equal(rankings['7d'][0].region, 'japan');
+    assert.equal(rankings['7d'][0].path, 'data/worlds/chocobo.json');
+    assert.equal(rankings['7d'][0].topItemNameJa, '人気品');
+    assert.equal(rankings['7d'][0].topItemNameEn, 'Popular item');
+    assert.deepEqual(
+      rankings['1d'].map((row) => `${row.name}:${row.path}`),
+      ['Aegis:data/worlds/aegis-1d.json'],
+    );
   });
 });
 

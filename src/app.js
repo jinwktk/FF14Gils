@@ -1,5 +1,4 @@
 import {
-  createMoneyFlowSummary,
   filterMarketshareItems,
   formatGil,
   formatNumber,
@@ -24,42 +23,47 @@ import {
   listDataCenterGroupsForWorlds,
   listDataCentersForWorlds,
   normalizeWorldIndex,
+  resolveDataCenterRegion,
 } from './worlds.js';
 
 const DEFAULT_DATA_PATH = 'data/marketshare.json';
 const WORLD_INDEX_PATH = 'data/worlds.json';
 const MAX_VISIBLE_ROWS = 80;
-const MAX_VISIBLE_CHART_ITEMS = 8;
+const MAX_VISIBLE_WORLD_RANKS = 12;
+const PAGE_ROUTES = new Set(['market', 'ranking', 'legal']);
+const PAGE_PATHS = {
+  legal: 'legal',
+  market: '',
+  ranking: 'ranking',
+};
+const ROUTE_SESSION_KEY = 'ff14gils_route';
+const APP_BASE_PATH = resolveAppBasePath();
 
 const elements = {
-  chartPanel: document.querySelector('[data-chart-panel]'),
   error: document.querySelector('[data-error]'),
   languageSelect: document.querySelector('[data-language-select]'),
   minQuantitySold: document.querySelector('[data-min-quantity]'),
   minQuantityValue: document.querySelector('[data-min-quantity-value]'),
-  moneyAverage: document.querySelector('[data-money-average]'),
-  moneyItems: document.querySelector('[data-money-items]'),
-  moneyQuantity: document.querySelector('[data-money-quantity]'),
-  moneyTotal: document.querySelector('[data-money-total]'),
+  navLinks: [...document.querySelectorAll('[data-nav-link]')],
+  pages: [...document.querySelectorAll('[data-page]')],
   periodSelect: document.querySelector('[data-period-select]'),
-  priceChangeChart: document.querySelector('[data-price-change-chart]'),
+  rankingPeriodSelect: document.querySelector('[data-ranking-period-select]'),
   resultCount: document.querySelector('[data-result-count]'),
-  salesChart: document.querySelector('[data-sales-chart]'),
   search: document.querySelector('[data-search]'),
   sortBy: document.querySelector('[data-sort-by]'),
   sortButtons: [...document.querySelectorAll('[data-sort-button]')],
   stateFilters: [...document.querySelectorAll('[data-state-filter]')],
-  stateChart: document.querySelector('[data-state-chart]'),
   tableBody: document.querySelector('[data-results]'),
-  tablePanel: document.querySelector('[data-table-panel]'),
   updatedAt: document.querySelector('[data-updated-at]'),
-  viewTabs: [...document.querySelectorAll('[data-view-tab]')],
+  worldRankingBody: document.querySelector('[data-world-ranking]'),
+  worldRankingUpdatedAt: document.querySelector('[data-world-ranking-updated-at]'),
+  worldRankingPanel: document.querySelector('[data-world-ranking-panel]'),
   dcSelect: document.querySelector('[data-dc-select]'),
   worldSelect: document.querySelector('[data-world-select]'),
 };
 
 const state = {
-  activeView: 'table',
+  activePage: 'market',
   currentGeneratedAt: '',
   items: [],
   language: 'ja',
@@ -82,6 +86,7 @@ async function init() {
     populateWorldSelect();
     populatePeriodSelect();
     bindControls();
+    applyRouteFromLocation();
     await loadSelectedSnapshot();
   } catch (error) {
     setError(translate(state.language, 'ui.loadError', { message: error.message }));
@@ -115,9 +120,13 @@ async function loadSnapshot(path) {
 }
 
 function bindControls() {
-  for (const tab of elements.viewTabs) {
-    tab.addEventListener('click', () => {
-      setActiveView(tab.dataset.viewTab);
+  window.addEventListener('popstate', applyRouteFromLocation);
+  updateNavigationHrefs();
+
+  for (const link of elements.navLinks) {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      navigateToPage(link.dataset.navLink);
     });
   }
 
@@ -149,6 +158,11 @@ function bindControls() {
     void loadSelectedSnapshot();
   });
   elements.periodSelect.addEventListener('change', () => {
+    syncSelectedPeriod(elements.periodSelect.value);
+    void loadSelectedSnapshot();
+  });
+  elements.rankingPeriodSelect.addEventListener('change', () => {
+    syncSelectedPeriod(elements.rankingPeriodSelect.value);
     void loadSelectedSnapshot();
   });
   elements.search.addEventListener('input', render);
@@ -186,21 +200,102 @@ function bindControls() {
   }
 
   updateSortIndicators();
-  setActiveView(state.activeView);
 }
 
-function setActiveView(view) {
-  state.activeView = view === 'charts' ? 'charts' : 'table';
-  elements.tablePanel.hidden = state.activeView !== 'table';
-  elements.chartPanel.hidden = state.activeView !== 'charts';
-
-  for (const tab of elements.viewTabs) {
-    const isActive = tab.dataset.viewTab === state.activeView;
-
-    tab.setAttribute('aria-selected', String(isActive));
-    tab.tabIndex = isActive ? 0 : -1;
-    tab.dataset.active = String(isActive);
+function updateNavigationHrefs() {
+  for (const link of elements.navLinks) {
+    link.href = buildPageUrl(link.dataset.navLink);
   }
+}
+
+function applyRouteFromLocation() {
+  const pendingRoute = consumePendingRoute();
+  const route = pendingRoute || routeFromPath(window.location.pathname);
+
+  if (pendingRoute) {
+    window.history.replaceState({}, '', buildPageUrl(route));
+  }
+
+  setActivePage(route);
+}
+
+function navigateToPage(page) {
+  const route = PAGE_ROUTES.has(page) ? page : 'market';
+  const url = buildPageUrl(route);
+
+  if (window.location.pathname === url) {
+    setActivePage(route);
+    return;
+  }
+
+  window.history.pushState({}, '', url);
+  setActivePage(route);
+}
+
+function setActivePage(page) {
+  state.activePage = PAGE_ROUTES.has(page) ? page : 'market';
+
+  for (const pageElement of elements.pages) {
+    pageElement.hidden = pageElement.dataset.page !== state.activePage;
+  }
+
+  for (const link of elements.navLinks) {
+    const isActive = link.dataset.navLink === state.activePage;
+
+    link.dataset.active = String(isActive);
+    if (isActive) {
+      link.setAttribute('aria-current', 'page');
+    } else {
+      link.removeAttribute('aria-current');
+    }
+  }
+}
+
+function routeFromPath(pathname) {
+  const relativePath = normalizeRoutePath(
+    pathname.startsWith(APP_BASE_PATH)
+      ? pathname.slice(APP_BASE_PATH.length)
+      : pathname.replace(/^\/+/, ''),
+  );
+
+  return PAGE_ROUTES.has(relativePath) ? relativePath : 'market';
+}
+
+function buildPageUrl(page) {
+  const route = PAGE_ROUTES.has(page) ? page : 'market';
+
+  return `${APP_BASE_PATH}${PAGE_PATHS[route]}`;
+}
+
+function consumePendingRoute() {
+  try {
+    const storedRoute = window.sessionStorage.getItem(ROUTE_SESSION_KEY);
+    window.sessionStorage.removeItem(ROUTE_SESSION_KEY);
+    if (!storedRoute) return '';
+
+    const route = normalizeRoutePath(storedRoute);
+    return PAGE_ROUTES.has(route) ? route : '';
+  } catch {
+    return '';
+  }
+}
+
+function normalizeRoutePath(value) {
+  return String(value ?? '')
+    .trim()
+    .replace(/^\/+|\/+$/g, '')
+    .replace(/^legal\.html$/, 'legal')
+    .replace(/^index\.html$/, '')
+    || 'market';
+}
+
+function resolveAppBasePath() {
+  const script = document.querySelector('script[type="module"][src$="src/app.js"]');
+  const scriptSource = script?.src || script?.getAttribute('src') || 'src/app.js';
+  const scriptUrl = new URL(scriptSource, window.location.href);
+  const basePath = scriptUrl.pathname.replace(/src\/app\.js$/, '');
+
+  return basePath.endsWith('/') ? basePath : `${basePath}/`;
 }
 
 async function loadSelectedSnapshot() {
@@ -285,6 +380,11 @@ function populateWorldSelect(selectedWorld = '') {
 }
 
 function populatePeriodSelect(selectedPeriod = state.worldIndex.defaultPeriod) {
+  replacePeriodOptions(elements.periodSelect, selectedPeriod);
+  replacePeriodOptions(elements.rankingPeriodSelect, selectedPeriod);
+}
+
+function replacePeriodOptions(select, selectedPeriod) {
   const fragment = document.createDocumentFragment();
 
   for (const period of state.worldIndex.periods) {
@@ -295,8 +395,13 @@ function populatePeriodSelect(selectedPeriod = state.worldIndex.defaultPeriod) {
     fragment.append(option);
   }
 
-  elements.periodSelect.replaceChildren(fragment);
+  select.replaceChildren(fragment);
+  select.value = selectedPeriod;
+}
+
+function syncSelectedPeriod(selectedPeriod) {
   elements.periodSelect.value = selectedPeriod;
+  elements.rankingPeriodSelect.value = selectedPeriod;
 }
 
 function render() {
@@ -314,11 +419,7 @@ function render() {
   elements.resultCount.textContent = translate(state.language, 'results.count', {
     count: formatNumber(filteredItems.length, state.language),
   });
-  renderTable(filteredItems);
-  renderCharts(filteredItems);
-}
-
-function renderTable(filteredItems) {
+  renderWorldRanking();
   elements.tableBody.replaceChildren(
     ...filteredItems.slice(0, MAX_VISIBLE_ROWS).map(renderRow),
   );
@@ -334,110 +435,79 @@ function renderTable(filteredItems) {
   }
 }
 
-function renderCharts(filteredItems) {
-  const summary = createMoneyFlowSummary(filteredItems, {
-    limit: MAX_VISIBLE_CHART_ITEMS,
-  });
+function renderWorldRanking() {
+  const selectedPeriod = elements.periodSelect.value || state.worldIndex.defaultPeriod;
+  const rankings = state.worldIndex.rankings?.[selectedPeriod] ?? [];
+  const rows = rankings.slice(0, MAX_VISIBLE_WORLD_RANKS);
 
-  elements.moneyTotal.textContent = formatGil(summary.totalMarketValue, state.language);
-  elements.moneyQuantity.textContent = formatNumber(
-    summary.totalQuantitySold,
-    state.language,
-  );
-  elements.moneyAverage.textContent = formatGil(
-    summary.averageMarketValuePerItem,
-    state.language,
-  );
-  elements.moneyItems.textContent = formatNumber(filteredItems.length, state.language);
-
-  renderBarChart(
-    elements.salesChart,
-    summary.topSales.map((item) => ({
-      label: selectItemDisplayName(item, state.language),
-      value: item.marketValue,
-      valueText: formatGil(item.marketValue, state.language),
-    })),
-  );
-  renderBarChart(
-    elements.stateChart,
-    summary.salesByState.map((entry) => ({
-      label: stateLabel(entry.state, state.language),
-      value: entry.marketValue,
-      valueText: formatGil(entry.marketValue, state.language),
-      detailText: translate(state.language, 'results.count', {
-        count: formatNumber(entry.itemCount, state.language),
-      }),
-    })),
-  );
-  renderBarChart(
-    elements.priceChangeChart,
-    summary.topPriceChanges.map((item) => ({
-      label: selectItemDisplayName(item, state.language),
-      value: item.percentChange,
-      valueText: `${formatPercent(item.percentChange)}%`,
-      detailText: formatGil(item.marketValue, state.language),
-    })),
-    { signed: true },
-  );
+  elements.worldRankingPanel.hidden = rows.length === 0;
+  elements.rankingPeriodSelect.value = selectedPeriod;
+  renderRankingUpdatedAt(state.worldIndex.generatedAt);
+  elements.worldRankingBody.replaceChildren(...rows.map(renderWorldRankingRow));
 }
 
-function renderBarChart(container, rows, { signed = false } = {}) {
-  container.replaceChildren();
-
-  if (rows.length === 0) {
-    const empty = document.createElement('p');
-    empty.className = 'empty-state chart-empty';
-    empty.textContent = translate(state.language, 'chart.noData');
-    container.append(empty);
-    return;
+function renderWorldRankingRow(entry, index) {
+  const row = document.createElement('tr');
+  if (entry.name === elements.worldSelect.value) {
+    row.dataset.current = 'true';
   }
 
-  const maxValue = Math.max(...rows.map((row) => Math.abs(Number(row.value) || 0)), 1);
+  row.append(
+    createCell(String(index + 1), 'rank'),
+    createWorldRankingWorldCell(entry),
+    createCell(formatWorldRegionLabel(entry.region, entry.dataCenter)),
+    createCell(formatDataCenterLabel(entry.dataCenter)),
+    createCell(formatGil(entry.totalMarketValue, state.language)),
+    createCell(formatNumber(entry.totalQuantitySold, state.language)),
+    createCell(formatNumber(entry.itemCount, state.language)),
+    createCell(formatWorldRankingTopItem(entry)),
+  );
 
-  for (const row of rows) {
-    const value = Number(row.value) || 0;
-    const width = Math.max((Math.abs(value) / maxValue) * 100, 2);
-    const item = document.createElement('div');
-    const header = document.createElement('div');
-    const label = document.createElement('span');
-    const valueLabel = document.createElement('span');
-    const track = document.createElement('div');
-    const bar = document.createElement('span');
+  return row;
+}
 
-    item.className = 'bar-row';
-    if (signed) {
-      item.classList.add(value < 0 ? 'bar-row-negative' : 'bar-row-positive');
-    }
+function formatWorldRankingTopItem(entry) {
+  return selectItemDisplayName(
+    {
+      name: entry.topItemName,
+      nameJa: entry.topItemNameJa,
+      nameEn: entry.topItemNameEn,
+    },
+    state.language,
+  ) || '-';
+}
 
-    header.className = 'bar-row-header';
-    label.className = 'bar-label';
-    label.textContent = row.label;
-    valueLabel.className = 'bar-value';
-    valueLabel.textContent = row.valueText;
+function createWorldRankingWorldCell(entry) {
+  const cell = document.createElement('td');
+  const button = document.createElement('button');
 
-    track.className = 'bar-track';
-    bar.className = 'bar-fill';
-    bar.style.width = `${width}%`;
+  button.type = 'button';
+  button.className = 'world-ranking-button';
+  button.textContent = entry.name;
+  button.addEventListener('click', () => {
+    elements.dcSelect.value = entry.dataCenter;
+    populateWorldSelect(entry.name);
+    document.cookie = buildWorldPreferenceCookie(entry.name);
+    navigateToPage('market');
+    void loadSelectedSnapshot();
+  });
 
-    header.append(label, valueLabel);
-    track.append(bar);
-    item.append(header, track);
-
-    if (row.detailText) {
-      const detail = document.createElement('span');
-      detail.className = 'bar-detail';
-      detail.textContent = row.detailText;
-      item.append(detail);
-    }
-
-    container.append(item);
-  }
+  cell.append(button);
+  return cell;
 }
 
 function renderUpdatedAt(value) {
   const text = formatUpdatedAtDate(value, state.language);
 
   elements.updatedAt.textContent = text
+    ? translate(state.language, 'ui.updatedAt', { datetime: text })
+    : translate(state.language, 'ui.updatedAtUnknown');
+}
+
+function renderRankingUpdatedAt(value) {
+  const text = formatUpdatedAtDate(value, state.language);
+
+  elements.worldRankingUpdatedAt.textContent = text
     ? translate(state.language, 'ui.updatedAt', { datetime: text })
     : translate(state.language, 'ui.updatedAtUnknown');
 }
@@ -460,6 +530,10 @@ function formatDataCenterLabel(dataCenter) {
 
 function formatDataCenterGroupLabel(regionKey) {
   return translate(state.language, `dataCenterRegions.${regionKey}`);
+}
+
+function formatWorldRegionLabel(regionKey, dataCenter) {
+  return formatDataCenterGroupLabel(regionKey || resolveDataCenterRegion(dataCenter));
 }
 
 function renderRow(item, index) {
@@ -517,15 +591,15 @@ function createItemCell(item) {
 
 function createStateCell(item, recommendationLabel) {
   const cell = document.createElement('td');
-  const state = document.createElement('span');
-  state.classList.add('state-pill', `state-${sanitizeClassName(item.state)}`);
-  state.textContent = stateLabel(item.state, state.language);
+  const statePill = document.createElement('span');
+  statePill.classList.add('state-pill', `state-${sanitizeClassName(item.state)}`);
+  statePill.textContent = stateLabel(item.state, state.language);
 
   const recommendation = document.createElement('span');
   recommendation.className = 'recommendation';
   recommendation.textContent = recommendationLabel;
 
-  cell.append(state, recommendation);
+  cell.append(statePill, recommendation);
   return cell;
 }
 
@@ -625,12 +699,6 @@ function updateJsonLdLanguage() {
 
 function defaultSortDirection(sortBy) {
   return ['name', 'state'].includes(sortBy) ? 'asc' : 'desc';
-}
-
-function formatPercent(value) {
-  const number = Number(value);
-
-  return Number.isFinite(number) ? number.toFixed(2) : '0.00';
 }
 
 function safeUniversalisUrl(value) {

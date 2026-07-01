@@ -76,26 +76,57 @@ describe('app data loading contract', () => {
     assert.doesNotMatch(i18n, /Starts on Hades/);
   });
 
-  it('お金の動きを見るグラフ画面を持つ', async () => {
+  it('グラフ画面は表示せず、ワールド売上ランキングを持つ', async () => {
     const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
     const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');
     const styles = await readFile(new URL('../styles.css', import.meta.url), 'utf8');
+    const worldIndex = JSON.parse(
+      await readFile(new URL('../data/worlds.json', import.meta.url), 'utf8'),
+    );
 
-    assert.match(html, /data-view-tab="table"/);
-    assert.match(html, /data-view-tab="charts"/);
-    assert.match(html, /data-table-panel/);
-    assert.match(html, /data-chart-panel/);
-    assert.match(html, /data-money-total/);
-    assert.match(html, /data-sales-chart/);
-    assert.match(html, /data-state-chart/);
-    assert.match(html, /data-price-change-chart/);
-    assert.match(app, /activeView/);
-    assert.match(app, /createMoneyFlowSummary/);
-    assert.match(app, /renderCharts/);
-    assert.match(app, /renderBarChart/);
-    assert.match(styles, /\.view-tabs/);
-    assert.match(styles, /\.chart-grid/);
-    assert.match(styles, /\.bar-row/);
+    assert.doesNotMatch(html, /data-view-tab/);
+    assert.doesNotMatch(html, /data-chart-panel/);
+    assert.doesNotMatch(app, /createMoneyFlowSummary/);
+    assert.doesNotMatch(styles, /\.view-tabs/);
+    assert.doesNotMatch(styles, /\.bar-row/);
+    assert.match(html, /data-spa-nav/);
+    assert.doesNotMatch(html, /href="#\//);
+    assert.match(html, /href="\.\/"/);
+    assert.match(html, /href="\.\/ranking"/);
+    assert.match(html, /href="\.\/legal"/);
+    assert.match(html, /data-i18n="nav\.legal"/);
+    assert.match(html, /data-nav-link="legal"/);
+    assert.doesNotMatch(html, /class="site-footer"/);
+    assert.doesNotMatch(styles, /\.site-footer/);
+    assert.match(html, /data-page="market"/);
+    assert.match(html, /data-page="ranking"/);
+    assert.match(html, /data-page="legal"/);
+    assert.match(html, /data-world-ranking-panel/);
+    assert.match(html, /data-world-ranking/);
+    assert.match(html, /data-ranking-period-select/);
+    assert.match(html, /data-i18n="ranking\.region"[\s\S]*data-i18n="ranking\.dataCenter"/);
+    assert.match(app, /routeFromPath/);
+    assert.match(app, /navigateToPage/);
+    assert.match(app, /legal:\s*'legal'/);
+    assert.match(app, /script\?\.src/);
+    assert.match(app, /if \(!storedRoute\) return '';/);
+    assert.match(app, /pendingRoute \|\| routeFromPath/);
+    assert.match(app, /pushState/);
+    assert.match(app, /popstate/);
+    assert.match(app, /renderWorldRanking/);
+    assert.match(app, /formatWorldRegionLabel/);
+    assert.match(app, /formatWorldRankingTopItem/);
+    assert.match(app, /selectItemDisplayName/);
+    assert.match(app, /worldRankingBody/);
+    assert.match(app, /statePill\.textContent = stateLabel\(item\.state, state\.language\)/);
+    assert.doesNotMatch(app, /const state = document\.createElement\('span'\);[\s\S]*stateLabel\(item\.state, state\.language\)/);
+    assert.match(styles, /\.top-nav/);
+    assert.doesNotMatch(styles, /\.top-nav\s*\{\s*position:\s*sticky/);
+    assert.match(styles, /\.world-ranking/);
+    assert.ok(Array.isArray(worldIndex.rankings?.['7d']));
+    assert.ok(worldIndex.rankings['7d'].length > 0);
+    assert.equal(typeof worldIndex.rankings['7d'][0].region, 'string');
+    assert.match(String(worldIndex.rankings['7d'][0].totalMarketValue), /^\d+$/);
   });
 
   it('最終更新日時を一覧ヘッダーに表示する', async () => {
@@ -103,9 +134,13 @@ describe('app data loading contract', () => {
     const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');
 
     assert.match(html, /data-updated-at/);
+    assert.match(html, /data-world-ranking-updated-at/);
     assert.match(html, /最終更新/);
     assert.match(app, /updatedAt/);
+    assert.match(app, /worldRankingUpdatedAt/);
     assert.match(app, /formatUpdatedAtDate/);
+    assert.match(app, /renderRankingUpdatedAt/);
+    assert.match(app, /state\.worldIndex\.generatedAt/);
     assert.doesNotMatch(app, /timeZone:\s*['"]Asia\/Tokyo['"]/);
   });
 
@@ -137,6 +172,7 @@ describe('app data loading contract', () => {
 
     assert.match(html, /class="app-shell"/);
     assert.match(html, /class="dashboard-grid"/);
+    assert.match(html, /class="top-nav"/);
     assert.match(html, /class="[^"]*\bfilter-panel\b[^"]*"/);
     assert.match(html, /class="[^"]*\bresults-panel\b[^"]*"/);
     assert.match(html, /選んだワールドは次回も使えます/);
@@ -188,32 +224,44 @@ describe('app data loading contract', () => {
     assert.match(robots, /Allow:\s*\//);
     assert.match(robots, /Sitemap:\s*https:\/\/jinwktk\.github\.io\/FF14Gils\/sitemap\.xml/);
     assert.match(sitemap, /<loc>https:\/\/jinwktk\.github\.io\/FF14Gils\/<\/loc>/);
-    assert.match(sitemap, /<loc>https:\/\/jinwktk\.github\.io\/FF14Gils\/legal\.html<\/loc>/);
+    assert.match(sitemap, /<loc>https:\/\/jinwktk\.github\.io\/FF14Gils\/legal\/<\/loc>/);
+    assert.match(sitemap, /<loc>https:\/\/jinwktk\.github\.io\/FF14Gils\/ranking\/<\/loc>/);
   });
 
   it('権利表記とデータ元を説明する公開ページを持つ', async () => {
     const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
     const legal = await readFile(new URL('../legal.html', import.meta.url), 'utf8');
+    const styles = await readFile(new URL('../styles.css', import.meta.url), 'utf8');
     const build = await readFile(new URL('../scripts/build.mjs', import.meta.url), 'utf8');
 
-    assert.match(html, /href="legal\.html"/);
-    assert.match(legal, /<title>権利表記とデータについて \| FF14Gils<\/title>/);
-    assert.match(legal, /&copy; 2026 FF14Gils/);
-    assert.match(legal, /記載されている会社名・製品名・システム名などは、各社の商標、または登録商標です。/);
-    assert.match(legal, /Copyright \(C\) SQUARE ENIX CO\., LTD\. All Rights Reserved\./);
-    assert.match(legal, /非公式ファンサイト/);
-    assert.match(legal, /Saddlebag Exchange API/);
-    assert.match(legal, /Saddlebag Exchange API は内部的に Universalis API を利用する/);
-    assert.match(legal, /XIVAPI v2/);
-    assert.match(legal, /説明文、アイコン、詳細なゲームデータは保存しません。/);
-    assert.match(legal, /Google Analytics 4/);
-    assert.match(legal, /個人を特定できる情報/);
-    assert.match(legal, /Cookie/);
-    assert.match(legal, /https:\/\/docs\.saddlebagexchange\.com\/docs/);
-    assert.match(legal, /https:\/\/v2\.xivapi\.com\/docs\/welcome\//);
-    assert.match(legal, /https:\/\/support\.jp\.square-enix\.com\/rule\.php\?id=5381&amp;la=0&amp;tag=users/);
-    assert.match(legal, /https:\/\/support\.jp\.square-enix\.com\/rule\.php\?id=5381&amp;la=0&amp;tag=authc/);
-    assert.match(legal, /https:\/\/marketingplatform\.google\.com\/about\/analytics\/terms\/jp\//);
+    assert.match(html, /href="\.\/legal"/);
+    assert.match(html, /data-page="legal"/);
+    assert.match(html, /class="results-panel legal-document"/);
+    assert.match(html, /class="results-header legal-header"/);
+    assert.match(html, /class="legal-section"/);
+    assert.doesNotMatch(html, /class="brand-block legal-hero"/);
+    assert.doesNotMatch(html, /class="legal-panel"/);
+    assert.doesNotMatch(styles, /\.legal-panel/);
+    assert.doesNotMatch(styles, /\.legal-hero/);
+    assert.match(html, /&copy; 2026 FF14Gils/);
+    assert.match(html, /記載されている会社名・製品名・システム名などは、各社の商標、または登録商標です。/);
+    assert.match(html, /Copyright \(C\) SQUARE ENIX CO\., LTD\. All Rights Reserved\./);
+    assert.match(html, /非公式ファンサイト/);
+    assert.match(html, /Saddlebag Exchange API/);
+    assert.match(html, /Saddlebag Exchange API は内部的に Universalis API を利用する/);
+    assert.match(html, /XIVAPI v2/);
+    assert.match(html, /説明文、アイコン、詳細なゲームデータは保存しません。/);
+    assert.match(html, /Google Analytics 4/);
+    assert.match(html, /個人を特定できる情報/);
+    assert.match(html, /Cookie/);
+    assert.match(html, /https:\/\/docs\.saddlebagexchange\.com\/docs/);
+    assert.match(html, /https:\/\/v2\.xivapi\.com\/docs\/welcome\//);
+    assert.match(html, /https:\/\/support\.jp\.square-enix\.com\/rule\.php\?id=5381&amp;la=0&amp;tag=users/);
+    assert.match(html, /https:\/\/support\.jp\.square-enix\.com\/rule\.php\?id=5381&amp;la=0&amp;tag=authc/);
+    assert.match(html, /https:\/\/marketingplatform\.google\.com\/about\/analytics\/terms\/jp\//);
+    assert.match(legal, /sessionStorage\.setItem\('ff14gils_route', 'legal'\)/);
+    assert.match(legal, /window\.location\.replace\(basePath\)/);
+    assert.doesNotMatch(styles, /\.legal-shell/);
     assert.match(build, /'legal\.html'/);
   });
 
@@ -226,6 +274,23 @@ describe('app data loading contract', () => {
 
     assert.equal(verification.trim(), 'google-site-verification: googled9f512eea3a99dc1.html');
     assert.match(build, /'googled9f512eea3a99dc1\.html'/);
+  });
+
+  it('SPAのクリーンURL向け404フォールバックをPages配信対象に含める', async () => {
+    const fallback = await readFile(new URL('../404.html', import.meta.url), 'utf8');
+    const build = await readFile(new URL('../scripts/build.mjs', import.meta.url), 'utf8');
+
+    assert.match(fallback, /sessionStorage\.setItem\('ff14gils_route'/);
+    assert.match(fallback, /const projectBasePath = '\/FF14Gils\/'/);
+    assert.match(fallback, /window\.location\.pathname\.includes\(projectBasePath\)/);
+    assert.match(fallback, /\? projectBasePath\s*: '\/'/);
+    assert.match(fallback, /location\.replace\(basePath\)/);
+    assert.match(build, /'404\.html'/);
+    assert.match(build, /const routeEntrypoints = \['ranking', 'legal'\]/);
+    assert.match(build, /writeRouteEntrypoint\(route\)/);
+    assert.match(build, /\.\.\/dist\/\$\{route\}\//);
+    assert.match(build, /new URL\('index\.html', routeDir\)/);
+    assert.match(build, /sessionStorage\.setItem\('ff14gils_route', '\$\{route\}'\)/);
   });
 
   it('Google Analytics 4の計測タグを持つ', async () => {

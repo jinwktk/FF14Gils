@@ -169,6 +169,12 @@ export function resolveWorldDataCenter(world) {
   return WORLD_DATA_CENTER_BY_NAME.get(key) ?? 'その他';
 }
 
+export function resolveDataCenterRegion(dataCenter) {
+  const key = String(dataCenter ?? '').trim();
+
+  return WORLD_DATA_CENTER_REGION_BY_NAME.get(key) ?? 'other';
+}
+
 export function listDataCentersForWorlds(worlds) {
   return listDataCenterGroupsForWorlds(worlds).flatMap((group) => group.dataCenters);
 }
@@ -251,6 +257,7 @@ export function createWorldIndex({
   defaultWorld = DEFAULT_WORLD,
   periods = SALES_PERIODS,
   defaultPeriod = DEFAULT_SALES_PERIOD,
+  rankings = {},
   generatedAt = new Date(),
 }) {
   const normalizedPeriods = normalizePeriods(periods);
@@ -263,6 +270,7 @@ export function createWorldIndex({
     defaultWorld,
     defaultPeriod: normalizedDefaultPeriod,
     periods: normalizedPeriods,
+    rankings: normalizeWorldRankings(rankings),
     worlds: worlds.map((world) => ({
       name: world,
       path: buildWorldSnapshotPath(world),
@@ -270,6 +278,46 @@ export function createWorldIndex({
       periods: createPeriodPathMap(world, normalizedPeriods),
     })),
   };
+}
+
+export function createWorldRankings(snapshots) {
+  const rankings = {};
+  const snapshotList = Array.isArray(snapshots) ? snapshots : [];
+
+  for (const snapshot of snapshotList) {
+    const world = String(snapshot?.query?.server ?? '').trim();
+    if (!world) continue;
+
+    const period = resolveSalesPeriod(snapshot?.query?.periodKey);
+    const summary = snapshot?.summary ?? {};
+    const topItem = summary.topItem ?? {};
+    const topItemNameJa = String(
+      topItem.nameJa ?? topItem.names?.ja ?? topItem.name ?? topItem.nameEn ?? '',
+    );
+    const topItemNameEn = String(
+      topItem.nameEn ?? topItem.names?.en ?? topItem.name ?? topItem.nameJa ?? '',
+    );
+    const dataCenter = resolveWorldDataCenter(world);
+    const row = {
+      name: world,
+      dataCenter,
+      region: resolveDataCenterRegion(dataCenter),
+      periodKey: period.key,
+      path: buildWorldPeriodSnapshotPath(world, period.key),
+      totalMarketValue: normalizeRankingNumber(summary.totalMarketValue),
+      totalQuantitySold: normalizeRankingNumber(summary.totalQuantitySold),
+      itemCount: normalizeRankingNumber(summary.itemCount),
+      topItemId: String(topItem.itemId ?? ''),
+      topItemName: String(topItem.name ?? topItemNameJa ?? topItemNameEn ?? ''),
+      topItemNameJa,
+      topItemNameEn,
+    };
+
+    rankings[period.key] ??= [];
+    rankings[period.key].push(row);
+  }
+
+  return normalizeWorldRankings(rankings);
 }
 
 export function resolveDefaultWorld(worlds, requestedWorld = DEFAULT_WORLD) {
@@ -314,6 +362,7 @@ export function normalizeWorldIndex(index, fallbackPath = 'data/marketshare.json
       defaultWorld: DEFAULT_WORLD,
       defaultPeriod,
       periods,
+      rankings: {},
       worlds: [{ ...fallbackWorld, periods: normalizeWorldPeriodPaths(fallbackWorld, periods) }],
     };
   }
@@ -323,6 +372,7 @@ export function normalizeWorldIndex(index, fallbackPath = 'data/marketshare.json
     defaultWorld: index.defaultWorld ?? worlds[0].name,
     defaultPeriod,
     periods,
+    rankings: normalizeWorldRankings(index.rankings),
     worlds,
   };
 }
@@ -358,6 +408,59 @@ function normalizeWorldPeriodPaths(world, periods) {
           : world.path),
     ]),
   );
+}
+
+function normalizeWorldRankings(rankings) {
+  if (!rankings || typeof rankings !== 'object') return {};
+
+  return Object.fromEntries(
+    Object.entries(rankings)
+      .map(([periodKey, rows]) => [
+        resolveSalesPeriod(periodKey).key,
+        normalizeRankingRows(rows),
+      ])
+      .filter(([, rows]) => rows.length > 0),
+  );
+}
+
+function normalizeRankingRows(rows) {
+  if (!Array.isArray(rows)) return [];
+
+  return rows
+    .filter((row) => row?.name)
+    .map((row) => {
+      const name = String(row.name).trim();
+      const dataCenter = row.dataCenter ?? resolveWorldDataCenter(name);
+
+      const topItemName = String(row.topItemName ?? '');
+
+      return {
+        name,
+        dataCenter,
+        region: row.region ?? resolveDataCenterRegion(dataCenter),
+        periodKey: resolveSalesPeriod(row.periodKey).key,
+        path: row.path ?? buildWorldPeriodSnapshotPath(name, row.periodKey),
+        totalMarketValue: normalizeRankingNumber(row.totalMarketValue),
+        totalQuantitySold: normalizeRankingNumber(row.totalQuantitySold),
+        itemCount: normalizeRankingNumber(row.itemCount),
+        topItemId: String(row.topItemId ?? ''),
+        topItemName,
+        topItemNameJa: String(row.topItemNameJa ?? topItemName),
+        topItemNameEn: String(row.topItemNameEn ?? topItemName),
+      };
+    })
+    .sort((a, b) => {
+      const valueDifference = b.totalMarketValue - a.totalMarketValue;
+      if (valueDifference !== 0) return valueDifference;
+
+      return a.name.localeCompare(b.name);
+    });
+}
+
+function normalizeRankingNumber(value) {
+  const number = Number(value);
+
+  return Number.isFinite(number) ? Math.round(number) : 0;
 }
 
 function cloneSalesPeriods() {

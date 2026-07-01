@@ -27,15 +27,52 @@ const TRANSLATIONS = {
       locale: 'ja_JP',
       inLanguage: 'ja-JP',
     },
-    chart: {
-      averageSales: '平均売上',
-      itemCount: '対象アイテム',
-      noData: '表示できるデータがありません。',
-      priceChangeTitle: '価格変動',
-      salesByStateTitle: '状態別売上',
-      soldQuantity: '販売数',
-      topSalesTitle: '売上額トップ',
-      totalSales: '売上合計',
+    nav: {
+      label: 'メインナビゲーション',
+      legal: '権利表記とデータ',
+      market: '金策候補',
+      ranking: 'ワールドランキング',
+    },
+    legal: {
+      andText: 'と',
+      copyright: '© 2026 FF14Gils',
+      dataHandlingBrowser:
+        '利用者のブラウザは、GitHub Pages で配信される生成済み JSON を読み込みます。ブラウザから外部 API へ直接 POST する処理はありません。',
+      dataHandlingChanges:
+        '外部データ元の仕様や利用条件は変更される可能性があります。権利者様または API 提供元から問題の指摘があった場合は、該当機能の停止またはサイト公開停止を行います。',
+      dataHandlingDisclaimer:
+        '上記の確認内容は 2026-06-30 時点の公開情報に基づきます。法的な助言ではなく、運用上の確認メモです。',
+      dataHandlingTitle: 'データの扱い',
+      ffxivMaterialUsage: 'ファイナルファンタジーXIV 著作物利用条件',
+      ffxivTermsIntro: 'FINAL FANTASY XIV の利用は、',
+      ffxivTermsOutro:
+        'の対象です。FF14Gils はゲームクライアント、アカウント、プレイ操作へ接続せず、RMT、BOT、外部ツールによる自動操作を目的としません。',
+      ffxivTermsTitle: 'FINAL FANTASY XIV の利用条件',
+      ffxivUserAgreement: 'ファイナルファンタジーXIV 利用規約',
+      gaIntro: 'アクセス状況の把握だけに利用します。',
+      gaTerms: 'Google Analytics 利用規約',
+      gaText:
+        'に従い、Cookie 等を利用する場合があります。FF14Gils から Google Analytics へ個人を特定できる情報は送信しません。',
+      gaTitle: 'Google Analytics 4',
+      label: '権利表記とデータについて',
+      lead: 'FF14Gils は FINAL FANTASY XIV の非公式ファンサイトです。',
+      publicDocs: '公開ドキュメント',
+      rightsTitle: '権利表記',
+      saddlebagDocs:
+        'では、Saddlebag Exchange API は内部的に Universalis API を利用すると説明されているため、過剰な取得にならないように順次取得、短いリトライ、キャッシュ済み JSON の静的配信を前提にします。',
+      saddlebagIntro: '1日、3日、7日のマーケット集計候補を取得するために利用します。',
+      saddlebagTitle: 'Saddlebag Exchange API',
+      sourcesTitle: '利用しているデータ元',
+      squareEnixCopyright: 'Copyright (C) SQUARE ENIX CO., LTD. All Rights Reserved.',
+      title: '権利表記とデータについて',
+      trademarks:
+        '記載されている会社名・製品名・システム名などは、各社の商標、または登録商標です。',
+      unofficialText:
+        'FF14Gils は SQUARE ENIX CO., LTD. による公式サービスではありません。FINAL FANTASY XIV に関する名称、データ、画像、その他の権利は SQUARE ENIX CO., LTD. に帰属します。',
+      unofficialTitle: '非公式サイトについて',
+      xivapiText:
+        'に従い、アイテム名の取得だけに利用します。説明文、アイコン、詳細なゲームデータは保存しません。',
+      xivapiTitle: 'XIVAPI v2',
     },
     periods: {
       '1d': '1日',
@@ -48,6 +85,21 @@ const TRANSLATIONS = {
       needsRestock: '補充候補',
       rising: '上昇',
       steady: '堅調',
+    },
+    ranking: {
+      dataCenter: 'DC',
+      help:
+        '生成済みスナップショットの売上合計で全ワールドを並べています。ワールド名を選ぶと金策候補画面へ移動します。',
+      items: '件数',
+      kicker: 'ランキング',
+      label: 'ワールド売上ランキング',
+      rank: '順位',
+      region: 'リージョン',
+      sales: '売上額',
+      sold: '販売数',
+      title: 'ワールド売上ランキング',
+      topItem: '売上上位',
+      world: 'ワールド',
     },
     results: {
       count: '{count} 件',
@@ -80,11 +132,6 @@ const TRANSLATIONS = {
       rank: '順位',
       state: '状態',
     },
-    view: {
-      charts: 'グラフ',
-      table: '一覧',
-      tabsLabel: '表示切替',
-    },
     ui: {
       dataCenterLabel: 'データセンター',
       dataCenterSelect: 'DCを選択',
@@ -104,7 +151,7 @@ const TRANSLATIONS = {
       otherDataCenter: 'その他',
       periodLabel: '集計期間',
       periodSelect: '売上の集計期間',
-      resultsKicker: '結果',
+      resultsKicker: '一覧',
       resultsLabel: '金策候補',
       resultsTitle: '金策候補',
       searchLabel: 'アイテム検索',
@@ -139,15 +186,52 @@ const TRANSLATIONS = {
       locale: 'en_US',
       inLanguage: 'en-US',
     },
-    chart: {
-      averageSales: 'Average sales',
-      itemCount: 'Items',
-      noData: 'No chart data for the current filters.',
-      priceChangeTitle: 'Price movement',
-      salesByStateTitle: 'Sales by state',
-      soldQuantity: 'Sold',
-      topSalesTitle: 'Top sales',
-      totalSales: 'Total sales',
+    nav: {
+      label: 'Main navigation',
+      legal: 'Rights and data',
+      market: 'Candidates',
+      ranking: 'World ranking',
+    },
+    legal: {
+      andText: 'and the',
+      copyright: '© 2026 FF14Gils',
+      dataHandlingBrowser:
+        'The browser reads generated JSON served by GitHub Pages. It does not POST directly to external APIs.',
+      dataHandlingChanges:
+        'External data sources, specifications, and terms may change. If a rights holder or API provider reports an issue, the affected feature or the public site may be stopped.',
+      dataHandlingDisclaimer:
+        'This note is based on public information checked on June 30, 2026. It is an operational note, not legal advice.',
+      dataHandlingTitle: 'Data handling',
+      ffxivMaterialUsage: 'FINAL FANTASY XIV Material Usage License',
+      ffxivTermsIntro: 'Use of FINAL FANTASY XIV is subject to the',
+      ffxivTermsOutro:
+        '. FF14Gils does not connect to the game client, accounts, or player actions, and is not intended for RMT, bots, or automated play tools.',
+      ffxivTermsTitle: 'FINAL FANTASY XIV terms',
+      ffxivUserAgreement: 'FINAL FANTASY XIV User Agreement',
+      gaIntro: 'Used only to understand page views. The',
+      gaTerms: 'Google Analytics Terms of Service',
+      gaText:
+        'may involve cookies. FF14Gils does not send personally identifiable information to Google Analytics.',
+      gaTitle: 'Google Analytics 4',
+      label: 'Rights and data',
+      lead: 'FF14Gils is an unofficial FINAL FANTASY XIV fan site.',
+      publicDocs: 'public documentation',
+      rightsTitle: 'Rights notice',
+      saddlebagDocs:
+        'explains that the Saddlebag Exchange API internally uses the Universalis API, so FF14Gils uses sequential fetching, short retries, and static delivery of cached JSON to avoid excessive requests.',
+      saddlebagIntro: 'Used to fetch 1-day, 3-day, and 7-day market aggregate candidates. The',
+      saddlebagTitle: 'Saddlebag Exchange API',
+      sourcesTitle: 'Data sources',
+      squareEnixCopyright: 'Copyright (C) SQUARE ENIX CO., LTD. All Rights Reserved.',
+      title: 'Rights and data',
+      trademarks:
+        'Company names, product names, system names, and other names listed here are trademarks or registered trademarks of their respective owners.',
+      unofficialText:
+        'FF14Gils is not an official service by SQUARE ENIX CO., LTD. Names, data, images, and other rights related to FINAL FANTASY XIV belong to SQUARE ENIX CO., LTD.',
+      unofficialTitle: 'About this unofficial site',
+      xivapiText:
+        'is used as the reference, and FF14Gils only fetches item names. It does not store descriptions, icons, or detailed game data.',
+      xivapiTitle: 'XIVAPI v2',
     },
     periods: {
       '1d': '1 day',
@@ -160,6 +244,21 @@ const TRANSLATIONS = {
       needsRestock: 'Restock',
       rising: 'Rising',
       steady: 'Steady',
+    },
+    ranking: {
+      dataCenter: 'DC',
+      help:
+        'Worlds are ranked by total sales from generated snapshots. Choose a world name to open its candidate list.',
+      items: 'Items',
+      kicker: 'Ranking',
+      label: 'World sales ranking',
+      rank: 'Rank',
+      region: 'Region',
+      sales: 'Sales',
+      sold: 'Sold',
+      title: 'World sales ranking',
+      topItem: 'Top item',
+      world: 'World',
     },
     results: {
       count: '{count} items',
@@ -191,11 +290,6 @@ const TRANSLATIONS = {
       quantitySold: 'Sold',
       rank: 'Rank',
       state: 'State',
-    },
-    view: {
-      charts: 'Charts',
-      table: 'List',
-      tabsLabel: 'View switcher',
     },
     ui: {
       dataCenterLabel: 'Data center',

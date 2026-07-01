@@ -10,6 +10,7 @@ import {
   DEFAULT_SALES_PERIOD,
   buildWorldPeriodSnapshotPath,
   createWorldIndex,
+  createWorldRankings,
   parseWorldList,
   parseSalesPeriodList,
   resolveDefaultWorld,
@@ -103,6 +104,7 @@ await writeJsonAtomically(
     defaultWorld: defaultSnapshot.query.server,
     periods,
     defaultPeriod: DEFAULT_SALES_PERIOD,
+    rankings: createWorldRankings(snapshots),
     generatedAt: new Date(),
   }),
 );

@@ -54,6 +54,31 @@
   </head>
   <body>
     <div class="app-shell">
+      <nav
+        class="top-nav"
+        data-spa-nav
+        data-i18n-attr="aria-label:nav.label"
+        aria-label="メインナビゲーション"
+      >
+        <a class="nav-brand" href="./" data-nav-link="market">FF14Gils</a>
+        <div class="nav-links">
+          <a href="./" data-nav-link="market" data-i18n="nav.market">金策候補</a>
+          <a href="./ranking" data-nav-link="ranking" data-i18n="nav.ranking">ワールドランキング</a>
+          <a href="./legal" data-nav-link="legal" data-i18n="nav.legal">権利表記とデータ</a>
+        </div>
+        <label class="language-control nav-language">
+          <span class="sr-only" data-i18n="ui.languageLabel">表示言語</span>
+          <select
+            data-language-select
+            data-i18n-attr="aria-label:ui.languageSelect"
+            aria-label="表示言語を選択"
+          >
+            <option value="ja">日本語</option>
+            <option value="en">English</option>
+          </select>
+        </label>
+      </nav>
+
       <header class="site-header">
         <div class="brand-block">
           <div class="brand-copy">
@@ -63,238 +88,314 @@
               マーケットの売れ行きと相場から、売りやすい金策候補を探せます。
             </p>
           </div>
-          <div class="header-actions">
-            <label class="language-control">
-              <span class="sr-only" data-i18n="ui.languageLabel">表示言語</span>
-              <select
-                data-language-select
-                data-i18n-attr="aria-label:ui.languageSelect"
-                aria-label="表示言語を選択"
-              >
-                <option value="ja">日本語</option>
-                <option value="en">English</option>
-              </select>
-            </label>
-          </div>
         </div>
       </header>
 
-      <main class="dashboard-grid">
-        <aside
-          class="filter-panel controls"
-          data-i18n-attr="aria-label:ui.filterPanelLabel"
-          aria-label="絞り込み"
-        >
-          <div class="panel-heading">
-            <p class="panel-kicker" data-i18n="ui.filterKicker">条件</p>
-            <h2 data-i18n="ui.filterTitle">絞り込み</h2>
-            <p data-i18n="ui.filterHelp">DCを選ぶとワールド候補を絞れます。選んだワールドは次回も使えます。</p>
-          </div>
-
-          <label>
-            <span data-i18n="ui.dataCenterLabel">データセンター</span>
-            <select
-              data-dc-select
-              data-i18n-attr="aria-label:ui.dataCenterSelect"
-              aria-label="DCを選択"
-            ></select>
-          </label>
-
-          <label>
-            <span data-i18n="ui.worldLabel">ワールド</span>
-            <select
-              data-world-select
-              data-i18n-attr="aria-label:ui.worldSelect"
-              aria-label="ワールドを選択"
-            ></select>
-          </label>
-
-          <label>
-            <span data-i18n="ui.periodLabel">集計期間</span>
-            <select
-              data-period-select
-              data-i18n-attr="aria-label:ui.periodSelect"
-              aria-label="売上の集計期間"
+      <main>
+        <section class="page-view" data-page="market">
+          <div class="dashboard-grid">
+            <aside
+              class="filter-panel controls"
+              data-i18n-attr="aria-label:ui.filterPanelLabel"
+              aria-label="絞り込み"
             >
-              <option value="1d">1日</option>
-              <option value="3d">3日</option>
-              <option value="7d">7日</option>
-            </select>
-          </label>
+              <div class="panel-heading">
+                <p class="panel-kicker" data-i18n="ui.filterKicker">条件</p>
+                <h2 data-i18n="ui.filterTitle">絞り込み</h2>
+                <p data-i18n="ui.filterHelp">DCを選ぶとワールド候補を絞れます。選んだワールドは次回も使えます。</p>
+              </div>
 
-          <label>
-            <span data-i18n="ui.itemSearch">アイテム検索</span>
-            <input
-              data-search
-              type="search"
-              data-i18n-attr="placeholder:ui.searchPlaceholder;aria-label:ui.searchLabel"
-              placeholder="日本語名・英語名・ID"
-              aria-label="アイテム検索"
-              autocomplete="off"
-            />
-          </label>
+              <label>
+                <span data-i18n="ui.dataCenterLabel">データセンター</span>
+                <select
+                  data-dc-select
+                  data-i18n-attr="aria-label:ui.dataCenterSelect"
+                  aria-label="DCを選択"
+                ></select>
+              </label>
 
-          <label>
-            <span data-i18n="ui.sortLabel">並び替え</span>
-            <select data-sort-by>
-              <option value="opportunityScore" data-i18n="sort.opportunityScore">おすすめ度</option>
-              <option value="name" data-i18n="sort.name">アイテム名</option>
-              <option value="marketValue" data-i18n="sort.marketValue">売上額</option>
-              <option value="quantitySold" data-i18n="sort.quantitySold">売れた数</option>
-              <option value="avg" data-i18n="sort.avg">平均価格</option>
-              <option value="minPrice" data-i18n="sort.minPrice">最安値</option>
-              <option value="percentChange" data-i18n="sort.percentChange">価格変動</option>
-              <option value="state" data-i18n="sort.state">状態</option>
-            </select>
-          </label>
+              <label>
+                <span data-i18n="ui.worldLabel">ワールド</span>
+                <select
+                  data-world-select
+                  data-i18n-attr="aria-label:ui.worldSelect"
+                  aria-label="ワールドを選択"
+                ></select>
+              </label>
 
-          <label class="range-control">
-            <span data-i18n="ui.minQuantity">最低販売数</span>
-            <span data-min-quantity-value>0</span>
-            <input data-min-quantity type="range" min="0" max="100" step="1" value="0" />
-          </label>
+              <label>
+                <span data-i18n="ui.periodLabel">集計期間</span>
+                <select
+                  data-period-select
+                  data-i18n-attr="aria-label:ui.periodSelect"
+                  aria-label="売上の集計期間"
+                >
+                  <option value="1d">1日</option>
+                  <option value="3d">3日</option>
+                  <option value="7d">7日</option>
+                </select>
+              </label>
 
-          <fieldset>
-            <legend data-i18n="ui.stateLegend">状態</legend>
-            <label><input data-state-filter type="checkbox" value="stable" /> <span data-i18n="states.stable">安定</span></label>
-            <label><input data-state-filter type="checkbox" value="increasing" /> <span data-i18n="states.increasing">上昇中</span></label>
-            <label><input data-state-filter type="checkbox" value="spiking" /> <span data-i18n="states.spiking">急騰</span></label>
-            <label><input data-state-filter type="checkbox" value="out of stock" /> <span data-i18n="states.out_of_stock">在庫なし</span></label>
-            <label><input data-state-filter type="checkbox" value="decreasing" /> <span data-i18n="states.decreasing">値下がり</span></label>
-          </fieldset>
-        </aside>
+              <label>
+                <span data-i18n="ui.itemSearch">アイテム検索</span>
+                <input
+                  data-search
+                  type="search"
+                  data-i18n-attr="placeholder:ui.searchPlaceholder;aria-label:ui.searchLabel"
+                  placeholder="日本語名・英語名・ID"
+                  aria-label="アイテム検索"
+                  autocomplete="off"
+                />
+              </label>
+
+              <label>
+                <span data-i18n="ui.sortLabel">並び替え</span>
+                <select data-sort-by>
+                  <option value="opportunityScore" data-i18n="sort.opportunityScore">おすすめ度</option>
+                  <option value="name" data-i18n="sort.name">アイテム名</option>
+                  <option value="marketValue" data-i18n="sort.marketValue">売上額</option>
+                  <option value="quantitySold" data-i18n="sort.quantitySold">売れた数</option>
+                  <option value="avg" data-i18n="sort.avg">平均価格</option>
+                  <option value="minPrice" data-i18n="sort.minPrice">最安値</option>
+                  <option value="percentChange" data-i18n="sort.percentChange">価格変動</option>
+                  <option value="state" data-i18n="sort.state">状態</option>
+                </select>
+              </label>
+
+              <label class="range-control">
+                <span data-i18n="ui.minQuantity">最低販売数</span>
+                <span data-min-quantity-value>0</span>
+                <input data-min-quantity type="range" min="0" max="100" step="1" value="0" />
+              </label>
+
+              <fieldset>
+                <legend data-i18n="ui.stateLegend">状態</legend>
+                <label><input data-state-filter type="checkbox" value="stable" /> <span data-i18n="states.stable">安定</span></label>
+                <label><input data-state-filter type="checkbox" value="increasing" /> <span data-i18n="states.increasing">上昇中</span></label>
+                <label><input data-state-filter type="checkbox" value="spiking" /> <span data-i18n="states.spiking">急騰</span></label>
+                <label><input data-state-filter type="checkbox" value="out of stock" /> <span data-i18n="states.out_of_stock">在庫なし</span></label>
+                <label><input data-state-filter type="checkbox" value="decreasing" /> <span data-i18n="states.decreasing">値下がり</span></label>
+              </fieldset>
+            </aside>
+
+            <section
+              class="results-panel results"
+              data-i18n-attr="aria-label:ui.resultsLabel"
+              aria-label="金策候補"
+            >
+              <p data-error class="error" hidden></p>
+              <div class="results-header">
+                <div>
+                  <p class="panel-kicker" data-i18n="ui.resultsKicker">一覧</p>
+                  <h2 data-i18n="ui.resultsTitle">金策候補</h2>
+                </div>
+                <div class="result-meta">
+                  <span data-result-count>- 件</span>
+                  <span class="updated-at" data-updated-at>最終更新 -</span>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col" aria-sort="descending">
+                        <button type="button" class="sort-button" data-sort-button="opportunityScore">
+                          <span data-i18n="table.rank">順位</span><span class="sort-indicator" aria-hidden="true"></span>
+                        </button>
+                      </th>
+                      <th scope="col" aria-sort="none">
+                        <button type="button" class="sort-button" data-sort-button="name">
+                          <span data-i18n="table.item">アイテム</span><span class="sort-indicator" aria-hidden="true"></span>
+                        </button>
+                      </th>
+                      <th scope="col" aria-sort="none">
+                        <button type="button" class="sort-button" data-sort-button="marketValue">
+                          <span data-i18n="table.marketValue">売上額</span><span class="sort-indicator" aria-hidden="true"></span>
+                        </button>
+                      </th>
+                      <th scope="col" aria-sort="none">
+                        <button type="button" class="sort-button" data-sort-button="avg">
+                          <span data-i18n="table.avg">平均価格</span><span class="sort-indicator" aria-hidden="true"></span>
+                        </button>
+                      </th>
+                      <th scope="col" aria-sort="none">
+                        <button type="button" class="sort-button" data-sort-button="minPrice">
+                          <span data-i18n="table.minPrice">最安値</span><span class="sort-indicator" aria-hidden="true"></span>
+                        </button>
+                      </th>
+                      <th scope="col" aria-sort="none">
+                        <button type="button" class="sort-button" data-sort-button="quantitySold">
+                          <span data-i18n="table.quantitySold">売れた数</span><span class="sort-indicator" aria-hidden="true"></span>
+                        </button>
+                      </th>
+                      <th scope="col" aria-sort="none">
+                        <button type="button" class="sort-button" data-sort-button="percentChange">
+                          <span data-i18n="table.percentChange">価格変動</span><span class="sort-indicator" aria-hidden="true"></span>
+                        </button>
+                      </th>
+                      <th scope="col" aria-sort="none">
+                        <button type="button" class="sort-button" data-sort-button="state">
+                          <span data-i18n="table.state">状態</span><span class="sort-indicator" aria-hidden="true"></span>
+                        </button>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody data-results></tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </section>
 
         <section
-          class="results-panel results"
-          data-i18n-attr="aria-label:ui.resultsLabel"
-          aria-label="金策候補"
+          class="page-view ranking-page"
+          data-page="ranking"
+          data-i18n-attr="aria-label:ranking.label"
+          aria-label="ワールド売上ランキング"
+          hidden
         >
-          <p data-error class="error" hidden></p>
-          <div class="results-header">
-            <div>
-              <p class="panel-kicker" data-i18n="ui.resultsKicker">結果</p>
-              <h2 data-i18n="ui.resultsTitle">金策候補</h2>
-            </div>
-            <div class="results-actions">
-              <div
-                class="view-tabs"
-                role="tablist"
-                data-i18n-attr="aria-label:view.tabsLabel"
-                aria-label="表示切替"
-              >
-                <button
-                  type="button"
-                  role="tab"
-                  data-view-tab="table"
-                  aria-selected="true"
-                  data-i18n="view.table"
-                >一覧</button>
-                <button
-                  type="button"
-                  role="tab"
-                  data-view-tab="charts"
-                  aria-selected="false"
-                  data-i18n="view.charts"
-                >グラフ</button>
+          <section
+            class="world-ranking"
+            data-world-ranking-panel
+            hidden
+          >
+            <div class="world-ranking-header">
+              <div>
+                <p class="panel-kicker" data-i18n="ranking.kicker">ランキング</p>
+                <h3 data-i18n="ranking.title">ワールド売上ランキング</h3>
               </div>
-              <div class="result-meta">
-                <span data-result-count>- 件</span>
-                <span class="updated-at" data-updated-at>最終更新 -</span>
+              <div class="ranking-actions">
+                <span class="updated-at" data-world-ranking-updated-at>最終更新 -</span>
+                <label class="ranking-period-control">
+                  <span class="sr-only" data-i18n="ui.periodLabel">集計期間</span>
+                  <select
+                    data-ranking-period-select
+                    data-i18n-attr="aria-label:ui.periodSelect"
+                    aria-label="売上の集計期間"
+                  ></select>
+                </label>
               </div>
             </div>
-          </div>
-          <div data-table-panel>
-            <div class="table-wrap">
-              <table>
+            <p class="ranking-lead" data-i18n="ranking.help">
+              生成済みスナップショットの売上合計で全ワールドを並べています。ワールド名を選ぶと金策候補画面へ移動します。
+            </p>
+            <div class="world-ranking-wrap">
+              <table class="world-ranking-table">
                 <thead>
                   <tr>
-                    <th scope="col" aria-sort="descending">
-                      <button type="button" class="sort-button" data-sort-button="opportunityScore">
-                        <span data-i18n="table.rank">順位</span><span class="sort-indicator" aria-hidden="true"></span>
-                      </button>
-                    </th>
-                    <th scope="col" aria-sort="none">
-                      <button type="button" class="sort-button" data-sort-button="name">
-                        <span data-i18n="table.item">アイテム</span><span class="sort-indicator" aria-hidden="true"></span>
-                      </button>
-                    </th>
-                    <th scope="col" aria-sort="none">
-                      <button type="button" class="sort-button" data-sort-button="marketValue">
-                        <span data-i18n="table.marketValue">売上額</span><span class="sort-indicator" aria-hidden="true"></span>
-                      </button>
-                    </th>
-                    <th scope="col" aria-sort="none">
-                      <button type="button" class="sort-button" data-sort-button="avg">
-                        <span data-i18n="table.avg">平均価格</span><span class="sort-indicator" aria-hidden="true"></span>
-                      </button>
-                    </th>
-                    <th scope="col" aria-sort="none">
-                      <button type="button" class="sort-button" data-sort-button="minPrice">
-                        <span data-i18n="table.minPrice">最安値</span><span class="sort-indicator" aria-hidden="true"></span>
-                      </button>
-                    </th>
-                    <th scope="col" aria-sort="none">
-                      <button type="button" class="sort-button" data-sort-button="quantitySold">
-                        <span data-i18n="table.quantitySold">売れた数</span><span class="sort-indicator" aria-hidden="true"></span>
-                      </button>
-                    </th>
-                    <th scope="col" aria-sort="none">
-                      <button type="button" class="sort-button" data-sort-button="percentChange">
-                        <span data-i18n="table.percentChange">価格変動</span><span class="sort-indicator" aria-hidden="true"></span>
-                      </button>
-                    </th>
-                    <th scope="col" aria-sort="none">
-                      <button type="button" class="sort-button" data-sort-button="state">
-                        <span data-i18n="table.state">状態</span><span class="sort-indicator" aria-hidden="true"></span>
-                      </button>
-                    </th>
+                    <th scope="col" data-i18n="ranking.rank">順位</th>
+                    <th scope="col" data-i18n="ranking.world">ワールド</th>
+                    <th scope="col" data-i18n="ranking.region">リージョン</th>
+                    <th scope="col" data-i18n="ranking.dataCenter">DC</th>
+                    <th scope="col" data-i18n="ranking.sales">売上額</th>
+                    <th scope="col" data-i18n="ranking.sold">販売数</th>
+                    <th scope="col" data-i18n="ranking.items">件数</th>
+                    <th scope="col" data-i18n="ranking.topItem">売上上位</th>
                   </tr>
                 </thead>
-                <tbody data-results></tbody>
+                <tbody data-world-ranking></tbody>
               </table>
             </div>
-          </div>
+          </section>
+        </section>
 
-          <section class="chart-panel" data-chart-panel hidden>
-            <div class="money-metrics" data-money-flow-summary>
-              <div class="metric-block">
-                <span data-i18n="chart.totalSales">売上合計</span>
-                <strong data-money-total>-</strong>
-              </div>
-              <div class="metric-block">
-                <span data-i18n="chart.soldQuantity">販売数</span>
-                <strong data-money-quantity>-</strong>
-              </div>
-              <div class="metric-block">
-                <span data-i18n="chart.averageSales">平均売上</span>
-                <strong data-money-average>-</strong>
-              </div>
-              <div class="metric-block">
-                <span data-i18n="chart.itemCount">対象アイテム</span>
-                <strong data-money-items>-</strong>
+        <section
+          class="page-view legal-page"
+          data-page="legal"
+          data-i18n-attr="aria-label:legal.label"
+          aria-label="権利表記とデータについて"
+          hidden
+        >
+          <section class="results-panel legal-document">
+            <div class="results-header legal-header">
+              <div>
+                <p class="panel-kicker">FF14Gils</p>
+                <h2 data-i18n="legal.title">権利表記とデータについて</h2>
               </div>
             </div>
-            <div class="chart-grid">
-              <section class="chart-block">
-                <h3 data-i18n="chart.topSalesTitle">売上額トップ</h3>
-                <div class="bar-chart" data-sales-chart></div>
+            <p class="ranking-lead legal-lead" data-i18n="legal.lead">
+              FF14Gils は FINAL FANTASY XIV の非公式ファンサイトです。
+            </p>
+
+            <div class="legal-content">
+              <section class="legal-section">
+                <h2 data-i18n="legal.rightsTitle">権利表記</h2>
+                <p data-i18n="legal.copyright">&copy; 2026 FF14Gils</p>
+                <p data-i18n="legal.trademarks">
+                  記載されている会社名・製品名・システム名などは、各社の商標、または登録商標です。
+                </p>
+                <p data-i18n="legal.squareEnixCopyright">Copyright (C) SQUARE ENIX CO., LTD. All Rights Reserved.</p>
               </section>
-              <section class="chart-block">
-                <h3 data-i18n="chart.salesByStateTitle">状態別売上</h3>
-                <div class="bar-chart" data-state-chart></div>
+
+              <section class="legal-section">
+                <h2 data-i18n="legal.unofficialTitle">非公式サイトについて</h2>
+                <p data-i18n="legal.unofficialText">
+                  FF14Gils は SQUARE ENIX CO., LTD. による公式サービスではありません。
+                  FINAL FANTASY XIV に関する名称、データ、画像、その他の権利は
+                  SQUARE ENIX CO., LTD. に帰属します。
+                </p>
               </section>
-              <section class="chart-block chart-block-wide">
-                <h3 data-i18n="chart.priceChangeTitle">価格変動</h3>
-                <div class="bar-chart" data-price-change-chart></div>
+
+              <section class="legal-section">
+                <h2 data-i18n="legal.sourcesTitle">利用しているデータ元</h2>
+                <dl class="data-source-list">
+                  <div>
+                    <dt data-i18n="legal.saddlebagTitle">Saddlebag Exchange API</dt>
+                    <dd>
+                      <span data-i18n="legal.saddlebagIntro">1日、3日、7日のマーケット集計候補を取得するために利用します。</span>
+                      <a href="https://docs.saddlebagexchange.com/docs" rel="noreferrer" data-i18n="legal.publicDocs">公開ドキュメント</a>
+                      <span data-i18n="legal.saddlebagDocs">では、Saddlebag Exchange API は内部的に Universalis API を利用すると説明されているため、過剰な取得にならないように順次取得、短いリトライ、キャッシュ済み JSON の静的配信を前提にします。</span>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt data-i18n="legal.xivapiTitle">XIVAPI v2</dt>
+                    <dd>
+                      <a href="https://v2.xivapi.com/docs/welcome/" rel="noreferrer" data-i18n="legal.publicDocs">公開ドキュメント</a>
+                      <span data-i18n="legal.xivapiText">に従い、アイテム名の取得だけに利用します。説明文、アイコン、詳細なゲームデータは保存しません。</span>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt data-i18n="legal.gaTitle">Google Analytics 4</dt>
+                    <dd>
+                      <span data-i18n="legal.gaIntro">アクセス状況の把握だけに利用します。</span>
+                      <a href="https://marketingplatform.google.com/about/analytics/terms/jp/" rel="noreferrer" data-i18n="legal.gaTerms">Google Analytics 利用規約</a>
+                      <span data-i18n="legal.gaText">に従い、Cookie 等を利用する場合があります。FF14Gils から Google Analytics へ個人を特定できる情報は送信しません。</span>
+                    </dd>
+                  </div>
+                </dl>
+              </section>
+
+              <section class="legal-section">
+                <h2 data-i18n="legal.ffxivTermsTitle">FINAL FANTASY XIV の利用条件</h2>
+                <p>
+                  <span data-i18n="legal.ffxivTermsIntro">FINAL FANTASY XIV の利用は、</span>
+                  <a href="https://support.jp.square-enix.com/rule.php?id=5381&amp;la=0&amp;tag=users" rel="noreferrer" data-i18n="legal.ffxivUserAgreement">ファイナルファンタジーXIV 利用規約</a>
+                  <span data-i18n="legal.andText">と</span>
+                  <a href="https://support.jp.square-enix.com/rule.php?id=5381&amp;la=0&amp;tag=authc" rel="noreferrer" data-i18n="legal.ffxivMaterialUsage">ファイナルファンタジーXIV 著作物利用条件</a>
+                  <span data-i18n="legal.ffxivTermsOutro">の対象です。FF14Gils はゲームクライアント、アカウント、プレイ操作へ接続せず、RMT、BOT、外部ツールによる自動操作を目的としません。</span>
+                </p>
+              </section>
+
+              <section class="legal-section">
+                <h2 data-i18n="legal.dataHandlingTitle">データの扱い</h2>
+                <p data-i18n="legal.dataHandlingBrowser">
+                  利用者のブラウザは、GitHub Pages で配信される生成済み JSON を読み込みます。
+                  ブラウザから外部 API へ直接 POST する処理はありません。
+                </p>
+                <p data-i18n="legal.dataHandlingChanges">
+                  外部データ元の仕様や利用条件は変更される可能性があります。権利者様または
+                  API 提供元から問題の指摘があった場合は、該当機能の停止またはサイト公開停止を行います。
+                </p>
+                <p data-i18n="legal.dataHandlingDisclaimer">
+                  上記の確認内容は 2026-06-30 時点の公開情報に基づきます。法的な助言ではなく、
+                  運用上の確認メモです。
+                </p>
               </section>
             </div>
           </section>
         </section>
       </main>
 
-      <footer class="site-footer">
-        <a href="legal.html">権利表記とデータについて</a>
-      </footer>
     </div>
   </body>
 </html>

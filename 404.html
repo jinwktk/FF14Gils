@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FF14Gils</title>
+    <script>
+      (() => {
+        const projectBasePath = '/FF14Gils/';
+        const basePath = window.location.pathname.includes(projectBasePath)
+          ? projectBasePath
+          : '/';
+        const route = window.location.pathname.startsWith(basePath)
+          ? window.location.pathname.slice(basePath.length)
+          : window.location.pathname.replace(/^\/+/, '');
+        const normalizedRoute = route.replace(/^\/+|\/+$/g, '');
+
+        if (normalizedRoute) {
+          window.sessionStorage.setItem('ff14gils_route', normalizedRoute);
+        }
+
+        window.location.replace(basePath);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>

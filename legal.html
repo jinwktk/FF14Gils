@@ -4,111 +4,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>権利表記とデータについて | FF14Gils</title>
-    <meta
-      name="description"
-      content="FF14Gilsの権利表記、商標表記、利用している公開APIとデータの扱いについて。"
-    />
-    <meta name="robots" content="index,follow" />
-    <meta name="theme-color" content="#0d0d10" />
-    <link rel="canonical" href="https://jinwktk.github.io/FF14Gils/legal.html" />
-    <link rel="icon" href="favicon.ico" sizes="any" />
-    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
-    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-    <link rel="stylesheet" href="styles.css" />
+    <meta name="robots" content="noindex,follow" />
+    <script>
+      (() => {
+        const basePath = window.location.pathname.includes('/FF14Gils/')
+          ? '/FF14Gils/'
+          : '/';
+
+        window.sessionStorage.setItem('ff14gils_route', 'legal');
+        window.location.replace(basePath);
+      })();
+    </script>
   </head>
-  <body>
-    <div class="app-shell legal-shell">
-      <header class="site-header">
-        <div class="brand-block legal-hero">
-          <div class="brand-copy">
-            <p class="eyebrow">FF14Gils</p>
-            <h1>権利表記とデータについて</h1>
-            <p class="lead">
-              FF14Gils は FINAL FANTASY XIV の非公式ファンサイトです。
-            </p>
-          </div>
-          <a class="secondary-link" href="./">トップへ戻る</a>
-        </div>
-      </header>
-
-      <main class="legal-content" aria-label="権利表記とデータについて">
-        <section class="legal-panel">
-          <h2>権利表記</h2>
-          <p>&copy; 2026 FF14Gils</p>
-          <p>
-            記載されている会社名・製品名・システム名などは、各社の商標、または登録商標です。
-          </p>
-          <p>Copyright (C) SQUARE ENIX CO., LTD. All Rights Reserved.</p>
-        </section>
-
-        <section class="legal-panel">
-          <h2>非公式サイトについて</h2>
-          <p>
-            FF14Gils は SQUARE ENIX CO., LTD. による公式サービスではありません。
-            FINAL FANTASY XIV に関する名称、データ、画像、その他の権利は
-            SQUARE ENIX CO., LTD. に帰属します。
-          </p>
-        </section>
-
-        <section class="legal-panel">
-          <h2>利用しているデータ元</h2>
-          <dl class="data-source-list">
-            <div>
-              <dt>Saddlebag Exchange API</dt>
-              <dd>
-                1日、3日、7日のマーケット集計候補を取得するために利用します。
-                <a href="https://docs.saddlebagexchange.com/docs" rel="noreferrer">公開ドキュメント</a>
-                では、Saddlebag Exchange API は内部的に Universalis API を利用すると説明されているため、
-                過剰な取得にならないように順次取得、短いリトライ、キャッシュ済み JSON の静的配信を前提にします。
-              </dd>
-            </div>
-            <div>
-              <dt>XIVAPI v2</dt>
-              <dd>
-                <a href="https://v2.xivapi.com/docs/welcome/" rel="noreferrer">公開ドキュメント</a>
-                に従い、アイテム名の取得だけに利用します。説明文、アイコン、詳細なゲームデータは保存しません。
-              </dd>
-            </div>
-            <div>
-              <dt>Google Analytics 4</dt>
-              <dd>
-                アクセス状況の把握だけに利用します。
-                <a href="https://marketingplatform.google.com/about/analytics/terms/jp/" rel="noreferrer">Google Analytics 利用規約</a>
-                に従い、Cookie 等を利用する場合があります。FF14Gils から Google Analytics へ
-                個人を特定できる情報は送信しません。
-              </dd>
-            </div>
-          </dl>
-        </section>
-
-        <section class="legal-panel">
-          <h2>FINAL FANTASY XIV の利用条件</h2>
-          <p>
-            FINAL FANTASY XIV の利用は、
-            <a href="https://support.jp.square-enix.com/rule.php?id=5381&amp;la=0&amp;tag=users" rel="noreferrer">ファイナルファンタジーXIV 利用規約</a>
-            と
-            <a href="https://support.jp.square-enix.com/rule.php?id=5381&amp;la=0&amp;tag=authc" rel="noreferrer">ファイナルファンタジーXIV 著作物利用条件</a>
-            の対象です。FF14Gils はゲームクライアント、アカウント、プレイ操作へ接続せず、RMT、BOT、外部ツールによる自動操作を目的としません。
-          </p>
-        </section>
-
-        <section class="legal-panel">
-          <h2>データの扱い</h2>
-          <p>
-            利用者のブラウザは、GitHub Pages で配信される生成済み JSON を読み込みます。
-            ブラウザから外部 API へ直接 POST する処理はありません。
-          </p>
-          <p>
-            外部データ元の仕様や利用条件は変更される可能性があります。権利者様または
-            API 提供元から問題の指摘があった場合は、該当機能の停止またはサイト公開停止を行います。
-          </p>
-          <p>
-            上記の確認内容は 2026-06-30 時点の公開情報に基づきます。法的な助言ではなく、
-            運用上の確認メモです。
-          </p>
-        </section>
-      </main>
-    </div>
-  </body>
+  <body></body>
 </html>
