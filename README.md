@@ -92,6 +92,7 @@ SPAの画面切り替えは History API を使います。GitHub Pages の配信
 ```powershell
 npm test
 npm run fetch:data
+npm run restore:published-data
 npm run build
 npm run serve
 ```
@@ -122,5 +123,6 @@ npm run favicon:generate
 ## デプロイ
 
 `.github/workflows/pages.yml` が `npm test`、`npm run build` を実行します。
-API制限と古いJSONの再公開を避けるため、`npm run fetch:data` と GitHub Pages へのデプロイは毎時17分の schedule でだけ実行します。`master` / `main` への push と手動 `workflow_dispatch` は、テストとビルド検証だけを行い、公開中データを上書きしません。
+API制限を避けるため、`npm run fetch:data` は毎時17分の schedule と検証用の `repository_dispatch` `refresh-marketshare` でだけ実行します。
+`master` / `main` への push と手動 `workflow_dispatch` は API を呼ばず、`npm run restore:published-data` で公開中の `data/` を `dist/` に戻してから GitHub Pages へデプロイします。これにより UI 変更は反映しつつ、schedule が生成した最新データを古いリポジトリ内JSONで上書きしません。
 GitHub Actions の schedule は遅延または間引きされる場合があるため、厳密な1時間更新を保証するものではありません。

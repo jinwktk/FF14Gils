@@ -393,32 +393,32 @@ describe('app data loading contract', () => {
     assert.ok(workflow.indexOf('run: npm test') < workflow.indexOf('run: npm run build'));
   });
 
-  it('Pages workflowはAPIデータをschedule時だけ1時間ごとに更新する', async () => {
+  it('Pages workflowはAPIデータ更新イベントと通常デプロイを分離する', async () => {
     const workflow = await readFile(
       new URL('../.github/workflows/pages.yml', import.meta.url),
       'utf8',
     );
 
     assert.match(workflow, /workflow_dispatch:/);
+    assert.match(workflow, /repository_dispatch:\s+types:\s+\-\s*refresh-marketshare/);
     assert.match(workflow, /push:\s*[\s\S]*branches:/);
     assert.match(workflow, /cron:\s*['"]17 \* \* \* \*['"]/);
     assert.match(
       workflow,
-      /- name: Fetch marketshare data\s+if:\s*\$\{\{\s*github\.event_name == 'schedule'\s*\}\}\s+run:\s*npm run fetch:data/,
+      /- name: Fetch marketshare data\s+if:\s*\$\{\{\s*github\.event_name == 'schedule' \|\| github\.event_name == 'repository_dispatch'\s*\}\}\s+run:\s*npm run fetch:data/,
     );
     assert.match(
       workflow,
-      /- name: Setup Pages\s+if:\s*\$\{\{\s*github\.event_name == 'schedule'\s*\}\}\s+uses:\s*actions\/configure-pages@v5/,
-    );
-    assert.match(
-      workflow,
-      /- name: Upload artifact\s+if:\s*\$\{\{\s*github\.event_name == 'schedule'\s*\}\}\s+uses:\s*actions\/upload-pages-artifact@v3/,
-    );
-    assert.match(
-      workflow,
-      /- name: Deploy to GitHub Pages\s+if:\s*\$\{\{\s*github\.event_name == 'schedule'\s*\}\}\s+id:\s*deployment\s+uses:\s*actions\/deploy-pages@v4/,
+      /- name: Restore published data\s+if:\s*\$\{\{\s*github\.event_name != 'schedule' && github\.event_name != 'repository_dispatch'\s*\}\}\s+run:\s*npm run restore:published-data/,
     );
     assert.ok(workflow.indexOf('run: npm run fetch:data') < workflow.indexOf('run: npm run build'));
+    assert.ok(
+      workflow.indexOf('run: npm run build') < workflow.indexOf('run: npm run restore:published-data'),
+    );
+    assert.ok(
+      workflow.indexOf('run: npm run restore:published-data') <
+        workflow.indexOf('uses: actions/upload-pages-artifact@v3'),
+    );
   });
 
   it('データ生成の既定カテゴリは全般にする', async () => {

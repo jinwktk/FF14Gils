@@ -7,6 +7,7 @@
     "test": "node --test",
     "favicon:generate": "node scripts/generate-favicon.mjs",
     "fetch:data": "node scripts/fetch-marketshare.mjs",
+    "restore:published-data": "node scripts/restore-published-data.mjs",
     "build": "node scripts/build.mjs",
     "serve": "npx --yes serve ."
   }
