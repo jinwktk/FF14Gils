@@ -58,7 +58,7 @@ flowchart LR
     Dist["dist/"]
   end
 
-  ExternalScheduler["外部スケジューラ"]
+  ExternalScheduler["cron-job.org"]
 
   Saddlebag["Saddlebag Exchange API"]
   Xivapi["XIVAPI v2"]
@@ -113,7 +113,7 @@ npm run favicon:generate
 - `FF14GILS_FETCH_RETRY_DELAY_MS`: 外部 API リトライの初回待機時間
 - `FF14GILS_ITEM_NAME_LANGUAGE`: XIVAPI v2 から取得するアイテム名の言語。`ja`、`en`、`fr`、`de`
 
-`npm run dispatch:refresh` は外部スケジューラから GitHub Actions の `repository_dispatch: refresh-marketshare` を送るためのコマンドです。
+`npm run dispatch:refresh` は外部スケジューラから GitHub Actions の `repository_dispatch: refresh-marketshare` を送るためのローカル確認用コマンドです。定期実行の主経路は cron-job.org から GitHub REST API へ直接 `repository_dispatch` を送る設定です。
 
 - `FF14GILS_GITHUB_TOKEN` または `GITHUB_TOKEN`: GitHub API へ `repository_dispatch` を送るトークン。repo には保存しません。
 - `FF14GILS_GITHUB_REPOSITORY`: 送信先。未指定時は `jinwktk/FF14Gils`
@@ -129,4 +129,4 @@ npm run favicon:generate
 - データ更新あり: `schedule` と `repository_dispatch`
 - データ更新なし: `push` と `workflow_dispatch`。`npm run restore:published-data` で公開中データを復元
 
-毎時データ更新の主経路は、外部スケジューラから `npm run dispatch:refresh` を実行して `repository_dispatch: refresh-marketshare` を送る運用です。GitHub Actions の schedule は補助として毎時17分に残しますが、GitHub 側の遅延または間引きがあるため、厳密な毎時起動の主経路にはしません。
+毎時データ更新の主経路は、cron-job.org から GitHub REST API の `repository_dispatch: refresh-marketshare` を毎時17分に送る運用です。GitHub Actions の schedule は補助として毎時17分に残しますが、GitHub 側の遅延または間引きがあるため、厳密な毎時起動の主経路にはしません。cron-job.org には `jinwktk/FF14Gils` 限定の Fine-grained PAT を登録し、成功時は GitHub API の HTTP `204` を期待します。
