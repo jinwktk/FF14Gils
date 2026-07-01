@@ -50,27 +50,41 @@ describe('restorePublishedData', () => {
     const distDir = await mkdtemp(join(tmpdir(), 'ff14gils-dist-'));
     const baseUrl = 'https://example.test/FF14Gils/';
     const worldsJson = JSON.stringify({
+      defaultWorld: 'Chocobo',
+      defaultPeriod: '7d',
       worlds: [
         {
+          name: 'Chocobo',
           path: 'data/worlds/chocobo.json',
           periods: {
             '1d': 'data/worlds/chocobo-1d.json',
             '7d': 'data/worlds/chocobo.json',
           },
         },
+        {
+          name: 'Hades',
+          path: 'data/worlds/hades.json',
+          periods: {
+            '1d': 'data/worlds/hades-1d.json',
+            '7d': 'data/worlds/hades.json',
+          },
+        },
       ],
     });
     const responses = new Map([
       [`${baseUrl}data/worlds.json`, worldsJson],
-      [`${baseUrl}data/marketshare.json`, '{"default":true}'],
+      [`${baseUrl}data/marketshare.json`, '{"server":"Chocobo"}'],
       [`${baseUrl}data/worlds/chocobo.json`, '{"period":"7d"}'],
       [`${baseUrl}data/worlds/chocobo-1d.json`, '{"period":"1d"}'],
+      [`${baseUrl}data/worlds/hades.json`, '{"server":"Hades","period":"7d"}'],
+      [`${baseUrl}data/worlds/hades-1d.json`, '{"server":"Hades","period":"1d"}'],
     ]);
     const requestedUrls = [];
 
     try {
       const result = await restorePublishedData({
         baseUrl,
+        defaultWorld: 'Hades',
         distDir,
         fetchImpl: async (url) => {
           requestedUrls.push(url);
@@ -82,9 +96,22 @@ describe('restorePublishedData', () => {
         },
       });
 
-      assert.equal(result.count, 4);
-      assert.deepEqual(requestedUrls, [...responses.keys()]);
-      assert.equal(await readFile(join(distDir, 'data/worlds.json'), 'utf8'), worldsJson);
+      assert.equal(result.count, 6);
+      assert.deepEqual(requestedUrls, [
+        `${baseUrl}data/worlds.json`,
+        `${baseUrl}data/worlds/hades.json`,
+        `${baseUrl}data/worlds/chocobo.json`,
+        `${baseUrl}data/worlds/chocobo-1d.json`,
+        `${baseUrl}data/worlds/hades-1d.json`,
+      ]);
+      assert.equal(
+        JSON.parse(await readFile(join(distDir, 'data/worlds.json'), 'utf8')).defaultWorld,
+        'Hades',
+      );
+      assert.equal(
+        await readFile(join(distDir, 'data/marketshare.json'), 'utf8'),
+        '{"server":"Hades","period":"7d"}',
+      );
       assert.equal(
         await readFile(join(distDir, 'data/worlds/chocobo-1d.json'), 'utf8'),
         '{"period":"1d"}',

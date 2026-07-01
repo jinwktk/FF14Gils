@@ -57,7 +57,7 @@ describe('app data loading contract', () => {
     assert.match(app, /selectedPeriod/);
   });
 
-  it('初期表示ワールドはChocoboにする', async () => {
+  it('初期表示ワールドはHadesにする', async () => {
     const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
     const i18n = await readFile(new URL('../src/i18n.js', import.meta.url), 'utf8');
     const worlds = await readFile(new URL('../src/worlds.js', import.meta.url), 'utf8');
@@ -68,13 +68,13 @@ describe('app data loading contract', () => {
       await readFile(new URL('../data/marketshare.json', import.meta.url), 'utf8'),
     );
 
-    assert.match(worlds, /DEFAULT_WORLD\s*=\s*['"]Chocobo['"]/);
-    assert.equal(worldIndex.defaultWorld, 'Chocobo');
-    assert.equal(marketshare.query.server, 'Chocobo');
-    assert.match(html, /Chocobo初期表示/);
-    assert.doesNotMatch(html, /Hades初期表示/);
-    assert.match(i18n, /Chocobo初期表示/);
-    assert.doesNotMatch(i18n, /Starts on Hades/);
+    assert.match(worlds, /DEFAULT_WORLD\s*=\s*['"]Hades['"]/);
+    assert.equal(worldIndex.defaultWorld, 'Hades');
+    assert.equal(marketshare.query.server, 'Hades');
+    assert.match(html, /Hades初期表示/);
+    assert.doesNotMatch(html, /Chocobo初期表示/);
+    assert.match(i18n, /Hades初期表示/);
+    assert.match(i18n, /Starts on Hades/);
   });
 
   it('グラフ画面は表示せず、ワールド売上ランキングを持つ', async () => {
@@ -250,19 +250,19 @@ describe('app data loading contract', () => {
     assert.doesNotMatch(html, /class="legal-panel"/);
     assert.doesNotMatch(styles, /\.legal-panel/);
     assert.doesNotMatch(styles, /\.legal-hero/);
-    assert.match(styles, /\.legal-header > div\s*{[^}]*max-width:\s*920px/s);
-    assert.match(styles, /\.legal-header > div\s*{[^}]*margin:\s*0 auto/s);
-    assert.match(styles, /\.legal-content\s*{[^}]*max-width:\s*920px/s);
-    assert.match(styles, /\.legal-content\s*{[^}]*margin:\s*0 auto/s);
-    assert.match(styles, /\.legal-content\s*{[^}]*padding:\s*0 28px 12px/s);
-    assert.match(styles, /\.legal-lead\s*{[^}]*max-width:\s*920px/s);
-    assert.match(styles, /\.legal-lead\s*{[^}]*margin:\s*0 auto/s);
-    assert.match(styles, /\.legal-lead\s*{[^}]*padding:\s*18px 28px 20px/s);
+    assert.match(styles, /\.legal-header > div\s*{[^}]*max-width:\s*none/s);
+    assert.match(styles, /\.legal-content\s*{[^}]*max-width:\s*none/s);
+    assert.match(styles, /\.legal-content\s*{[^}]*margin:\s*0/s);
+    assert.match(styles, /\.legal-content\s*{[^}]*padding:\s*0 20px 12px/s);
+    assert.match(styles, /\.legal-lead\s*{[^}]*max-width:\s*none/s);
+    assert.match(styles, /\.legal-lead\s*{[^}]*margin:\s*0/s);
+    assert.match(styles, /\.legal-lead\s*{[^}]*padding:\s*16px 20px 18px/s);
     assert.match(styles, /\.legal-lead\s*{[^}]*font-size:\s*1\.02rem/s);
     assert.match(styles, /\.legal-section\s*{[^}]*padding:\s*18px 0/s);
     assert.match(styles, /\.legal-section h3\s*{[^}]*font-size:\s*1\.08rem/s);
     assert.match(styles, /\.legal-section p,\s*\.legal-section dd\s*{[^}]*font-size:\s*0\.98rem/s);
     assert.match(styles, /\.legal-section p,\s*\.legal-section dd\s*{[^}]*line-height:\s*1\.82/s);
+    assert.match(styles, /\.legal-section p,\s*\.legal-section dd\s*{[^}]*max-width:\s*88ch/s);
     assert.match(styles, /\.legal-note\s*{[^}]*padding:\s*12px 14px 12px 16px/s);
     assert.match(styles, /\.legal-note\s*{[^}]*border-left:\s*3px solid var\(--accent\)/s);
     assert.match(styles, /\.legal-note\s*{[^}]*background:\s*rgba\(57, 200, 189, 0\.08\)/s);
@@ -271,6 +271,8 @@ describe('app data loading contract', () => {
     assert.match(styles, /\.data-source-list div \+ div\s*{[^}]*border-top:\s*1px solid var\(--line\)/s);
     assert.doesNotMatch(styles, /\.data-source-list\s*{[^}]*max-width:\s*88ch/s);
     assert.doesNotMatch(styles, /\.data-source-list div\s*{[^}]*border-top:\s*1px solid var\(--line\)/s);
+    assert.doesNotMatch(styles, /\.legal-content\s*{[^}]*max-width:\s*920px/s);
+    assert.doesNotMatch(styles, /\.legal-lead\s*{[^}]*max-width:\s*920px/s);
     assert.match(styles, /@media \(max-width: 760px\)\s*{[\s\S]*\.legal-lead,\s*\.legal-content\s*{[^}]*padding-right:\s*16px/s);
     assert.match(styles, /@media \(max-width: 760px\)\s*{[\s\S]*\.legal-lead,\s*\.legal-content\s*{[^}]*padding-left:\s*16px/s);
     assert.match(html, /&copy; 2026 FF14Gils/);

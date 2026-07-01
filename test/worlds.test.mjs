@@ -54,8 +54,8 @@ describe('parseWorldList', () => {
 });
 
 describe('DEFAULT_WORLD', () => {
-  it('初期表示ワールドはChocoboにする', () => {
-    assert.equal(DEFAULT_WORLD, 'Chocobo');
+  it('初期表示ワールドはHadesにする', () => {
+    assert.equal(DEFAULT_WORLD, 'Hades');
   });
 });
 
@@ -272,7 +272,7 @@ describe('data center helpers', () => {
 
 describe('resolveDefaultWorld', () => {
   it('指定がない場合は既定ワールドを優先する', () => {
-    assert.equal(resolveDefaultWorld(['Aegis', 'Carbuncle', 'Chocobo']), 'Chocobo');
+    assert.equal(resolveDefaultWorld(['Aegis', 'Hades', 'Chocobo']), 'Hades');
   });
 
   it('環境変数で指定されたワールドが一覧にあればそれを優先する', () => {

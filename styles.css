@@ -596,8 +596,7 @@ td:nth-child(2) {
 
 .legal-header > div {
   width: 100%;
-  max-width: 920px;
-  margin: 0 auto;
+  max-width: none;
 }
 
 .legal-header h2 {
@@ -606,9 +605,9 @@ td:nth-child(2) {
 }
 
 .legal-lead {
-  max-width: 920px;
-  margin: 0 auto;
-  padding: 18px 28px 20px;
+  max-width: none;
+  margin: 0;
+  padding: 16px 20px 18px;
   font-size: 1.02rem;
   line-height: 1.8;
 }
@@ -616,9 +615,9 @@ td:nth-child(2) {
 .legal-content {
   display: grid;
   gap: 0;
-  max-width: 920px;
-  margin: 0 auto;
-  padding: 0 28px 12px;
+  max-width: none;
+  margin: 0;
+  padding: 0 20px 12px;
 }
 
 .legal-section {
@@ -785,12 +784,6 @@ td:nth-child(2) {
 
   .ranking-lead {
     padding: 12px 16px 0;
-  }
-
-  .legal-header > div,
-  .legal-lead,
-  .legal-content {
-    max-width: 100%;
   }
 
   .legal-lead,

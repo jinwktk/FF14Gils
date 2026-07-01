@@ -2,6 +2,9 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, resolve, sep } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
+import { fetchWithRetry } from './retry-fetch.mjs';
+import { DEFAULT_SALES_PERIOD, DEFAULT_WORLD } from '../src/worlds.js';
+
 export const DEFAULT_PUBLISHED_BASE_URL = 'https://jinwktk.github.io/FF14Gils/';
 
 const defaultDistDir = fileURLToPath(new URL('../dist/', import.meta.url));
@@ -32,9 +35,12 @@ export function collectPublishedDataPaths(worldIndex) {
 
 export async function restorePublishedData({
   baseUrl = process.env.FF14GILS_PUBLISHED_BASE_URL ?? DEFAULT_PUBLISHED_BASE_URL,
+  defaultWorld = process.env.FF14GILS_DEFAULT_WORLD ?? DEFAULT_WORLD,
   distDir = process.env.FF14GILS_DIST_DIR ?? defaultDistDir,
   fetchImpl = globalThis.fetch,
   concurrency = Number.parseInt(process.env.FF14GILS_RESTORE_CONCURRENCY ?? '8', 10),
+  retries = Number.parseInt(process.env.FF14GILS_RESTORE_RETRIES ?? '3', 10),
+  retryDelayMs = Number.parseInt(process.env.FF14GILS_RESTORE_RETRY_DELAY_MS ?? '750', 10),
 } = {}) {
   if (typeof fetchImpl !== 'function') {
     throw new Error('fetch is not available');
@@ -42,17 +48,57 @@ export async function restorePublishedData({
 
   const normalizedBaseUrl = normalizePublishedBaseUrl(baseUrl);
   const worldsJsonPath = 'data/worlds.json';
-  const worldsJson = await fetchPublishedText(fetchImpl, normalizedBaseUrl, worldsJsonPath);
+  const fetchOptions = { retries, retryDelayMs };
+  const worldsJson = await fetchPublishedText(fetchImpl, normalizedBaseUrl, worldsJsonPath, fetchOptions);
   const worldIndex = JSON.parse(worldsJson);
+  const normalizedWorldIndex = applyDefaultWorld(worldIndex, defaultWorld);
+  const defaultSnapshotPath = resolveDefaultSnapshotPath(normalizedWorldIndex);
   const paths = collectPublishedDataPaths(worldIndex);
-  const textByPath = new Map([[worldsJsonPath, worldsJson]]);
+  const textByPath = new Map([
+    [worldsJsonPath, `${JSON.stringify(normalizedWorldIndex, null, 2)}\n`],
+  ]);
+
+  if (defaultSnapshotPath) {
+    const defaultSnapshotText = await fetchPublishedText(
+      fetchImpl,
+      normalizedBaseUrl,
+      defaultSnapshotPath,
+      fetchOptions,
+    );
+    textByPath.set(defaultSnapshotPath, defaultSnapshotText);
+    textByPath.set('data/marketshare.json', defaultSnapshotText);
+  }
 
   await mapWithConcurrency(paths, concurrency, async (path) => {
-    const content = textByPath.get(path) ?? (await fetchPublishedText(fetchImpl, normalizedBaseUrl, path));
+    const content =
+      textByPath.get(path) ??
+      (await fetchPublishedText(fetchImpl, normalizedBaseUrl, path, fetchOptions));
     await writeDistFile(distDir, path, content);
   });
 
   return { count: paths.length, paths };
+}
+
+export function applyDefaultWorld(worldIndex, defaultWorld = DEFAULT_WORLD) {
+  const worlds = Array.isArray(worldIndex?.worlds) ? worldIndex.worlds : [];
+  const resolvedDefaultWorld = worlds.some((world) => world?.name === defaultWorld)
+    ? defaultWorld
+    : worldIndex?.defaultWorld;
+
+  return {
+    ...worldIndex,
+    defaultWorld: resolvedDefaultWorld,
+  };
+}
+
+export function resolveDefaultSnapshotPath(worldIndex) {
+  const defaultWorld = worldIndex?.defaultWorld;
+  const defaultPeriod = worldIndex?.defaultPeriod ?? DEFAULT_SALES_PERIOD;
+  const world = Array.isArray(worldIndex?.worlds)
+    ? worldIndex.worlds.find((entry) => entry?.name === defaultWorld)
+    : null;
+
+  return world?.periods?.[defaultPeriod] ?? world?.path ?? '';
 }
 
 function addDataPath(paths, path) {
@@ -74,9 +120,13 @@ function addDataPath(paths, path) {
   paths.add(normalized);
 }
 
-async function fetchPublishedText(fetchImpl, baseUrl, path) {
+async function fetchPublishedText(fetchImpl, baseUrl, path, { retries, retryDelayMs } = {}) {
   const url = new URL(path, baseUrl).href;
-  const response = await fetchImpl(url);
+  const response = await fetchWithRetry(url, {}, {
+    fetchImpl,
+    retries,
+    baseDelayMs: retryDelayMs,
+  });
 
   if (!response.ok) {
     throw new Error(`Failed to fetch ${url}: HTTP ${response.status}`);

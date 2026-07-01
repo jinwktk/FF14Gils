@@ -22,7 +22,7 @@ const TRANSLATIONS = {
       description:
         'FF14のマーケット売上、相場、販売数から、全DCの金策候補を探せるダークテーマのマーケットダッシュボードです。',
       ogDescription:
-        'マーケットの売れ行きと相場から、売りやすい金策候補を探せます。Chocobo初期表示、全DC対応。',
+        'マーケットの売れ行きと相場から、売りやすい金策候補を探せます。Hades初期表示、全DC対応。',
       imageAlt: 'FF14Gilsのマーケット金策ダッシュボード画像',
       locale: 'ja_JP',
       inLanguage: 'ja-JP',
@@ -183,7 +183,7 @@ const TRANSLATIONS = {
       description:
         'A dark market dashboard for finding profitable Final Fantasy XIV items from sales, prices, and purchase volume across all data centers.',
       ogDescription:
-        'Find easier-to-sell market opportunities from sales volume and price trends. Starts on Chocobo and supports all data centers.',
+        'Find easier-to-sell market opportunities from sales volume and price trends. Starts on Hades and supports all data centers.',
       imageAlt: 'FF14Gils market profit dashboard image',
       locale: 'en_US',
       inLanguage: 'en-US',

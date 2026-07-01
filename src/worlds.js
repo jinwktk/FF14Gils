@@ -1,4 +1,4 @@
-export const DEFAULT_WORLD = 'Chocobo';
+export const DEFAULT_WORLD = 'Hades';
 export const DEFAULT_SALES_PERIOD = '7d';
 
 export const SALES_PERIODS = [
