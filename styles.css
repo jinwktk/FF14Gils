@@ -643,18 +643,24 @@ td:nth-child(2) {
 
 .data-source-list {
   display: grid;
-  gap: 14px;
+  max-width: 88ch;
   margin: 0;
 }
 
 .data-source-list div {
-  padding-top: 14px;
-  border-top: 1px solid var(--line);
+  padding: 16px 0;
 }
 
 .data-source-list div:first-child {
   padding-top: 0;
-  border-top: 0;
+}
+
+.data-source-list div:last-child {
+  padding-bottom: 0;
+}
+
+.data-source-list div + div {
+  border-top: 1px solid var(--line);
 }
 
 .data-source-list dt {
