@@ -344,21 +344,22 @@ describe('app data loading contract', () => {
     assert.equal(html.match(/G-VH5GMQMZ34/g)?.length, 2);
   });
 
-  it('Ko-fiの支援導線を公開UIから外す', async () => {
+  it('Ko-fiの支援導線を公開UIに表示する', async () => {
     const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
     const styles = await readFile(new URL('../styles.css', import.meta.url), 'utf8');
     const i18n = await readFile(new URL('../src/i18n.js', import.meta.url), 'utf8');
 
-    assert.doesNotMatch(html, /class="kofi-link"/);
-    assert.doesNotMatch(html, /ko-fi\.com/);
-    assert.doesNotMatch(html, /"sameAs": \["https:\/\/ko-fi\.com\/jinnymeia"\]/);
-    assert.doesNotMatch(html, /Ko-fiで支援する/);
-    assert.doesNotMatch(html, /assets\/ko-fi\.svg/);
-    assert.doesNotMatch(styles, /\.kofi-link/);
-    assert.doesNotMatch(i18n, /kofiSupport/);
-    await assert.rejects(access(new URL('../assets/ko-fi.svg', import.meta.url)), {
-      code: 'ENOENT',
-    });
+    assert.match(html, /class="kofi-link"/);
+    assert.match(html, /href="https:\/\/ko-fi\.com\/jinnymeia"/);
+    assert.match(html, /rel="me noopener noreferrer"/);
+    assert.match(html, /"sameAs": \["https:\/\/ko-fi\.com\/jinnymeia"\]/);
+    assert.match(html, /data-i18n-attr="aria-label:ui\.kofiSupport"/);
+    assert.match(html, /Ko-fiで支援する/);
+    assert.match(html, /assets\/ko-fi\.svg/);
+    assert.match(styles, /\.kofi-link/);
+    assert.match(i18n, /kofiSupport: 'Ko-fiで支援する'/);
+    assert.match(i18n, /kofiSupport: 'Support on Ko-fi'/);
+    await access(new URL('../assets/ko-fi.svg', import.meta.url));
   });
 
   it('OGP画像と検索クローラー向けファイルを配信対象に含める', async () => {

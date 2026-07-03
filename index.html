@@ -47,7 +47,8 @@
         "applicationCategory": "GameApplication",
         "operatingSystem": "Web",
         "inLanguage": "ja-JP",
-        "image": "https://jinwktk.github.io/FF14Gils/assets/og-image.png"
+        "image": "https://jinwktk.github.io/FF14Gils/assets/og-image.png",
+        "sameAs": ["https://ko-fi.com/jinnymeia"]
       }
     </script>
     <script type="module" src="src/app.js"></script>
@@ -66,17 +67,31 @@
           <a href="./ranking" data-nav-link="ranking" data-i18n="nav.ranking">ワールドランキング</a>
           <a href="./legal" data-nav-link="legal" data-i18n="nav.legal">権利表記とデータ</a>
         </div>
-        <label class="language-control nav-language">
-          <span class="sr-only" data-i18n="ui.languageLabel">表示言語</span>
-          <select
-            data-language-select
-            data-i18n-attr="aria-label:ui.languageSelect"
-            aria-label="表示言語を選択"
+        <div class="nav-actions">
+          <label class="language-control nav-language">
+            <span class="sr-only" data-i18n="ui.languageLabel">表示言語</span>
+            <select
+              data-language-select
+              data-i18n-attr="aria-label:ui.languageSelect"
+              aria-label="表示言語を選択"
+            >
+              <option value="ja">日本語</option>
+              <option value="en">English</option>
+            </select>
+          </label>
+          <a
+            class="kofi-link"
+            href="https://ko-fi.com/jinnymeia"
+            target="_blank"
+            rel="me noopener noreferrer"
+            data-i18n-attr="aria-label:ui.kofiSupport"
+            aria-label="Ko-fiで支援する"
+            title="Ko-fi"
           >
-            <option value="ja">日本語</option>
-            <option value="en">English</option>
-          </select>
-        </label>
+            <img src="assets/ko-fi.svg" width="28" height="28" alt="" aria-hidden="true" />
+            <span class="sr-only" data-i18n="ui.kofiSupport">Ko-fiで支援する</span>
+          </a>
+        </div>
       </nav>
 
       <header class="site-header">

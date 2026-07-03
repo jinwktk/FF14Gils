@@ -120,8 +120,44 @@ a:hover {
   color: var(--accent-strong);
 }
 
+.nav-actions {
+  display: inline-flex;
+  justify-self: end;
+  gap: 8px;
+  align-items: center;
+}
+
 .nav-language {
   justify-self: end;
+}
+
+.kofi-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  background: #101820;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+}
+
+.kofi-link:hover {
+  border-color: var(--accent-strong);
+  background: #13202a;
+  text-decoration: none;
+}
+
+.kofi-link:focus-visible {
+  outline: 3px solid rgba(57, 200, 189, 0.28);
+  outline-offset: 2px;
+}
+
+.kofi-link img {
+  display: block;
+  width: 28px;
+  height: 28px;
 }
 
 .site-header {
@@ -729,7 +765,7 @@ td:nth-child(2) {
     font-size: 0.78rem;
   }
 
-  .nav-language {
+  .nav-actions {
     grid-column: 2;
   }
 
