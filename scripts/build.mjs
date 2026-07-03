@@ -1,8 +1,9 @@
-import { cp, mkdir, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const dist = fileURLToPath(new URL('../dist/', import.meta.url));
+const siteUrl = 'https://jinwktk.github.io/FF14Gils/';
 const routeEntrypoints = ['ranking', 'legal'];
 const entries = [
   '404.html',
@@ -35,30 +36,51 @@ console.log(`Built GitHub Pages artifact at ${dist} from ${root}`);
 
 async function writeRouteEntrypoint(route) {
   const routeDir = new URL(`../dist/${route}/`, import.meta.url);
+  const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
   await mkdir(routeDir, { recursive: true });
-  await writeFile(new URL('index.html', routeDir), createRouteEntrypoint(route));
+  await writeFile(new URL('index.html', routeDir), createRouteEntrypoint(route, html));
 }
 
-function createRouteEntrypoint(route) {
-  return `<!doctype html>
-<html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FF14Gils</title>
-    <script>
-      (() => {
-        const projectBasePath = '/FF14Gils/';
-        const basePath = window.location.pathname.includes(projectBasePath)
-          ? projectBasePath
-          : '/';
+function createRouteEntrypoint(route, html) {
+  const routeUrl = routeUrlFor(route);
+  html = addRouteBase(html);
+  html = setRouteCanonical(html, routeUrl);
+  html = setRouteOpenGraphUrl(html, routeUrl);
 
-        window.sessionStorage.setItem('ff14gils_route', '${route}');
-        window.location.replace(basePath);
-      })();
+  return addRouteBootstrap(html, route);
+}
+
+function routeUrlFor(route) {
+  return `${siteUrl}${route}/`;
+}
+
+function addRouteBase(html) {
+  return html.replace(
+    '    <meta name="viewport" content="width=device-width, initial-scale=1" />',
+    '    <meta name="viewport" content="width=device-width, initial-scale=1" />\n    <base href="../" />',
+  );
+}
+
+function setRouteCanonical(html, routeUrl) {
+  return html.replace(
+    /<link rel="canonical" href="[^"]+" \/>/,
+    `<link rel="canonical" href="${routeUrl}" />`,
+  );
+}
+
+function setRouteOpenGraphUrl(html, routeUrl) {
+  return html.replace(
+    /<meta property="og:url" content="[^"]+" \/>/,
+    `<meta property="og:url" content="${routeUrl}" />`,
+  );
+}
+
+function addRouteBootstrap(html, route) {
+  return html.replace(
+    '    <script type="module" src="src/app.js"></script>',
+    `    <script>
+      window.sessionStorage.setItem('ff14gils_route', '${route}');
     </script>
-  </head>
-  <body></body>
-</html>
-`;
+    <script type="module" src="src/app.js"></script>`,
+  );
 }

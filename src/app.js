@@ -36,6 +36,11 @@ const PAGE_PATHS = {
   market: '',
   ranking: 'ranking',
 };
+const ROUTE_ABSOLUTE_URLS = {
+  legal: 'https://jinwktk.github.io/FF14Gils/legal/',
+  market: 'https://jinwktk.github.io/FF14Gils/',
+  ranking: 'https://jinwktk.github.io/FF14Gils/ranking/',
+};
 const ROUTE_SESSION_KEY = 'ff14gils_route';
 const APP_BASE_PATH = resolveAppBasePath();
 
@@ -249,6 +254,8 @@ function setActivePage(page) {
       link.removeAttribute('aria-current');
     }
   }
+
+  updateRouteMetadata();
 }
 
 function routeFromPath(pathname) {
@@ -265,6 +272,15 @@ function buildPageUrl(page) {
   const route = PAGE_ROUTES.has(page) ? page : 'market';
 
   return `${APP_BASE_PATH}${PAGE_PATHS[route]}`;
+}
+
+function updateRouteMetadata() {
+  const routeMeta = {
+    url: ROUTE_ABSOLUTE_URLS[state.activePage] ?? ROUTE_ABSOLUTE_URLS.market,
+  };
+
+  setCanonicalHref(routeMeta.url);
+  setMetaProperty('og:url', routeMeta.url);
 }
 
 function consumePendingRoute() {
@@ -681,6 +697,10 @@ function setMetaContent(name, content) {
 
 function setMetaProperty(property, content) {
   document.querySelector(`meta[property="${property}"]`)?.setAttribute('content', content);
+}
+
+function setCanonicalHref(href) {
+  document.querySelector('link[rel="canonical"]')?.setAttribute('href', href);
 }
 
 function updateJsonLdLanguage() {

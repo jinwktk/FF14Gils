@@ -39,6 +39,7 @@ FF14Gils は FINAL FANTASY XIV の非公式ファンサイトです。SQUARE ENI
 
 - `robots.txt` はクロールを許可し、`https://jinwktk.github.io/FF14Gils/sitemap.xml` を案内します。
 - `sitemap.xml` は `/`、`/ranking/`、`/legal/` を登録対象にします。
+- `/ranking/` と `/legal/` の静的入口は、それぞれの URL を canonical / `og:url` にします。SPA のルート URL へ即時転送しません。
 - 公開ページの内容を更新した場合は、該当 URL の `lastmod` も同じ変更で更新します。
 - Google Search Console の HTML 確認ファイル `googled9f512eea3a99dc1.html` を Pages 配信対象に含めます。
 - Google Analytics 4 は Measurement ID `G-VH5GMQMZ34` を `index.html` に置き、ページ閲覧状況の把握だけに使います。

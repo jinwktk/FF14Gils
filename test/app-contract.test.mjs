@@ -216,6 +216,7 @@ describe('app data loading contract', () => {
 
   it('Google検索向けのクロール設定とsitemap案内を持つ', async () => {
     const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+    const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');
     const robots = await readFile(new URL('../robots.txt', import.meta.url), 'utf8');
     const sitemap = await readFile(new URL('../sitemap.xml', import.meta.url), 'utf8');
 
@@ -227,6 +228,9 @@ describe('app data loading contract', () => {
     assert.match(sitemap, /<loc>https:\/\/jinwktk\.github\.io\/FF14Gils\/<\/loc>/);
     assert.match(sitemap, /<loc>https:\/\/jinwktk\.github\.io\/FF14Gils\/legal\/<\/loc>/);
     assert.match(sitemap, /<loc>https:\/\/jinwktk\.github\.io\/FF14Gils\/ranking\/<\/loc>/);
+    assert.match(app, /ROUTE_ABSOLUTE_URLS/);
+    assert.match(app, /setCanonicalHref\(routeMeta\.url\)/);
+    assert.match(app, /setMetaProperty\('og:url', routeMeta\.url\)/);
   });
 
   it('権利表記とデータ元を説明する公開ページを持つ', async () => {
@@ -317,6 +321,7 @@ describe('app data loading contract', () => {
   it('SPAのクリーンURL向け404フォールバックをPages配信対象に含める', async () => {
     const fallback = await readFile(new URL('../404.html', import.meta.url), 'utf8');
     const build = await readFile(new URL('../scripts/build.mjs', import.meta.url), 'utf8');
+    const routeEntrypointSource = functionSource(build, 'createRouteEntrypoint', 'routeUrlFor');
 
     assert.match(fallback, /sessionStorage\.setItem\('ff14gils_route'/);
     assert.match(fallback, /const projectBasePath = '\/FF14Gils\/'/);
@@ -328,7 +333,15 @@ describe('app data loading contract', () => {
     assert.match(build, /writeRouteEntrypoint\(route\)/);
     assert.match(build, /\.\.\/dist\/\$\{route\}\//);
     assert.match(build, /new URL\('index\.html', routeDir\)/);
+    assert.match(build, /const siteUrl = 'https:\/\/jinwktk\.github\.io\/FF14Gils\/'/);
+    assert.match(build, /readFile\(new URL\('\.\.\/index\.html'/);
+    assert.match(build, /<base href="\.\.\/" \/>/);
+    assert.match(build, /setRouteCanonical\(html, routeUrl\)/);
+    assert.match(build, /setRouteOpenGraphUrl\(html, routeUrl\)/);
     assert.match(build, /sessionStorage\.setItem\('ff14gils_route', '\$\{route\}'\)/);
+    assert.match(build, /return `\$\{siteUrl\}\$\{route\}\/`/);
+    assert.doesNotMatch(routeEntrypointSource, /window\.location\.replace\(basePath\)/);
+    assert.doesNotMatch(routeEntrypointSource, /<body><\/body>/);
   });
 
   it('Google Analytics 4の計測タグを持つ', async () => {
