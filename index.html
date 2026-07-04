@@ -89,7 +89,7 @@
             title="Ko-fi"
           >
             <img src="assets/ko-fi.svg" width="28" height="28" alt="" aria-hidden="true" />
-            <span class="sr-only" data-i18n="ui.kofiSupport">Ko-fiで支援する</span>
+            <span class="kofi-link-text" data-i18n="support.floatingCta">支援する</span>
           </a>
         </div>
       </nav>
@@ -102,6 +102,23 @@
             <p class="lead" data-i18n="ui.lead">
               マーケットの売れ行きと相場から、売りやすい金策候補を探せます。
             </p>
+          </div>
+          <div class="support-callout">
+            <p class="support-kicker" data-i18n="support.kicker">応援</p>
+            <p class="support-copy" data-i18n="support.copy">
+              役に立ったら、データ更新と運用の支えとして応援してもらえると助かります。
+            </p>
+            <a
+              class="support-button"
+              href="https://ko-fi.com/jinnymeia"
+              target="_blank"
+              rel="me noopener noreferrer"
+              data-i18n-attr="aria-label:ui.kofiSupport"
+              aria-label="Ko-fiで支援する"
+            >
+              <img src="assets/ko-fi.svg" width="24" height="24" alt="" aria-hidden="true" />
+              <span data-i18n="support.cta">Ko-fiで支援</span>
+            </a>
           </div>
         </div>
       </header>
@@ -410,11 +427,42 @@
                   運用上の確認メモです。
                 </p>
               </section>
+
+              <section class="legal-section" aria-labelledby="legal-support-title">
+                <h3 id="legal-support-title" data-i18n="support.legalTitle">任意支援について</h3>
+                <p data-i18n="support.legalText">
+                  FF14Gils は任意の Ko-fi 支援リンクを設置しています。支援の有無で表示データや機能に差はありません。
+                </p>
+                <p class="legal-support-action">
+                  <a
+                    class="inline-support-link"
+                    href="https://ko-fi.com/jinnymeia"
+                    target="_blank"
+                    rel="me noopener noreferrer"
+                    data-i18n-attr="aria-label:ui.kofiSupport"
+                    aria-label="Ko-fiで支援する"
+                  >
+                    <img src="assets/ko-fi.svg" width="22" height="22" alt="" aria-hidden="true" />
+                    <span data-i18n="support.legalCta">Ko-fiで支援する</span>
+                  </a>
+                </p>
+              </section>
             </div>
           </article>
         </section>
       </main>
 
     </div>
+    <a
+      class="floating-kofi"
+      href="https://ko-fi.com/jinnymeia"
+      target="_blank"
+      rel="me noopener noreferrer"
+      data-i18n-attr="aria-label:ui.kofiSupport"
+      aria-label="Ko-fiで支援する"
+    >
+      <img src="assets/ko-fi.svg" width="24" height="24" alt="" aria-hidden="true" />
+      <span data-i18n="support.floatingCta">支援する</span>
+    </a>
   </body>
 </html>

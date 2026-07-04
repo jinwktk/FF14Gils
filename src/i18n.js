@@ -116,6 +116,16 @@ const TRANSLATIONS = {
       quantitySold: '売れた数',
       state: '状態',
     },
+    support: {
+      copy: '役に立ったら、データ更新と運用の支えとして応援してもらえると助かります。',
+      cta: 'Ko-fiで支援',
+      floatingCta: '支援する',
+      kicker: '応援',
+      legalCta: 'Ko-fiで支援する',
+      legalText:
+        'FF14Gils は任意の Ko-fi 支援リンクを設置しています。支援の有無で表示データや機能に差はありません。',
+      legalTitle: '任意支援について',
+    },
     states: {
       decreasing: '値下がり',
       increasing: '上昇中',
@@ -277,6 +287,16 @@ const TRANSLATIONS = {
       percentChange: 'Price change',
       quantitySold: 'Sold',
       state: 'State',
+    },
+    support: {
+      copy: 'If this helps, Ko-fi support helps keep the data refresh and site maintenance going.',
+      cta: 'Support on Ko-fi',
+      floatingCta: 'Support',
+      kicker: 'Support',
+      legalCta: 'Support on Ko-fi',
+      legalText:
+        'FF14Gils includes an optional Ko-fi support link. Supporting does not change the data or features you can access.',
+      legalTitle: 'Optional support',
     },
     states: {
       decreasing: 'Decreasing',
