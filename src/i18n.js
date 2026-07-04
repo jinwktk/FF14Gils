@@ -56,6 +56,9 @@ const TRANSLATIONS = {
       gaText:
         'に従い、Cookie 等を利用する場合があります。FF14Gils から Google Analytics へ個人を特定できる情報は送信しません。',
       gaTitle: 'Google Analytics 4',
+      kofiText:
+        '任意支援ウィジェットの表示に利用します。支援手続きや決済は Ko-fi 側で行われ、FF14Gils は決済情報を扱いません。',
+      kofiTitle: 'Ko-fi',
       label: '権利表記とデータについて',
       lead: 'FF14Gils は FINAL FANTASY XIV の非公式ファンサイトです。',
       publicDocs: '公開ドキュメント',
@@ -115,16 +118,6 @@ const TRANSLATIONS = {
       percentChange: '価格変動',
       quantitySold: '売れた数',
       state: '状態',
-    },
-    support: {
-      copy: '役に立ったら、データ更新と運用の支えとして応援してもらえると助かります。',
-      cta: 'Ko-fiで支援',
-      floatingCta: '支援する',
-      kicker: '応援',
-      legalCta: 'Ko-fiで支援する',
-      legalText:
-        'FF14Gils は任意の Ko-fi 支援リンクを設置しています。支援の有無で表示データや機能に差はありません。',
-      legalTitle: '任意支援について',
     },
     states: {
       decreasing: '値下がり',
@@ -228,6 +221,9 @@ const TRANSLATIONS = {
       gaText:
         'may involve cookies. FF14Gils does not send personally identifiable information to Google Analytics.',
       gaTitle: 'Google Analytics 4',
+      kofiText:
+        'Used to display the optional support widget. Support and payments are handled by Ko-fi, and FF14Gils does not process payment information.',
+      kofiTitle: 'Ko-fi',
       label: 'Rights and data',
       lead: 'FF14Gils is an unofficial FINAL FANTASY XIV fan site.',
       publicDocs: 'public documentation',
@@ -287,16 +283,6 @@ const TRANSLATIONS = {
       percentChange: 'Price change',
       quantitySold: 'Sold',
       state: 'State',
-    },
-    support: {
-      copy: 'If this helps, Ko-fi support helps keep the data refresh and site maintenance going.',
-      cta: 'Support on Ko-fi',
-      floatingCta: 'Support',
-      kicker: 'Support',
-      legalCta: 'Support on Ko-fi',
-      legalText:
-        'FF14Gils includes an optional Ko-fi support link. Supporting does not change the data or features you can access.',
-      legalTitle: 'Optional support',
     },
     states: {
       decreasing: 'Decreasing',

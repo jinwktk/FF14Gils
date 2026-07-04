@@ -43,6 +43,107 @@ const ROUTE_ABSOLUTE_URLS = {
 };
 const ROUTE_SESSION_KEY = 'ff14gils_route';
 const APP_BASE_PATH = resolveAppBasePath();
+const KOFI_WIDGET_SCRIPT_URL = 'https://storage.ko-fi.com/cdn/scripts/overlay-widget.js';
+const KOFI_WIDGET_POSITION_CSS = `
+  .floatingchat-container-wrap,
+  .floatingchat-container {
+    position: fixed !important;
+    left: auto !important;
+    right: 18px !important;
+    bottom: 18px !important;
+    z-index: 30 !important;
+    width: 88px !important;
+    height: 56px !important;
+    max-width: calc(100vw - 28px) !important;
+    border-radius: 999px !important;
+    overflow: hidden !important;
+    transform-origin: right bottom;
+  }
+
+  .floatingchat-container-wrap [class*="donateButton"],
+  .floatingchat-container [class*="donateButton"],
+  .floatingchat-container-wrap-mobi [class*="donateButton"] {
+    min-height: 44px !important;
+    border: 1px solid rgba(255, 224, 149, 0.42) !important;
+    border-radius: 7px !important;
+    background: var(--gold) !important;
+    color: #111114 !important;
+    box-shadow: 0 12px 28px rgba(244, 189, 80, 0.18) !important;
+    font-family: inherit !important;
+    font-weight: 900 !important;
+    letter-spacing: 0 !important;
+  }
+
+  .floatingchat-container-wrap [class*="donateButton"]:hover,
+  .floatingchat-container [class*="donateButton"]:hover,
+  .floatingchat-container-wrap-mobi [class*="donateButton"]:hover {
+    background: #ffd46e !important;
+  }
+
+  .floatingchat-container-wrap [class*="donateButton"] img,
+  .floatingchat-container [class*="donateButton"] img,
+  .floatingchat-container-wrap-mobi [class*="donateButton"] img {
+    width: 22px !important;
+    height: 22px !important;
+    border-radius: 6px !important;
+  }
+
+  .floatingchat-container-wrap-mobi {
+    left: auto !important;
+    right: 18px !important;
+    bottom: 18px !important;
+    width: 88px !important;
+    height: 56px !important;
+    border-radius: 999px !important;
+    overflow: hidden !important;
+    transform-origin: right bottom;
+  }
+
+  .floatingchat-container-mobi {
+    width: 88px !important;
+    height: 56px !important;
+  }
+
+  .floating-chat-kofi-popup-iframe,
+  .floating-chat-kofi-popup-iframe-mobi,
+  .floatingchat-container-wrap iframe {
+    left: auto !important;
+    right: 18px !important;
+    bottom: 86px !important;
+    max-width: calc(100vw - 28px) !important;
+  }
+
+  @media (max-width: 620px) {
+    body {
+      --kofi-mobile-right: max(10px, calc(100vw - 390px));
+    }
+
+    .floatingchat-container-wrap,
+    .floatingchat-container,
+    .floatingchat-container-wrap-mobi {
+      left: auto !important;
+      right: var(--kofi-mobile-right) !important;
+      bottom: 10px !important;
+      transform: scale(0.86);
+    }
+
+    .floating-chat-kofi-popup-iframe,
+    .floating-chat-kofi-popup-iframe-mobi {
+      left: auto !important;
+      right: var(--kofi-mobile-right) !important;
+      bottom: 74px !important;
+    }
+
+    .floatingchat-container-wrap .kofi-button-text,
+    .floatingchat-container-wrap-mobi .kofi-button-text,
+    .floatingchat-container .kofi-button-text,
+    .floatingchat-container-wrap [class*="donateButton"] span,
+    .floatingchat-container-wrap-mobi [class*="donateButton"] span,
+    .floatingchat-container [class*="donateButton"] span {
+      display: none !important;
+    }
+  }
+`;
 
 const elements = {
   error: document.querySelector('[data-error]'),
@@ -77,6 +178,7 @@ const state = {
   sortDirection: 'desc',
   worldIndex: normalizeWorldIndex(null),
 };
+let kofiWidgetScheduled = false;
 
 init();
 
@@ -95,6 +197,8 @@ async function init() {
     await loadSelectedSnapshot();
   } catch (error) {
     setError(translate(state.language, 'ui.loadError', { message: error.message }));
+  } finally {
+    void scheduleKofiWidget();
   }
 }
 
@@ -715,6 +819,50 @@ function updateJsonLdLanguage() {
   } catch {
     // Keep the static JSON-LD if a browser extension or manual edit breaks parsing.
   }
+}
+
+function installKofiWidgetStyles() {
+  const style = document.getElementById('kofi-widget-position-style') ?? document.createElement('style');
+  style.id = 'kofi-widget-position-style';
+  style.textContent = KOFI_WIDGET_POSITION_CSS;
+  document.head.append(style);
+}
+
+function drawKofiWidget() {
+  try {
+    window.kofiWidgetOverlay?.draw?.('jinnymeia', {
+      'type': 'floating-chat',
+      'floating-chat.donateButton.text': ' ',
+      'floating-chat.donateButton.background-color': '#f4bd50',
+      'floating-chat.donateButton.text-color': '#111114',
+    });
+  } catch {
+    // Keep the support widget isolated from the market dashboard.
+  } finally {
+    window.setTimeout(installKofiWidgetStyles, 0);
+  }
+}
+
+function scheduleKofiWidget() {
+  if (kofiWidgetScheduled || document.querySelector(`script[src="${KOFI_WIDGET_SCRIPT_URL}"]`)) return;
+  kofiWidgetScheduled = true;
+  installKofiWidgetStyles();
+
+  const loadScript = () => {
+    const script = document.createElement('script');
+    script.src = KOFI_WIDGET_SCRIPT_URL;
+    script.async = true;
+    script.addEventListener('load', drawKofiWidget, { once: true });
+    script.addEventListener('error', installKofiWidgetStyles, { once: true });
+    document.body.append(script);
+  };
+
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(loadScript, { timeout: 1200 });
+    return;
+  }
+
+  window.setTimeout(loadScript, 160);
 }
 
 function defaultSortDirection(sortBy) {

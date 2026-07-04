@@ -359,44 +359,56 @@ describe('app data loading contract', () => {
 
   it('Ko-fiの支援導線を公開UIに表示する', async () => {
     const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+    const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');
     const styles = await readFile(new URL('../styles.css', import.meta.url), 'utf8');
     const i18n = await readFile(new URL('../src/i18n.js', import.meta.url), 'utf8');
 
-    assert.match(html, /class="kofi-link"/);
-    assert.match(html, /href="https:\/\/ko-fi\.com\/jinnymeia"/);
-    assert.match(html, /rel="me noopener noreferrer"/);
+    const kofiLinks = html.match(/href="https:\/\/ko-fi\.com\/jinnymeia"/g) ?? [];
+    const staticKofiScripts =
+      html.match(/<script[^>]+src="https:\/\/storage\.ko-fi\.com\/cdn\/scripts\/overlay-widget\.js"[^>]*><\/script>/g) ??
+      [];
+
+    assert.equal(kofiLinks.length, 0);
+    assert.deepEqual(staticKofiScripts, []);
     assert.match(html, /"sameAs": \["https:\/\/ko-fi\.com\/jinnymeia"\]/);
-    assert.match(html, /data-i18n-attr="aria-label:ui\.kofiSupport"/);
-    assert.match(html, /Ko-fiで支援する/);
-    assert.match(html, /assets\/ko-fi\.svg/);
-    assert.match(html, /class="support-callout"/);
-    assert.match(html, /class="support-button"/);
-    assert.match(html, /class="floating-kofi"/);
-    assert.match(html, /data-i18n="support\.kicker"/);
-    assert.match(html, /data-i18n="support\.copy"/);
-    assert.match(html, /data-i18n="support\.cta"/);
-    assert.match(html, /data-i18n="support\.floatingCta"/);
-    assert.match(html, /id="legal-support-title"/);
-    assert.match(html, /data-i18n="support\.legalTitle"/);
-    assert.match(html, /data-i18n="support\.legalText"/);
-    assert.match(html, /data-i18n="support\.legalCta"/);
-    assert.doesNotMatch(html, /storage\.ko-fi\.com/);
+    assert.doesNotMatch(html, /class="floating-kofi"/);
+    assert.doesNotMatch(html, /data-i18n="support\.floatingCta"/);
+    assert.doesNotMatch(html, /class="kofi-link"/);
+    assert.doesNotMatch(html, /class="support-callout"/);
+    assert.doesNotMatch(html, /class="support-button"/);
+    assert.doesNotMatch(html, /id="legal-support-title"/);
+    assert.doesNotMatch(html, /class="inline-support-link"/);
     assert.doesNotMatch(html, /kofiWidgetOverlay/);
-    assert.match(styles, /\.kofi-link/);
-    assert.match(styles, /\.support-callout/);
-    assert.match(styles, /\.support-button/);
-    assert.match(styles, /\.floating-kofi/);
-    assert.match(styles, /\.legal-support-action/);
+    assert.match(app, /KOFI_WIDGET_SCRIPT_URL\s*=\s*'https:\/\/storage\.ko-fi\.com\/cdn\/scripts\/overlay-widget\.js'/);
+    assert.match(app, /KOFI_WIDGET_POSITION_CSS/);
+    assert.match(app, /installKofiWidgetStyles/);
+    assert.match(app, /drawKofiWidget/);
+    assert.match(app, /scheduleKofiWidget/);
+    assert.match(app, /document\.createElement\('script'\)/);
+    assert.match(app, /script\.src = KOFI_WIDGET_SCRIPT_URL/);
+    assert.match(app, /script\.async = true/);
+    assert.match(app, /script\.addEventListener\('load', drawKofiWidget, \{ once: true \}\)/);
+    assert.match(app, /script\.addEventListener\('error', installKofiWidgetStyles, \{ once: true \}\)/);
+    assert.match(app, /document\.body\.append\(script\)/);
+    assert.match(app, /window\.kofiWidgetOverlay\?\.draw\?\.\('jinnymeia'/);
+    assert.match(app, /'type': 'floating-chat'/);
+    assert.match(app, /'floating-chat\.donateButton\.text': ' '/);
+    assert.match(app, /catch \{[\s\S]*\} finally \{[\s\S]*window\.setTimeout\(installKofiWidgetStyles, 0\)/);
+    assert.match(app, /void scheduleKofiWidget\(\)/);
+    assert.match(app, /\.floatingchat-container-wrap,\s*\.floatingchat-container\s*\{[\s\S]*position: fixed !important;[\s\S]*right: 18px !important;[\s\S]*bottom: 18px !important;[\s\S]*width: 88px !important;[\s\S]*height: 56px !important;[\s\S]*overflow: hidden !important;/);
+    assert.match(app, /\.floatingchat-container-wrap \[class\*="donateButton"\],[\s\S]*\.floatingchat-container \[class\*="donateButton"\],[\s\S]*\.floatingchat-container-wrap-mobi \[class\*="donateButton"\]\s*\{[\s\S]*background: var\(--gold\) !important;/);
+    assert.match(app, /@media \(max-width: 620px\) \{[\s\S]*\.floatingchat-container-wrap \.kofi-button-text,[\s\S]*display: none !important;/);
+    assert.doesNotMatch(styles, /\.floating-kofi/);
+    assert.doesNotMatch(styles, /\.kofi-link/);
+    assert.doesNotMatch(styles, /\.support-callout/);
+    assert.doesNotMatch(styles, /\.support-button/);
+    assert.doesNotMatch(styles, /\.legal-support-action/);
     assert.match(i18n, /kofiSupport: 'Ko-fiで支援する'/);
     assert.match(i18n, /kofiSupport: 'Support on Ko-fi'/);
-    assert.match(i18n, /support:\s*{[\s\S]*kicker: '応援'/);
-    assert.match(i18n, /cta: 'Ko-fiで支援'/);
-    assert.match(i18n, /floatingCta: '支援する'/);
-    assert.match(i18n, /legalTitle: '任意支援について'/);
-    assert.match(i18n, /support:\s*{[\s\S]*kicker: 'Support'/);
-    assert.match(i18n, /cta: 'Support on Ko-fi'/);
-    assert.match(i18n, /floatingCta: 'Support'/);
-    assert.match(i18n, /legalTitle: 'Optional support'/);
+    assert.doesNotMatch(i18n, /floatingCta: '支援する'/);
+    assert.doesNotMatch(i18n, /floatingCta: 'Support'/);
+    assert.doesNotMatch(i18n, /legalTitle: '任意支援について'/);
+    assert.doesNotMatch(i18n, /legalTitle: 'Optional support'/);
     await access(new URL('../assets/ko-fi.svg', import.meta.url));
   });
 

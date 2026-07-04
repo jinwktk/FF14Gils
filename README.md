@@ -11,7 +11,7 @@ FF14 のマーケットデータから、金策候補とワールド別の売上
 - 画面: 金策候補 `/`、ワールド売上ランキング `/ranking`、権利表記とデータ `/legal`
 - UI言語: 日本語 / English。選択言語とワールドは Cookie に保存します。
 
-利用者ブラウザは GitHub Pages から配信される静的ファイルと生成済み JSON だけを読みます。ブラウザから Saddlebag Exchange API や XIVAPI v2 へ直接 POST / GET しません。
+マーケットデータについては、利用者ブラウザは GitHub Pages から配信される生成済み JSON だけを読みます。ブラウザから Saddlebag Exchange API や XIVAPI v2 へ直接 POST / GET しません。
 
 ## 主な機能
 
@@ -30,10 +30,11 @@ FF14Gils は FINAL FANTASY XIV の非公式ファンサイトです。SQUARE ENI
 - Saddlebag Exchange API: マーケット集計候補の取得
 - XIVAPI v2: アイテム名の補完
 - Google Analytics 4: ページ閲覧状況の把握
+- Ko-fi: 任意支援ウィジェットの表示
 
 データ元には外部ツールで入手したデータが含まれる場合があります。FF14Gils はその取得方法を管理または保証しません。ゲームクライアント、アカウント、プレイ操作へ接続せず、RMT、BOT、外部ツールによる自動操作を目的としません。
 
-公開ページ上の詳しい説明は `/legal` に置いています。ヘッダー、上部CTA、画面右下の固定CTA、`/legal` には任意支援用の Ko-fi リンクを表示します。外部 Ko-fi widget スクリプトは読み込まず、支援の有無で表示データや機能に差はありません。
+公開ページ上の詳しい説明は `/legal` に置いています。任意支援用の Ko-fi 導線は公式 overlay widget を動的に読み込み、画面右下に小型の1個だけを表示します。
 
 ## SEO と計測
 
@@ -72,12 +73,14 @@ flowchart LR
   Saddlebag["Saddlebag Exchange API"]
   Xivapi["XIVAPI v2"]
   Analytics["Google Analytics 4"]
+  Kofi["Ko-fi widget"]
 
   Ui -->|"GET same-origin"| Static
   Ui -->|"GET same-origin"| WorldIndex
   Ui -->|"GET same-origin"| Snapshots
   Ui -->|"read / write"| Cookie
   Ui -->|"gtag.js"| Analytics
+  Ui -->|"overlay widget"| Kofi
 
   FetchData --> Saddlebag
   FetchData --> Xivapi
