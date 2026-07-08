@@ -3,6 +3,13 @@ import { CATEGORY_PRESETS, SORT_OPTIONS } from '../src/marketshare.js';
 export const SADDLEBAG_MARKETSHARE_ENDPOINT =
   'https://api.saddlebagexchange.com/api/ffxivmarketshare';
 
+export function buildMarketshareRequestHeaders() {
+  return {
+    'content-type': 'application/json',
+    accept: 'application/json',
+  };
+}
+
 export function buildMarketsharePayload({
   server,
   timePeriod,

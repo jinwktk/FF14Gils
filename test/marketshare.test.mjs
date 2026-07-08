@@ -11,7 +11,10 @@ import {
   stateLabel,
   summarizeMarketshare,
 } from '../src/marketshare.js';
-import { buildMarketsharePayload } from '../scripts/marketshare-api.mjs';
+import {
+  buildMarketsharePayload,
+  buildMarketshareRequestHeaders,
+} from '../scripts/marketshare-api.mjs';
 
 const apiResponse = {
   data: [
@@ -106,6 +109,16 @@ describe('buildMarketsharePayload', () => {
         }),
       /server|timePeriod|salesAmount/,
     );
+  });
+});
+
+describe('buildMarketshareRequestHeaders', () => {
+  it('Saddlebag APIのWAFに弾かれないよう独自User-Agentを送らない', () => {
+    const headers = buildMarketshareRequestHeaders();
+
+    assert.equal(headers['content-type'], 'application/json');
+    assert.equal(headers.accept, 'application/json');
+    assert.equal('user-agent' in headers, false);
   });
 });
 

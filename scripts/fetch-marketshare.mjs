@@ -16,6 +16,7 @@ import {
   resolveDefaultWorld,
 } from '../src/worlds.js';
 import {
+  buildMarketshareRequestHeaders,
   buildMarketsharePayload,
   SADDLEBAG_MARKETSHARE_ENDPOINT,
 } from './marketshare-api.mjs';
@@ -123,10 +124,7 @@ async function fetchWorldMarketshare(world, period) {
     SADDLEBAG_MARKETSHARE_ENDPOINT,
     {
       method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'user-agent': 'FF14Gils GitHub Pages data fetcher',
-      },
+      headers: buildMarketshareRequestHeaders(),
       body: JSON.stringify(payload),
     },
     retryOptions,
