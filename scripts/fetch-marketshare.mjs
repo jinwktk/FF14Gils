@@ -18,6 +18,7 @@ import {
 import {
   buildMarketshareRequestHeaders,
   buildMarketsharePayload,
+  normalizeMarketshareApiResponse,
   SADDLEBAG_MARKETSHARE_ENDPOINT,
 } from './marketshare-api.mjs';
 import {
@@ -136,7 +137,7 @@ async function fetchWorldMarketshare(world, period) {
     );
   }
 
-  const apiResponse = await response.json();
+  const apiResponse = normalizeMarketshareApiResponse(await response.json());
   assertMarketshareResponse(apiResponse);
 
   return {

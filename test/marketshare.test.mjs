@@ -14,6 +14,7 @@ import {
 import {
   buildMarketsharePayload,
   buildMarketshareRequestHeaders,
+  normalizeMarketshareApiResponse,
 } from '../scripts/marketshare-api.mjs';
 
 const apiResponse = {
@@ -119,6 +120,24 @@ describe('buildMarketshareRequestHeaders', () => {
     assert.equal(headers['content-type'], 'application/json');
     assert.equal(headers.accept, 'application/json');
     assert.equal('user-agent' in headers, false);
+  });
+});
+
+describe('normalizeMarketshareApiResponse', () => {
+  it('Saddlebagの該当なしレスポンスを空データとして扱う', () => {
+    assert.deepEqual(
+      normalizeMarketshareApiResponse({
+        exception: 'No items found matching your search parameters.',
+      }),
+      { data: [] },
+    );
+  });
+
+  it('未知の非dataレスポンスはそのまま検証失敗に回す', () => {
+    const response = { exception: 'Unexpected upstream error' };
+
+    assert.equal(normalizeMarketshareApiResponse(response), response);
+    assert.throws(() => assertMarketshareResponse(response), /data/);
   });
 });
 

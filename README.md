@@ -95,7 +95,7 @@ flowchart LR
 
 `npm run fetch:data` が外部 API からスナップショットを生成し、`npm run build` が `dist/` に静的配信物を作ります。push / 手動デプロイでは API を呼ばず、公開中の `data/` を `dist/` に復元してから Pages へ反映します。
 
-Saddlebag Exchange API への POST は `Content-Type: application/json` と `Accept: application/json` だけを明示します。独自 `User-Agent` は 401 応答の原因になることがあるため付けません。
+Saddlebag Exchange API への POST は `Content-Type: application/json` と `Accept: application/json` だけを明示します。独自 `User-Agent` は 401 応答の原因になることがあるため付けません。API が `No items found matching your search parameters.` を返した場合は、そのワールド・期間の売上候補が0件として空データを生成します。
 
 ## 開発コマンド
 

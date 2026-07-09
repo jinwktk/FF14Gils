@@ -10,6 +10,16 @@ export function buildMarketshareRequestHeaders() {
   };
 }
 
+export function normalizeMarketshareApiResponse(response) {
+  if (Array.isArray(response?.data)) return response;
+
+  if (response?.exception === 'No items found matching your search parameters.') {
+    return { data: [] };
+  }
+
+  return response;
+}
+
 export function buildMarketsharePayload({
   server,
   timePeriod,
