@@ -1,49 +1,29 @@
 import { strict as assert } from 'node:assert';
-import { readFile, readdir } from 'node:fs/promises';
-import { gzipSync } from 'node:zlib';
-import { describe, it } from 'node:test';
+import { readFile } from 'node:fs/promises';
+import { before, describe, it } from 'node:test';
+import {
+  PERFORMANCE_BUDGETS,
+  measurePerformanceBudget,
+} from '../scripts/check-performance-budget.mjs';
 
-const FIRST_PARTY_BUDGET = 40 * 1024;
-const MARKET_INITIAL_BUDGET = 64 * 1024;
+let measurement;
+
+before(async () => {
+  measurement = await measurePerformanceBudget(new URL('../', import.meta.url));
+});
 
 describe('first-party performance budget', () => {
   it('route HTML/CSS/transitive ES modulesは40KiB gzip以下にする', async () => {
-    const sourceNames = (await readdir(new URL('../src/', import.meta.url)))
-      .filter((name) => name.endsWith('.js'));
-    const files = [
-      new URL('../index.html', import.meta.url),
-      new URL('../styles.css', import.meta.url),
-      ...sourceNames.map((name) => new URL(`../src/${name}`, import.meta.url)),
-    ];
-    const bytes = await gzipFilesIndividually(files);
-
     assert.ok(
-      bytes <= FIRST_PARTY_BUDGET,
-      `first-party gzip ${bytes} bytes exceeds ${FIRST_PARTY_BUDGET}`,
+      measurement.firstPartyBytes <= PERFORMANCE_BUDGETS.firstParty,
+      `first-party gzip ${measurement.firstPartyBytes} bytes exceeds ${PERFORMANCE_BUDGETS.firstParty}`,
     );
   });
 
   it('world indexと既定snapshotを含むmarket初期転送見積は64KiB gzip以下にする', async () => {
-    const worldIndexUrl = new URL('../data/worlds.json', import.meta.url);
-    const worldIndex = JSON.parse(await readFile(worldIndexUrl, 'utf8'));
-    const defaultWorld = worldIndex.worlds.find((world) => world.name === worldIndex.defaultWorld);
-    const snapshotPath = defaultWorld?.periods?.[worldIndex.defaultPeriod] ?? defaultWorld?.path;
-    assert.ok(snapshotPath, '既定snapshot pathが必要です');
-
-    const sourceNames = (await readdir(new URL('../src/', import.meta.url)))
-      .filter((name) => name.endsWith('.js'));
-    const files = [
-      new URL('../index.html', import.meta.url),
-      new URL('../styles.css', import.meta.url),
-      ...sourceNames.map((name) => new URL(`../src/${name}`, import.meta.url)),
-      worldIndexUrl,
-      new URL(`../${snapshotPath}`, import.meta.url),
-    ];
-    const bytes = await gzipFilesIndividually(files);
-
     assert.ok(
-      bytes <= MARKET_INITIAL_BUDGET,
-      `market initial gzip ${bytes} bytes exceeds ${MARKET_INITIAL_BUDGET}`,
+      measurement.marketInitialBytes <= PERFORMANCE_BUDGETS.marketInitial,
+      `market initial gzip ${measurement.marketInitialBytes} bytes exceeds ${PERFORMANCE_BUDGETS.marketInitial}`,
     );
   });
 
@@ -59,9 +39,26 @@ describe('first-party performance budget', () => {
     assert.doesNotMatch(html, /fonts\.(googleapis|gstatic)\.com/i);
     assert.doesNotMatch(styles, /@import\s+url\([^)]*font/i);
   });
-});
 
-async function gzipFilesIndividually(urls) {
-  const buffers = await Promise.all(urls.map((url) => readFile(url)));
-  return buffers.reduce((total, buffer) => total + gzipSync(buffer).byteLength, 0);
-}
+  it('完成したdistをデータ準備後にCIで再検査する', async () => {
+    const packageJson = JSON.parse(
+      await readFile(new URL('../package.json', import.meta.url), 'utf8'),
+    );
+    const workflow = await readFile(
+      new URL('../.github/workflows/pages.yml', import.meta.url),
+      'utf8',
+    );
+    const buildIndex = workflow.indexOf('name: Build static site');
+    const restoreIndex = workflow.indexOf('name: Restore published data');
+    const verifyIndex = workflow.indexOf('name: Verify performance budget');
+
+    assert.equal(
+      packageJson.scripts?.['check:performance'],
+      'node scripts/check-performance-budget.mjs dist',
+    );
+    assert.ok(buildIndex >= 0);
+    assert.ok(restoreIndex > buildIndex);
+    assert.ok(verifyIndex > restoreIndex);
+    assert.match(workflow.slice(verifyIndex), /run: npm run check:performance/);
+  });
+});

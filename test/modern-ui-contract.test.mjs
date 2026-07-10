@@ -71,6 +71,18 @@ describe('mobile-first UI contract', () => {
     assert.doesNotMatch(joined, /gtag\(['"]event['"],\s*['"]page_view['"]/);
     assert.doesNotMatch(joined, /gtag\([^\n]*(search\.value|data-search)/);
   });
+
+  it('現在のsnapshot取得失敗時は前期間の行と更新時刻を残さない', async () => {
+    const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');
+    const handler = functionSource(app, 'handleSnapshotLoadError', 'populateLanguageSelect');
+
+    assert.match(handler, /state\.items = \[\]/);
+    assert.match(handler, /state\.currentGeneratedAt = ''/);
+    assert.match(handler, /resetVisibleRows\(\)/);
+    assert.match(handler, /renderUpdatedAt\(''\)/);
+    assert.match(handler, /renderMarketResults\(\)/);
+    assert.match(handler, /setError\(/);
+  });
 });
 
 function functionSource(source, functionName, nextFunctionName) {
