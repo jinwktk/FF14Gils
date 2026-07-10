@@ -123,6 +123,28 @@ describe('route coordinator', () => {
     assert.deepEqual(historyCalls, []);
     assert.deepEqual(transitions, [['ranking', 'click']]);
   });
+
+  it('異なるrouteへのクリックでは新しいメタデータを履歴更新より先に準備する', () => {
+    const calls = [];
+    const coordinator = createRouteCoordinator({
+      basePath: '/FF14Gils/',
+      getPathname: () => '/FF14Gils/',
+      history: {
+        pushState(...args) {
+          calls.push(['pushState', ...args]);
+        },
+      },
+      beforeHistoryChange: (route, source) => calls.push(['beforeHistoryChange', route, source]),
+      onRoute: (route, source) => calls.push(['onRoute', route, source]),
+    });
+
+    assert.equal(coordinator.navigate('ranking'), 'ranking');
+    assert.deepEqual(calls, [
+      ['beforeHistoryChange', 'ranking', 'click'],
+      ['pushState', {}, '', '/FF14Gils/ranking/'],
+      ['onRoute', 'ranking', 'click'],
+    ]);
+  });
 });
 
 describe('resource coordinator', () => {
