@@ -93,8 +93,8 @@ describe('app data loading contract', () => {
     assert.match(html, /data-spa-nav/);
     assert.doesNotMatch(html, /href="#\//);
     assert.match(html, /href="\.\/"/);
-    assert.match(html, /href="\.\/ranking"/);
-    assert.match(html, /href="\.\/legal"/);
+    assert.match(html, /href="\.\/ranking\/"/);
+    assert.match(html, /href="\.\/legal\/"/);
     assert.match(html, /data-i18n="nav\.legal"/);
     assert.match(html, /data-nav-link="legal"/);
     assert.doesNotMatch(html, /class="site-footer"/);
@@ -106,13 +106,12 @@ describe('app data loading contract', () => {
     assert.match(html, /data-world-ranking/);
     assert.match(html, /data-ranking-period-select/);
     assert.match(html, /data-i18n="ranking\.region"[\s\S]*data-i18n="ranking\.dataCenter"/);
-    assert.match(app, /routeFromPath/);
+    assert.match(app, /from ['"]\.\/routes\.js['"]/);
+    assert.match(app, /createRouteCoordinator/);
     assert.match(app, /navigateToPage/);
-    assert.match(app, /legal:\s*'legal'/);
     assert.match(app, /script\?\.src/);
     assert.match(app, /if \(!storedRoute\) return '';/);
-    assert.match(app, /pendingRoute \|\| routeFromPath/);
-    assert.match(app, /pushState/);
+    assert.match(app, /consumePendingRoute/);
     assert.match(app, /popstate/);
     assert.match(app, /renderWorldRanking/);
     assert.match(app, /formatWorldRegionLabel/);
@@ -228,9 +227,9 @@ describe('app data loading contract', () => {
     assert.match(sitemap, /<loc>https:\/\/jinwktk\.github\.io\/FF14Gils\/<\/loc>/);
     assert.match(sitemap, /<loc>https:\/\/jinwktk\.github\.io\/FF14Gils\/legal\/<\/loc>/);
     assert.match(sitemap, /<loc>https:\/\/jinwktk\.github\.io\/FF14Gils\/ranking\/<\/loc>/);
-    assert.match(app, /ROUTE_ABSOLUTE_URLS/);
-    assert.match(app, /setCanonicalHref\(routeMeta\.url\)/);
-    assert.match(app, /setMetaProperty\('og:url', routeMeta\.url\)/);
+    assert.match(app, /getRouteDefinition/);
+    assert.match(app, /setCanonicalHref\(routeDefinition\.absoluteUrl\)/);
+    assert.match(app, /setMetaProperty\('og:url', routeDefinition\.absoluteUrl\)/);
   });
 
   it('権利表記とデータ元を説明する公開ページを持つ', async () => {
@@ -239,7 +238,7 @@ describe('app data loading contract', () => {
     const styles = await readFile(new URL('../styles.css', import.meta.url), 'utf8');
     const build = await readFile(new URL('../scripts/build.mjs', import.meta.url), 'utf8');
 
-    assert.match(html, /href="\.\/legal"/);
+    assert.match(html, /href="\.\/legal\/"/);
     assert.match(html, /data-page="legal"/);
     assert.match(html, /class="results-panel legal-document"/);
     assert.match(html, /class="results-header legal-header"/);
@@ -321,7 +320,7 @@ describe('app data loading contract', () => {
   it('SPAのクリーンURL向け404フォールバックをPages配信対象に含める', async () => {
     const fallback = await readFile(new URL('../404.html', import.meta.url), 'utf8');
     const build = await readFile(new URL('../scripts/build.mjs', import.meta.url), 'utf8');
-    const routeEntrypointSource = functionSource(build, 'createRouteEntrypoint', 'routeUrlFor');
+    const routeEntrypointSource = functionSource(build, 'createRouteEntrypoint', 'writeRouteEntrypoint');
 
     assert.match(fallback, /sessionStorage\.setItem\('ff14gils_route'/);
     assert.match(fallback, /const projectBasePath = '\/FF14Gils\/'/);
@@ -329,17 +328,14 @@ describe('app data loading contract', () => {
     assert.match(fallback, /\? projectBasePath\s*: '\/'/);
     assert.match(fallback, /location\.replace\(basePath\)/);
     assert.match(build, /'404\.html'/);
-    assert.match(build, /const routeEntrypoints = \['ranking', 'legal'\]/);
+    assert.match(build, /const routeEntrypoints = ROUTE_NAMES\.filter/);
     assert.match(build, /writeRouteEntrypoint\(route\)/);
     assert.match(build, /\.\.\/dist\/\$\{route\}\//);
     assert.match(build, /new URL\('index\.html', routeDir\)/);
-    assert.match(build, /const siteUrl = 'https:\/\/jinwktk\.github\.io\/FF14Gils\/'/);
     assert.match(build, /readFile\(new URL\('\.\.\/index\.html'/);
     assert.match(build, /<base href="\.\.\/" \/>/);
-    assert.match(build, /setRouteCanonical\(html, routeUrl\)/);
-    assert.match(build, /setRouteOpenGraphUrl\(html, routeUrl\)/);
-    assert.match(build, /sessionStorage\.setItem\('ff14gils_route', '\$\{route\}'\)/);
-    assert.match(build, /return `\$\{siteUrl\}\$\{route\}\/`/);
+    assert.match(build, /getRouteDefinition\(route, 'ja'\)/);
+    assert.doesNotMatch(routeEntrypointSource, /sessionStorage\.setItem\('ff14gils_route'/);
     assert.doesNotMatch(routeEntrypointSource, /window\.location\.replace\(basePath\)/);
     assert.doesNotMatch(routeEntrypointSource, /<body><\/body>/);
   });
