@@ -58,6 +58,7 @@ describe('app data loading contract', () => {
   });
 
   it('初期表示ワールドはHadesにする', async () => {
+    const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');
     const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
     const i18n = await readFile(new URL('../src/i18n.js', import.meta.url), 'utf8');
     const worlds = await readFile(new URL('../src/worlds.js', import.meta.url), 'utf8');
@@ -75,6 +76,10 @@ describe('app data loading contract', () => {
     assert.doesNotMatch(html, /Chocobo初期表示/);
     assert.match(i18n, /Hades初期表示/);
     assert.match(i18n, /Starts on Hades/);
+    assert.match(
+      app,
+      /const selectedPeriod = state\.worldIndexReady\s*\?\s*elements\.periodSelect\.value\s*:\s*'';/,
+    );
   });
 
   it('グラフ画面は表示せず、ワールド売上ランキングを持つ', async () => {
