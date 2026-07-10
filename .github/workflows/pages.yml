@@ -53,6 +53,12 @@ jobs:
         if: ${{ github.event_name != 'schedule' && github.event_name != 'repository_dispatch' }}
         run: npm run restore:published-data
 
+      - name: Optimize static JSON
+        run: npm run optimize:data
+
+      - name: Verify performance budget
+        run: npm run check:performance
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:

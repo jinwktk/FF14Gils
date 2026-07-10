@@ -25,22 +25,19 @@ import {
   normalizeWorldIndex,
   resolveDataCenterRegion,
 } from './worlds.js';
+import {
+  ROUTE_NAMES,
+  buildPagePath,
+  getRouteDefinition,
+} from './routes.js';
+import { createRouteCoordinator } from './route-coordinator.js';
+import { createResourceCoordinator } from './resource-coordinator.js';
 
 const DEFAULT_DATA_PATH = 'data/marketshare.json';
 const WORLD_INDEX_PATH = 'data/worlds.json';
-const MAX_VISIBLE_ROWS = 80;
+const INITIAL_VISIBLE_ROWS = 24;
+const ROWS_PER_PAGE = 24;
 const MAX_VISIBLE_WORLD_RANKS = 12;
-const PAGE_ROUTES = new Set(['market', 'ranking', 'legal']);
-const PAGE_PATHS = {
-  legal: 'legal',
-  market: '',
-  ranking: 'ranking',
-};
-const ROUTE_ABSOLUTE_URLS = {
-  legal: 'https://jinwktk.github.io/FF14Gils/legal/',
-  market: 'https://jinwktk.github.io/FF14Gils/',
-  ranking: 'https://jinwktk.github.io/FF14Gils/ranking/',
-};
 const ROUTE_SESSION_KEY = 'ff14gils_route';
 const APP_BASE_PATH = resolveAppBasePath();
 const KOFI_WIDGET_SCRIPT_URL = 'https://storage.ko-fi.com/cdn/scripts/overlay-widget.js';
@@ -146,15 +143,24 @@ const KOFI_WIDGET_POSITION_CSS = `
 `;
 
 const elements = {
+  filterFields: document.querySelector('[data-filter-fields]'),
+  filterSummary: document.querySelector('[data-filter-summary]'),
+  filterToggle: document.querySelector('[data-filter-toggle]'),
+  filterToggleLabel: document.querySelector('[data-filter-toggle-label]'),
   error: document.querySelector('[data-error]'),
+  heroEyebrow: document.querySelector('[data-route-hero-eyebrow]'),
+  heroLead: document.querySelector('[data-route-hero-lead]'),
+  heroTitle: document.querySelector('[data-route-hero-title]'),
   languageSelect: document.querySelector('[data-language-select]'),
+  loadMore: document.querySelector('[data-load-more]'),
   minQuantitySold: document.querySelector('[data-min-quantity]'),
   minQuantityValue: document.querySelector('[data-min-quantity-value]'),
   navLinks: [...document.querySelectorAll('[data-nav-link]')],
   pages: [...document.querySelectorAll('[data-page]')],
   periodSelect: document.querySelector('[data-period-select]'),
   rankingPeriodSelect: document.querySelector('[data-ranking-period-select]'),
-  resultCount: document.querySelector('[data-result-count]'),
+  resultsPanel: document.querySelector('[data-results-panel]'),
+  resultsStatus: document.querySelector('[data-results-status]'),
   search: document.querySelector('[data-search]'),
   sortBy: document.querySelector('[data-sort-by]'),
   sortButtons: [...document.querySelectorAll('[data-sort-button]')],
@@ -176,25 +182,46 @@ const state = {
   snapshots: new Map(),
   sortBy: 'opportunityScore',
   sortDirection: 'desc',
+  visibleRowLimit: INITIAL_VISIBLE_ROWS,
   worldIndex: normalizeWorldIndex(null),
+  worldIndexReady: false,
 };
 let kofiWidgetScheduled = false;
+let kofiWidgetFrameObserver = null;
+let observedKofiWidgetOverlay = null;
+let filterDisclosureTouched = false;
+
+const resourceCoordinator = createResourceCoordinator(loadJsonResource);
+const routeCoordinator = createRouteCoordinator({
+  basePath: APP_BASE_PATH,
+  getPathname: () => window.location.pathname,
+  history: window.history,
+  beforeHistoryChange: (route) => {
+    updateRouteMetadata(route);
+  },
+  onRoute: (route, source) => {
+    void activateRoute(route, source);
+  },
+});
 
 init();
 
-async function init() {
+function init() {
   try {
+    freezeDocumentIconUrls();
     state.language = resolvePreferredLanguage(document.cookie, navigator.language);
     setError('');
     populateLanguageSelect();
-    applyLanguage();
-    state.worldIndex = await loadWorldIndex();
-    populateDataCenterSelect();
-    populateWorldSelect();
-    populatePeriodSelect();
     bindControls();
-    applyRouteFromLocation();
-    await loadSelectedSnapshot();
+    initializeFilterDisclosure();
+
+    const pendingRoute = consumePendingRoute();
+    if (pendingRoute) {
+      window.history.replaceState({}, '', buildPagePath(pendingRoute, APP_BASE_PATH));
+    }
+
+    routeCoordinator.initialize();
+    applyLanguage();
   } catch (error) {
     setError(translate(state.language, 'ui.loadError', { message: error.message }));
   } finally {
@@ -202,14 +229,47 @@ async function init() {
   }
 }
 
-async function loadWorldIndex() {
-  try {
-    const response = await fetch(WORLD_INDEX_PATH, { cache: 'no-store' });
-    if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
-    return normalizeWorldIndex(await response.json(), DEFAULT_DATA_PATH);
-  } catch {
-    return normalizeWorldIndex(null, DEFAULT_DATA_PATH);
+function freezeDocumentIconUrls() {
+  for (const link of document.querySelectorAll('link[rel~="icon"], link[rel="apple-touch-icon"]')) {
+    link.href = link.href;
   }
+}
+
+async function loadJsonResource(path) {
+  const response = await fetch(path, { cache: 'no-store' });
+  if (!response.ok) {
+    throw new Error(`${response.status} ${response.statusText}`);
+  }
+
+  return response.json();
+}
+
+async function ensureWorldIndex(token) {
+  if (state.worldIndexReady) return true;
+
+  const result = await resourceCoordinator.commit(
+    token,
+    resourceCoordinator.load(WORLD_INDEX_PATH),
+    {
+      onSuccess: (worldIndex) => applyWorldIndex(worldIndex),
+      onError: () => applyWorldIndex(null),
+    },
+  );
+
+  return result.applied && state.worldIndexReady;
+}
+
+function applyWorldIndex(worldIndex) {
+  const selectedDataCenter = elements.dcSelect.value;
+  const selectedWorld = elements.worldSelect.value;
+  const selectedPeriod = state.worldIndexReady ? elements.periodSelect.value : '';
+
+  state.worldIndex = normalizeWorldIndex(worldIndex, DEFAULT_DATA_PATH);
+  state.worldIndexReady = true;
+  populateDataCenterSelect(selectedDataCenter);
+  populateWorldSelect(selectedWorld);
+  populatePeriodSelect(selectedPeriod || state.worldIndex.defaultPeriod);
+  updateFilterSummary();
 }
 
 async function loadSnapshot(path) {
@@ -217,19 +277,14 @@ async function loadSnapshot(path) {
     return state.snapshots.get(path);
   }
 
-  const response = await fetch(path, { cache: 'no-store' });
-  if (!response.ok) {
-    throw new Error(`${response.status} ${response.statusText}`);
-  }
-
-  const snapshot = await response.json();
+  const snapshot = await resourceCoordinator.load(path);
   validateSnapshot(snapshot);
   state.snapshots.set(path, snapshot);
   return snapshot;
 }
 
 function bindControls() {
-  window.addEventListener('popstate', applyRouteFromLocation);
+  window.addEventListener('popstate', routeCoordinator.handlePopState);
   updateNavigationHrefs();
 
   for (const link of elements.navLinks) {
@@ -245,16 +300,20 @@ function bindControls() {
     const selectedDataCenter = elements.dcSelect.value;
     const selectedWorld = elements.worldSelect.value;
     applyLanguage();
-    populateDataCenterSelect(selectedDataCenter);
-    populateWorldSelect(selectedWorld);
-    populatePeriodSelect(elements.periodSelect.value);
+    if (state.worldIndexReady) {
+      populateDataCenterSelect(selectedDataCenter);
+      populateWorldSelect(selectedWorld);
+      populatePeriodSelect(elements.periodSelect.value);
+    }
     renderUpdatedAt(state.currentGeneratedAt);
-    render();
+    renderActivePage();
   });
 
   elements.dcSelect.addEventListener('change', () => {
     populateWorldSelect();
     document.cookie = buildWorldPreferenceCookie(elements.worldSelect.value);
+    resetVisibleRows();
+    updateFilterSummary();
     void loadSelectedSnapshot();
   });
 
@@ -264,26 +323,35 @@ function bindControls() {
       elements.dcSelect.value = dataCenter;
     }
     document.cookie = buildWorldPreferenceCookie(elements.worldSelect.value);
+    resetVisibleRows();
+    updateFilterSummary();
     void loadSelectedSnapshot();
   });
   elements.periodSelect.addEventListener('change', () => {
     syncSelectedPeriod(elements.periodSelect.value);
+    resetVisibleRows();
+    updateFilterSummary();
     void loadSelectedSnapshot();
   });
   elements.rankingPeriodSelect.addEventListener('change', () => {
     syncSelectedPeriod(elements.rankingPeriodSelect.value);
-    void loadSelectedSnapshot();
+    renderWorldRanking();
   });
-  elements.search.addEventListener('input', render);
+  elements.search.addEventListener('input', () => {
+    resetVisibleRows();
+    renderMarketResults();
+  });
   elements.sortBy.addEventListener('change', () => {
     state.sortBy = elements.sortBy.value;
     state.sortDirection = defaultSortDirection(state.sortBy);
+    resetVisibleRows();
     updateSortIndicators();
-    render();
+    renderMarketResults();
   });
   elements.minQuantitySold.addEventListener('input', () => {
     elements.minQuantityValue.textContent = elements.minQuantitySold.value;
-    render();
+    resetVisibleRows();
+    renderMarketResults();
   });
 
   for (const button of elements.sortButtons) {
@@ -299,50 +367,69 @@ function bindControls() {
       }
 
       elements.sortBy.value = state.sortBy;
+      resetVisibleRows();
       updateSortIndicators();
-      render();
+      renderMarketResults();
     });
   }
 
   for (const checkbox of elements.stateFilters) {
-    checkbox.addEventListener('change', render);
+    checkbox.addEventListener('change', () => {
+      resetVisibleRows();
+      renderMarketResults();
+    });
   }
+
+  elements.loadMore?.addEventListener('click', showMoreResults);
+  elements.filterToggle?.addEventListener('click', () => {
+    filterDisclosureTouched = true;
+    setFilterExpanded(elements.filterToggle.getAttribute('aria-expanded') !== 'true');
+  });
 
   updateSortIndicators();
 }
 
-function updateNavigationHrefs() {
-  for (const link of elements.navLinks) {
-    link.href = buildPageUrl(link.dataset.navLink);
+function initializeFilterDisclosure() {
+  const mobileMedia = window.matchMedia('(max-width: 760px)');
+  const syncDisclosure = () => {
+    if (!mobileMedia.matches) {
+      setFilterExpanded(true);
+      return;
+    }
+
+    if (!filterDisclosureTouched) setFilterExpanded(false);
+  };
+
+  syncDisclosure();
+  mobileMedia.addEventListener?.('change', syncDisclosure);
+}
+
+function setFilterExpanded(expanded) {
+  if (!elements.filterToggle || !elements.filterFields) return;
+
+  elements.filterToggle.setAttribute('aria-expanded', String(expanded));
+  elements.filterFields.hidden = !expanded;
+  elements.filterToggle.dataset.expanded = String(expanded);
+  if (elements.filterToggleLabel) {
+    elements.filterToggleLabel.textContent = translate(
+      state.language,
+      expanded ? 'ui.filterToggleCollapse' : 'ui.filterToggleExpand',
+    );
   }
 }
 
-function applyRouteFromLocation() {
-  const pendingRoute = consumePendingRoute();
-  const route = pendingRoute || routeFromPath(window.location.pathname);
-
-  if (pendingRoute) {
-    window.history.replaceState({}, '', buildPageUrl(route));
+function updateNavigationHrefs() {
+  for (const link of elements.navLinks) {
+    link.href = buildPagePath(link.dataset.navLink, APP_BASE_PATH);
   }
-
-  setActivePage(route);
 }
 
 function navigateToPage(page) {
-  const route = PAGE_ROUTES.has(page) ? page : 'market';
-  const url = buildPageUrl(route);
-
-  if (window.location.pathname === url) {
-    setActivePage(route);
-    return;
-  }
-
-  window.history.pushState({}, '', url);
-  setActivePage(route);
+  routeCoordinator.navigate(page);
 }
 
 function setActivePage(page) {
-  state.activePage = PAGE_ROUTES.has(page) ? page : 'market';
+  state.activePage = ROUTE_NAMES.includes(page) ? page : 'market';
 
   for (const pageElement of elements.pages) {
     pageElement.hidden = pageElement.dataset.page !== state.activePage;
@@ -362,29 +449,27 @@ function setActivePage(page) {
   updateRouteMetadata();
 }
 
-function routeFromPath(pathname) {
-  const relativePath = normalizeRoutePath(
-    pathname.startsWith(APP_BASE_PATH)
-      ? pathname.slice(APP_BASE_PATH.length)
-      : pathname.replace(/^\/+/, ''),
-  );
+function updateRouteMetadata(route = state.activePage) {
+  const routeDefinition = getRouteDefinition(route, state.language);
 
-  return PAGE_ROUTES.has(relativePath) ? relativePath : 'market';
+  document.title = routeDefinition.meta.title;
+  setMetaContent('description', routeDefinition.meta.description);
+  setMetaContent('twitter:title', routeDefinition.meta.title);
+  setMetaContent('twitter:description', routeDefinition.meta.ogDescription);
+  setMetaProperty('og:locale', routeDefinition.meta.locale);
+  setMetaProperty('og:title', routeDefinition.meta.title);
+  setMetaProperty('og:description', routeDefinition.meta.ogDescription);
+  setCanonicalHref(routeDefinition.absoluteUrl);
+  setMetaProperty('og:url', routeDefinition.absoluteUrl);
+  setTextContentIfChanged(elements.heroEyebrow, routeDefinition.meta.heroEyebrow);
+  setTextContentIfChanged(elements.heroTitle, routeDefinition.meta.heroTitle);
+  setTextContentIfChanged(elements.heroLead, routeDefinition.meta.heroLead);
+  updateJsonLd(routeDefinition);
 }
 
-function buildPageUrl(page) {
-  const route = PAGE_ROUTES.has(page) ? page : 'market';
-
-  return `${APP_BASE_PATH}${PAGE_PATHS[route]}`;
-}
-
-function updateRouteMetadata() {
-  const routeMeta = {
-    url: ROUTE_ABSOLUTE_URLS[state.activePage] ?? ROUTE_ABSOLUTE_URLS.market,
-  };
-
-  setCanonicalHref(routeMeta.url);
-  setMetaProperty('og:url', routeMeta.url);
+function setTextContentIfChanged(element, value) {
+  if (!element || element.textContent === value) return;
+  element.textContent = value;
 }
 
 function consumePendingRoute() {
@@ -394,7 +479,7 @@ function consumePendingRoute() {
     if (!storedRoute) return '';
 
     const route = normalizeRoutePath(storedRoute);
-    return PAGE_ROUTES.has(route) ? route : '';
+    return ROUTE_NAMES.includes(route) ? route : '';
   } catch {
     return '';
   }
@@ -418,30 +503,93 @@ function resolveAppBasePath() {
   return basePath.endsWith('/') ? basePath : `${basePath}/`;
 }
 
+async function activateRoute(route, source = 'direct') {
+  const routeToken = resourceCoordinator.beginRoute();
+  const shouldQueueAnalyticsPageView = source !== 'direct' && state.activePage !== route;
+  setActivePage(route);
+  if (source === 'direct') {
+    queueInitialGoogleAnalyticsPageView();
+  } else if (shouldQueueAnalyticsPageView) {
+    queuePendingGoogleAnalyticsPageView();
+  }
+  const routeDefinition = getRouteDefinition(route, state.language);
+
+  if (!routeDefinition.resources.worldIndex) {
+    setResultsLoading(false);
+    return;
+  }
+
+  const worldIndexReady = await ensureWorldIndex(routeToken);
+  if (!worldIndexReady || !resourceCoordinator.isCurrent(routeToken)) return;
+
+  if (route === 'ranking') {
+    renderWorldRanking();
+    return;
+  }
+
+  if (routeDefinition.resources.snapshot) {
+    await loadSelectedSnapshot();
+  }
+}
+
+function queueInitialGoogleAnalyticsPageView() {
+  window.ff14gilsAnalytics?.queueInitialPageView?.({
+    page_location: window.location.href,
+    page_referrer: document.referrer,
+    page_title: document.title,
+  });
+}
+
+function queuePendingGoogleAnalyticsPageView() {
+  window.ff14gilsAnalytics?.queuePageView?.({
+    page_location: window.location.href,
+    page_title: document.title,
+  });
+}
+
 async function loadSelectedSnapshot() {
+  if (state.activePage !== 'market' || !state.worldIndexReady) return;
+
   const option = state.worldIndex.worlds.find(
     (world) => world.name === elements.worldSelect.value,
   );
   const selectedPeriod = elements.periodSelect.value || state.worldIndex.defaultPeriod;
   const path = option?.periods?.[selectedPeriod] ?? option?.path ?? DEFAULT_DATA_PATH;
+  const selectionToken = resourceCoordinator.beginSelection();
 
   try {
     elements.dcSelect.disabled = true;
     elements.worldSelect.disabled = true;
     elements.periodSelect.disabled = true;
     setError('');
-    const snapshot = await loadSnapshot(path);
-    state.items = snapshot.items ?? [];
-    state.currentGeneratedAt = snapshot.generatedAt;
-    renderUpdatedAt(snapshot.generatedAt);
-    render();
-  } catch (error) {
-    setError(translate(state.language, 'ui.loadError', { message: error.message }));
+    setResultsLoading(true);
+    await resourceCoordinator.commit(selectionToken, loadSnapshot(path), {
+      onSuccess: (snapshot) => {
+        state.items = snapshot.items ?? [];
+        state.currentGeneratedAt = snapshot.generatedAt;
+        resetVisibleRows();
+        renderUpdatedAt(snapshot.generatedAt);
+        renderMarketResults();
+      },
+      onError: handleSnapshotLoadError,
+    });
   } finally {
-    elements.dcSelect.disabled = false;
-    elements.worldSelect.disabled = false;
-    elements.periodSelect.disabled = false;
+    if (resourceCoordinator.isCurrent(selectionToken)) {
+      elements.dcSelect.disabled = false;
+      elements.worldSelect.disabled = false;
+      elements.periodSelect.disabled = false;
+      setResultsLoading(false);
+    }
   }
+}
+
+function handleSnapshotLoadError(error) {
+  state.items = [];
+  state.currentGeneratedAt = '';
+  resetVisibleRows();
+  renderUpdatedAt('');
+  renderMarketResults();
+  setError(translate(state.language, 'ui.loadError', { message: error.message }));
 }
 
 function populateLanguageSelect() {
@@ -524,7 +672,42 @@ function syncSelectedPeriod(selectedPeriod) {
   elements.rankingPeriodSelect.value = selectedPeriod;
 }
 
-function render() {
+function renderActivePage() {
+  if (state.activePage === 'market') {
+    renderMarketResults();
+    return;
+  }
+
+  if (state.activePage === 'ranking') {
+    renderWorldRanking();
+  }
+}
+
+function resetVisibleRows() {
+  state.visibleRowLimit = INITIAL_VISIBLE_ROWS;
+}
+
+function showMoreResults() {
+  state.visibleRowLimit += ROWS_PER_PAGE;
+  renderMarketResults();
+}
+
+function setResultsLoading(loading) {
+  elements.resultsPanel?.setAttribute('aria-busy', String(loading));
+  if (loading && elements.resultsStatus) {
+    elements.resultsStatus.textContent = translate(state.language, 'ui.resultsTitle');
+  }
+}
+
+function updateFilterSummary() {
+  if (!elements.filterSummary) return;
+
+  const world = elements.worldSelect.value || state.worldIndex.defaultWorld;
+  const period = elements.periodSelect.value || state.worldIndex.defaultPeriod;
+  elements.filterSummary.textContent = `${translate(state.language, 'ui.filterSummary')}: ${world} · ${periodLabel(period, state.language)}`;
+}
+
+function renderMarketResults() {
   const selectedStates = elements.stateFilters
     .filter((checkbox) => checkbox.checked)
     .map((checkbox) => checkbox.value);
@@ -536,13 +719,26 @@ function render() {
     sortDirection: state.sortDirection,
   });
 
-  elements.resultCount.textContent = translate(state.language, 'results.count', {
-    count: formatNumber(filteredItems.length, state.language),
-  });
-  renderWorldRanking();
   elements.tableBody.replaceChildren(
-    ...filteredItems.slice(0, MAX_VISIBLE_ROWS).map(renderRow),
+    ...filteredItems.slice(0, state.visibleRowLimit).map(renderRow),
   );
+
+  const visibleCount = Math.min(filteredItems.length, state.visibleRowLimit);
+  if (elements.resultsStatus) {
+    elements.resultsStatus.textContent = translate(state.language, 'results.showing', {
+      total: formatNumber(filteredItems.length, state.language),
+      visible: formatNumber(visibleCount, state.language),
+    });
+  }
+  if (elements.loadMore) {
+    elements.loadMore.hidden = visibleCount >= filteredItems.length;
+    elements.loadMore.textContent = translate(state.language, 'results.loadMore', {
+      count: formatNumber(
+        Math.min(ROWS_PER_PAGE, filteredItems.length - visibleCount),
+        state.language,
+      ),
+    });
+  }
 
   if (filteredItems.length === 0) {
     const row = document.createElement('tr');
@@ -573,14 +769,14 @@ function renderWorldRankingRow(entry, index) {
   }
 
   row.append(
-    createCell(String(index + 1), 'rank'),
+    createCell(String(index + 1), 'rank', 'ranking.rank'),
     createWorldRankingWorldCell(entry),
-    createCell(formatWorldRegionLabel(entry.region, entry.dataCenter)),
-    createCell(formatDataCenterLabel(entry.dataCenter)),
-    createCell(formatGil(entry.totalMarketValue, state.language)),
-    createCell(formatNumber(entry.totalQuantitySold, state.language)),
-    createCell(formatNumber(entry.itemCount, state.language)),
-    createCell(formatWorldRankingTopItem(entry)),
+    createCell(formatWorldRegionLabel(entry.region, entry.dataCenter), '', 'ranking.region'),
+    createCell(formatDataCenterLabel(entry.dataCenter), '', 'ranking.dataCenter'),
+    createCell(formatGil(entry.totalMarketValue, state.language), '', 'ranking.sales'),
+    createCell(formatNumber(entry.totalQuantitySold, state.language), '', 'ranking.sold'),
+    createCell(formatNumber(entry.itemCount, state.language), '', 'ranking.items'),
+    createCell(formatWorldRankingTopItem(entry), '', 'ranking.topItem'),
   );
 
   return row;
@@ -599,6 +795,7 @@ function formatWorldRankingTopItem(entry) {
 
 function createWorldRankingWorldCell(entry) {
   const cell = document.createElement('td');
+  cell.dataset.label = translate(state.language, 'ranking.world');
   const button = document.createElement('button');
 
   button.type = 'button';
@@ -609,7 +806,6 @@ function createWorldRankingWorldCell(entry) {
     populateWorldSelect(entry.name);
     document.cookie = buildWorldPreferenceCookie(entry.name);
     navigateToPage('market');
-    void loadSelectedSnapshot();
   });
 
   cell.append(button);
@@ -667,22 +863,27 @@ function renderRow(item, index) {
     : '0.00';
 
   row.append(
-    createCell(String(index + 1), 'rank'),
+    createCell(String(index + 1), 'rank', 'table.rank'),
     createItemCell(item),
-    createCell(formatGil(item.marketValue, state.language)),
-    createCell(formatGil(item.avg, state.language)),
-    createCell(formatGil(item.minPrice, state.language)),
-    createCell(formatNumber(item.quantitySold, state.language)),
-    createCell(`${percentChange}%`, item.percentChange >= 0 ? 'positive' : 'negative'),
+    createCell(formatGil(item.marketValue, state.language), '', 'table.marketValue'),
+    createCell(formatGil(item.avg, state.language), '', 'table.avg'),
+    createCell(formatGil(item.minPrice, state.language), '', 'table.minPrice'),
+    createCell(formatNumber(item.quantitySold, state.language), '', 'table.quantitySold'),
+    createCell(
+      `${percentChange}%`,
+      item.percentChange >= 0 ? 'positive' : 'negative',
+      'table.percentChange',
+    ),
     createStateCell(item, itemRecommendationLabel),
   );
 
   return row;
 }
 
-function createCell(text, className = '') {
+function createCell(text, className = '', labelKey = '') {
   const cell = document.createElement('td');
   if (className) cell.className = className;
+  if (labelKey) cell.dataset.label = translate(state.language, labelKey);
   cell.textContent = text;
 
   return cell;
@@ -690,6 +891,7 @@ function createCell(text, className = '') {
 
 function createItemCell(item) {
   const cell = document.createElement('td');
+  cell.dataset.label = translate(state.language, 'table.item');
   const link = document.createElement('a');
   link.href = safeUniversalisUrl(item.url);
   link.target = '_blank';
@@ -711,6 +913,7 @@ function createItemCell(item) {
 
 function createStateCell(item, recommendationLabel) {
   const cell = document.createElement('td');
+  cell.dataset.label = translate(state.language, 'table.state');
   const statePill = document.createElement('span');
   statePill.classList.add('state-pill', `state-${sanitizeClassName(item.state)}`);
   statePill.textContent = stateLabel(item.state, state.language);
@@ -771,15 +974,7 @@ function updateSortIndicators() {
 
 function applyLanguage() {
   document.documentElement.lang = state.language;
-  document.title = translate(state.language, 'meta.title');
-  setMetaContent('description', translate(state.language, 'meta.description'));
-  setMetaContent('twitter:title', translate(state.language, 'meta.title'));
-  setMetaContent('twitter:description', translate(state.language, 'meta.description'));
-  setMetaProperty('og:locale', translate(state.language, 'meta.locale'));
-  setMetaProperty('og:title', translate(state.language, 'meta.title'));
-  setMetaProperty('og:description', translate(state.language, 'meta.ogDescription'));
   setMetaProperty('og:image:alt', translate(state.language, 'meta.imageAlt'));
-  updateJsonLdLanguage();
 
   for (const element of document.querySelectorAll('[data-i18n]')) {
     element.textContent = translate(state.language, element.dataset.i18n);
@@ -793,6 +988,11 @@ function applyLanguage() {
       }
     }
   }
+
+  updateRouteMetadata();
+  updateFilterSummary();
+  setFilterExpanded(elements.filterToggle?.getAttribute('aria-expanded') !== 'false');
+  labelKofiWidgetFrames();
 }
 
 function setMetaContent(name, content) {
@@ -807,14 +1007,24 @@ function setCanonicalHref(href) {
   document.querySelector('link[rel="canonical"]')?.setAttribute('href', href);
 }
 
-function updateJsonLdLanguage() {
+function updateJsonLd(routeDefinition) {
   const script = document.querySelector('script[type="application/ld+json"]');
   if (!script) return;
 
   try {
     const data = JSON.parse(script.textContent);
-    data.description = translate(state.language, 'meta.description');
-    data.inLanguage = translate(state.language, 'meta.inLanguage');
+    data['@type'] = routeDefinition.meta.schemaType;
+    data.name = routeDefinition.meta.schemaName;
+    data.url = routeDefinition.absoluteUrl;
+    data.description = routeDefinition.meta.description;
+    data.inLanguage = routeDefinition.meta.inLanguage;
+    if (routeDefinition.meta.schemaType === 'WebApplication') {
+      data.applicationCategory = 'GameApplication';
+      data.operatingSystem = 'Web';
+    } else {
+      delete data.applicationCategory;
+      delete data.operatingSystem;
+    }
     script.textContent = `${JSON.stringify(data, null, 2)}\n`;
   } catch {
     // Keep the static JSON-LD if a browser extension or manual edit breaks parsing.
@@ -826,6 +1036,25 @@ function installKofiWidgetStyles() {
   style.id = 'kofi-widget-position-style';
   style.textContent = KOFI_WIDGET_POSITION_CSS;
   document.head.append(style);
+}
+
+function labelKofiWidgetFrames() {
+  for (const frame of document.querySelectorAll('[id^="kofi-widget-overlay"] iframe')) {
+    frame.title = translate(state.language, 'ui.kofiSupport');
+  }
+}
+
+function observeKofiWidgetFrames() {
+  const overlay = document.querySelector('[id^="kofi-widget-overlay"]');
+  if (!overlay) return;
+
+  labelKofiWidgetFrames();
+  if (overlay === observedKofiWidgetOverlay || !('MutationObserver' in window)) return;
+
+  kofiWidgetFrameObserver?.disconnect();
+  observedKofiWidgetOverlay = overlay;
+  kofiWidgetFrameObserver = new MutationObserver(labelKofiWidgetFrames);
+  kofiWidgetFrameObserver.observe(overlay, { childList: true, subtree: true });
 }
 
 function drawKofiWidget() {
@@ -840,6 +1069,7 @@ function drawKofiWidget() {
     // Keep the support widget isolated from the market dashboard.
   } finally {
     window.setTimeout(installKofiWidgetStyles, 0);
+    window.setTimeout(observeKofiWidgetFrames, 0);
   }
 }
 

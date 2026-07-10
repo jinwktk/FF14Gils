@@ -10,6 +10,8 @@
     "dispatch:refresh": "node scripts/dispatch-refresh.mjs",
     "restore:published-data": "node scripts/restore-published-data.mjs",
     "build": "node scripts/build.mjs",
+    "optimize:data": "node scripts/compact-data.mjs dist/data",
+    "check:performance": "node scripts/check-performance-budget.mjs dist",
     "serve": "npx --yes serve ."
   }
 }

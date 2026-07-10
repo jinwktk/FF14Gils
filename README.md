@@ -8,7 +8,7 @@ FF14 のマーケットデータから、金策候補とワールド別の売上
 - 初期表示ワールド: `Hades`
 - 対応期間: 1日、3日、7日
 - 対象ワールド: 公式 Lodestone のワールド構成に合わせた全DC 85ワールド
-- 画面: 金策候補 `/`、ワールド売上ランキング `/ranking`、権利表記とデータ `/legal`
+- 画面: 金策候補 `/`、ワールド売上ランキング `/ranking/`、権利表記とデータ `/legal/`
 - UI言語: 日本語 / English。選択言語とワールドは Cookie に保存します。
 
 マーケットデータについては、利用者ブラウザは GitHub Pages から配信される生成済み JSON だけを読みます。ブラウザから Saddlebag Exchange API や XIVAPI v2 へ直接 POST / GET しません。
@@ -17,9 +17,19 @@ FF14 のマーケットデータから、金策候補とワールド別の売上
 
 - DC とワールドを分けて選択できます。DC は北米、欧州、日本、オセアニアの見出し付きで表示します。
 - 期間、検索、状態、最低販売数、列ソートで候補を絞り込めます。
+- 金策候補は初期24件を表示し、「さらに表示」で24件ずつ追加します。検索や条件変更時は先頭24件へ戻ります。
 - ランキング画面では、生成済みスナップショットの `summary` から期間別の全ワールド売上合計を表示します。
 - 最終更新日時は利用者ブラウザのタイムゾーンで表示します。
-- `/ranking/` と `/legal/` は GitHub Pages で直接開けるよう、build 時に静的入口を生成します。
+- 760px以下では条件欄を折りたたみ、金策候補とランキングの表を横スクロール不要のカード表示に切り替えます。HTML上は同じ semantic table を使います。
+- `/ranking/` と `/legal/` は GitHub Pages で直接開けるよう、build 時にルート固有の静的入口を生成します。
+
+## 表示と性能の方針
+
+- GA4でモバイル利用が中心であることを確認し、390px前後の画面で結果まで短く到達できる構成を優先します。
+- ルートごとの初期データ取得は `/` が `worlds.json` と選択中スナップショット、`/ranking/` が `worlds.json` だけ、`/legal/` はデータ取得なしです。
+- 同じリソースの同時取得をまとめ、ルートやワールドを素早く切り替えたときは古い応答を画面へ反映しません。
+- UIフレームワーク、依存パッケージ、外部Webフォントは追加せず、first-party HTML/CSS/JS は合計40KiB gzip以下、既定marketデータ込みは64KiB gzip以下をテストで固定します。配信前に生成済みJSONをcompact化し、毎時変動するデータでも予算に余裕を持たせます。
+- GA4の自動初回送信は止め、アプリが最終ルートとメタ情報を確定した後に初期表示をメモリ内キューへ登録します。外部計測スクリプトはwindow load後のidle時間に読み込み、読込前の早いSPA遷移だけを最大20件、直前URLとともに補完します。以後はEnhanced Measurementへ任せます。Ko-fi widget も本体描画後に遅延読み込みし、どちらの第三者コードも初期描画を妨げないよう分離します。
 
 ## データと権利
 
@@ -40,10 +50,10 @@ FF14Gils は FINAL FANTASY XIV の非公式ファンサイトです。SQUARE ENI
 
 - `robots.txt` はクロールを許可し、`https://jinwktk.github.io/FF14Gils/sitemap.xml` を案内します。
 - `sitemap.xml` は `/`、`/ranking/`、`/legal/` を登録対象にします。
-- `/ranking/` と `/legal/` の静的入口は、それぞれの URL を canonical / `og:url` にします。SPA のルート URL へ即時転送しません。
+- 3つの静的入口は、JavaScript実行前から対象画面だけを表示し、それぞれ固有の title、description、canonical、Open Graph、Twitter Card、JSON-LD、見出しを持ちます。SPA のルート URL へ即時転送しません。
 - 公開ページの内容を更新した場合は、該当 URL の `lastmod` も同じ変更で更新します。
 - Google Search Console の HTML 確認ファイル `googled9f512eea3a99dc1.html` を Pages 配信対象に含めます。
-- Google Analytics 4 は Measurement ID `G-VH5GMQMZ34` を `index.html` に置き、ページ閲覧状況の把握だけに使います。
+- Google Analytics 4 は Measurement ID `G-VH5GMQMZ34` を `index.html` に置き、ページ閲覧状況の把握だけに使います。`send_page_view:false` で初期化し、アプリが確定した初期URL・title・referrerと、タグ準備前のSPA遷移だけを補完送信します。準備後のHistory API遷移はEnhanced Measurementに任せます。検索入力値は送信しません。
 
 ## アーキテクチャ
 
@@ -51,6 +61,7 @@ FF14Gils は FINAL FANTASY XIV の非公式ファンサイトです。SQUARE ENI
 flowchart LR
   subgraph Browser["利用者ブラウザ"]
     Ui["index.html / styles.css / src/app.js"]
+    Routes["src/routes.js / route coordinator"]
     Cookie["ff14gils_world / ff14gils_language Cookie"]
   end
 
@@ -76,8 +87,9 @@ flowchart LR
   Kofi["Ko-fi widget"]
 
   Ui -->|"GET same-origin"| Static
-  Ui -->|"GET same-origin"| WorldIndex
-  Ui -->|"GET same-origin"| Snapshots
+  Ui --> Routes
+  Routes -->|"market / rankingのみ"| WorldIndex
+  Routes -->|"marketのみ"| Snapshots
   Ui -->|"read / write"| Cookie
   Ui -->|"gtag.js"| Analytics
   Ui -->|"overlay widget"| Kofi
@@ -93,7 +105,7 @@ flowchart LR
   Dist --> Pages
 ```
 
-`npm run fetch:data` が外部 API からスナップショットを生成し、`npm run build` が `dist/` に静的配信物を作ります。push / 手動デプロイでは API を呼ばず、公開中の `data/` を `dist/` に復元してから Pages へ反映します。
+`npm run fetch:data` が外部 API からスナップショットを生成し、`npm run build` がJSONのcompact化を含む `dist/` の静的配信物を作ります。push / 手動デプロイでは API を呼ばず、公開中の `data/` を `dist/` に復元した後に再度compact化してから Pages へ反映します。
 
 Saddlebag Exchange API への POST は `Content-Type: application/json` と `Accept: application/json` だけを明示します。独自 `User-Agent` は 401 応答の原因になることがあるため付けません。API が `No items found matching your search parameters.` を返した場合は、そのワールド・期間の売上候補が0件として空データを生成します。
 
@@ -105,6 +117,8 @@ npm run fetch:data
 npm run dispatch:refresh
 npm run restore:published-data
 npm run build
+npm run optimize:data
+npm run check:performance
 npm run serve
 ```
 
@@ -139,8 +153,9 @@ npm run favicon:generate
 `.github/workflows/pages.yml` が GitHub Pages デプロイを担当します。
 
 - trigger: `schedule`、`repository_dispatch: refresh-marketshare`、`push`、`workflow_dispatch`
-- 毎回実行: `npm ci`、`npm test`、`npm run build`
+- 毎回実行: `npm ci`、`npm test`、`npm run build`、`npm run optimize:data`、`npm run check:performance`
 - データ更新あり: `schedule` と `repository_dispatch`
 - データ更新なし: `push` と `workflow_dispatch`。`npm run restore:published-data` で公開中データを復元
+- artifact確定後: JSONをcompact化し、完成した `dist/` が性能予算内か検査してからデプロイ
 
 毎時データ更新の主経路は、cron-job.org から GitHub REST API の `repository_dispatch: refresh-marketshare` を毎時17分に送る運用です。GitHub Actions の schedule は補助として毎時17分に残しますが、GitHub 側の遅延または間引きがあるため、厳密な毎時起動の主経路にはしません。cron-job.org には `jinwktk/FF14Gils` 限定の Fine-grained PAT を登録し、成功時は GitHub API の HTTP `204` を期待します。

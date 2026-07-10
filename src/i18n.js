@@ -18,14 +18,9 @@ const TRANSLATIONS = {
       other: 'その他のデータセンター',
     },
     meta: {
-      title: 'FF14Gils | FF14 マーケット金策',
       description:
-        'FF14のマーケット売上、相場、販売数から、全DCの金策候補を探せるダークテーマのマーケットダッシュボードです。',
-      ogDescription:
-        'マーケットの売れ行きと相場から、売りやすい金策候補を探せます。Hades初期表示、全DC対応。',
+        'FF14のマーケット売上、相場、販売数から、全DCの金策候補を探せるダークテーマのマーケットダッシュボードです。Hades初期表示。',
       imageAlt: 'FF14Gilsのマーケット金策ダッシュボード画像',
-      locale: 'ja_JP',
-      inLanguage: 'ja-JP',
     },
     nav: {
       label: 'メインナビゲーション',
@@ -108,6 +103,8 @@ const TRANSLATIONS = {
     },
     results: {
       count: '{count} 件',
+      loadMore: 'さらに{count}件を表示',
+      showing: '{total}件中{visible}件を表示',
     },
     sort: {
       avg: '平均価格',
@@ -129,6 +126,7 @@ const TRANSLATIONS = {
     },
     table: {
       avg: '平均価格',
+      caption: 'マーケット金策候補',
       item: 'アイテム',
       marketValue: '売上額',
       minPrice: '最安値',
@@ -141,16 +139,17 @@ const TRANSLATIONS = {
       dataCenterLabel: 'データセンター',
       dataCenterSelect: 'DCを選択',
       emptyState: '条件に一致するアイテムがありません。',
-      eyebrow: 'FF14 マーケット金策',
       filterHelp: 'DCを選ぶとワールド候補を絞れます。選んだワールドは次回も使えます。',
       filterKicker: '条件',
       filterPanelLabel: '絞り込み',
+      filterSummary: '現在の条件',
       filterTitle: '絞り込み',
+      filterToggleCollapse: '条件を閉じる',
+      filterToggleExpand: '条件を開く',
       itemSearch: 'アイテム検索',
       kofiSupport: 'Ko-fiで支援する',
       languageLabel: '表示言語',
       languageSelect: '表示言語を選択',
-      lead: 'マーケットの売れ行きと相場から、売りやすい金策候補を探せます。',
       loadError: 'データを読み込めませんでした: {message}',
       minQuantity: '最低販売数',
       missingContract: 'JSON契約が不足しています: {keys}',
@@ -162,6 +161,7 @@ const TRANSLATIONS = {
       resultsTitle: '金策候補',
       searchLabel: 'アイテム検索',
       searchPlaceholder: '日本語名・英語名・ID',
+      skipToContent: 'メインコンテンツへ移動',
       sortLabel: '並び替え',
       stateLegend: '状態',
       updatedAt: '最終更新 {datetime}',
@@ -183,14 +183,9 @@ const TRANSLATIONS = {
       other: 'Other Data Centers',
     },
     meta: {
-      title: 'FF14Gils | FF14 Market Profit Dashboard',
       description:
-        'A dark market dashboard for finding profitable Final Fantasy XIV items from sales, prices, and purchase volume across all data centers.',
-      ogDescription:
-        'Find easier-to-sell market opportunities from sales volume and price trends. Starts on Hades and supports all data centers.',
+        'A dark market dashboard for finding profitable Final Fantasy XIV items from sales, prices, and purchase volume across all data centers. Starts on Hades.',
       imageAlt: 'FF14Gils market profit dashboard image',
-      locale: 'en_US',
-      inLanguage: 'en-US',
     },
     nav: {
       label: 'Main navigation',
@@ -273,6 +268,8 @@ const TRANSLATIONS = {
     },
     results: {
       count: '{count} items',
+      loadMore: 'Show {count} more',
+      showing: 'Showing {visible} of {total}',
     },
     sort: {
       avg: 'Average price',
@@ -294,6 +291,7 @@ const TRANSLATIONS = {
     },
     table: {
       avg: 'Average price',
+      caption: 'Market profit candidates',
       item: 'Item',
       marketValue: 'Sales',
       minPrice: 'Lowest price',
@@ -306,16 +304,17 @@ const TRANSLATIONS = {
       dataCenterLabel: 'Data center',
       dataCenterSelect: 'Select data center',
       emptyState: 'No items match the current filters.',
-      eyebrow: 'FF14 market profit',
       filterHelp: 'Choose a data center to narrow the world list. Your selected world will be remembered next time.',
       filterKicker: 'Filters',
       filterPanelLabel: 'Filters',
+      filterSummary: 'Current filters',
       filterTitle: 'Filters',
+      filterToggleCollapse: 'Close filters',
+      filterToggleExpand: 'Open filters',
       itemSearch: 'Item search',
       kofiSupport: 'Support on Ko-fi',
       languageLabel: 'Language',
       languageSelect: 'Select language',
-      lead: 'Find easier-to-sell market opportunities from recent sales and prices.',
       loadError: 'Could not load data: {message}',
       minQuantity: 'Minimum sold',
       missingContract: 'JSON contract is missing: {keys}',
@@ -327,6 +326,7 @@ const TRANSLATIONS = {
       resultsTitle: 'Profit candidates',
       searchLabel: 'Item search',
       searchPlaceholder: 'Japanese name, English name, or ID',
+      skipToContent: 'Skip to main content',
       sortLabel: 'Sort',
       stateLegend: 'State',
       updatedAt: 'Updated {datetime}',

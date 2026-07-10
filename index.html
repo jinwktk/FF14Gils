@@ -29,13 +29,86 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="styles.css" />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VH5GMQMZ34"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'G-VH5GMQMZ34');
+      const pendingGoogleAnalyticsPageViews = [];
+      const maxPendingGoogleAnalyticsRouteViews = 20;
+      let googleAnalyticsReady = false;
+      let initialGoogleAnalyticsPageViewQueued = false;
+      let lastQueuedGoogleAnalyticsPageLocation = '';
+
+      gtag('config', 'G-VH5GMQMZ34', { send_page_view: false });
+
+      function queueInitialGoogleAnalyticsPageView(pageView) {
+        if (
+          googleAnalyticsReady
+          || initialGoogleAnalyticsPageViewQueued
+          || !pageView?.page_location
+          || !pageView?.page_title
+        ) return;
+
+        pendingGoogleAnalyticsPageViews.push(Object.freeze({
+          page_location: pageView.page_location,
+          page_referrer: pageView.page_referrer || '',
+          page_title: pageView.page_title,
+        }));
+        initialGoogleAnalyticsPageViewQueued = true;
+        lastQueuedGoogleAnalyticsPageLocation = pageView.page_location;
+      }
+
+      function queueGoogleAnalyticsPageView(pageView) {
+        if (
+          googleAnalyticsReady
+          || !initialGoogleAnalyticsPageViewQueued
+          || !pageView?.page_location
+          || !pageView?.page_title
+          || pageView.page_location === lastQueuedGoogleAnalyticsPageLocation
+        ) return;
+
+        pendingGoogleAnalyticsPageViews.push(Object.freeze({
+          page_location: pageView.page_location,
+          page_referrer: lastQueuedGoogleAnalyticsPageLocation,
+          page_title: pageView.page_title,
+        }));
+        lastQueuedGoogleAnalyticsPageLocation = pageView.page_location;
+        if (pendingGoogleAnalyticsPageViews.length > maxPendingGoogleAnalyticsRouteViews + 1) {
+          pendingGoogleAnalyticsPageViews.splice(1, 1);
+        }
+      }
+
+      function flushPendingGoogleAnalyticsPageViews() {
+        googleAnalyticsReady = true;
+        for (const pageView of pendingGoogleAnalyticsPageViews.splice(0)) {
+          gtag('event', 'page_view', pageView);
+        }
+      }
+
+      window.ff14gilsAnalytics = Object.freeze({
+        queueInitialPageView: queueInitialGoogleAnalyticsPageView,
+        queuePageView: queueGoogleAnalyticsPageView,
+      });
+
+      function loadGoogleAnalytics() {
+        const analyticsScript = document.createElement('script');
+        analyticsScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-VH5GMQMZ34';
+        analyticsScript.async = true;
+        analyticsScript.addEventListener('load', flushPendingGoogleAnalyticsPageViews, { once: true });
+        document.head.append(analyticsScript);
+      }
+
+      function scheduleGoogleAnalytics() {
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(loadGoogleAnalytics, { timeout: 2000 });
+          return;
+        }
+
+        window.setTimeout(loadGoogleAnalytics, 0);
+      }
+
+      window.addEventListener('load', scheduleGoogleAnalytics, { once: true });
     </script>
     <script type="application/ld+json">
       {
@@ -54,6 +127,7 @@
     <script type="module" src="src/app.js"></script>
   </head>
   <body>
+    <a class="skip-link" href="#main-content" data-i18n="ui.skipToContent">メインコンテンツへ移動</a>
     <div class="app-shell">
       <nav
         class="top-nav"
@@ -64,8 +138,8 @@
         <a class="nav-brand" href="./" data-nav-link="market">FF14Gils</a>
         <div class="nav-links">
           <a href="./" data-nav-link="market" data-i18n="nav.market">金策候補</a>
-          <a href="./ranking" data-nav-link="ranking" data-i18n="nav.ranking">ワールドランキング</a>
-          <a href="./legal" data-nav-link="legal" data-i18n="nav.legal">権利表記とデータ</a>
+          <a href="./ranking/" data-nav-link="ranking" data-i18n="nav.ranking">ワールドランキング</a>
+          <a href="./legal/" data-nav-link="legal" data-i18n="nav.legal">権利表記とデータ</a>
         </div>
         <div class="nav-actions">
           <label class="language-control nav-language">
@@ -85,16 +159,16 @@
       <header class="site-header">
         <div class="brand-block">
           <div class="brand-copy">
-            <p class="eyebrow" data-i18n="ui.eyebrow">FF14 マーケット金策</p>
-            <h1>FF14Gils</h1>
-            <p class="lead" data-i18n="ui.lead">
+            <p class="eyebrow" data-route-hero-eyebrow>FF14 マーケット金策</p>
+            <h1 data-route-hero-title>FF14Gils</h1>
+            <p class="lead" data-route-hero-lead>
               マーケットの売れ行きと相場から、売りやすい金策候補を探せます。
             </p>
           </div>
         </div>
       </header>
 
-      <main>
+      <main id="main-content" tabindex="-1">
         <section class="page-view" data-page="market">
           <div class="dashboard-grid">
             <aside
@@ -103,102 +177,126 @@
               aria-label="絞り込み"
             >
               <div class="panel-heading">
-                <p class="panel-kicker" data-i18n="ui.filterKicker">条件</p>
-                <h2 data-i18n="ui.filterTitle">絞り込み</h2>
-                <p data-i18n="ui.filterHelp">DCを選ぶとワールド候補を絞れます。選んだワールドは次回も使えます。</p>
+                <div class="panel-heading-copy">
+                  <p class="panel-kicker" data-i18n="ui.filterKicker">条件</p>
+                  <h2 data-i18n="ui.filterTitle">絞り込み</h2>
+                </div>
+                <button
+                  data-filter-toggle
+                  type="button"
+                  class="filter-toggle"
+                  aria-expanded="false"
+                  aria-controls="market-filter-fields"
+                  data-expanded="false"
+                >
+                  <span data-filter-toggle-label data-i18n="ui.filterToggleExpand">条件を開く</span>
+                  <span class="filter-toggle-icon" aria-hidden="true"></span>
+                </button>
+                <p class="filter-help" data-i18n="ui.filterHelp">DCを選ぶとワールド候補を絞れます。選んだワールドは次回も使えます。</p>
+                <p class="filter-summary" data-filter-summary data-i18n="ui.filterSummary">現在の条件</p>
               </div>
 
-              <label>
-                <span data-i18n="ui.dataCenterLabel">データセンター</span>
-                <select
-                  data-dc-select
-                  data-i18n-attr="aria-label:ui.dataCenterSelect"
-                  aria-label="DCを選択"
-                ></select>
-              </label>
+              <div class="filter-fields" id="market-filter-fields" data-filter-fields hidden>
+                <label>
+                  <span data-i18n="ui.dataCenterLabel">データセンター</span>
+                  <select
+                    data-dc-select
+                    data-i18n-attr="aria-label:ui.dataCenterSelect"
+                    aria-label="DCを選択"
+                  ></select>
+                </label>
 
-              <label>
-                <span data-i18n="ui.worldLabel">ワールド</span>
-                <select
-                  data-world-select
-                  data-i18n-attr="aria-label:ui.worldSelect"
-                  aria-label="ワールドを選択"
-                ></select>
-              </label>
+                <label>
+                  <span data-i18n="ui.worldLabel">ワールド</span>
+                  <select
+                    data-world-select
+                    data-i18n-attr="aria-label:ui.worldSelect"
+                    aria-label="ワールドを選択"
+                  ></select>
+                </label>
 
-              <label>
-                <span data-i18n="ui.periodLabel">集計期間</span>
-                <select
-                  data-period-select
-                  data-i18n-attr="aria-label:ui.periodSelect"
-                  aria-label="売上の集計期間"
-                >
-                  <option value="1d">1日</option>
-                  <option value="3d">3日</option>
-                  <option value="7d">7日</option>
-                </select>
-              </label>
+                <label>
+                  <span data-i18n="ui.periodLabel">集計期間</span>
+                  <select
+                    data-period-select
+                    data-i18n-attr="aria-label:ui.periodSelect"
+                    aria-label="売上の集計期間"
+                  >
+                    <option value="1d">1日</option>
+                    <option value="3d">3日</option>
+                    <option value="7d">7日</option>
+                  </select>
+                </label>
 
-              <label>
-                <span data-i18n="ui.itemSearch">アイテム検索</span>
-                <input
-                  data-search
-                  type="search"
-                  data-i18n-attr="placeholder:ui.searchPlaceholder;aria-label:ui.searchLabel"
-                  placeholder="日本語名・英語名・ID"
-                  aria-label="アイテム検索"
-                  autocomplete="off"
-                />
-              </label>
+                <label>
+                  <span data-i18n="ui.itemSearch">アイテム検索</span>
+                  <input
+                    data-search
+                    type="search"
+                    data-i18n-attr="placeholder:ui.searchPlaceholder;aria-label:ui.searchLabel"
+                    placeholder="日本語名・英語名・ID"
+                    aria-label="アイテム検索"
+                    autocomplete="off"
+                  />
+                </label>
 
-              <label>
-                <span data-i18n="ui.sortLabel">並び替え</span>
-                <select data-sort-by>
-                  <option value="opportunityScore" data-i18n="sort.opportunityScore">おすすめ度</option>
-                  <option value="name" data-i18n="sort.name">アイテム名</option>
-                  <option value="marketValue" data-i18n="sort.marketValue">売上額</option>
-                  <option value="quantitySold" data-i18n="sort.quantitySold">売れた数</option>
-                  <option value="avg" data-i18n="sort.avg">平均価格</option>
-                  <option value="minPrice" data-i18n="sort.minPrice">最安値</option>
-                  <option value="percentChange" data-i18n="sort.percentChange">価格変動</option>
-                  <option value="state" data-i18n="sort.state">状態</option>
-                </select>
-              </label>
+                <label>
+                  <span data-i18n="ui.sortLabel">並び替え</span>
+                  <select data-sort-by>
+                    <option value="opportunityScore" data-i18n="sort.opportunityScore">おすすめ度</option>
+                    <option value="name" data-i18n="sort.name">アイテム名</option>
+                    <option value="marketValue" data-i18n="sort.marketValue">売上額</option>
+                    <option value="quantitySold" data-i18n="sort.quantitySold">売れた数</option>
+                    <option value="avg" data-i18n="sort.avg">平均価格</option>
+                    <option value="minPrice" data-i18n="sort.minPrice">最安値</option>
+                    <option value="percentChange" data-i18n="sort.percentChange">価格変動</option>
+                    <option value="state" data-i18n="sort.state">状態</option>
+                  </select>
+                </label>
 
-              <label class="range-control">
-                <span data-i18n="ui.minQuantity">最低販売数</span>
-                <span data-min-quantity-value>0</span>
-                <input data-min-quantity type="range" min="0" max="100" step="1" value="0" />
-              </label>
+                <label class="range-control">
+                  <span data-i18n="ui.minQuantity">最低販売数</span>
+                  <span data-min-quantity-value>0</span>
+                  <input data-min-quantity type="range" min="0" max="100" step="1" value="0" />
+                </label>
 
-              <fieldset>
-                <legend data-i18n="ui.stateLegend">状態</legend>
-                <label><input data-state-filter type="checkbox" value="stable" /> <span data-i18n="states.stable">安定</span></label>
-                <label><input data-state-filter type="checkbox" value="increasing" /> <span data-i18n="states.increasing">上昇中</span></label>
-                <label><input data-state-filter type="checkbox" value="spiking" /> <span data-i18n="states.spiking">急騰</span></label>
-                <label><input data-state-filter type="checkbox" value="out of stock" /> <span data-i18n="states.out_of_stock">在庫なし</span></label>
-                <label><input data-state-filter type="checkbox" value="decreasing" /> <span data-i18n="states.decreasing">値下がり</span></label>
-              </fieldset>
+                <fieldset>
+                  <legend data-i18n="ui.stateLegend">状態</legend>
+                  <label><input data-state-filter type="checkbox" value="stable" /> <span data-i18n="states.stable">安定</span></label>
+                  <label><input data-state-filter type="checkbox" value="increasing" /> <span data-i18n="states.increasing">上昇中</span></label>
+                  <label><input data-state-filter type="checkbox" value="spiking" /> <span data-i18n="states.spiking">急騰</span></label>
+                  <label><input data-state-filter type="checkbox" value="out of stock" /> <span data-i18n="states.out_of_stock">在庫なし</span></label>
+                  <label><input data-state-filter type="checkbox" value="decreasing" /> <span data-i18n="states.decreasing">値下がり</span></label>
+                </fieldset>
+              </div>
             </aside>
 
             <section
               class="results-panel results"
+              data-results-panel
+              aria-busy="true"
               data-i18n-attr="aria-label:ui.resultsLabel"
               aria-label="金策候補"
             >
-              <p data-error class="error" hidden></p>
+              <p data-error class="error" role="alert" hidden></p>
               <div class="results-header">
                 <div>
                   <p class="panel-kicker" data-i18n="ui.resultsKicker">一覧</p>
-                  <h2 data-i18n="ui.resultsTitle">金策候補</h2>
+                  <h2 id="market-results-title" data-i18n="ui.resultsTitle">金策候補</h2>
                 </div>
                 <div class="result-meta">
-                  <span data-result-count>- 件</span>
+                  <span
+                    data-results-status
+                    data-result-count
+                    aria-live="polite"
+                    aria-atomic="true"
+                  >- 件</span>
                   <span class="updated-at" data-updated-at>最終更新 -</span>
                 </div>
               </div>
               <div class="table-wrap">
-                <table>
+                <table class="market-results-table">
+                  <caption class="sr-only" data-i18n="table.caption">マーケット金策候補</caption>
                   <thead>
                     <tr>
                       <th scope="col" aria-sort="descending">
@@ -246,6 +344,16 @@
                   <tbody data-results></tbody>
                 </table>
               </div>
+              <div class="results-footer">
+                <button
+                  type="button"
+                  class="load-more-button"
+                  data-load-more
+                  hidden
+                >
+                  <span data-i18n="results.loadMore">さらに24件を表示</span>
+                </button>
+              </div>
             </section>
           </div>
         </section>
@@ -265,7 +373,7 @@
             <div class="world-ranking-header">
               <div>
                 <p class="panel-kicker" data-i18n="ranking.kicker">ランキング</p>
-                <h3 data-i18n="ranking.title">ワールド売上ランキング</h3>
+                <h2 id="ranking-title" data-i18n="ranking.title">ワールド売上ランキング</h2>
               </div>
               <div class="ranking-actions">
                 <span class="updated-at" data-world-ranking-updated-at>最終更新 -</span>
