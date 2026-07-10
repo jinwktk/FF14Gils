@@ -47,6 +47,9 @@ describe('mobile-first UI contract', () => {
     assert.match(mobile, /\.market-results-table\s*\{[^}]*min-width:\s*0/s);
     assert.match(mobile, /\.market-results-table tr\s*\{[^}]*display:\s*grid/s);
     assert.doesNotMatch(mobile, /thead\s*\{[^}]*display:\s*none/s);
+    assert.match(mobile, /\.world-ranking-table\s*\{[^}]*min-width:\s*0/s);
+    assert.match(mobile, /\.world-ranking-table tr\s*\{[^}]*display:\s*grid/s);
+    assert.doesNotMatch(mobile, /\.world-ranking-table thead\s*\{[^}]*display:\s*none/s);
     assert.match(mobile, /min-height:\s*44px/);
   });
 
