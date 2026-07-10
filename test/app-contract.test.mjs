@@ -396,6 +396,10 @@ describe('app data loading contract', () => {
     assert.match(app, /'type': 'floating-chat'/);
     assert.match(app, /'floating-chat\.donateButton\.text': ' '/);
     assert.match(app, /catch \{[\s\S]*\} finally \{[\s\S]*window\.setTimeout\(installKofiWidgetStyles, 0\)/);
+    assert.match(app, /function labelKofiWidgetFrames\(\)/);
+    assert.match(app, /document\.querySelectorAll\('\[id\^="kofi-widget-overlay"\] iframe'\)/);
+    assert.match(app, /frame\.title = translate\(state\.language, 'ui\.kofiSupport'\)/);
+    assert.match(app, /window\.setTimeout\(labelKofiWidgetFrames, 0\)/);
     assert.match(app, /void scheduleKofiWidget\(\)/);
     assert.match(app, /\.floatingchat-container-wrap,\s*\.floatingchat-container\s*\{[\s\S]*position: fixed !important;[\s\S]*right: 18px !important;[\s\S]*bottom: 18px !important;[\s\S]*width: 88px !important;[\s\S]*height: 56px !important;[\s\S]*overflow: hidden !important;/);
     assert.match(app, /\.floatingchat-container-wrap \[class\*="donateButton"\],[\s\S]*\.floatingchat-container \[class\*="donateButton"\],[\s\S]*\.floatingchat-container-wrap-mobi \[class\*="donateButton"\]\s*\{[\s\S]*background: var\(--gold\) !important;/);
