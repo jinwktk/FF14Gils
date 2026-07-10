@@ -61,15 +61,17 @@ describe('mobile-first UI contract', () => {
     assert.match(html, /<h2 id="ranking-title" data-i18n="ranking\.title">/);
   });
 
-  it('Analyticsへ手動page_viewや自由入力値を送らない', async () => {
-    const sources = await Promise.all([
-      readFile(new URL('../index.html', import.meta.url), 'utf8'),
-      readFile(new URL('../src/app.js', import.meta.url), 'utf8'),
-    ]);
-    const joined = sources.join('\n');
+  it('Analyticsはtag準備前のrouteだけをbufferし、自由入力値を送らない', async () => {
+    const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+    const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');
+    const joined = `${html}\n${app}`;
 
-    assert.doesNotMatch(joined, /gtag\(['"]event['"],\s*['"]page_view['"]/);
+    assert.equal(html.match(/gtag\('event', 'page_view'/g)?.length, 1);
+    assert.match(app, /source !== 'direct'/);
+    assert.match(app, /window\.ff14gilsAnalytics\?\.queuePageView\?\./);
+    assert.doesNotMatch(app, /\bgtag\s*\(/);
     assert.doesNotMatch(joined, /gtag\([^\n]*(search\.value|data-search)/);
+    assert.doesNotMatch(app, /ff14gilsAnalytics[^\n]*(search\.value|data-search)/);
   });
 
   it('現在のsnapshot取得失敗時は前期間の行と更新時刻を残さない', async () => {

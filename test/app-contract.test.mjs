@@ -356,6 +356,9 @@ describe('app data loading contract', () => {
     assert.match(html, /window\.requestIdleCallback\(loadGoogleAnalytics, \{ timeout: 2000 \}\)/);
     assert.match(html, /analyticsScript\.src = 'https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-VH5GMQMZ34'/);
     assert.match(html, /analyticsScript\.async = true/);
+    assert.match(html, /analyticsScript\.addEventListener\('load', flushPendingGoogleAnalyticsPageViews, \{ once: true \}\)/);
+    assert.match(html, /gtag\('config', 'G-VH5GMQMZ34', initialGoogleAnalyticsPageView\)/);
+    assert.match(html, /window\.ff14gilsAnalytics = Object\.freeze\(\{[\s\S]*queuePageView: queueGoogleAnalyticsPageView/s);
     assert.equal(html.match(/G-VH5GMQMZ34/g)?.length, 2);
   });
 
@@ -400,6 +403,7 @@ describe('app data loading contract', () => {
     assert.match(app, /document\.querySelectorAll\('\[id\^="kofi-widget-overlay"\] iframe'\)/);
     assert.match(app, /frame\.title = translate\(state\.language, 'ui\.kofiSupport'\)/);
     assert.match(app, /window\.setTimeout\(labelKofiWidgetFrames, 0\)/);
+    assert.match(functionSource(app, 'applyLanguage', 'setMetaContent'), /labelKofiWidgetFrames\(\)/);
     assert.match(app, /void scheduleKofiWidget\(\)/);
     assert.match(app, /\.floatingchat-container-wrap,\s*\.floatingchat-container\s*\{[\s\S]*position: fixed !important;[\s\S]*right: 18px !important;[\s\S]*bottom: 18px !important;[\s\S]*width: 88px !important;[\s\S]*height: 56px !important;[\s\S]*overflow: hidden !important;/);
     assert.match(app, /\.floatingchat-container-wrap \[class\*="donateButton"\],[\s\S]*\.floatingchat-container \[class\*="donateButton"\],[\s\S]*\.floatingchat-container-wrap-mobi \[class\*="donateButton"\]\s*\{[\s\S]*background: var\(--gold\) !important;/);
