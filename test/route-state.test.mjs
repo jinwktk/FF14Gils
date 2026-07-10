@@ -104,6 +104,25 @@ describe('route coordinator', () => {
     assert.equal(historyCalls.length, 1);
     assert.deepEqual(transitions.at(-1), ['legal', 'popstate']);
   });
+
+  it('現在と同じ末尾スラッシュrouteの再クリックでは履歴を増やさない', () => {
+    const historyCalls = [];
+    const transitions = [];
+    const coordinator = createRouteCoordinator({
+      basePath: '/FF14Gils/',
+      getPathname: () => '/FF14Gils/ranking/',
+      history: {
+        pushState(...args) {
+          historyCalls.push(args);
+        },
+      },
+      onRoute: (route, source) => transitions.push([route, source]),
+    });
+
+    assert.equal(coordinator.navigate('ranking'), 'ranking');
+    assert.deepEqual(historyCalls, []);
+    assert.deepEqual(transitions, [['ranking', 'click']]);
+  });
 });
 
 describe('resource coordinator', () => {
