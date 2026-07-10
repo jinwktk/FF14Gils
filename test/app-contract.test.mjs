@@ -345,16 +345,17 @@ describe('app data loading contract', () => {
     assert.doesNotMatch(routeEntrypointSource, /<body><\/body>/);
   });
 
-  it('Google Analytics 4の計測タグを持つ', async () => {
+  it('Google Analytics 4を初期描画後のidle時間に読み込む', async () => {
     const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 
-    assert.match(
-      html,
-      /<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-VH5GMQMZ34"><\/script>/,
-    );
+    assert.doesNotMatch(html, /<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js/);
     assert.match(html, /window\.dataLayer = window\.dataLayer \|\| \[\];/);
     assert.match(html, /function gtag\(\)\{dataLayer\.push\(arguments\);\}/);
     assert.match(html, /gtag\('config', 'G-VH5GMQMZ34'\);/);
+    assert.match(html, /window\.addEventListener\('load', scheduleGoogleAnalytics, \{ once: true \}\)/);
+    assert.match(html, /window\.requestIdleCallback\(loadGoogleAnalytics, \{ timeout: 2000 \}\)/);
+    assert.match(html, /analyticsScript\.src = 'https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-VH5GMQMZ34'/);
+    assert.match(html, /analyticsScript\.async = true/);
     assert.equal(html.match(/G-VH5GMQMZ34/g)?.length, 2);
   });
 
