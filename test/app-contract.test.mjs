@@ -351,14 +351,15 @@ describe('app data loading contract', () => {
     assert.doesNotMatch(html, /<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js/);
     assert.match(html, /window\.dataLayer = window\.dataLayer \|\| \[\];/);
     assert.match(html, /function gtag\(\)\{dataLayer\.push\(arguments\);\}/);
-    assert.match(html, /gtag\('config', 'G-VH5GMQMZ34', initialGoogleAnalyticsPageView\);/);
+    assert.match(html, /gtag\('config', 'G-VH5GMQMZ34', \{ send_page_view: false \}\);/);
     assert.match(html, /window\.addEventListener\('load', scheduleGoogleAnalytics, \{ once: true \}\)/);
     assert.match(html, /window\.requestIdleCallback\(loadGoogleAnalytics, \{ timeout: 2000 \}\)/);
     assert.match(html, /analyticsScript\.src = 'https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-VH5GMQMZ34'/);
     assert.match(html, /analyticsScript\.async = true/);
     assert.match(html, /analyticsScript\.addEventListener\('load', flushPendingGoogleAnalyticsPageViews, \{ once: true \}\)/);
-    assert.match(html, /gtag\('config', 'G-VH5GMQMZ34', initialGoogleAnalyticsPageView\)/);
-    assert.match(html, /window\.ff14gilsAnalytics = Object\.freeze\(\{[\s\S]*queuePageView: queueGoogleAnalyticsPageView/s);
+    assert.match(html, /function queueInitialGoogleAnalyticsPageView\(pageView\)/);
+    assert.match(html, /page_referrer: lastQueuedGoogleAnalyticsPageLocation/);
+    assert.match(html, /window\.ff14gilsAnalytics = Object\.freeze\(\{[\s\S]*queueInitialPageView: queueInitialGoogleAnalyticsPageView,[\s\S]*queuePageView: queueGoogleAnalyticsPageView/s);
     assert.equal(html.match(/G-VH5GMQMZ34/g)?.length, 2);
   });
 

@@ -26,6 +26,7 @@ describe('delayed Google Analytics buffer', () => {
     };
     sandbox.window = sandbox;
     sandbox.document = {
+      referrer: 'https://www.google.com/',
       title: 'root title',
       createElement(tagName) {
         const scriptElement = {
@@ -45,8 +46,20 @@ describe('delayed Google Analytics buffer', () => {
 
     vm.runInContext(script, vm.createContext(sandbox));
     const config = entries(sandbox.dataLayer).find((entry) => entry[0] === 'config');
-    assert.equal(config?.[2]?.page_location, 'https://jinwktk.github.io/FF14Gils/');
-    assert.equal(config?.[2]?.page_title, 'root title');
+    assert.equal(config?.[2]?.send_page_view, false);
+    assert.equal(config?.[2]?.page_location, undefined);
+    assert.equal(config?.[2]?.page_title, undefined);
+
+    sandbox.ff14gilsAnalytics.queueInitialPageView({
+      page_location: 'https://jinwktk.github.io/FF14Gils/',
+      page_referrer: 'https://www.google.com/',
+      page_title: 'root title',
+    });
+    sandbox.ff14gilsAnalytics.queueInitialPageView({
+      page_location: 'https://example.com/wrong',
+      page_referrer: '',
+      page_title: 'wrong duplicate',
+    });
 
     sandbox.ff14gilsAnalytics.queuePageView({
       page_location: 'https://jinwktk.github.io/FF14Gils/ranking/',
@@ -62,10 +75,19 @@ describe('delayed Google Analytics buffer', () => {
     const earlyPageViews = entries(sandbox.dataLayer).filter(
       (entry) => entry[0] === 'event' && entry[1] === 'page_view',
     );
-    assert.equal(earlyPageViews.length, 1);
+    assert.equal(earlyPageViews.length, 2);
     assert.equal(
       earlyPageViews[0][2].page_location,
+      'https://jinwktk.github.io/FF14Gils/',
+    );
+    assert.equal(earlyPageViews[0][2].page_referrer, 'https://www.google.com/');
+    assert.equal(
+      earlyPageViews[1][2].page_location,
       'https://jinwktk.github.io/FF14Gils/ranking/',
+    );
+    assert.equal(
+      earlyPageViews[1][2].page_referrer,
+      'https://jinwktk.github.io/FF14Gils/',
     );
 
     sandbox.ff14gilsAnalytics.queuePageView({
@@ -76,7 +98,7 @@ describe('delayed Google Analytics buffer', () => {
       entries(sandbox.dataLayer).filter(
         (entry) => entry[0] === 'event' && entry[1] === 'page_view',
       ).length,
-      1,
+      2,
     );
   });
 });

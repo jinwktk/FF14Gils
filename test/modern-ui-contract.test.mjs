@@ -67,7 +67,8 @@ describe('mobile-first UI contract', () => {
     const joined = `${html}\n${app}`;
 
     assert.equal(html.match(/gtag\('event', 'page_view'/g)?.length, 1);
-    assert.match(app, /source !== 'direct'/);
+    assert.match(app, /source === 'direct'/);
+    assert.match(app, /window\.ff14gilsAnalytics\?\.queueInitialPageView\?\./);
     assert.match(app, /window\.ff14gilsAnalytics\?\.queuePageView\?\./);
     assert.doesNotMatch(app, /\bgtag\s*\(/);
     assert.doesNotMatch(joined, /gtag\([^\n]*(search\.value|data-search)/);
