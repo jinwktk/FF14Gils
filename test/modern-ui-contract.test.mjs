@@ -8,8 +8,8 @@ describe('mobile-first UI contract', () => {
 
     assert.match(html, /<a class="skip-link" href="#main-content"/);
     assert.match(html, /<main id="main-content"/);
-    assert.match(html, /data-filter-toggle[^>]+aria-expanded="true"[^>]+aria-controls="market-filter-fields"/s);
-    assert.match(html, /id="market-filter-fields"/);
+    assert.match(html, /data-filter-toggle[^>]+aria-expanded="false"[^>]+aria-controls="market-filter-fields"/s);
+    assert.match(html, /id="market-filter-fields"[^>]+data-filter-fields[^>]+hidden/s);
     assert.match(html, /data-filter-summary/);
     assert.match(html, /data-results-status[^>]+aria-live="polite"/s);
     assert.match(html, /data-results-panel[^>]+aria-busy="true"/s);
@@ -82,6 +82,15 @@ describe('mobile-first UI contract', () => {
     assert.match(handler, /renderUpdatedAt\(''\)/);
     assert.match(handler, /renderMarketResults\(\)/);
     assert.match(handler, /setError\(/);
+  });
+
+  it('静的heroと同じ文言を再代入せずLCP候補を描き直さない', async () => {
+    const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');
+    const metadataUpdate = functionSource(app, 'updateRouteMetadata', 'consumePendingRoute');
+
+    assert.match(app, /function setTextContentIfChanged\(element, value\)/);
+    assert.match(metadataUpdate, /setTextContentIfChanged\(elements\.heroTitle, routeDefinition\.meta\.heroTitle\)/);
+    assert.doesNotMatch(metadataUpdate, /elements\.heroTitle\.textContent\s*=/);
   });
 });
 
