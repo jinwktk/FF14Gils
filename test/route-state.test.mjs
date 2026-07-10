@@ -191,4 +191,15 @@ describe('resource coordinator', () => {
     assert.equal(coordinator.isCurrent(currentSelection), false);
     assert.equal(coordinator.isCurrent(routeToken), true);
   });
+
+  it('selection更新は同じrouteのroute tokenを無効にしない', () => {
+    const coordinator = createResourceCoordinator(async (path) => ({ path }));
+    const routeToken = coordinator.beginRoute();
+    const firstSelection = coordinator.beginSelection();
+    const currentSelection = coordinator.beginSelection();
+
+    assert.equal(coordinator.isCurrent(routeToken), true);
+    assert.equal(coordinator.isCurrent(firstSelection), false);
+    assert.equal(coordinator.isCurrent(currentSelection), true);
+  });
 });

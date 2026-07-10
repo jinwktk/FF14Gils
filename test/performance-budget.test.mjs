@@ -50,15 +50,22 @@ describe('first-party performance budget', () => {
     );
     const buildIndex = workflow.indexOf('name: Build static site');
     const restoreIndex = workflow.indexOf('name: Restore published data');
+    const optimizeIndex = workflow.indexOf('name: Optimize static JSON');
     const verifyIndex = workflow.indexOf('name: Verify performance budget');
 
     assert.equal(
       packageJson.scripts?.['check:performance'],
       'node scripts/check-performance-budget.mjs dist',
     );
+    assert.equal(
+      packageJson.scripts?.['optimize:data'],
+      'node scripts/compact-data.mjs dist/data',
+    );
     assert.ok(buildIndex >= 0);
     assert.ok(restoreIndex > buildIndex);
-    assert.ok(verifyIndex > restoreIndex);
+    assert.ok(optimizeIndex > restoreIndex);
+    assert.ok(verifyIndex > optimizeIndex);
+    assert.match(workflow.slice(optimizeIndex), /run: npm run optimize:data/);
     assert.match(workflow.slice(verifyIndex), /run: npm run check:performance/);
   });
 });
