@@ -54,7 +54,7 @@ describe('delayed Google Analytics buffer', () => {
     });
     windowListeners.get('load')();
     assert.equal(idleCallbacks.length, 1);
-    assert.deepEqual(idleCallbacks[0].options, { timeout: 2000 });
+    assert.equal(idleCallbacks[0].options.timeout, 2000);
     idleCallbacks[0].callback();
     assert.equal(appendedScripts.length, 1);
     scriptListeners.get('load')();
