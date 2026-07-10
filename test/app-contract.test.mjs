@@ -403,7 +403,12 @@ describe('app data loading contract', () => {
     assert.match(app, /function labelKofiWidgetFrames\(\)/);
     assert.match(app, /document\.querySelectorAll\('\[id\^="kofi-widget-overlay"\] iframe'\)/);
     assert.match(app, /frame\.title = translate\(state\.language, 'ui\.kofiSupport'\)/);
-    assert.match(app, /window\.setTimeout\(labelKofiWidgetFrames, 0\)/);
+    assert.match(app, /let kofiWidgetFrameObserver/);
+    assert.match(app, /function observeKofiWidgetFrames\(\)/);
+    assert.match(app, /new MutationObserver\(labelKofiWidgetFrames\)/);
+    assert.match(app, /kofiWidgetFrameObserver\.observe\(overlay, \{ childList: true, subtree: true \}\)/);
+    assert.match(app, /window\.setTimeout\(observeKofiWidgetFrames, 0\)/);
+    assert.doesNotMatch(app, /\.observe\(document\.(?:body|documentElement)/);
     assert.match(functionSource(app, 'applyLanguage', 'setMetaContent'), /labelKofiWidgetFrames\(\)/);
     assert.match(app, /void scheduleKofiWidget\(\)/);
     assert.match(app, /\.floatingchat-container-wrap,\s*\.floatingchat-container\s*\{[\s\S]*position: fixed !important;[\s\S]*right: 18px !important;[\s\S]*bottom: 18px !important;[\s\S]*width: 88px !important;[\s\S]*height: 56px !important;[\s\S]*overflow: hidden !important;/);
