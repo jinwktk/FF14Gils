@@ -443,6 +443,7 @@ describe('app data loading contract', () => {
 
   it('faviconファイルを配信対象に含める', async () => {
     const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+    const app = await readFile(new URL('../src/app.js', import.meta.url), 'utf8');
     const build = await readFile(new URL('../scripts/build.mjs', import.meta.url), 'utf8');
     const faviconSvg = await readFile(new URL('../assets/favicon.svg', import.meta.url), 'utf8');
     const favicon32 = await readFile(new URL('../assets/favicon-32.png', import.meta.url));
@@ -462,6 +463,10 @@ describe('app data loading contract', () => {
     assert.deepEqual(readIcoHeader(faviconIco), { reserved: 0, type: 1, count: 1 });
     assert.match(build, /'favicon\.ico'/);
     assert.match(build, /'assets'/);
+    assert.match(app, /function freezeDocumentIconUrls\(\)/);
+    assert.match(app, /document\.querySelectorAll\('link\[rel~="icon"\], link\[rel="apple-touch-icon"\]'\)/);
+    assert.match(app, /link\.href = link\.href/);
+    assert.match(functionSource(app, 'init', 'loadJsonResource'), /freezeDocumentIconUrls\(\)/);
   });
 
   it('Pages workflowはデプロイ前にテストを実行する', async () => {
