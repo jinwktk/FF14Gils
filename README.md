@@ -159,3 +159,13 @@ npm run favicon:generate
 - artifact確定後: JSONをcompact化し、完成した `dist/` が性能予算内か検査してからデプロイ
 
 毎時データ更新の主経路は、cron-job.org から GitHub REST API の `repository_dispatch: refresh-marketshare` を毎時17分に送る運用です。GitHub Actions の schedule は補助として毎時17分に残しますが、GitHub 側の遅延または間引きがあるため、厳密な毎時起動の主経路にはしません。cron-job.org には `jinwktk/FF14Gils` 限定の Fine-grained PAT を登録し、成功時は GitHub API の HTTP `204` を期待します。
+
+## AIエージェント設定
+
+Matt Pocock Skills のプロジェクト設定を `docs/agents/` に保存しています。
+
+- Issue管理: GitHub Issues（外部PRは自動トリアージ対象外）
+- トリアージ: `needs-triage` などの既定5ラベル
+- ドメイン文書: 単一コンテキスト構成
+
+詳細は `docs/agents/issue-tracker.md`、`docs/agents/triage-labels.md`、`docs/agents/domain.md` を参照してください。
