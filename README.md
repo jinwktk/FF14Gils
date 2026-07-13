@@ -169,3 +169,9 @@ Matt Pocock Skills のプロジェクト設定を `docs/agents/` に保存して
 - ドメイン文書: 単一コンテキスト構成
 
 詳細は `docs/agents/issue-tracker.md`、`docs/agents/triage-labels.md`、`docs/agents/domain.md` を参照してください。
+
+## Codex MCP設定
+
+Google Search Console と Google Analytics 4 の実測確認には、このプロジェクトだけで有効になるローカル設定 `.codex/config.toml` を使用します。`.codex/` はGitIgnore対象であり、認証ファイル、プロジェクトID、トークンなどの機密情報はGitへ登録しません。
+
+GitHub操作、Web確認、ブラウザー操作、画像生成、設計支援はCodexプラグインまたは標準機能を使用し、同じ用途のMCPを重複登録しません。
