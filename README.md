@@ -157,6 +157,7 @@ npm run favicon:generate
 - データ更新あり: `schedule` と `repository_dispatch`
 - データ更新なし: `push` と `workflow_dispatch`。`npm run restore:published-data` で公開中データを復元
 - artifact確定後: JSONをcompact化し、完成した `dist/` が性能予算内か検査してからデプロイ
+- 同じ `pages` concurrency group では最新の実行を優先し、新しい実行が未完了の古い実行をキャンセルします。GitHub Actions 障害で実行が待機状態に残っても、次の定期更新が後続を解放します。
 
 毎時データ更新の主経路は、cron-job.org から GitHub REST API の `repository_dispatch: refresh-marketshare` を毎時17分に送る運用です。GitHub Actions の schedule は補助として毎時17分に残しますが、GitHub 側の遅延または間引きがあるため、厳密な毎時起動の主経路にはしません。cron-job.org には `jinwktk/FF14Gils` 限定の Fine-grained PAT を登録し、成功時は GitHub API の HTTP `204` を期待します。
 

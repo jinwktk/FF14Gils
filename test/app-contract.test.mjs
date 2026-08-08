@@ -480,6 +480,18 @@ describe('app data loading contract', () => {
     assert.ok(workflow.indexOf('run: npm test') < workflow.indexOf('run: npm run build'));
   });
 
+  it('Pages workflowは古い実行待ちで定期更新を停止しない', async () => {
+    const workflow = await readFile(
+      new URL('../.github/workflows/pages.yml', import.meta.url),
+      'utf8',
+    );
+
+    assert.match(
+      workflow,
+      /concurrency:\s+group:\s*pages\s+cancel-in-progress:\s*true/,
+    );
+  });
+
   it('Pages workflowはAPIデータ更新イベントと通常デプロイを分離する', async () => {
     const workflow = await readFile(
       new URL('../.github/workflows/pages.yml', import.meta.url),
