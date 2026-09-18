@@ -54,6 +54,9 @@ const TRANSLATIONS = {
       kofiText:
         '任意支援ウィジェットの表示に利用します。支援手続きや決済は Ko-fi 側で行われ、FF14Gils は決済情報を扱いません。',
       kofiTitle: 'Ko-fi',
+      itemLinksText:
+        'アイテム名は Universalis、アイコンは ERIONES にリンクします。公式ツールチップは SQUARE ENIX から読み込みます。',
+      itemLinksTitle: 'アイテムの外部リンクと公式ツールチップ',
       label: '権利表記とデータについて',
       lead: 'FF14Gils は FINAL FANTASY XIV の非公式ファンサイトです。',
       publicDocs: '公開ドキュメント',
@@ -147,6 +150,7 @@ const TRANSLATIONS = {
       filterToggleCollapse: '条件を閉じる',
       filterToggleExpand: '条件を開く',
       itemSearch: 'アイテム検索',
+      erionesLinkLabel: 'ERIONESで{name}を検索',
       kofiSupport: 'Ko-fiで支援する',
       languageLabel: '表示言語',
       languageSelect: '表示言語を選択',
@@ -219,6 +223,9 @@ const TRANSLATIONS = {
       kofiText:
         'Used to display the optional support widget. Support and payments are handled by Ko-fi, and FF14Gils does not process payment information.',
       kofiTitle: 'Ko-fi',
+      itemLinksText:
+        'Item names link to Universalis, and icons link to ERIONES. Official tooltips load from SQUARE ENIX.',
+      itemLinksTitle: 'Item links and official tooltips',
       label: 'Rights and data',
       lead: 'FF14Gils is an unofficial FINAL FANTASY XIV fan site.',
       publicDocs: 'public documentation',
@@ -312,6 +319,7 @@ const TRANSLATIONS = {
       filterToggleCollapse: 'Close filters',
       filterToggleExpand: 'Open filters',
       itemSearch: 'Item search',
+      erionesLinkLabel: 'Search {name} on ERIONES',
       kofiSupport: 'Support on Ko-fi',
       languageLabel: 'Language',
       languageSelect: 'Select language',

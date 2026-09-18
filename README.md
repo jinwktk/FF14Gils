@@ -18,6 +18,7 @@ FF14 のマーケットデータから、金策候補とワールド別の売上
 - DC とワールドを分けて選択できます。DC は北米、欧州、日本、オセアニアの見出し付きで表示します。
 - 期間、検索、状態、最低販売数、列ソートで候補を絞り込めます。
 - 金策候補は初期24件を表示し、「さらに表示」で24件ずつ追加します。検索や条件変更時は先頭24件へ戻ります。
+- アイテム名の Universalis リンクに公式ツールチップを表示し、隣の ERIONES アイコンから検索・詳細ページを開けます。ERIONES は独自のID体系のため、表示言語のアイテム名で検索します。
 - ランキング画面では、生成済みスナップショットの `summary` から期間別の全ワールド売上合計を表示します。
 - 最終更新日時は利用者ブラウザのタイムゾーンで表示します。
 - 760px以下では条件欄を折りたたみ、金策候補とランキングの表を横スクロール不要のカード表示に切り替えます。HTML上は同じ semantic table を使います。
@@ -41,10 +42,15 @@ FF14Gils は FINAL FANTASY XIV の非公式ファンサイトです。SQUARE ENI
 - XIVAPI v2: アイテム名の補完
 - Google Analytics 4: ページ閲覧状況の把握
 - Ko-fi: 任意支援ウィジェットの表示
+- ERIONES: アイテム名検索から詳細ページへの外部リンク（アイコンは ERIONES の favicon）
+- エオルゼアデータベース: [公式ファンキットのツールチップ](https://jp.finalfantasyxiv.com/lodestone/special/fankit/tooltip/)を通じたアイテム情報の表示
+- [Asvel/ffxiv-lodestone-item-id](https://github.com/Asvel/ffxiv-lodestone-item-id): ゲーム内アイテムIDと Lodestone URL の対応表
 
 データ元には外部ツールで入手したデータが含まれる場合があります。FF14Gils はその取得方法を管理または保証しません。ゲームクライアント、アカウント、プレイ操作へ接続せず、RMT、BOT、外部ツールによる自動操作を目的としません。
 
 公開ページ上の詳しい説明は `/legal` に置いています。任意支援用の Ko-fi 導線は公式 overlay widget を動的に読み込み、画面右下に小型の1個だけを表示します。
+
+公式ツールチップ用の対応表は、掲載アイテム分だけを `assets/lodestone-items.json` に保存します。一覧の描画後のidle時間に同一オリジンから遅延読み込みし、公式スクリプトも1回だけ読み込みます。この対応表と公式配信物は初期描画後の追加取得で、HTML/CSS/JSとmarketデータの転送予算とは分けています。検索・並べ替え・追加表示後の行にも適用し、外部コードや対応表の取得に失敗した場合も通常のリンクを利用できます。`fetch:data` の最後に一括対応表を更新し、取得に失敗した場合は既存の有効な対応を維持します。`fetch:item-links` で対応表だけを更新することもできます。push時は公開中の対応表も同梱版に統合して復元します。初回導入などで公開対応表がない場合は同梱版を使います。
 
 ## SEO と計測
 
@@ -114,6 +120,7 @@ Saddlebag Exchange API への POST は `Content-Type: application/json` と `Acc
 ```powershell
 npm test
 npm run fetch:data
+npm run fetch:item-links
 npm run dispatch:refresh
 npm run restore:published-data
 npm run build

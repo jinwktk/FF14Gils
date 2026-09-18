@@ -659,6 +659,25 @@ td:nth-child(2) {
   margin-top: 5px;
 }
 
+.item-link-row {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.eriones-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+}
+
+.eriones-link img {
+  width: 24px;
+  height: 24px;
+}
+
 .positive {
   color: var(--accent-strong);
   font-weight: 900;

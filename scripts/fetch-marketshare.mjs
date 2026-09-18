@@ -26,6 +26,7 @@ import {
   normalizeItemIds,
   normalizeXivapiLanguage,
 } from './item-name-api.mjs';
+import { updateLodestoneItemLinks } from './lodestone-items.mjs';
 import { fetchWithRetry } from './retry-fetch.mjs';
 
 const dataDir = fileURLToPath(new URL('../data/', import.meta.url));
@@ -111,9 +112,14 @@ await writeJsonAtomically(
   }),
 );
 
+const lodestoneLinks = await updateLodestoneItemLinks({ snapshots });
+
 console.log(
   `Wrote ${snapshots.length} period snapshots. Default: ${defaultSnapshot.query.server} (${defaultSnapshot.query.periodKey})`,
 );
+if (lodestoneLinks.updated) {
+  console.log(`Wrote ${lodestoneLinks.itemCount} Lodestone item links`);
+}
 
 async function fetchWorldMarketshare(world, period) {
   const payload = buildMarketsharePayload({

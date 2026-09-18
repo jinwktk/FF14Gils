@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve, sep } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
@@ -8,6 +8,11 @@ import { DEFAULT_SALES_PERIOD, DEFAULT_WORLD } from '../src/worlds.js';
 export const DEFAULT_PUBLISHED_BASE_URL = 'https://jinwktk.github.io/FF14Gils/';
 
 const defaultDistDir = fileURLToPath(new URL('../dist/', import.meta.url));
+const defaultBundledLodestonePath = fileURLToPath(
+  new URL('../assets/lodestone-items.json', import.meta.url),
+);
+const lodestoneAssetPath = 'assets/lodestone-items.json';
+const lodestoneHashPattern = /^[0-9a-f]{11}$/i;
 
 export function normalizePublishedBaseUrl(baseUrl = DEFAULT_PUBLISHED_BASE_URL) {
   const normalized = new URL(baseUrl);
@@ -41,6 +46,12 @@ export async function restorePublishedData({
   concurrency = Number.parseInt(process.env.FF14GILS_RESTORE_CONCURRENCY ?? '8', 10),
   retries = Number.parseInt(process.env.FF14GILS_RESTORE_RETRIES ?? '3', 10),
   retryDelayMs = Number.parseInt(process.env.FF14GILS_RESTORE_RETRY_DELAY_MS ?? '750', 10),
+  lodestoneTimeoutMs = Number.parseInt(
+    process.env.FF14GILS_LODESTONE_RESTORE_TIMEOUT_MS ?? '15000',
+    10,
+  ),
+  bundledLodestonePath = defaultBundledLodestonePath,
+  log = (message) => console.warn(message),
 } = {}) {
   if (typeof fetchImpl !== 'function') {
     throw new Error('fetch is not available');
@@ -57,6 +68,7 @@ export async function restorePublishedData({
   const textByPath = new Map([
     [worldsJsonPath, `${JSON.stringify(normalizedWorldIndex, null, 2)}\n`],
   ]);
+  const publishedItemIds = new Set();
 
   if (defaultSnapshotPath) {
     const defaultSnapshotText = await fetchPublishedText(
@@ -73,10 +85,68 @@ export async function restorePublishedData({
     const content =
       textByPath.get(path) ??
       (await fetchPublishedText(fetchImpl, normalizedBaseUrl, path, fetchOptions));
+    collectSnapshotItemIds(content, publishedItemIds);
     await writeDistFile(distDir, path, content);
   });
 
-  return { count: paths.length, paths };
+  const normalizedLodestoneTimeoutMs =
+    Number.isFinite(lodestoneTimeoutMs) && lodestoneTimeoutMs >= 0
+      ? lodestoneTimeoutMs
+      : 15_000;
+  const lodestoneItemCount = await restorePublishedLodestoneItems({
+    baseUrl: normalizedBaseUrl,
+    distDir,
+    bundledLodestonePath,
+    itemIds: publishedItemIds,
+    fetchImpl,
+    fetchOptions: {
+      ...fetchOptions,
+      signal: AbortSignal.timeout(normalizedLodestoneTimeoutMs),
+    },
+    log,
+  });
+
+  return { count: paths.length, paths, lodestoneItemCount };
+}
+
+export async function restorePublishedLodestoneItems({
+  baseUrl,
+  distDir,
+  outputRelativePath = lodestoneAssetPath,
+  bundledLodestonePath = defaultBundledLodestonePath,
+  itemIds = new Set(),
+  fetchImpl = globalThis.fetch,
+  fetchOptions = {},
+  log = (message) => console.warn(message),
+}) {
+  const bundledMapping = await readBundledLodestoneMapping(bundledLodestonePath, log);
+  let publishedMapping = {};
+
+  try {
+    const publishedText = await fetchPublishedText(
+      fetchImpl,
+      baseUrl,
+      lodestoneAssetPath,
+      fetchOptions,
+    );
+    publishedMapping = parseLodestoneMapping(publishedText, { strict: true });
+  } catch (error) {
+    log(`Published Lodestone item mapping restore skipped: ${safeErrorMessage(error)}`);
+  }
+
+  const mergedMapping = Object.fromEntries(
+    Object.entries({ ...bundledMapping, ...publishedMapping })
+      .filter(([itemId]) => itemIds.size === 0 || itemIds.has(itemId))
+      .sort(([left], [right]) => Number(left) - Number(right)),
+  );
+
+  await writeDistFile(
+    distDir,
+    outputRelativePath,
+    `${JSON.stringify(mergedMapping, null, 2)}\n`,
+  );
+
+  return Object.keys(mergedMapping).length;
 }
 
 export function applyDefaultWorld(worldIndex, defaultWorld = DEFAULT_WORLD) {
@@ -120,9 +190,14 @@ function addDataPath(paths, path) {
   paths.add(normalized);
 }
 
-async function fetchPublishedText(fetchImpl, baseUrl, path, { retries, retryDelayMs } = {}) {
+async function fetchPublishedText(
+  fetchImpl,
+  baseUrl,
+  path,
+  { retries, retryDelayMs, signal } = {},
+) {
   const url = new URL(path, baseUrl).href;
-  const response = await fetchWithRetry(url, {}, {
+  const response = await fetchWithRetry(url, { signal }, {
     fetchImpl,
     retries,
     baseDelayMs: retryDelayMs,
@@ -133,6 +208,66 @@ async function fetchPublishedText(fetchImpl, baseUrl, path, { retries, retryDela
   }
 
   return response.text();
+}
+
+function collectSnapshotItemIds(content, itemIds) {
+  try {
+    const snapshot = JSON.parse(content);
+
+    for (const item of Array.isArray(snapshot?.items) ? snapshot.items : []) {
+      const itemId = normalizeItemId(item?.itemId ?? item?.itemID);
+      if (itemId) itemIds.add(itemId);
+    }
+  } catch {
+    // The restore contract remains byte-for-byte for published data files.
+  }
+}
+
+async function readBundledLodestoneMapping(path, log) {
+  try {
+    return parseLodestoneMapping(await readFile(path, 'utf8'), { strict: false });
+  } catch (error) {
+    log(`Bundled Lodestone item mapping unavailable: ${safeErrorMessage(error)}`);
+    return {};
+  }
+}
+
+function parseLodestoneMapping(text, { strict }) {
+  const mapping = JSON.parse(text);
+
+  if (!mapping || typeof mapping !== 'object' || Array.isArray(mapping)) {
+    throw new Error('Lodestone item mapping must be an object');
+  }
+
+  const normalized = {};
+
+  for (const [rawItemId, rawHash] of Object.entries(mapping)) {
+    const itemId = normalizeItemId(rawItemId);
+    const hash = String(rawHash ?? '');
+
+    if (!itemId || !lodestoneHashPattern.test(hash)) {
+      if (strict) {
+        throw new Error(`Lodestone item mapping contains an invalid entry for ${rawItemId}`);
+      }
+      continue;
+    }
+
+    normalized[itemId] = hash.toLowerCase();
+  }
+
+  return normalized;
+}
+
+function normalizeItemId(value) {
+  const text = String(value ?? '').trim();
+  if (!/^\d+$/.test(text)) return '';
+
+  const itemId = Number(text);
+  return Number.isSafeInteger(itemId) && itemId > 0 ? String(itemId) : '';
+}
+
+function safeErrorMessage(error) {
+  return error instanceof Error ? error.message : String(error);
 }
 
 async function writeDistFile(distDir, relativePath, content) {

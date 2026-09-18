@@ -32,6 +32,13 @@ import {
 } from './routes.js';
 import { createRouteCoordinator } from './route-coordinator.js';
 import { createResourceCoordinator } from './resource-coordinator.js';
+import {
+  ERIONES_ICON_URL,
+  buildErionesSearchUrl,
+  buildLodestoneItemUrl,
+  loadLodestoneItemMap,
+  loadOfficialTooltipScript,
+} from './item-links.js';
 
 const DEFAULT_DATA_PATH = 'data/marketshare.json';
 const WORLD_INDEX_PATH = 'data/worlds.json';
@@ -190,6 +197,8 @@ let kofiWidgetScheduled = false;
 let kofiWidgetFrameObserver = null;
 let observedKofiWidgetOverlay = null;
 let filterDisclosureTouched = false;
+let itemLinksLoading = false;
+let lodestoneItemMap = null;
 
 const resourceCoordinator = createResourceCoordinator(loadJsonResource);
 const routeCoordinator = createRouteCoordinator({
@@ -749,6 +758,8 @@ function renderMarketResults() {
     row.append(cell);
     elements.tableBody.append(row);
   }
+
+  scheduleItemLinkEnhancements();
 }
 
 function renderWorldRanking() {
@@ -894,6 +905,8 @@ function createItemCell(item) {
   cell.dataset.label = translate(state.language, 'table.item');
   const link = document.createElement('a');
   link.href = safeUniversalisUrl(item.url);
+  link.className = 'item-market-link';
+  link.dataset.itemId = String(item.itemId);
   link.target = '_blank';
   link.rel = 'noreferrer';
   link.textContent = selectItemDisplayName(item, state.language);
@@ -903,12 +916,62 @@ function createItemCell(item) {
     link.title = alternateName;
   }
 
+  const linkRow = document.createElement('span');
+  linkRow.className = 'item-link-row';
+  linkRow.append(link);
+
+  const erionesUrl = buildErionesSearchUrl(item, state.language);
+  if (erionesUrl) {
+    const erionesLink = document.createElement('a');
+    const erionesLabel = translate(state.language, 'ui.erionesLinkLabel', {
+      name: link.textContent,
+    });
+    const erionesIcon = document.createElement('img');
+    erionesLink.href = erionesUrl;
+    erionesLink.className = 'eriones-link';
+    erionesLink.target = '_blank';
+    erionesLink.rel = 'noreferrer';
+    erionesLink.title = erionesLabel;
+    erionesLink.setAttribute('aria-label', erionesLabel);
+    erionesIcon.src = ERIONES_ICON_URL;
+    erionesIcon.alt = '';
+    erionesLink.append(erionesIcon);
+    linkRow.append(erionesLink);
+  }
+
   const id = document.createElement('span');
   id.className = 'item-id';
   id.textContent = `#${item.itemId}`;
 
-  cell.append(link, id);
+  cell.append(linkRow, id);
   return cell;
+}
+
+function scheduleItemLinkEnhancements() {
+  applyLodestoneTooltipAttributes();
+  if (itemLinksLoading || !elements.tableBody.querySelector('.item-market-link')) return;
+
+  itemLinksLoading = true;
+  window.requestAnimationFrame(() => {
+    const load = () => loadLodestoneItemMap().then((itemMap) => {
+      lodestoneItemMap = itemMap;
+      applyLodestoneTooltipAttributes();
+      loadOfficialTooltipScript();
+    }).catch(() => {});
+    if (window.requestIdleCallback) window.requestIdleCallback(load, { timeout: 2000 });
+    else window.setTimeout(load, 0);
+  });
+}
+
+function applyLodestoneTooltipAttributes() {
+  if (!lodestoneItemMap) return;
+
+  for (const link of elements.tableBody.querySelectorAll('.item-market-link')) {
+    const url = buildLodestoneItemUrl(link.dataset.itemId, lodestoneItemMap, state.language);
+    if (!url) continue;
+    link.classList.add('eorzeadb_link');
+    link.dataset.ldstHref = url;
+  }
 }
 
 function createStateCell(item, recommendationLabel) {
