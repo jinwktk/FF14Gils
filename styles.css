@@ -858,6 +858,15 @@ td:nth-child(2) {
 }
 
 @media (max-width: 760px) {
+  #eorzeadb_tooltip {
+    left: 8px !important;
+  }
+
+  #eorzeadb_tooltip .db-tooltip__wrapper {
+    zoom: 0.7;
+    zoom: min(1, calc((100vw - 32px) / 412px));
+  }
+
   .app-shell {
     width: min(100% - 20px, 1600px);
     padding-top: 8px;
