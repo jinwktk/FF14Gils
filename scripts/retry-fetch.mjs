@@ -7,6 +7,7 @@ export async function fetchWithRetry(input, init = {}, options = {}) {
     baseDelayMs = 750,
     retryStatuses = DEFAULT_RETRY_STATUSES,
     sleep = sleepFor,
+    readResponse = (response) => response,
   } = options;
   const normalizedRetries = toNonNegativeInteger(retries, 3);
   const normalizedBaseDelayMs = toNonNegativeInteger(baseDelayMs, 750);
@@ -16,6 +17,7 @@ export async function fetchWithRetry(input, init = {}, options = {}) {
   let lastError;
 
   for (let attempt = 0; attempt <= normalizedRetries; attempt += 1) {
+    let readingBody = false;
     try {
       const response = await fetchImpl(input, init);
       if (
@@ -23,13 +25,17 @@ export async function fetchWithRetry(input, init = {}, options = {}) {
         !retryStatusSet.has(response.status) ||
         attempt === normalizedRetries
       ) {
-        return response;
+        readingBody = true;
+        return await readResponse(response);
       }
 
       await sleep(resolveRetryDelayMs(response, normalizedBaseDelayMs, attempt));
     } catch (error) {
       lastError = error;
-      if (attempt === normalizedRetries) {
+      if (
+        attempt === normalizedRetries ||
+        (readingBody && !isTransientBodyError(error))
+      ) {
         throw error;
       }
 
@@ -73,4 +79,17 @@ function sleepFor(milliseconds) {
   return new Promise((resolve) => {
     setTimeout(resolve, milliseconds);
   });
+}
+
+function isTransientBodyError(error) {
+  const codes = new Set([
+    'ECONNRESET', 'ETIMEDOUT', 'EPIPE',
+    'UND_ERR_SOCKET', 'UND_ERR_BODY_TIMEOUT',
+  ]);
+  const seen = new Set();
+  for (let current = error; current && !seen.has(current); current = current.cause) {
+    seen.add(current);
+    if (codes.has(current.code)) return true;
+  }
+  return false;
 }

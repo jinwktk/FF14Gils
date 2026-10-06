@@ -127,14 +127,20 @@ async function fetchWorldMarketshare(world, period) {
     server: world,
     timePeriod: period.hours,
   });
-  const response = await fetchWithRetry(
+  const { response, data } = await fetchWithRetry(
     SADDLEBAG_MARKETSHARE_ENDPOINT,
     {
       method: 'POST',
       headers: buildMarketshareRequestHeaders(),
       body: JSON.stringify(payload),
     },
-    retryOptions,
+    {
+      ...retryOptions,
+      readResponse: async (response) => ({
+        response,
+        data: response.ok ? await response.json() : undefined,
+      }),
+    },
   );
 
   if (!response.ok) {
@@ -143,7 +149,7 @@ async function fetchWorldMarketshare(world, period) {
     );
   }
 
-  const apiResponse = normalizeMarketshareApiResponse(await response.json());
+  const apiResponse = normalizeMarketshareApiResponse(data);
   assertMarketshareResponse(apiResponse);
 
   return {
