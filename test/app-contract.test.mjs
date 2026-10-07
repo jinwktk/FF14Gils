@@ -516,7 +516,7 @@ describe('app data loading contract', () => {
     );
     assert.ok(
       workflow.indexOf('run: npm run restore:published-data') <
-        workflow.indexOf('uses: actions/upload-pages-artifact@v3'),
+        workflow.indexOf('uses: actions/upload-pages-artifact@v5'),
     );
   });
 
