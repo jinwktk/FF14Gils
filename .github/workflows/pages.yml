@@ -43,14 +43,14 @@ jobs:
         run: npm test
 
       - name: Fetch marketshare data
-        if: ${{ github.event_name == 'schedule' || github.event_name == 'repository_dispatch' }}
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'repository_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[refresh-marketshare]')) }}
         run: npm run fetch:data
 
       - name: Build static site
         run: npm run build
 
       - name: Restore published data
-        if: ${{ github.event_name != 'schedule' && github.event_name != 'repository_dispatch' }}
+        if: ${{ github.event_name != 'schedule' && github.event_name != 'repository_dispatch' && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[refresh-marketshare]')) }}
         run: npm run restore:published-data
 
       - name: Optimize static JSON

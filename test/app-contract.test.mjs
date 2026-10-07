@@ -504,11 +504,11 @@ describe('app data loading contract', () => {
     assert.match(workflow, /cron:\s*['"]17 \* \* \* \*['"]/);
     assert.match(
       workflow,
-      /- name: Fetch marketshare data\s+if:\s*\$\{\{\s*github\.event_name == 'schedule' \|\| github\.event_name == 'repository_dispatch'\s*\}\}\s+run:\s*npm run fetch:data/,
+      /- name: Fetch marketshare data\s+if:\s*\$\{\{\s*github\.event_name == 'schedule' \|\| github\.event_name == 'repository_dispatch' \|\| \(github\.event_name == 'push' && contains\(github\.event\.head_commit\.message, '\[refresh-marketshare\]'\)\)\s*\}\}\s+run:\s*npm run fetch:data/,
     );
     assert.match(
       workflow,
-      /- name: Restore published data\s+if:\s*\$\{\{\s*github\.event_name != 'schedule' && github\.event_name != 'repository_dispatch'\s*\}\}\s+run:\s*npm run restore:published-data/,
+      /- name: Restore published data\s+if:\s*\$\{\{\s*github\.event_name != 'schedule' && github\.event_name != 'repository_dispatch' && !\(github\.event_name == 'push' && contains\(github\.event\.head_commit\.message, '\[refresh-marketshare\]'\)\)\s*\}\}\s+run:\s*npm run restore:published-data/,
     );
     assert.ok(workflow.indexOf('run: npm run fetch:data') < workflow.indexOf('run: npm run build'));
     assert.ok(

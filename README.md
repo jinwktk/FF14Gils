@@ -144,7 +144,7 @@ npm run favicon:generate
 - `FF14GILS_PERIODS`: `1d`、`3d`、`7d`
 - `FF14GILS_PRESET`: `all`、`housing`、`materials`、`consumables`、`collectibles`、`custom`
 - `FF14GILS_CUSTOM_FILTERS`: `custom` 用カテゴリ ID
-- `FF14GILS_FETCH_RETRIES`: 外部 API の一時的な `429` / `5xx` 応答を再試行する回数
+- `FF14GILS_FETCH_RETRIES`: 外部 API の一時的な `429` / `500` / `502` / `503` / `504` / `520` 応答と既知の通信エラーを再試行する回数
 - `FF14GILS_FETCH_RETRY_DELAY_MS`: 外部 API リトライの初回待機時間
 - `FF14GILS_ITEM_NAME_LANGUAGE`: XIVAPI v2 から取得するアイテム名の言語。`ja`、`en`、`fr`、`de`
 
@@ -183,3 +183,9 @@ Matt Pocock Skills のプロジェクト設定を `docs/agents/` に保存して
 Google Search Console と Google Analytics 4 の実測確認には、このプロジェクトだけで有効になるローカル設定 `.codex/config.toml` を使用します。`.codex/` はGitIgnore対象であり、認証ファイル、プロジェクトID、トークンなどの機密情報はGitへ登録しません。
 
 GitHub操作、Web確認、ブラウザー操作、画像生成、設計支援はCodexプラグインまたは標準機能を使用し、同じ用途のMCPを重複登録しません。
+
+### 一時障害時の更新
+
+市場データ取得は既定で最大3回再試行します。再試行後も一時障害が続くワールド・期間だけ、公開済みの正常スナップショットを再利用します。取得元と全取得条件、データ形式、更新日時を検証し、6時間以内のデータだけを使用します。再利用時は元の更新日時を保持し、Actions に警告を残します。公開データが取得できない・古い・条件不一致の場合や、恒久的なHTTPエラー・不正JSON・スキーマ異常の場合は失敗します。全件再利用の更新も公開しません。
+
+通常のpushは公開済みデータを復元してデプロイします。取得処理を含めてPages workflowを検証する場合は、コミットメッセージに `[refresh-marketshare]` を含めると、そのpushで市場データを新規取得します。

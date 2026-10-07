@@ -1,4 +1,4 @@
-const DEFAULT_RETRY_STATUSES = new Set([429, 500, 502, 503, 504]);
+export const DEFAULT_RETRY_STATUSES = new Set([429, 500, 502, 503, 504, 520]);
 
 export async function fetchWithRetry(input, init = {}, options = {}) {
   const {
@@ -17,7 +17,6 @@ export async function fetchWithRetry(input, init = {}, options = {}) {
   let lastError;
 
   for (let attempt = 0; attempt <= normalizedRetries; attempt += 1) {
-    let readingBody = false;
     try {
       const response = await fetchImpl(input, init);
       if (
@@ -25,7 +24,6 @@ export async function fetchWithRetry(input, init = {}, options = {}) {
         !retryStatusSet.has(response.status) ||
         attempt === normalizedRetries
       ) {
-        readingBody = true;
         return await readResponse(response);
       }
 
@@ -34,7 +32,7 @@ export async function fetchWithRetry(input, init = {}, options = {}) {
       lastError = error;
       if (
         attempt === normalizedRetries ||
-        (readingBody && !isTransientBodyError(error))
+        !isTransientNetworkError(error)
       ) {
         throw error;
       }
@@ -81,9 +79,10 @@ function sleepFor(milliseconds) {
   });
 }
 
-function isTransientBodyError(error) {
+export function isTransientNetworkError(error) {
   const codes = new Set([
-    'ECONNRESET', 'ETIMEDOUT', 'EPIPE',
+    'ECONNRESET', 'ETIMEDOUT', 'EPIPE', 'EAI_AGAIN',
+    'ECONNREFUSED', 'ENETUNREACH', 'EHOSTUNREACH', 'UND_ERR_CONNECT_TIMEOUT',
     'UND_ERR_SOCKET', 'UND_ERR_BODY_TIMEOUT',
   ]);
   const seen = new Set();

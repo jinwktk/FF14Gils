@@ -3,7 +3,6 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import {
-  assertMarketshareResponse,
   createSnapshot,
 } from '../src/marketshare.js';
 import {
@@ -16,9 +15,6 @@ import {
   resolveDefaultWorld,
 } from '../src/worlds.js';
 import {
-  buildMarketshareRequestHeaders,
-  buildMarketsharePayload,
-  normalizeMarketshareApiResponse,
   SADDLEBAG_MARKETSHARE_ENDPOINT,
 } from './marketshare-api.mjs';
 import {
@@ -27,7 +23,7 @@ import {
   normalizeXivapiLanguage,
 } from './item-name-api.mjs';
 import { updateLodestoneItemLinks } from './lodestone-items.mjs';
-import { fetchWithRetry } from './retry-fetch.mjs';
+import { collectMarketshareResults } from './marketshare-refresh.mjs';
 
 const dataDir = fileURLToPath(new URL('../data/', import.meta.url));
 const outputPath = fileURLToPath(new URL('../data/marketshare.json', import.meta.url));
@@ -54,21 +50,12 @@ const query = {
 };
 const defaultWorld = resolveDefaultWorld(worlds, process.env.FF14GILS_SERVER);
 
-const marketshareResults = [];
-
-for (const world of worlds) {
-  for (const period of periods) {
-    const result = await fetchWorldMarketshare(world, period);
-    marketshareResults.push(result);
-    console.log(
-      `Fetched ${result.apiResponse.data.length} marketshare items for ${world} (${period.label})`,
-    );
-  }
-}
-
+const marketshareResults = await collectMarketshareResults({
+  worlds, periods, query, retryOptions,
+});
 const itemNames = await resolveItemNames(marketshareResults);
-const snapshots = marketshareResults.map(({ apiResponse, query: snapshotQuery }) =>
-  createSnapshot({
+const snapshots = marketshareResults.map(({ snapshot, apiResponse, query: snapshotQuery }) =>
+  snapshot ?? createSnapshot({
     query: snapshotQuery,
     response: apiResponse,
     source: SADDLEBAG_MARKETSHARE_ENDPOINT,
@@ -121,57 +108,10 @@ if (lodestoneLinks.updated) {
   console.log(`Wrote ${lodestoneLinks.itemCount} Lodestone item links`);
 }
 
-async function fetchWorldMarketshare(world, period) {
-  const payload = buildMarketsharePayload({
-    ...query,
-    server: world,
-    timePeriod: period.hours,
-  });
-  const { response, data } = await fetchWithRetry(
-    SADDLEBAG_MARKETSHARE_ENDPOINT,
-    {
-      method: 'POST',
-      headers: buildMarketshareRequestHeaders(),
-      body: JSON.stringify(payload),
-    },
-    {
-      ...retryOptions,
-      readResponse: async (response) => ({
-        response,
-        data: response.ok ? await response.json() : undefined,
-      }),
-    },
-  );
-
-  if (!response.ok) {
-    throw new Error(
-      `Saddlebag Exchange API failed for ${world}: ${response.status} ${response.statusText}`,
-    );
-  }
-
-  const apiResponse = normalizeMarketshareApiResponse(data);
-  assertMarketshareResponse(apiResponse);
-
-  return {
-    query: {
-      ...query,
-      server: world,
-      periodKey: period.key,
-      periodLabel: period.label,
-      timePeriod: payload.time_period,
-      salesAmount: payload.sales_amount,
-      averagePrice: payload.average_price,
-      filters: payload.filters,
-      sortBy: payload.sort_by,
-    },
-    apiResponse,
-  };
-}
-
 async function resolveItemNames(results) {
   const itemIds = normalizeItemIds(
-    results.flatMap(({ apiResponse }) =>
-      apiResponse.data.map((item) => item.itemID ?? item.itemId),
+    results.flatMap(({ apiResponse, snapshot }) =>
+      (snapshot?.items ?? apiResponse.data).map((item) => item.itemID ?? item.itemId),
     ),
   );
   const cachedNames = await readJsonIfExists(itemNameCachePath);
